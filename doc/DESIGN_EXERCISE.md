@@ -19,8 +19,9 @@ the simulation class
 
 ###Simulation:
 
-update state method takes input of all and has a paramter of configure rules. Executes a step of the simulation
+update state method takes input of all and has a parameter of configure rules. Executes a step of the simulation
 and changes the state of the grid.
+
 ###Visualization:
 Updates color 
 create image

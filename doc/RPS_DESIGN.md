@@ -20,11 +20,11 @@ Player Class
 
 The player class contains the attribute of the player score. The methods it contains are an update score method which
 updates the player score, and a get score method which returns the player score. You also need a private attribute which 
-is updated after each round to represent the current destructor, a pickDestructor method, and a returnDistructor method.
+is updated after each round to represent the current destructor, a pickDestructor method, and a return Destructor method.
 
 Main
 
-The main class has to ininitalize the destructor, using an input file that specifies what a Destructor destroys and what 
+The main class has to initialize the destructor, using an input file that specifies what a Destructor destroys and what 
 destroys the particular Destructor. This would be accomplished with the Destroyer class methods. There is also a method 
 which creates a set of all potential destroyers from the same input file.
 
@@ -33,3 +33,5 @@ game. The game loop will have the players select a destructor and then check to 
 the score should be updated. The game loop ends when the number of rounds or points is reached, and then the main function
 declares a winner.
 
+### CRC Index Cards
+![CRC for RPS Game](./resources/RPS_CRC.png)
