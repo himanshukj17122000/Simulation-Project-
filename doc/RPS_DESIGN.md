@@ -34,4 +34,4 @@ the score should be updated. The game loop ends when the number of rounds or poi
 declares a winner.
 
 ### CRC Index Cards
-![CRC for RPS Game](./resources/RPS_CRC.png)
+![CRC for RPS Game](resources/RPS_CRC.png)
