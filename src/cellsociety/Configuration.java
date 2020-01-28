@@ -5,8 +5,8 @@ import javafx.scene.layout.GridPane;
 
 public class Configuration {
     private static final int SIZE=400;
-    private static int cellHeight;
-    private static int cellWidth;
+    private static double cellHeight;
+    private static double cellWidth;
     private static XMLReader reader;
     private static int numRows;
     private static int numColumns;
@@ -26,8 +26,8 @@ public class Configuration {
     }
 
     public GridPane initialise(GridPane grid){
-        
-        return null;
+
+        return grid;
     }
 
 
