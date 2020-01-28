@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<simulation>
+    <gridlayout>
+        <rows>15</rows>
+        <columns>15</columns>
+    </gridlayout>
+</simulation>
