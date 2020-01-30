@@ -1,7 +1,13 @@
 <?xml version="1.0"?>
 <simulation>
     <gridlayout>
+        <maxlevels> 3</maxlevels>
         <rows>15</rows>
         <columns>15</columns>
+        <left> No</left>
+        <Right>No </Right>
+        <Top> No</Top>
+        <Bottom> No</Bottom>
+        <probCatch>0.15</probCatch>
     </gridlayout>
 </simulation>
