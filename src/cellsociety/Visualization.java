@@ -32,8 +32,8 @@ public class Visualization {
 
     private Scene mySplashScene;
     private Scene myAnimationScene;
-    private int myNumRows;
-    private int myNumCols;
+    private int myNumRows, myNumCols;
+    private int myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;
 
     public Visualization(Stage primaryStage, Timeline timeline, int rows, int cols, List<List<Cell>> cellStates) {
         mySplashScene = buildSplashScene(primaryStage, timeline);
@@ -55,8 +55,6 @@ public class Visualization {
                 "-fx-border-radius: 5; -fx-border-color: black;");
         for (int row = 0; row < cellStates.size(); row += 1) {
             for (int col = 0; col < cellStates.get(row).size(); col += 1) {
-                Configuration initialParam = new Configuration();
-                checkConfiguration(initialParam, row, col);
                 Cell cell = new Cell(GRID_WIDTH/cols, GRID_HEIGHT/rows, Color.AQUA); // placeholder Color for now
                 cell.updateCell(grid, row, col, cell);
                 grid.add(cell.getRectangle(), row, col);                     // get image from cell class
@@ -71,10 +69,18 @@ public class Visualization {
         myNumCols = initialParam.get(1);
     }
 
-    private void checkConfiguration(Configuration param, int row, int col) {
+    private void setBorderConfig(Configuration param) {
         ArrayList<Integer> initialParam = param.getParams();
+        myIsBottomPresent = initialParam.get(2);
+        myIsLeftPresent = initialParam.get(3);
+        myIsTopPresent = initialParam.get(4);
+        myIsRightPresent = initialParam.get(5);
+    }
 
+    private void checkBorderConfig(int row, int col) {
+        if (myIsBottomPresent == 1 && row == myNumRows + 1) {
 
+        }
     }
 
     public Scene buildSplashScene(Stage primaryStage, Timeline timeline) {
@@ -90,7 +96,10 @@ public class Visualization {
                                      List<List<Cell>> cellStates) {
         ToolBar toolBar = buildToolBar(primaryStage, timeline);
         HBox root = new HBox();
-        GridPane grid = drawGrid (rows, cols, cellStates);
+        Configuration parameters = new Configuration();
+        setGridSize(parameters);
+        setBorderConfig(parameters);
+        GridPane grid = drawGrid(myNumRows, myNumCols, cellStates);
         root.getChildren().addAll(toolBar, grid);
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }

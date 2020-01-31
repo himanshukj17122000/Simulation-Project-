@@ -6,7 +6,7 @@ import java.util.Random;
 public class Configuration {
     private static final int mySize=400;
     private static XMLReader myReader;
-    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;;
+    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;
     private static ArrayList<Integer> myParameters;
 
 //    private static Cell[] myGridArray;
@@ -36,7 +36,7 @@ public class Configuration {
         }
     }
 
-    public ArrayList getParams(){
+    public ArrayList<Integer> getParams(){
         return myParameters;
     }
 
