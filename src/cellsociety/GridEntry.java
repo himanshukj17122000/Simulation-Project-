@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.FireSimulation.FireCell;
+import cellsociety.FireSimulation.TreeCell;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,9 +18,9 @@ public abstract class GridEntry {
     private static Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
     private static int[] ID = new int[2];
 
-    public GridEntry(int row, int col, int type){
+    public GridEntry(int row, int col, String simulation, int type){
         initializeGridEntryID(row, col);
-        createCell(type);
+        createCell(simulation, type);
     }
 
     private void initializeGridEntryID(int row, int col){
@@ -60,7 +61,25 @@ public abstract class GridEntry {
         }
     }
 
-    public abstract void createCell(int type);
+    public void createCell(String simulation, int type) {
+        Cell cellToSet;
+        switch(simulation){
+            case "FIRE":
+                if(type == 3){
+                cellToSet = new FireCell(this);
+                }else if(type == 2){
+                cellToSet = new TreeCell(this);
+                }else{
+                cellToSet = new EmptyCell(this);
+                }
+                break;
+
+            default:
+                cellToSet = new EmptyCell(this);
+        }
+
+        setCell(cellToSet);
+    }
 
 
     public Set<GridEntry> getNeighbors(){
@@ -84,6 +103,5 @@ public abstract class GridEntry {
     public int[] getID(){
         return ID;
     }
-
 
 }
