@@ -60,6 +60,7 @@ public class Configuration {
             List<GridEntry> insertRow = new ArrayList<>();
             for(int c = 0; c<myNumColumns; c++){
                 GridEntry insertGridEntry = new GridEntry(r, c);
+                checkBorderConfig(insertGridEntry);
                 EmptyCell insertCell = new EmptyCell(insertGridEntry);
                 insertGridEntry.setCell(insertCell);
                 insertRow.add(insertGridEntry);
@@ -70,3 +71,13 @@ public class Configuration {
         }
     }
 
+    private void checkBorderConfig(int row, int col, GridEntry gridEntry) {
+        if (myIsBottomPresent != 0 && row == myNumRows + 1) {
+
+            gridEntry.setCell();
+        }
+    }
+
+    private Cell chooseCell(GridEntry gridEntry, String simulation) {
+
+    }

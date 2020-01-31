@@ -10,6 +10,7 @@ import java.util.Set;
 //When making a Grid Entry instance, be sure to first initialize the entire grid and then using a second pass use methods
 //to fill in all the paramters
 public abstract class GridEntry {
+
     private int containsCellType;
     private Cell containedCell;
     private Boolean isOccupied;
@@ -45,7 +46,6 @@ public abstract class GridEntry {
         }
     }
 
-
     private void setOccupancy(Boolean set){
         isOccupied = set;
     }
@@ -75,6 +75,7 @@ public abstract class GridEntry {
     public int getContainsCellType(){
        return containsCellType;
     }
+
 
     public Cell getCell(){
         return containedCell;

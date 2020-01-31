@@ -3,7 +3,6 @@ package cellsociety;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.geometry.Orientation;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
@@ -12,10 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +29,10 @@ public class Visualization {
 
     private Scene mySplashScene;
     private Scene myAnimationScene;
-    private int myNumRows, myNumCols;
-    private int myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;
 
     public Visualization(Stage primaryStage, Timeline timeline, int rows, int cols, List<List<Cell>> cellStates) {
         mySplashScene = buildSplashScene(primaryStage, timeline);
-        myAnimationScene = buildAnimationScene(primaryStage, timeline, rows, cols, cellStates);
+        myAnimationScene = buildAnimationScene(primaryStage, timeline);
     }
 
     public Scene getMySplashScene() {
@@ -48,39 +43,18 @@ public class Visualization {
         return myAnimationScene;
     }
 
-    public GridPane drawGrid(int rows, int cols, List<List<Cell>> cellStates) {
+    public GridPane drawGrid(List<List<GridEntry>> cellStates) {
         GridPane grid = new GridPane();
         grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
         grid.setStyle("-fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; " +
                 "-fx-border-radius: 5; -fx-border-color: black;");
         for (int row = 0; row < cellStates.size(); row += 1) {
             for (int col = 0; col < cellStates.get(row).size(); col += 1) {
-                Cell cell = new Cell(GRID_WIDTH/cols, GRID_HEIGHT/rows, Color.AQUA); // placeholder Color for now
-                cell.updateCell(grid, row, col, cell);
-                grid.add(cell.getRectangle(), row, col);                     // get image from cell class
+                Cell cell = cellStates.get(row).get(col).getCell();
+                grid.add(cell.getRectangle(), row, col);
             }
         }
         return grid;
-    }
-
-    private void setGridSize(Configuration param) {
-        ArrayList<Integer> initialParam = param.getParams();
-        myNumRows = initialParam.get(0);
-        myNumCols = initialParam.get(1);
-    }
-
-    private void setBorderConfig(Configuration param) {
-        ArrayList<Integer> initialParam = param.getParams();
-        myIsBottomPresent = initialParam.get(2);
-        myIsLeftPresent = initialParam.get(3);
-        myIsTopPresent = initialParam.get(4);
-        myIsRightPresent = initialParam.get(5);
-    }
-
-    private void checkBorderConfig(int row, int col) {
-        if (myIsBottomPresent == 1 && row == myNumRows + 1) {
-
-        }
     }
 
     public Scene buildSplashScene(Stage primaryStage, Timeline timeline) {
@@ -92,16 +66,17 @@ public class Visualization {
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
-    public Scene buildAnimationScene(Stage primaryStage, Timeline timeline, int rows, int cols,
-                                     List<List<Cell>> cellStates) {
+    public Scene buildAnimationScene(Stage primaryStage, Timeline timeline) {
         ToolBar toolBar = buildToolBar(primaryStage, timeline);
         HBox root = new HBox();
-        Configuration parameters = new Configuration();
-        setGridSize(parameters);
-        setBorderConfig(parameters);
-        GridPane grid = drawGrid(myNumRows, myNumCols, cellStates);
+        GridPane grid = initializeGrid();
         root.getChildren().addAll(toolBar, grid);
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
+    }
+
+    private GridPane initializeGrid() {
+        List<List<GridEntry>> cellStates = Configuration.makeCellGrid();
+        return drawGrid(cellStates);
     }
 
     private ToolBar buildToolBar(Stage primaryStage, Timeline timeline) {

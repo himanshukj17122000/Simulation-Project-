@@ -28,11 +28,13 @@ public class TreeCell extends Cell {
         Boolean neighborFire = false;
         for(GridEntry neighbor : neighborSet){
             if(neighbor.getCell().getType() == 3){
-
+                neighborFire = true;
             }
+            }
+        return neighborFire;
         }
 
     }
 
 
-}
+
