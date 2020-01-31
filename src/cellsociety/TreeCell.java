@@ -14,11 +14,10 @@ public class TreeCell extends Cell{
 
 
     public TreeCell(double startX, double startY, int width, int height){
-        super(startX, startY, width, height, FILL);
+        super(width, height, FILL);
     }
 
     private void initializeNeighbors(){
-        get
     }
 
 
