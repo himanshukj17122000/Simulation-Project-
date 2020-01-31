@@ -32,6 +32,8 @@ public class Visualization {
 
     private Scene mySplashScene;
     private Scene myAnimationScene;
+    private int myNumRows;
+    private int myNumCols;
 
     public Visualization(Stage primaryStage, Timeline timeline, int rows, int cols, List<List<Cell>> cellStates) {
         mySplashScene = buildSplashScene(primaryStage, timeline);
@@ -55,7 +57,7 @@ public class Visualization {
             for (int col = 0; col < cellStates.get(row).size(); col += 1) {
                 Configuration initialParam = new Configuration();
                 checkConfiguration(initialParam, row, col);
-                Cell cell = new Cell(GRID_WIDTH/cols, GRID_HEIGHT/rows, Color.AQUA);
+                Cell cell = new Cell(GRID_WIDTH/cols, GRID_HEIGHT/rows, Color.AQUA); // placeholder Color for now
                 cell.updateCell(grid, row, col, cell);
                 grid.add(cell.getRectangle(), row, col);                     // get image from cell class
             }
@@ -63,8 +65,15 @@ public class Visualization {
         return grid;
     }
 
+    private void setGridSize(Configuration param) {
+        ArrayList<Integer> initialParam = param.getParams();
+        myNumRows = initialParam.get(0);
+        myNumCols = initialParam.get(1);
+    }
+
     private void checkConfiguration(Configuration param, int row, int col) {
         ArrayList<Integer> initialParam = param.getParams();
+
 
     }
 
