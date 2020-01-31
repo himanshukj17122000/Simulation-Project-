@@ -1,35 +1,58 @@
 package cellsociety;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Configuration {
-    private static final int SIZE=400;
-    private static double cellHeight;
-    private static double cellWidth;
-    private static XMLReader reader;
-    private static int numRows;
-    private static int numColumns;
+    private static final int mySize=400;
+    private static XMLReader myReader;
+    private static int myNumRows, myNumColumns, myProbCatch, myNumStates;
+    private static Boolean myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;
+    private static ArrayList myParameters;
+
+//    private static Cell[] myGridArray;
 
     public Configuration(){
-        String numr= reader.getRows();
-        String numc= reader.getColumns();
-        numRows= Integer.parseInt(numr);
-        numColumns=Integer.parseInt(numc);
+        checkprob();
+        myNumRows = myReader.getRows();
+        myNumStates = myReader.levels();
+        myNumColumns = myReader.getColumns();
+        myIsLeftPresent= myReader.getLeft();
+        myIsRightPresent = myReader.getRight();
+        myIsTopPresent = myReader.getTop();
+        myIsBottomPresent = myReader.getBottom();
+        myParameters.add(myNumRows);
+        myParameters.add(myNumColumns);
+        myParameters.add(myIsBottomPresent);
+        myParameters.add(myIsLeftPresent);
+        myParameters.add(myIsTopPresent);
+        myParameters.add(myIsRightPresent);
+//        makeCells();
     }
 
-    public void setUp(){
-        cellHeight= SIZE/numRows;
-        cellWidth=SIZE/numColumns;
-        GridPane gridPane = new GridPane();
-        initialise(gridPane);
+    private void checkprob() {
+        if(myReader.getProbCatch()!=-1){
+            myProbCatch = myReader.getProbCatch();
+            myParameters.add(myProbCatch);
+        }
     }
 
-    public GridPane initialise(GridPane grid){
-
-        return grid;
+    public ArrayList getParams(){
+        return myParameters;
     }
 
+//    public void makeCells(){
+//        Cell newCell= new Cell(getRandomNumberInRange());
+//        List<Cell> arrlist= new ArrayList<Cell>(Arrays.asList(myGridArray));
+//        arrlist.add(newCell);
+//        myGridArray = arrlist.toArray(myGridArray);
+//        parameters.add(myGridArray);
+//    }
+
+    private static int getRandomNumberInRange() {
+        Random r = new Random();
+        return r.nextInt(myNumStates + 1);
+    }
 
 
 }
