@@ -50,12 +50,8 @@ public class Visualization {
                 "-fx-border-radius: 5; -fx-border-color: black;");
         for (int row = 0; row < cellStates.size(); row += 1) {
             for (int col = 0; col < cellStates.get(row).size(); col += 1) {
-                Cell cell = new Cell(row, col, GRID_WIDTH/cols, GRID_HEIGHT/rows, )
-                Rectangle cellSquare = new Rectangle();
-                cellSquare.setHeight(GRID_HEIGHT/rows);
-                cellSquare.setWidth(GRID_WIDTH/cols);
-                cellSquare.setFill(cell.getMyColor());
-                grid.add(cellSquare, col, row);                     // get image from cell class
+                Cell cell = new Cell(row, col, GRID_WIDTH/cols, GRID_HEIGHT/rows, Color.AQUA);
+                grid.add(cell.getRectangle());                     // get image from cell class
             }
         }
         return grid;

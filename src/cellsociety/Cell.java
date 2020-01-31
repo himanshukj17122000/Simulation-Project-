@@ -12,7 +12,7 @@ public class Cell {
     private Rectangle CELLVISUAL;
 
 
-    public Cell(double startX, double startY, int width, int height, Paint color){
+    public Cell(double startX, double startY, double width, double height, Paint color){
         CELLVISUAL = new Rectangle(startX, startY, width, height);
         setColor(color);
         setX(startX);
