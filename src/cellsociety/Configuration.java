@@ -1,6 +1,7 @@
 package cellsociety;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Configuration {
@@ -52,6 +53,8 @@ public class Configuration {
         Random r = new Random();
         return r.nextInt(myNumStates + 1);
     }
+
+    public static List<List<Cell>> makeCellGrid
 
 }
 

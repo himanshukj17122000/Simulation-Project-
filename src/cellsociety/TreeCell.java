@@ -18,6 +18,7 @@ public class TreeCell extends Cell{
     }
 
     private void initializeNeighbors(){
+
     }
 
 
