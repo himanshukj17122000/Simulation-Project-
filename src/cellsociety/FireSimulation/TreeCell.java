@@ -26,13 +26,14 @@ public class TreeCell extends Cell {
     public Boolean checkIfBurn(GridEntry entry){
         Set<GridEntry> neighborSet = getNeighbors(entry);
         Boolean neighborFire = false;
-        for(GridEntry neighbor : neighborSet){
-            if(neighbor.getCell().getType() == 3){
+        for(GridEntry neighbor : neighborSet) {
+            if (neighbor.getCell().getType() == 3) {
                 neighborFire = true;
             }
-            }
+        }
         return neighborFire;
         }
+        
 
     }
 
