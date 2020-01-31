@@ -8,15 +8,17 @@ import javafx.scene.paint.Color;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Cell {
+public abstract class Cell {
     private Rectangle CELLVISUAL;
+    private Set<int[]> NEIGHBORS= new HashSet<int[]>();
+    private double standardWidth;
+    private double standardHeight;
 
-
-    public Cell(double width, double height, Paint color){
-        CELLVISUAL = new Rectangle(width, height);
+    public Cell(Paint color, GridEntry entry){
+        CELLVISUAL = new Rectangle(standardWidth, standardHeight);
         setColor(color);
-        setWidth(width);
-        setHeight(height);
+        setWidth(standardWidth);
+        setHeight(standardHeight);
     }
     public Rectangle getRectangle(){
         return CELLVISUAL;
@@ -41,4 +43,15 @@ public class Cell {
         grid.add(null, row, col);
         grid.add(newCell.getRectangle(), row, col);
     }
+
+    public abstract String getType();
+
+    public void setNeighbors(GridEntry entry) {
+        NEIGHBORS = entry.getNeighbors();
+    }
+
+    public Set<int[]> getNeighbors(GridEntry entry) {
+        return NEIGHBORS;
+    }
+
 }
