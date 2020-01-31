@@ -54,6 +54,5 @@ public class Configuration {
         return r.nextInt(myNumStates + 1);
     }
 
-
 }
 

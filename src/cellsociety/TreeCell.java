@@ -18,12 +18,7 @@ public class TreeCell extends Cell{
     }
 
     private void initializeNeighbors(){
-        int[] cellToAdd = new int[2];
-        if(ID[0] > 1){
-            cellToAdd[0] = ID[0] -1;
-            cellToAdd[1] = ID[1];
-            NEIGHBORS.add(cellToAdd);
-        }if(ID[0])
+        get
     }
 
 
