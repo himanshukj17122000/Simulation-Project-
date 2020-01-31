@@ -31,7 +31,7 @@ public class Visualization {
     private Scene mySplashScene;
     private Scene myAnimationScene;
 
-    public Visualization(Stage primaryStage, Timeline timeline, int rows, int cols, List<List<Cell>> cellStates) {
+    public Visualization(Stage primaryStage, Timeline timeline) {
         mySplashScene = buildSplashScene(primaryStage, timeline);
         myAnimationScene = buildAnimationScene(primaryStage, timeline);
     }
