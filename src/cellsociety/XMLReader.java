@@ -9,14 +9,8 @@ import org.w3c.dom.Element;
 import java.io.File;
 
 public class XMLReader {
-    private static String rows;
-    private static String columns;
-    private static String top;
-    private static String bottom;
-    private static String left;
-    private static String right;
-    private static String levels;
-    private static String probCatch;
+    private static String rows,neighbour,columns,top,bottom,left,right,levels,probCatch;
+
     public static void main(String argv[]) {
         try {
             File fXmlFile = new File("/Users/himanshu/Desktop/ALL/simulation_team17/resources/file.xml");
@@ -41,6 +35,7 @@ public class XMLReader {
                     bottom= getTagValue("rows", eElement);
                     top=getTagValue("columns", eElement);
                     levels= getTagValue("maxlevels", eElement);
+                    neighbour=getTagValue("neighbours", eElement);
                     if(getTagValue("probCatch", eElement)!=null){
                         probCatch=getTagValue("probCatch", eElement);
                     }
@@ -52,6 +47,9 @@ public class XMLReader {
         }
     }
     public int getRows(){return Integer.parseInt(rows);}
+    public int getNeighbours(){
+        return Integer.parseInt(neighbour);
+    }
 
     public int getProbCatch(){
         if(probCatch!=null) {
