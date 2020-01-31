@@ -1,4 +1,6 @@
-package cellsociety;
+package cellsociety.Configuration;
+
+import cellsociety.XMLReader;
 
 import java.util.ArrayList;
 import java.util.Random;

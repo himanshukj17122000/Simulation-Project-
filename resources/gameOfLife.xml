@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="GameOfLife">
+    <gridlayout>
+        <title>Game of Life</title>
+        <maxstates> 3</maxstates>
+        <rows>15</rows>
+        <columns>15</columns>
+        <left> No</left>
+        <Right>No </Right>
+        <Top> No</Top>
+        <Bottom> No</Bottom>
+        <neighbours>8</neighbours>
+        <probCatch>0</probCatch>
+        <type1>Empty</type1>
+        <type2>Live</type2>
+        <type3>Dead</type3>
+    </gridlayout>
+</simulation>

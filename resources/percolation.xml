@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="Percolation">
+    <gridlayout>
+        <title>Percolation</title>
+        <maxstates> 3</maxstates>
+        <rows>15</rows>
+        <columns>15</columns>
+        <left> No</left>
+        <Right>No </Right>
+        <Top> Yes</Top>
+        <Bottom> Yes</Bottom>
+        <neighbours>8</neighbours>
+        <type1>Percolated</type1>
+        <probCatch>0</probCatch>
+        <type2>Open</type2>
+        <type3>Block</type3>
+    </gridlayout>
+</simulation>
