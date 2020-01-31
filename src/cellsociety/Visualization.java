@@ -3,6 +3,7 @@ package cellsociety;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.geometry.Orientation;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
@@ -50,8 +51,9 @@ public class Visualization {
                 "-fx-border-radius: 5; -fx-border-color: black;");
         for (int row = 0; row < cellStates.size(); row += 1) {
             for (int col = 0; col < cellStates.get(row).size(); col += 1) {
-                Cell cell = new Cell(row, col, GRID_WIDTH/cols, GRID_HEIGHT/rows, Color.AQUA);
-                grid.add(cell.getRectangle());                     // get image from cell class
+                Cell cell = new Cell(GRID_WIDTH/cols, GRID_HEIGHT/rows, Color.AQUA);
+                cell.updateCell(grid, row, col, cell);
+                grid.add(cell.getRectangle(), row, col);                     // get image from cell class
             }
         }
         return grid;

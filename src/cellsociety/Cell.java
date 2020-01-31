@@ -15,11 +15,11 @@ public class Cell {
     private Set<String> NEIGHBORS= new HashSet<String>();
     private int[] ID = new int[2];
 
-    public Cell(double startX, double startY, double width, double height, Paint color){
-        CELLVISUAL = new Rectangle(startX, startY, width, height);
+    public Cell(double width, double height, Paint color){
+        CELLVISUAL = new Rectangle(width, height);
         setColor(color);
-        setX(startX);
-        setY(startY);
+        //setX(startX);
+        //setY(startY);
         setWidth(width);
         setHeight(height);
     }
@@ -54,7 +54,7 @@ public class Cell {
         CELLVISUAL.setHeight(newHeight);
     }
 
-    public void updateCell(Group group, GridPane grid, int row, int col, Cell newCell) {
+    public void updateCell(GridPane grid, int row, int col, Cell newCell) {
         grid.add(null, row, col);
         grid.add(newCell.getRectangle(), row, col);
     }
