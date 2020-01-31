@@ -1,5 +1,6 @@
 package cellsociety.Configuration;
 
+import cellsociety.GridEntry;
 import cellsociety.XMLReader;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Random;
 public class Configuration {
     private static final int mySize = 400;
     private static XMLReader myReader;
+    private static String mySimulationType;
     private static int myNumRows, myNumColumns, myProbCatch, myNumStates, myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;
     private static ArrayList<Integer> myParameters;
 
@@ -16,6 +18,7 @@ public class Configuration {
 
     public Configuration() {
         checkprob();
+        mySimulationType = myReader.getSimulationType();
         myNumRows = myReader.getRows();
         myNumStates = myReader.levels();
         myNumColumns = myReader.getColumns();
@@ -56,14 +59,14 @@ public class Configuration {
         return r.nextInt(myNumStates + 1);
     }
 
-    public static List<List<GridEntry>> makeCellGrid(String simulation) {  // initialization of a grid of empty cells
+    public static List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
         List<List<GridEntry>> grid = new ArrayList<>();
         for (int r = 0; r < myNumRows; r++) {
             List<GridEntry> insertRow = new ArrayList<>();
             for (int c = 0; c < myNumColumns; c++) {
-                GridEntry insertGridEntry = createBorderGridEntry(r, c, simulation);
+                GridEntry insertGridEntry = createBorderGridEntry(r, c, mySimulationType);
                 if (insertGridEntry == null) {
-                    insertGridEntry = randomizeGridEntry(r, c, simulation);
+                    insertGridEntry = randomizeGridEntry(r, c, mySimulationType);
                 }
                 insertRow.add(insertGridEntry);
             }

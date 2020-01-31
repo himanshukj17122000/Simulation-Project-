@@ -1,10 +1,12 @@
 package cellsociety;
 
+import cellsociety.Configuration.Configuration;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -102,6 +104,19 @@ public class Visualization {
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color:" + styleColor + ";-fx-font-size:" + fontSize + " px;");
         return button;
+    }
+
+    private Slider createSlider(double defaultValue) {
+        Slider slider = new Slider();
+        slider.setMin(0);
+        slider.setMax(1);
+        slider.setValue(defaultValue);
+        slider.setShowTickLabels(true);
+        slider.setShowTickMarks(true);
+        slider.setMajorTickUnit(0.5);
+        slider.setMinorTickCount(5);
+        slider.setBlockIncrement(0.05);
+        return slider;
     }
 
     private void pauseGame(Button buttonPause, Timeline timeline) {
