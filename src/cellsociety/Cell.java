@@ -12,11 +12,9 @@ public class Cell {
     private Rectangle CELLVISUAL;
 
 
-    public Cell(double startX, double startY, double width, double height, Paint color){
-        CELLVISUAL = new Rectangle(startX, startY, width, height);
+    public Cell(double width, double height, Paint color){
+        CELLVISUAL = new Rectangle(width, height);
         setColor(color);
-        setX(startX);
-        setY(startY);
         setWidth(width);
         setHeight(height);
     }
@@ -25,18 +23,6 @@ public class Cell {
     }
     public void setColor(Paint newColor){
         CELLVISUAL.setFill(newColor);
-    }
-    public double getX(){
-        return CELLVISUAL.getX();
-    }
-    public double getY(){
-        return CELLVISUAL.getY();
-    }
-    public void setX(double newX){
-        CELLVISUAL.setX(newX);
-    }
-    public void setY(double newY){
-        CELLVISUAL.setY(newY);
     }
     public double getWidth() {
         return CELLVISUAL.getWidth();
@@ -51,7 +37,7 @@ public class Cell {
         CELLVISUAL.setHeight(newHeight);
     }
 
-    public void updateCell(Group group, GridPane grid, int row, int col, Cell newCell) {
+    public void updateCell(GridPane grid, int row, int col, Cell newCell) {
         grid.add(null, row, col);
         grid.add(newCell.getRectangle(), row, col);
     }
