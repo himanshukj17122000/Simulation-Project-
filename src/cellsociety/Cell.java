@@ -18,8 +18,6 @@ public class Cell {
     public Cell(double width, double height, Paint color){
         CELLVISUAL = new Rectangle(width, height);
         setColor(color);
-        //setX(startX);
-        //setY(startY);
         setWidth(width);
         setHeight(height);
     }
@@ -28,18 +26,6 @@ public class Cell {
     }
     public void setColor(Paint newColor){
         CELLVISUAL.setFill(newColor);
-    }
-    public double getX(){
-        return CELLVISUAL.getX();
-    }
-    public double getY(){
-        return CELLVISUAL.getY();
-    }
-    public void setX(double newX){
-        CELLVISUAL.setX(newX);
-    }
-    public void setY(double newY){
-        CELLVISUAL.setY(newY);
     }
     public double getWidth() {
         return CELLVISUAL.getWidth();
