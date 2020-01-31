@@ -44,7 +44,7 @@ public abstract class Cell {
         grid.add(newCell.getRectangle(), row, col);
     }
 
-    public abstract String getType();
+    public abstract int getType();
 
     public void setNeighbors(GridEntry entry) {
         NEIGHBORS = entry.getNeighbors();

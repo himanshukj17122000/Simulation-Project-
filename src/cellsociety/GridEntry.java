@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GridEntry {
-    private String containsCellType;
+    private int containsCellType;
     private Cell containedCell;
     private Boolean isOccupied;
     private static Set<int[]> NEIGHBORS= new HashSet<int[]>();
@@ -39,7 +39,6 @@ public class GridEntry {
         }
     }
 
-
     private void setOccupancy(Boolean set){
         isOccupied = set;
     }
@@ -47,7 +46,7 @@ public class GridEntry {
     public void setCell(Cell cell){
         containedCell = cell;
         containsCellType = cell.getType();
-        if(cell.getType().equals("EMPTY")) {
+        if(cell.getType() == 1) {
             setOccupancy(false);
         }else{
             setOccupancy(true);
@@ -62,9 +61,7 @@ public class GridEntry {
         return isOccupied;
     }
 
-    public String getContainsCellType(){
-       return containsCellType;
-    }
+    public int getContainsCellType(){ return containsCellType; }
 
     public Cell getCell(){
         return containedCell;
