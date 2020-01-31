@@ -42,9 +42,10 @@ public abstract class Cell {
         CELLVISUAL.setHeight(newHeight);
     }
 
-    public void updateCell(GridPane grid, int row, int col, Cell newCell) {
+    public void updateCell(GridPane grid, int row, int col, Cell newCell, GridEntry entry) {
         grid.add(null, row, col);
         grid.add(newCell.getRectangle(), row, col);
+        entry.setCell(newCell);
     }
 
     public abstract int getType();
