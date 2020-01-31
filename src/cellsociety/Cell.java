@@ -10,10 +10,7 @@ import java.util.Set;
 
 public class Cell {
     private Rectangle CELLVISUAL;
-    private String TYPE;
-    private Boolean CANUPDATE;
-    private Set<String> NEIGHBORS= new HashSet<String>();
-    private int[] ID = new int[2];
+
 
     public Cell(double startX, double startY, int width, int height, Paint color){
         CELLVISUAL = new Rectangle(startX, startY, width, height);
