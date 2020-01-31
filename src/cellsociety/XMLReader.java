@@ -57,35 +57,35 @@ public class XMLReader {
     } return -1;
     }
 
-    public Boolean getLeft(){
+    public int getLeft(){
         if(left.equals("No")){
-            return false;
+            return 0;
         }
-        return true;
+        return 1;
     }
 
-    public Boolean getRight(){
+    public int getRight(){
         if(right.equals("No")){
-            return false;
+            return 0;
         }
-        return true;
+        return 1;
     }
 
-    public boolean getTop(){
+    public int getTop(){
         if(top.equals("No")){
-            return false;
+            return 0;
         }
-        return true;
+        return 1;
     }
     public int levels(){
         return Integer.parseInt(levels);
     }
 
-    public boolean getBottom(){
+    public int getBottom(){
         if(bottom.equals("No")){
-            return false;
+            return 0;
         }
-        return true;
+        return 1;
     }
 
     public int getColumns(){
