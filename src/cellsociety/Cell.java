@@ -15,7 +15,7 @@ public class Cell {
     private Set<String> NEIGHBORS= new HashSet<String>();
     private int[] ID = new int[2];
 
-    public Cell(double startX, double startY, int width, int height, Paint color){
+    public Cell(double startX, double startY, double width, double height, Paint color){
         CELLVISUAL = new Rectangle(startX, startY, width, height);
         setColor(color);
         setX(startX);
