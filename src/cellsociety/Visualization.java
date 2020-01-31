@@ -15,6 +15,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static cellsociety.Main.TITLE;
@@ -51,12 +53,19 @@ public class Visualization {
                 "-fx-border-radius: 5; -fx-border-color: black;");
         for (int row = 0; row < cellStates.size(); row += 1) {
             for (int col = 0; col < cellStates.get(row).size(); col += 1) {
+                Configuration initialParam = new Configuration();
+                checkConfiguration(initialParam, row, col);
                 Cell cell = new Cell(GRID_WIDTH/cols, GRID_HEIGHT/rows, Color.AQUA);
                 cell.updateCell(grid, row, col, cell);
                 grid.add(cell.getRectangle(), row, col);                     // get image from cell class
             }
         }
         return grid;
+    }
+
+    private void checkConfiguration(Configuration param, int row, int col) {
+        ArrayList<Integer> initialParam = param.getParams();
+
     }
 
     public Scene buildSplashScene(Stage primaryStage, Timeline timeline) {
