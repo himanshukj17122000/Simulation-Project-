@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EmptyCell extends Cell {
-    private static final String TYPE = "EMPTY";
+    private static final int TYPE = 1;
     public static final Paint FILL = Color.WHITE;
     private Boolean CANUPDATE = true;
     private Set<int[]> NEIGHBORS = new HashSet<int[]>();
@@ -18,7 +18,7 @@ public class EmptyCell extends Cell {
     }
 
     @Override
-    public String getType() {
+    public int getType() {
         return TYPE;
     }
 }

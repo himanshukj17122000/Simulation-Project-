@@ -1,18 +1,24 @@
 package cellsociety;
 
+import cellsociety.FireSimulation.FireCell;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class GridEntry {
-    private String containsCellType;
+
+//When making a Grid Entry instance, be sure to first initialize the entire grid and then using a second pass use methods
+//to fill in all the paramters
+public abstract class GridEntry {
+    private int containsCellType;
     private Cell containedCell;
     private Boolean isOccupied;
-    private static Set<int[]> NEIGHBORS= new HashSet<int[]>();
+    private static Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
     private static int[] ID = new int[2];
 
-    public GridEntry(int row, int col){
+    public GridEntry(int row, int col, int type){
         initializeGridEntryID(row, col);
-        initializeNeighbors();
+        createCell(type);
     }
 
     private void initializeGridEntryID(int row, int col){
@@ -20,21 +26,21 @@ public class GridEntry {
         ID[1] = col;
     }
 
-    private void initializeNeighbors(){ //this is only applicable for simulations with 4 neighbors. Will adjust in a bit
+    private void setNeighbors(List<List<GridEntry>> grid){ //this is only applicable for simulations with 4 neighbors. Will adjust in a bit
         int numRows = XMLReader.getRows();
         int numCols = XMLReader.getColumns();
 
         if(ID[0]>1){
-            int[] topNeighbor = {ID[0]-1, ID[1]};
+            GridEntry topNeighbor = grid.get(ID[0] -1).get(ID[1]);
             NEIGHBORS.add(topNeighbor);
         }if(ID[0]<numRows -1){
-            int[] bottomNeighbor = {ID[0]+1, ID[1]};
+            GridEntry bottomNeighbor = grid.get(ID[0] +1).get(ID[1]);
             NEIGHBORS.add(bottomNeighbor);
         }if(ID[1]>1){
-            int[] leftNeighbor = {ID[0], ID[1]-1};
+            GridEntry leftNeighbor = grid.get(ID[0]).get(ID[1]-1);
             NEIGHBORS.add(leftNeighbor);
         }if(ID[1]<numCols -1){
-            int[] rightNeighbor = {ID[0], ID[1]+1};
+            GridEntry rightNeighbor = grid.get(ID[0]).get(ID[1]+1);
             NEIGHBORS.add(rightNeighbor);
         }
     }
@@ -47,26 +53,36 @@ public class GridEntry {
     public void setCell(Cell cell){
         containedCell = cell;
         containsCellType = cell.getType();
-        if(cell.getType().equals("EMPTY")) {
+        if(cell.getType() == 1) {
             setOccupancy(false);
         }else{
             setOccupancy(true);
         }
     }
 
-    public Set<int[]> getNeighbors(){
+    public abstract void createCell(int type);
+
+
+    public Set<GridEntry> getNeighbors(){
         return NEIGHBORS;
     }
+
 
     public Boolean getOccupancy(){
         return isOccupied;
     }
 
-    public String getContainsCellType(){
+    public int getContainsCellType(){
        return containsCellType;
     }
 
     public Cell getCell(){
         return containedCell;
     }
+
+    public int[] getID(){
+        return ID;
+    }
+
+
 }

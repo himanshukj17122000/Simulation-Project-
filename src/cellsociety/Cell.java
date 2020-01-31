@@ -10,7 +10,8 @@ import java.util.Set;
 
 public abstract class Cell {
     private Rectangle CELLVISUAL;
-    private Set<int[]> NEIGHBORS= new HashSet<int[]>();
+    private Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
+    private int[] Location = new int[2];
     private double standardWidth;
     private double standardHeight;
 
@@ -19,6 +20,8 @@ public abstract class Cell {
         setColor(color);
         setWidth(standardWidth);
         setHeight(standardHeight);
+        setLocation(entry);
+        setNeighbors(entry);
     }
     public Rectangle getRectangle(){
         return CELLVISUAL;
@@ -44,14 +47,23 @@ public abstract class Cell {
         grid.add(newCell.getRectangle(), row, col);
     }
 
-    public abstract String getType();
+    public abstract int getType();
 
     public void setNeighbors(GridEntry entry) {
         NEIGHBORS = entry.getNeighbors();
     }
 
-    public Set<int[]> getNeighbors(GridEntry entry) {
+    public Set<GridEntry> getNeighbors(GridEntry entry) {
         return NEIGHBORS;
     }
+
+    private void setLocation(GridEntry entry){
+        Location = entry.getID();
+    }
+
+    public int[] getLocation(){
+        return Location;
+    }
+
 
 }
