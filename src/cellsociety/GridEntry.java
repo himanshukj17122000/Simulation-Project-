@@ -9,8 +9,8 @@ import java.util.Set;
 
 
 //When making a Grid Entry instance, be sure to first initialize the entire grid and then using a second pass use methods
-//to fill in all the paramters
-public abstract class GridEntry {
+//to fill in all the parameters
+public class GridEntry {
 
     private int containsCellType;
     private Cell containedCell;

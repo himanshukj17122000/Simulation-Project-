@@ -54,14 +54,15 @@ public class Configuration {
         return r.nextInt(myNumStates + 1);
     }
 
-    public static List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
+    public static List<List<GridEntry>> makeCellGrid(String simulation) {  // initialization of a grid of empty cells
         List<List<GridEntry>> grid = new ArrayList<>();
         for (int r = 0; r < myNumRows; r++) {
             List<GridEntry> insertRow = new ArrayList<>();
             for (int c = 0; c < myNumColumns; c++) {
-                GridEntry insertGridEntry = new GridEntry(r, c);
-                checkBorderConfig(insertGridEntry);
-
+                GridEntry insertGridEntry = createBorderGridEntry(r, c, simulation);
+                if (insertGridEntry == null) {
+                    insertGridEntry = randomizeGridEntry(r, c, simulation);
+                }
                 insertRow.add(insertGridEntry);
             }
             grid.add(insertRow);
@@ -69,18 +70,24 @@ public class Configuration {
         return grid;
     }
 
-    private void checkBorderConfig(int row, int col, GridEntry gridEntry) {
+    private static GridEntry createBorderGridEntry(int row, int col, String simulation) {
         if (myIsBottomPresent != 0 && row == myNumRows + 1) {
-            gridEntry.createCell(myIsBottomPresent);
+            return new GridEntry(row, col, simulation, myIsBottomPresent);
         }
-        if (myIsTopPresent != 0 && row == 0) {
-            gridEntry.createCell(myIsTopPresent);
+        else if (myIsTopPresent != 0 && row == 0) {
+            return new GridEntry(row, col, simulation, myIsTopPresent);
         }
-        if (myIsLeftPresent != 0 && col == 0) {
-            gridEntry.createCell(myIsRightPresent);
+        else if (myIsLeftPresent != 0 && col == 0) {
+            return new GridEntry(row, col, simulation, myIsLeftPresent);
         }
-        if (myIsRightPresent != 0 && col == myNumColumns + 1) {
-            gridEntry.createCell(myIsRightPresent);
+        else if (myIsRightPresent != 0 && col == myNumColumns + 1) {
+            return new GridEntry(row, col, simulation, myIsRightPresent);
         }
+        return null;
+    }
+
+    private static GridEntry randomizeGridEntry(int row, int col, String simulation) {
+        int randomType = getRandomNumberInRange();
+        return new GridEntry(row, col, simulation, randomType);
     }
 }
