@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,9 @@ public class Visualization {
 
     public Scene buildSplashScene(Stage primaryStage, Timeline timeline) {
         Text simTitle = new Text(TITLE);
+        simTitle.setTextAlignment(TextAlignment.CENTER);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        buttonUpload.setLayoutX(550);
         uploadSim(buttonUpload, primaryStage, timeline);
         VBox root = new VBox(20);
         root.getChildren().addAll(simTitle, buttonUpload);

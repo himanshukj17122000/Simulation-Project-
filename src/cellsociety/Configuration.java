@@ -60,7 +60,7 @@ public class Configuration {
             List<GridEntry> insertRow = new ArrayList<>();
             for(int c = 0; c<myNumColumns; c++){
                 GridEntry insertGridEntry = new GridEntry(r, c);
-                checkBorderConfig(insertGridEntry);
+                //checkBorderConfig(insertGridEntry);
                 EmptyCell insertCell = new EmptyCell(insertGridEntry);
                 insertGridEntry.setCell(insertCell);
                 insertRow.add(insertGridEntry);
@@ -68,16 +68,19 @@ public class Configuration {
             grid.add(insertRow);
         }
         return grid;
-        }
     }
 
     private void checkBorderConfig(int row, int col, GridEntry gridEntry) {
         if (myIsBottomPresent != 0 && row == myNumRows + 1) {
-
-            gridEntry.setCell();
+            gridEntry.createCell(myIsBottomPresent);
         }
-    }
-
-    private Cell chooseCell(GridEntry gridEntry, String simulation) {
-
+        if (myIsTopPresent != 0 && row == 0) {
+            gridEntry.createCell(myIsTopPresent);
+        }
+        if (myIsLeftPresent != 0 && col == 0) {
+            gridEntry.createCell(myIsRightPresent);
+        }
+        if (myIsRightPresent != 0 && col = myNumColumns + 1) {
+            gridEntry.createCell(myIsRightPresent);
+        }
     }
