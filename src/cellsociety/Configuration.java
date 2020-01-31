@@ -54,7 +54,19 @@ public class Configuration {
         return r.nextInt(myNumStates + 1);
     }
 
-    public static List<List<Cell>> makeCellGrid
-
-}
+    public static List<List<GridEntry>> makeCellGrid(){  // initialization of a grid of empty cells
+        List<List<GridEntry>> grid = new ArrayList<>();
+        for(int r = 0; r<myNumRows; r++){
+            List<GridEntry> insertRow = new ArrayList<>();
+            for(int c = 0; c<myNumColumns; c++){
+                GridEntry insertGridEntry = new GridEntry(r, c);
+                EmptyCell insertCell = new EmptyCell(insertGridEntry);
+                insertGridEntry.setCell(insertCell);
+                insertRow.add(insertGridEntry);
+            }
+            grid.add(insertRow);
+        }
+        return grid;
+        }
+    }
 
