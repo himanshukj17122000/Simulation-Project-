@@ -13,7 +13,7 @@ public class XMLReader {
 
     public static void main(String argv[]) {
         try {
-            File fXmlFile = new File("/Users/himanshu/Desktop/ALL/simulation_team17/resources/file.xml");
+            File fXmlFile = new File("/Users/himanshu/Desktop/ALL/simulation_team17/resources/fire.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);

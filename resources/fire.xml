@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="Fire">
+    <gridlayout>
+        <title>Fire</title>
+        <maxstates> 3</maxstates>
+        <rows>15</rows>
+        <columns>15</columns>
+        <left> No</left>
+        <Right>No </Right>
+        <Top> No</Top>
+        <Bottom> No</Bottom>
+        <probCatch>0.15</probCatch>
+        <neighbours>4</neighbours>
+        <type1>Empty</type1>
+        <type2>Burnt</type2>
+        <type3>Tree</type3>
+    </gridlayout>
+</simulation>
+
+
+
+
+

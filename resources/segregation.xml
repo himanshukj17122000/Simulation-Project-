@@ -1,6 +1,7 @@
-<?xml version="1.0"?>
-<simulation>
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="Segregation">
     <gridlayout>
+        <title>Segregation</title>
         <maxlevels> 3</maxlevels>
         <rows>15</rows>
         <columns>15</columns>
@@ -9,6 +10,9 @@
         <Top> No</Top>
         <Bottom> No</Bottom>
         <probCatch>0.15</probCatch>
-        <neighbours>4</neighbours>
+        <neighbours>8</neighbours>
+        <type1>Empty</type1>
+        <type2>Race1</type2>
+        <type3>Race2</type3>
     </gridlayout>
 </simulation>
