@@ -9,5 +9,6 @@
         <Top> No</Top>
         <Bottom> No</Bottom>
         <probCatch>0.15</probCatch>
+        <neighbours>4</neighbours>
     </gridlayout>
 </simulation>
