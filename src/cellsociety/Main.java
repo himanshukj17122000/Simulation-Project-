@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 
 import javafx.application.Application;
 
+import java.util.List;
+
 /**
  * Feel free to completely change this code or delete it entirely.
  */
@@ -17,13 +19,13 @@ public class Main extends Application {
 
     private Timeline myTimeline;
 
-
     // Initialize what will be displayed and how it will be updated.
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         primaryStage.setTitle(TITLE);
-        Visualization simulation = new Visualization(primaryStage, myTimeline);
+        //List<List<Cell>> cellStates = ;
+        Visualization simulation = new Visualization(primaryStage, myTimeline, 10, 10, cellStates);
         primaryStage.setScene(simulation.getMySplashScene());
         primaryStage.show();
     }

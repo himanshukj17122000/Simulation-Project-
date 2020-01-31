@@ -55,7 +55,4 @@ public class Cell {
         grid.add(null, row, col);
         grid.add(newCell.getRectangle(), row, col);
     }
-
-
-
 }
