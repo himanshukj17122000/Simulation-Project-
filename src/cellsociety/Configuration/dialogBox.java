@@ -46,7 +46,7 @@ public class dialogBox {
                     // handle error of unexpected file format
                     showMessage(AlertType.ERROR, e.getMessage());
                 }
-                dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
+                Platform.exit();
             }
 
             // nothing selected, so quit the application

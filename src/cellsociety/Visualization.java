@@ -181,9 +181,7 @@ public class Visualization {
                 // handle error of unexpected file format
                 showMessage(Alert.AlertType.ERROR, e.getMessage());
             }
-            dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         }
-
         // nothing selected, so quit the application
         Platform.exit();
     }
