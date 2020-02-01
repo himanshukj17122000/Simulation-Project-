@@ -10,13 +10,6 @@ import java.util.Random;
 
 public abstract class Configuration {
 
-
-    public void paraTitle(String title){
-
-    }
-    public void setParameters(Map<String, String> dataValues){
-
-    }
 //    private static final int mySize=400;
 //    private static XMLReader myReader;
 
@@ -49,8 +42,12 @@ public abstract class Configuration {
 //       }
 //   }
 
-    private String myTitle,type1,type2,type3;
-    private int maxStates,rows,columns,left,right,top,bottom, neighbours,probCatch;
+    protected String myTitle,type1,type2,type3;
+    protected int maxStates,rows,columns,left,right,top,bottom, neighbours,probCatch;
+
+    public abstract void paraTitle(String title);
+
+    public abstract void setParameters(Map<String, String> dataValues);
 
 //    private void checkprob() {
 //        if(myReader.getProbCatch()!=-1){

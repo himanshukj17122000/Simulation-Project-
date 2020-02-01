@@ -12,8 +12,8 @@ public class Prey extends Configuration {
     public static final List<String> DATA_FIELDS = List.of("title", "maxstates", "rows","columns","left","Right","Top","Bottom","neighbours","type1","type2","type3");
 
 //    // specific data values for this instance
-    private String myTitle,type1,type2,type3;
-    private int maxStates,rows,columns,neighbours,left,right,top,bottom;
+    //private String myTitle,type1,type2,type3;
+   //private int maxStates,rows,columns,neighbours,left,right,top,bottom;
 
 //        // NOTE: keep just as an example for converting toString(), otherwise not used
 //        private Map<String, String> myDataValues;
