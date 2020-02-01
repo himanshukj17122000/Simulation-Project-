@@ -27,7 +27,8 @@ public class Fire extends Configuration {
         /**
          * Create game data from given data.
          */
-        public Fire (String title) {
+        @Override
+        public void paraTitle (String title) {
             myTitle = title;
             // NOTE: this is useful so our code does not fail due to a NullPointerException
 //            myDataValues = new HashMap<>();
@@ -38,7 +39,8 @@ public class Fire extends Configuration {
          *
          * @param dataValues map of field names to their values
          */
-        public Fire (Map<String, String> dataValues) {
+        @Override
+        public void setParameters (Map<String, String> dataValues) {
             myTitle=dataValues.get(0);
             maxStates=Integer.parseInt(dataValues.get(1));
             rows=Integer.parseInt(dataValues.get(2));

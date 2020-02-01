@@ -108,7 +108,7 @@ public class Reader {
         for (String field : Prey.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        new Configuration(new Prey(results));
+        new Configuration(Prey(results));
     }
 
         // get root element of an XML file
