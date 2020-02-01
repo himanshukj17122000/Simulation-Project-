@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import static cellsociety.Main.TITLE;
 
@@ -38,9 +39,10 @@ public class Visualization {
     private Scene myAnimationScene;
     //private Configuration simulationConfig;
 
-    public Visualization(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
+    public Visualization(Stage primaryStage, Timeline timeline) {
         mySplashScene = buildSplashScene(primaryStage, timeline);
-        myAnimationScene = buildAnimationScene(primaryStage, timeline, simulationConfig);
+        Map<String, String> dataVal = Reader.getMap();
+        myAnimationScene = buildAnimationScene(primaryStage, timeline, new Fire(dataVal));
     }
 
     public Scene getMySplashScene() {
@@ -181,6 +183,7 @@ public class Visualization {
                 // handle error of unexpected file format
                 showMessage(Alert.AlertType.ERROR, e.getMessage());
             }
+            dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         }
         // nothing selected, so quit the application
         Platform.exit();
