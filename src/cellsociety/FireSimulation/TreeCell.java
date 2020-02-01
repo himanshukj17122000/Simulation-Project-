@@ -10,8 +10,8 @@ import java.util.Set;
 
 public class TreeCell extends Cell {
     private static final int TYPE = 2;
-    public static final Paint FILL = Color.CHARTREUSE;
-    private Boolean CANUPDATE = true;
+    private static final Paint FILL = Color.CHARTREUSE;
+    private static final boolean CANUPDATE = true;
     private Double catchFireProb = 0.15;
 
 
@@ -24,9 +24,14 @@ public class TreeCell extends Cell {
         return TYPE;
     }
 
+    @Override
+    public int getRace() {
+        return 0;
+    }
+
     private Boolean checkBurningNeighbor(GridEntry entry) {
-        Set<GridEntry> neighborSet = getNeighbors(entry);
-        Boolean neighborFire = false;
+        Set<GridEntry> neighborSet = getNeighbors();
+        boolean neighborFire = false;
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 3) {
                 neighborFire = true;
@@ -43,23 +48,23 @@ public class TreeCell extends Cell {
         return catchFireProb;
     }
 
-    private Boolean checkCatchFire(GridPane grid, GridEntry entry){
+    private Boolean checkCatchFire(GridEntry entry){
         Boolean FireNeighbor = checkBurningNeighbor(entry);
         double random = Math.random();
         if(random < catchFireProb && FireNeighbor){
-            Cell fireCell = new FireCell(entry);
             return true;
         }
         return false;
     }
 
     @Override
-    public void updateCell(GridPane grid, int row, int col, Cell newCell, GridEntry entry){
-        Boolean catchFire = checkCatchFire(grid, entry);
+    public void updateCell(GridPane grid, GridEntry entry){
+        Boolean catchFire = checkCatchFire(entry);
         if(catchFire){
-            grid.add(null, row, col);
-            grid.add(newCell.getRectangle(), row, col);
-            entry.setCell(newCell);
+            Cell fireCell = new FireCell(entry);
+            grid.add(null, entry.getColumn(), entry.getColumn());
+            grid.add(fireCell.getRectangle(), entry.getColumn(), entry.getColumn());
+            entry.setCell(fireCell);
         }
     }
 
