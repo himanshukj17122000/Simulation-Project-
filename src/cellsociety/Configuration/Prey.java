@@ -11,7 +11,7 @@ public class Prey extends Configuration {
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxstates", "rows","columns","left","Right","Top","Bottom","neighbours","type1","type2","type3");
 
-    // specific data values for this instance
+//    // specific data values for this instance
     private String myTitle,type1,type2,type3;
     private int maxStates,rows,columns,neighbours,left,right,top,bottom;
 
@@ -22,7 +22,8 @@ public class Prey extends Configuration {
     /**
      * Create game data from given data.
      */
-    public Prey (String title) {
+    @Override
+    public void paraTitle (String title) {
         myTitle = title;
         // NOTE: this is useful so our code does not fail due to a NullPointerException
 //            myDataValues = new HashMap<>();
@@ -33,7 +34,8 @@ public class Prey extends Configuration {
      *
      * @param dataValues map of field names to their values
      */
-    public Prey(Map<String, String> dataValues) {
+    @Override
+    public void setParameters (Map<String, String> dataValues) {
         myTitle=dataValues.get(0);
         maxStates=Integer.parseInt(dataValues.get(1));
         rows=Integer.parseInt(dataValues.get(2));
