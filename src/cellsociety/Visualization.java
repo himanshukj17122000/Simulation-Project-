@@ -1,9 +1,6 @@
 package cellsociety;
 
-import cellsociety.Configuration.Configuration;
-import cellsociety.Configuration.FileInputException;
-import cellsociety.Configuration.Reader;
-import cellsociety.Configuration.dialogBox;
+import cellsociety.Configuration.*;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -39,6 +36,7 @@ public class Visualization {
 
     private Scene mySplashScene;
     private Scene myAnimationScene;
+    //private Configuration simulationConfig;
 
     public Visualization(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
         mySplashScene = buildSplashScene(primaryStage, timeline);
@@ -158,18 +156,23 @@ public class Visualization {
                 if(dataFile.getName().equals("fire.xml")){
 //                        Pair<String, Game> p = new Pair<>(dataFile.getName(), new XMLParser("media").getGame(dataFile));
 //                        showMessage(AlertType.INFORMATION, p.getSecond().toString());
+                    //simulationConfig = new Fire();
                     new Reader("type").getFire(dataFile);
                 }
                 else if(dataFile.getName().equals("gameOfLife.xml")){
+                    //simulationConfig = new Game();
                     new Reader("type").getGame(dataFile);
                 }
                 else if(dataFile.getName().equals("percolation.xml")){
+                    //simulationConfig = new Percolation();
                     new Reader("type").getPercolation(dataFile);
                 }
                 else if(dataFile.getName().equals("prey.xml")){
+                    //simulationConfig = new Prey();
                     new Reader("type").getPrey(dataFile);
                 }
                 else if(dataFile.getName().equals("segregation.xml")){
+                    //simulationConfig = new Segregation();
                     new Reader("type").getSegregation(dataFile);
                 }
 
