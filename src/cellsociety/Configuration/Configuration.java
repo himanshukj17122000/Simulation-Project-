@@ -49,7 +49,7 @@ public class Configuration {
 
     public static List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
         List<List<GridEntry>> grid = new ArrayList<>();
-        for (int r = 0; r < myNumRows; r++) {
+        for (int r = 0; r < simulation.myNumRows; r++) {
             List<GridEntry> insertRow = new ArrayList<>();
             for (int c = 0; c < myNumColumns; c++) {
                 GridEntry insertGridEntry = createBorderGridEntry(r, c, mySimulationType);
