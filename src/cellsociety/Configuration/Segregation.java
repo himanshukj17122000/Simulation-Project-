@@ -35,7 +35,7 @@ public class Segregation extends Configuration {
      * @param dataValues map of field names to their values
      */
     @Override
-    public void setParameters (Map<String, String> dataValues) {
+    public void setParameters (Map<Integer, String> dataValues) {
         myTitle = dataValues.get(0);
         maxStates = Integer.parseInt(dataValues.get(1));
         rows = Integer.parseInt(dataValues.get(2));

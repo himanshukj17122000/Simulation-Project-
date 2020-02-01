@@ -47,27 +47,8 @@ public abstract class Configuration {
 
     public abstract void paraTitle(String title);
 
-    public abstract void setParameters(Map<String, String> dataValues);
+    public abstract void setParameters(Map<Integer, String> dataValues);
 
-//    private void checkprob() {
-//        if(myReader.getProbCatch()!=-1){
-//            myProbCatch = myReader.getProbCatch();
-//            myParameters.add(myProbCatch);
-//        }
-//    }
-//
-//    public ArrayList getParams(){
-//        return myParameters;
-//    }
-//
-////    public void makeCells(){
-////        Cell newCell= new Cell(getRandomNumberInRange());
-////        List<Cell> arrlist= new ArrayList<Cell>(Arrays.asList(myGridArray));
-////        arrlist.add(newCell);
-////        myGridArray = arrlist.toArray(myGridArray);
-////        parameters.add(myGridArray);
-////    }
-//
     private int getRandomNumberInRange() {
         Random r = new Random();
         return r.nextInt(this.getMax() + 1);
