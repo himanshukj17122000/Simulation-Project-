@@ -15,7 +15,7 @@ public class Segregation extends Configuration {
     private String myTitle, type1, type2, type3;
     private int maxStates, rows, columns, neighbours, probCatch, left, right, top, bottom;
 
-  
+
 
 //        // NOTE: keep just as an example for converting toString(), otherwise not used
 //        private Map<String, String> myDataValues;
@@ -36,8 +36,8 @@ public class Segregation extends Configuration {
      *
      * @param dataValues map of field names to their values
      */
-    @Override
-    public void setParameters (Map<String, String> dataValues) {
+
+    public Segregation (Map<String, String> dataValues) {
         myTitle=dataValues.get(DATA_FIELDS.get(0));
         maxStates=Integer.parseInt(DATA_FIELDS.get(1));
         rows=Integer.parseInt(DATA_FIELDS.get(2));

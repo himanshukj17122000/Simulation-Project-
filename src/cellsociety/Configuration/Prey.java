@@ -7,6 +7,7 @@ public class Prey extends Configuration {
 
     // name in data file that will indicate it represents data for this type of object
     public static final String DATA_TYPE = "Game of Life";
+
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxstates", "rows","columns","left","Right","Top","Bottom","neighbours","type1","type2","type3");
@@ -36,8 +37,8 @@ public class Prey extends Configuration {
      *
      * @param dataValues map of field names to their values
      */
-    @Override
-    public void setParameters (Map<String, String> dataValues) {
+
+    public Prey(Map<String, String> dataValues) {
         myTitle=dataValues.get(DATA_FIELDS.get(0));
         maxStates=Integer.parseInt(DATA_FIELDS.get(1));
         rows=Integer.parseInt(DATA_FIELDS.get(2));

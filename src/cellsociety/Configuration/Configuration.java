@@ -16,29 +16,24 @@ public abstract class Configuration {
 //    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;;
 //    private static ArrayList<Integer> myParameters;
 //
-  public static void config(Object passedIn) {
+  public static void config(Map<String, String> maps) {
        StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
        StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
        String methodName = e.getMethodName();
        if(methodName.equals("getPrey")){
-           Prey preyClass= new Prey(passedIn);
-           preyClass= (Prey)passedIn;
+           Prey preyClass= new Prey(maps);
        }
        else if(methodName.equals("getGame")){
-           Game gameClass= new Game(passedIn);
-           gameClass= (Game) passedIn;
+           Game gameClass= new Game(maps);
        }
        else if(methodName.equals("getFire")){
-           Fire fireClass= new Fire(passedIn);
-           fireClass= (Fire) passedIn;
+           Fire fireClass= new Fire(maps);
        }
        else if(methodName.equals("getPercolation")){
-           Percolation perClass= new Percolation(passedIn);
-           perClass= (Percolation) passedIn;
+           Percolation perClass= new Percolation(maps);
        }
        else if(methodName.equals("getSegregation")){
-           Segregation segClass= new Segregation(passedIn);
-           segClass= (Segregation) passedIn;
+           Segregation segClass= new Segregation(maps);
        }
    }
 
@@ -48,7 +43,6 @@ public abstract class Configuration {
 
     public abstract void paraTitle(String title);
 
-    public abstract void setParameters(Map<String, String> dataValues);
 
     private int getRandomNumberInRange() {
         Random r = new Random();

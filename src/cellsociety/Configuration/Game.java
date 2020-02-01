@@ -34,8 +34,8 @@ public class Game extends Configuration {
      *
      * @param dataValues map of field names to their values
      */
-    @Override
-    public void setParameters (Map<String, String> dataValues) {
+
+    public Game (Map<String, String> dataValues) {
         myTitle=dataValues.get(DATA_FIELDS.get(0));
         maxStates=Integer.parseInt(dataValues.get(DATA_FIELDS.get(1)));
         rows=Integer.parseInt(dataValues.get(DATA_FIELDS.get(2)));
