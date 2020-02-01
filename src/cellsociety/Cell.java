@@ -8,38 +8,26 @@ import javafx.scene.paint.Color;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Cell {
+public abstract class Cell {
     private Rectangle CELLVISUAL;
-    private String TYPE;
-    private Boolean CANUPDATE;
-    private Set<String> NEIGHBORS= new HashSet<String>();
-    private int[] ID = new int[2];
+    private Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
+    private int[] Location = new int[2];
+    private double standardWidth;
+    private double standardHeight;
 
-    public Cell(double startX, double startY, int width, int height, Paint color){
-        CELLVISUAL = new Rectangle(startX, startY, width, height);
+    public Cell(Paint color, GridEntry entry){
+        CELLVISUAL = new Rectangle(standardWidth, standardHeight);
         setColor(color);
-        setX(startX);
-        setY(startY);
-        setWidth(width);
-        setHeight(height);
+        setWidth(standardWidth);
+        setHeight(standardHeight);
+        setLocation(entry);
+        setNeighbors(entry);
     }
     public Rectangle getRectangle(){
         return CELLVISUAL;
     }
     public void setColor(Paint newColor){
         CELLVISUAL.setFill(newColor);
-    }
-    public double getX(){
-        return CELLVISUAL.getX();
-    }
-    public double getY(){
-        return CELLVISUAL.getY();
-    }
-    public void setX(double newX){
-        CELLVISUAL.setX(newX);
-    }
-    public void setY(double newY){
-        CELLVISUAL.setY(newY);
     }
     public double getWidth() {
         return CELLVISUAL.getWidth();
@@ -54,8 +42,29 @@ public class Cell {
         CELLVISUAL.setHeight(newHeight);
     }
 
-    public void updateCell(Group group, GridPane grid, int row, int col, Cell newCell) {
+    public void updateCell(GridPane grid, int row, int col, Cell newCell, GridEntry entry) {
         grid.add(null, row, col);
         grid.add(newCell.getRectangle(), row, col);
+        entry.setCell(newCell);
     }
+
+    public abstract int getType();
+
+    public void setNeighbors(GridEntry entry) {
+        NEIGHBORS = entry.getNeighbors();
+    }
+
+    public Set<GridEntry> getNeighbors(GridEntry entry) {
+        return NEIGHBORS;
+    }
+
+    private void setLocation(GridEntry entry){
+        Location = entry.getID();
+    }
+
+    public int[] getLocation(){
+        return Location;
+    }
+
+
 }

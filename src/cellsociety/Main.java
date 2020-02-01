@@ -24,8 +24,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         primaryStage.setTitle(TITLE);
-        //List<List<Cell>> cellStates = ;
-        Visualization simulation = new Visualization(primaryStage, myTimeline, 10, 10, cellStates);
+        Visualization simulation = new Visualization(primaryStage, myTimeline);
         primaryStage.setScene(simulation.getMySplashScene());
         primaryStage.show();
     }

@@ -1,8 +1,10 @@
 package cellsociety.Configuration;
 
+import cellsociety.GridEntry;
 import cellsociety.XMLReader;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Configuration {
@@ -45,6 +47,40 @@ public class Configuration {
 //        return r.nextInt(myNumStates + 1);
 //    }
 
+    public static List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
+        List<List<GridEntry>> grid = new ArrayList<>();
+        for (int r = 0; r < myNumRows; r++) {
+            List<GridEntry> insertRow = new ArrayList<>();
+            for (int c = 0; c < myNumColumns; c++) {
+                GridEntry insertGridEntry = createBorderGridEntry(r, c, mySimulationType);
+                if (insertGridEntry == null) {
+                    insertGridEntry = randomizeGridEntry(r, c, mySimulationType);
+                }
+                insertRow.add(insertGridEntry);
+            }
+            grid.add(insertRow);
+        }
+        return grid;
+    }
 
+    private static GridEntry createBorderGridEntry(int row, int col, String simulation) {
+        if (myIsBottomPresent != 0 && row == myNumRows + 1) {
+            return new GridEntry(row, col, simulation, myIsBottomPresent);
+        }
+        else if (myIsTopPresent != 0 && row == 0) {
+            return new GridEntry(row, col, simulation, myIsTopPresent);
+        }
+        else if (myIsLeftPresent != 0 && col == 0) {
+            return new GridEntry(row, col, simulation, myIsLeftPresent);
+        }
+        else if (myIsRightPresent != 0 && col == myNumColumns + 1) {
+            return new GridEntry(row, col, simulation, myIsRightPresent);
+        }
+        return null;
+    }
+
+    private static GridEntry randomizeGridEntry(int row, int col, String simulation) {
+        int randomType = getRandomNumberInRange();
+        return new GridEntry(row, col, simulation, randomType);
+    }
 }
-
