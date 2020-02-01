@@ -5,7 +5,6 @@ import cellsociety.GridEntry;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Random;
