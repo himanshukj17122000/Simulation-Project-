@@ -35,7 +35,7 @@ public class Reader {
         /**
          * Get data contained in this XML file as an object
          */
-        public Game getGame (File dataFile) {
+        public void getGame (File dataFile) {
             Element root = getRootElement(dataFile);
             if (! isValidFile(root, Game.DATA_TYPE)) {
                 throw new FileInputException(ERROR_MESSAGE, Game.DATA_TYPE);
@@ -45,12 +45,12 @@ public class Reader {
             for (String field : Game.DATA_FIELDS) {
                 results.put(field, getTextValue(root, field));
             }
-            return new Game(results);
+            new Configuration(new Game(results));
         }
     /**
      * Get data contained in this XML file as an object
      */
-    public Fire getFire (File dataFile) {
+    public void getFire (File dataFile) {
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Fire.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Fire.DATA_TYPE);
@@ -60,13 +60,13 @@ public class Reader {
         for (String field : Fire.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        return new Fire(results);
+        new Configuration(new Fire(results));
     }
 
     /**
      * Get data contained in this XML file as an object
      */
-    public Percolation getPercolation (File dataFile) {
+    public void getPercolation (File dataFile) {
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Percolation.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Percolation.DATA_TYPE);
@@ -76,13 +76,13 @@ public class Reader {
         for (String field : Percolation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        return new Percolation(results);
+        new Configuration(new Percolation(results));
     }
 
     /**
      * Get data contained in this XML file as an object
      */
-    public Segregation getSegregation (File dataFile) {
+    public void getSegregation (File dataFile) {
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Segregation.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Segregation.DATA_TYPE);
@@ -92,13 +92,13 @@ public class Reader {
         for (String field : Segregation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        return new Segregation(results);
+        new Configuration(new Segregation(results));
     }
 
     /**
      * Get data contained in this XML file as an object
      */
-    public Prey getPrey (File dataFile) {
+    public void getPrey (File dataFile) {
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Prey.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Prey.DATA_TYPE);
@@ -108,7 +108,7 @@ public class Reader {
         for (String field : Prey.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        return new Prey(results);
+        new Configuration(new Prey(results));
     }
 
         // get root element of an XML file

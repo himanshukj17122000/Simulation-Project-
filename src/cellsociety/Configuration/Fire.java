@@ -73,9 +73,7 @@ public class Fire {
         public String getType1(){return type1;}
         public String getType2(){return type2;}
         public String getType3(){return type3;}
+}
 
-
-        }
-    
 
 
