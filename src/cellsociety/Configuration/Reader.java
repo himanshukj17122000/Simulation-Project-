@@ -22,6 +22,7 @@ public class Reader {
         private final String TYPE_ATTRIBUTE;
         // keep only one documentBuilder because it is expensive to make and can reset it before parsing
         private final DocumentBuilder DOCUMENT_BUILDER;
+        private static Map<String, String> results;
 
 
         /**
@@ -36,12 +37,13 @@ public class Reader {
          * Get data contained in this XML file as an object
          */
         public void getGame (File dataFile) {
+            results.clear();
             Element root = getRootElement(dataFile);
             if (! isValidFile(root, Game.DATA_TYPE)) {
                 throw new FileInputException(ERROR_MESSAGE, Game.DATA_TYPE);
             }
             // read data associated with the fields given by the object
-            Map<String, String> results = new HashMap<>();
+            results = new HashMap<>();
             for (String field : Game.DATA_FIELDS) {
                 results.put(field, getTextValue(root, field));
             }
@@ -51,12 +53,13 @@ public class Reader {
      * Get data contained in this XML file as an object
      */
     public void getFire (File dataFile) {
+        results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Fire.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Fire.DATA_TYPE);
         }
         // read data associated with the fields given by the object
-        Map<String, String> results = new HashMap<>();
+        results = new HashMap<>();
         for (String field : Fire.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
@@ -66,13 +69,14 @@ public class Reader {
     /**
      * Get data contained in this XML file as an object
      */
-    public void getPercolation (File dataFile) {
+        public void getPercolation (File dataFile) {
+            results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Percolation.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Percolation.DATA_TYPE);
         }
         // read data associated with the fields given by the object
-        Map<String, String> results = new HashMap<>();
+         results = new HashMap<>();
         for (String field : Percolation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
@@ -83,12 +87,13 @@ public class Reader {
      * Get data contained in this XML file as an object
      */
     public void getSegregation (File dataFile) {
+        results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Segregation.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Segregation.DATA_TYPE);
         }
         // read data associated with the fields given by the object
-        Map<String, String> results = new HashMap<>();
+        results = new HashMap<>();
         for (String field : Segregation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
@@ -99,12 +104,13 @@ public class Reader {
      * Get data contained in this XML file as an object
      */
     public void getPrey (File dataFile) {
+        results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Prey.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Prey.DATA_TYPE);
         }
         // read data associated with the fields given by the object
-        Map<String, String> results = new HashMap<>();
+        results = new HashMap<>();
         for (String field : Prey.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
@@ -154,5 +160,9 @@ public class Reader {
                 throw new FileInputException(e);
             }
         }
+
+    public static Map<String, String> getResults() {
+        return results;
     }
+}
 
