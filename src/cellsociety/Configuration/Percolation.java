@@ -35,19 +35,19 @@ public class Percolation extends Configuration {
      * @param dataValues map of field names to their values
      */
     @Override
-    public void setParameters (Map<Integer, String> dataValues) {
-        myTitle=dataValues.get(0);
-        maxStates=Integer.parseInt(dataValues.get(1));
-        rows=Integer.parseInt(dataValues.get(2));
-        columns=Integer.parseInt(dataValues.get(3));
-        left=Integer.parseInt(dataValues.get(4));
-        right=Integer.parseInt(dataValues.get(5));
-        top=Integer.parseInt(dataValues.get(6));
-        bottom=Integer.parseInt(dataValues.get(7));
-        neighbours=Integer.parseInt(dataValues.get(8));
-        type1=dataValues.get(10);
-        type2=dataValues.get(11);
-        type3=dataValues.get(12);
+    public void setParameters (Map<String, String> dataValues) {
+        myTitle=dataValues.get(DATA_FIELDS.get(0));
+        maxStates=Integer.parseInt(DATA_FIELDS.get(1));
+        rows=Integer.parseInt(DATA_FIELDS.get(2));
+        columns=Integer.parseInt(DATA_FIELDS.get(3));
+        left=Integer.parseInt(DATA_FIELDS.get(4));
+        right=Integer.parseInt(DATA_FIELDS.get(5));
+        top=Integer.parseInt(DATA_FIELDS.get(6));
+        bottom=Integer.parseInt(DATA_FIELDS.get(7));
+        neighbours=Integer.parseInt(DATA_FIELDS.get(8));
+        type1=dataValues.get(DATA_FIELDS.get(9));
+        type2=dataValues.get(DATA_FIELDS.get(10));
+        type3=dataValues.get(DATA_FIELDS.get(11));
     }
 
 //    // NOTE: provides getters, but not setters

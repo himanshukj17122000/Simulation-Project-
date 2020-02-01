@@ -47,7 +47,7 @@ public abstract class Configuration {
 
     public abstract void paraTitle(String title);
 
-    public abstract void setParameters(Map<Integer, String> dataValues);
+    public abstract void setParameters(Map<String, String> dataValues);
 
     private int getRandomNumberInRange() {
         Random r = new Random();
