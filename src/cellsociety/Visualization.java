@@ -71,7 +71,7 @@ public class Visualization {
     }
 
     private Scene buildAnimationScene(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
-        ToolBar toolBar = buildToolBar(primaryStage, timeline);
+        ToolBar toolBar = buildToolBar(primaryStage, timeline, simulationConfig);
         HBox root = new HBox();
         GridPane grid = initializeGrid(simulationConfig);
         root.getChildren().addAll(toolBar, grid);
@@ -83,10 +83,10 @@ public class Visualization {
         return drawGrid(cellStates);
     }
 
-    private ToolBar buildToolBar(Stage primaryStage, Timeline timeline) {
+    private ToolBar buildToolBar(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
         ToolBar toolBar = new ToolBar();
         toolBar.setOrientation(Orientation.VERTICAL);
-        Slider probabilitySlider = createSlider(defaultProbability);
+        Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
         Button buttonHome = createButton("Back to Main", null, BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(mySplashScene));
         Button buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
