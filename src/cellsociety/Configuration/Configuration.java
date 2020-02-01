@@ -32,7 +32,7 @@ public class Configuration {
         myParameters.add(myIsLeftPresent);
         myParameters.add(myIsTopPresent);
         myParameters.add(myIsRightPresent);
-//        makeCells();
+//       makeCells();
     }
 
     private void checkprob() {

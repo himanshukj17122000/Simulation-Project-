@@ -16,7 +16,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 import java.util.List;
 
 import static cellsociety.Main.TITLE;
@@ -60,7 +59,7 @@ public class Visualization {
         return grid;
     }
 
-    public Scene buildSplashScene(Stage primaryStage, Timeline timeline) {
+    private Scene buildSplashScene(Stage primaryStage, Timeline timeline) {
         Text simTitle = new Text(TITLE);
         simTitle.setTextAlignment(TextAlignment.CENTER);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
@@ -71,7 +70,7 @@ public class Visualization {
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
-    public Scene buildAnimationScene(Stage primaryStage, Timeline timeline) {
+    private Scene buildAnimationScene(Stage primaryStage, Timeline timeline) {
         ToolBar toolBar = buildToolBar(primaryStage, timeline);
         HBox root = new HBox();
         GridPane grid = initializeGrid();
@@ -87,6 +86,7 @@ public class Visualization {
     private ToolBar buildToolBar(Stage primaryStage, Timeline timeline) {
         ToolBar toolBar = new ToolBar();
         toolBar.setOrientation(Orientation.VERTICAL);
+        Slider probabilitySlider = createSlider(defaultProbability);
         Button buttonHome = createButton("Back to Main", null, BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(mySplashScene));
         Button buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
@@ -95,7 +95,7 @@ public class Visualization {
         stopGame(buttonStop, timeline);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage, timeline);
-        toolBar.getItems().addAll(buttonHome, buttonPause, buttonStop, buttonUpload);
+        toolBar.getItems().addAll(probabilitySlider, buttonHome, buttonPause, buttonStop, buttonUpload);
         return toolBar;
     }
 
