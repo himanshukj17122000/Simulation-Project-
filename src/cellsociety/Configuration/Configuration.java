@@ -74,9 +74,7 @@ public abstract class Configuration {
         return new GridEntry(row, col, simulation, randomType);
     }
 
-    public String getTitle () {
-        return myTitle;
-    }
+    public String getTitle(){return myTitle;}
     public int getMax(){return maxStates;}
     public int getRows(){return rows;}
     public int getColumns(){return columns;}
