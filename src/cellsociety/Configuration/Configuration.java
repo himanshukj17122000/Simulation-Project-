@@ -69,7 +69,7 @@ public abstract class Configuration {
         return null;
     }
 
-    private static GridEntry randomizeGridEntry(int row, int col, String simulation) {
+    private GridEntry randomizeGridEntry(int row, int col, String simulation) {
         int randomType = getRandomNumberInRange();
         return new GridEntry(row, col, simulation, randomType);
     }
