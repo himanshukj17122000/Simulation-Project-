@@ -3,10 +3,10 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
-public class Game {
+public class Percolation {
 
     // name in data file that will indicate it represents data for this type of object
-    public static final String DATA_TYPE = "Game of Life";
+    public static final String DATA_TYPE = "Percolation";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxstates", "rows","columns","left","Right","Top","Bottom","neighbours","type1","type2","type3");
@@ -22,7 +22,7 @@ public class Game {
     /**
      * Create game data from given data.
      */
-    public Game (String title) {
+    public Percolation(String title) {
         myTitle = title;
         // NOTE: this is useful so our code does not fail due to a NullPointerException
 //            myDataValues = new HashMap<>();
@@ -33,7 +33,7 @@ public class Game {
      *
      * @param dataValues map of field names to their values
      */
-    public Game(Map<String, String> dataValues) {
+    public Percolation(Map<String, String> dataValues) {
         myTitle=dataValues.get(0);
         maxStates=Integer.parseInt(dataValues.get(1));
         rows=Integer.parseInt(dataValues.get(2));
@@ -66,6 +66,5 @@ public class Game {
     public String getType1(){return type1;}
     public String getType2(){return type2;}
     public String getType3(){return type3;}
+
 }
-
-

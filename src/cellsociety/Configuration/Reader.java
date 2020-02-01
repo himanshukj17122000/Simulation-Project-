@@ -35,7 +35,7 @@ public class Reader {
         /**
          * Get data contained in this XML file as an object
          */
-        public Game getGame (File dataFile) {
+        public void getGame (File dataFile) {
             Element root = getRootElement(dataFile);
             if (! isValidFile(root, Game.DATA_TYPE)) {
                 throw new FileInputException(ERROR_MESSAGE, Game.DATA_TYPE);
@@ -45,70 +45,70 @@ public class Reader {
             for (String field : Game.DATA_FIELDS) {
                 results.put(field, getTextValue(root, field));
             }
-            return new Game(results);
+            new Configuration(new Game(results));
         }
     /**
      * Get data contained in this XML file as an object
      */
-    public Game getFire (File dataFile, String name) {
+    public void getFire (File dataFile) {
         Element root = getRootElement(dataFile);
-        if (! isValidFile(root, Game.DATA_TYPE)) {
-            throw new FileInputException(ERROR_MESSAGE, Game.DATA_TYPE);
+        if (! isValidFile(root, Fire.DATA_TYPE)) {
+            throw new FileInputException(ERROR_MESSAGE, Fire.DATA_TYPE);
         }
         // read data associated with the fields given by the object
         Map<String, String> results = new HashMap<>();
-        for (String field : Game.DATA_FIELDS) {
+        for (String field : Fire.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        return new Game(results);
+        new Configuration(new Fire(results));
     }
 
     /**
      * Get data contained in this XML file as an object
      */
-    public Game getPercolation (File dataFile) {
+    public void getPercolation (File dataFile) {
         Element root = getRootElement(dataFile);
-        if (! isValidFile(root, Game.DATA_TYPE)) {
-            throw new FileInputException(ERROR_MESSAGE, Game.DATA_TYPE);
+        if (! isValidFile(root, Percolation.DATA_TYPE)) {
+            throw new FileInputException(ERROR_MESSAGE, Percolation.DATA_TYPE);
         }
         // read data associated with the fields given by the object
         Map<String, String> results = new HashMap<>();
-        for (String field : Game.DATA_FIELDS) {
+        for (String field : Percolation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        return new Game(results);
+        new Configuration(new Percolation(results));
     }
 
     /**
      * Get data contained in this XML file as an object
      */
-    public Game getSegregation (File dataFile) {
+    public void getSegregation (File dataFile) {
         Element root = getRootElement(dataFile);
-        if (! isValidFile(root, Game.DATA_TYPE)) {
-            throw new FileInputException(ERROR_MESSAGE, Game.DATA_TYPE);
+        if (! isValidFile(root, Segregation.DATA_TYPE)) {
+            throw new FileInputException(ERROR_MESSAGE, Segregation.DATA_TYPE);
         }
         // read data associated with the fields given by the object
         Map<String, String> results = new HashMap<>();
-        for (String field : Game.DATA_FIELDS) {
+        for (String field : Segregation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        return new Game(results);
+        new Configuration(new Segregation(results));
     }
 
     /**
      * Get data contained in this XML file as an object
      */
-    public Game getPrey (File dataFile) {
+    public void getPrey (File dataFile) {
         Element root = getRootElement(dataFile);
-        if (! isValidFile(root, Game.DATA_TYPE)) {
-            throw new FileInputException(ERROR_MESSAGE, Game.DATA_TYPE);
+        if (! isValidFile(root, Prey.DATA_TYPE)) {
+            throw new FileInputException(ERROR_MESSAGE, Prey.DATA_TYPE);
         }
         // read data associated with the fields given by the object
         Map<String, String> results = new HashMap<>();
-        for (String field : Game.DATA_FIELDS) {
+        for (String field : Prey.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        return new Game(results);
+        new Configuration(new Prey(results));
     }
 
         // get root element of an XML file

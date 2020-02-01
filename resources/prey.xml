@@ -15,6 +15,5 @@
         <type1>Empty</type1>
         <type2>Fish</type2>
         <type3>Shark</type3>
-        <probCatch>0</probCatch>
     </gridlayout>
 </simulation>

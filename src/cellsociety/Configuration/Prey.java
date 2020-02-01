@@ -3,7 +3,7 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
-public class Game {
+public class Prey {
 
     // name in data file that will indicate it represents data for this type of object
     public static final String DATA_TYPE = "Game of Life";
@@ -22,7 +22,7 @@ public class Game {
     /**
      * Create game data from given data.
      */
-    public Game (String title) {
+    public Prey (String title) {
         myTitle = title;
         // NOTE: this is useful so our code does not fail due to a NullPointerException
 //            myDataValues = new HashMap<>();
@@ -33,7 +33,7 @@ public class Game {
      *
      * @param dataValues map of field names to their values
      */
-    public Game(Map<String, String> dataValues) {
+    public Prey(Map<String, String> dataValues) {
         myTitle=dataValues.get(0);
         maxStates=Integer.parseInt(dataValues.get(1));
         rows=Integer.parseInt(dataValues.get(2));
@@ -67,5 +67,4 @@ public class Game {
     public String getType2(){return type2;}
     public String getType3(){return type3;}
 }
-
 
