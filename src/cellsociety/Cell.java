@@ -8,10 +8,13 @@ import javafx.scene.paint.Color;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Cell {
+public abstract class Cell { // potentially implement a check conditions method to override
+    //also make a hashmap of cell types
+    //potentially implement a super updateCell method
     private Rectangle CELLVISUAL;
     private Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
-    private int[] Location = new int[2];
+    private int Row;
+    private int Column;
     private double standardWidth;
     private double standardHeight;
 
@@ -21,7 +24,6 @@ public abstract class Cell {
         setWidth(standardWidth);
         setHeight(standardHeight);
         setLocation(entry);
-        setNeighbors(entry);
     }
     public Rectangle getRectangle(){
         return CELLVISUAL;
@@ -42,11 +44,7 @@ public abstract class Cell {
         CELLVISUAL.setHeight(newHeight);
     }
 
-    public void updateCell(GridPane grid, int row, int col, Cell newCell, GridEntry entry) {
-        grid.add(null, row, col);
-        grid.add(newCell.getRectangle(), row, col);
-        entry.setCell(newCell);
-    }
+    public abstract void updateCell(GridPane grid, GridEntry entry);
 
     public abstract int getType();
 
@@ -54,17 +52,14 @@ public abstract class Cell {
         NEIGHBORS = entry.getNeighbors();
     }
 
-    public Set<GridEntry> getNeighbors(GridEntry entry) {
+    protected Set<GridEntry> getNeighbors() {
         return NEIGHBORS;
     }
 
     private void setLocation(GridEntry entry){
-        Location = entry.getID();
+        Row = entry.getRow();
+        Column = entry.getColumn();
     }
 
-    public int[] getLocation(){
-        return Location;
-    }
-
-
+    public abstract int getRace();
 }
