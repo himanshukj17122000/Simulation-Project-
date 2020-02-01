@@ -43,7 +43,8 @@ public abstract class Configuration {
 //   }
 
     protected String myTitle,type1,type2,type3;
-    protected int maxStates,rows,columns,left,right,top,bottom, neighbours,probCatch;
+    protected int maxStates,rows,columns,left,right,top,bottom, neighbours;
+    protected double probCatch;
 
     public abstract void paraTitle(String title);
 
@@ -100,7 +101,7 @@ public abstract class Configuration {
     public int getTop(){return top;}
     public int getBottom(){return bottom;}
     public int getNeighbours(){return neighbours;}
-    public int getProbCatch(){return probCatch;}
+    public double getProbCatch(){return probCatch;}
     public String getType1(){return type1;}
     public String getType2(){return type2;}
     public String getType3(){return type3;}

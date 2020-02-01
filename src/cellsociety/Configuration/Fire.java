@@ -20,8 +20,9 @@ public class Fire extends Configuration {
 
 
         // specific data values for this instance
-        private String myTitle,type1,type2,type3;
-        private int maxStates,rows,columns,neighbours,probCatch,left,right,top,bottom;
+        //private String myTitle,type1,type2,type3;
+        //private int maxStates,rows,columns,neighbours,left,right,top,bottom;
+        //private double probCatch;
 
 //        // NOTE: keep just as an example for converting toString(), otherwise not used
 //        private Map<String, String> myDataValues;
@@ -45,15 +46,15 @@ public class Fire extends Configuration {
         @Override
         public void setParameters (Map<String, String> dataValues) {
             myTitle=dataValues.get(DATA_FIELDS.get(0));
-            maxStates=Integer.parseInt(DATA_FIELDS.get(1));
-            rows=Integer.parseInt(DATA_FIELDS.get(2));
-            columns=Integer.parseInt(DATA_FIELDS.get(3));
-            left=Integer.parseInt(DATA_FIELDS.get(4));
-            right=Integer.parseInt(DATA_FIELDS.get(5));
-            top=Integer.parseInt(DATA_FIELDS.get(6));
-            bottom=Integer.parseInt(DATA_FIELDS.get(7));
-            neighbours=Integer.parseInt(DATA_FIELDS.get(8));
-            probCatch=Integer.parseInt(DATA_FIELDS.get(9));
+            maxStates=Integer.parseInt(dataValues.get(DATA_FIELDS.get(1)));
+            rows=Integer.parseInt(dataValues.get(DATA_FIELDS.get(2)));
+            columns=Integer.parseInt(dataValues.get(DATA_FIELDS.get(3)));
+            left=Integer.parseInt(dataValues.get(DATA_FIELDS.get(4)));
+            right=Integer.parseInt(dataValues.get(DATA_FIELDS.get(5)));
+            top=Integer.parseInt(dataValues.get(DATA_FIELDS.get(6)));
+            bottom=Integer.parseInt(dataValues.get(DATA_FIELDS.get(7)));
+            neighbours=Integer.parseInt(dataValues.get(DATA_FIELDS.get(8)));
+            probCatch=Double.parseDouble(dataValues.get(DATA_FIELDS.get(9)));
             type1=dataValues.get(DATA_FIELDS.get(10));
             type2=dataValues.get(DATA_FIELDS.get(11));
             type3=dataValues.get(DATA_FIELDS.get(12));
@@ -74,7 +75,7 @@ public class Fire extends Configuration {
 //        public String getTop(){return top;}
 //        public String getBottom(){return bottom;}
 //        public int getNeighbours(){return neighbours;}
-//        public int getProbCatch(){return probCatch;}
+//        public double getProbCatch(){return probCatch;}
 //        public String getType1(){return type1;}
 //        public String getType2(){return type2;}
 //        public String getType3(){return type3;}

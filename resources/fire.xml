@@ -2,13 +2,13 @@
 <simulation type="Fire">
     <gridlayout>
         <title>Fire</title>
-        <maxStates> 3</maxStates>
+        <maxStates>3</maxStates>
         <rows>15</rows>
         <columns>15</columns>
-        <left> 0</left>
-        <right>0 </right>
-        <top> 0</top>
-        <bottom> 0</bottom>
+        <left>0</left>
+        <right>0</right>
+        <top>0</top>
+        <bottom>0</bottom>
         <probCatch>0.15</probCatch>
         <neighbours>4</neighbours>
         <type1>Empty</type1>
