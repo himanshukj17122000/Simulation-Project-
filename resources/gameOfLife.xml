@@ -10,7 +10,6 @@
         <Top> No</Top>
         <Bottom> No</Bottom>
         <neighbours>8</neighbours>
-        <probCatch>0</probCatch>
         <type1>Empty</type1>
         <type2>Live</type2>
         <type3>Dead</type3>

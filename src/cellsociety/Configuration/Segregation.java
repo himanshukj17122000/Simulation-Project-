@@ -1,4 +1,4 @@
 package cellsociety.Configuration;
 
-public class Game {
+public class Segregation {
 }

@@ -22,7 +22,7 @@ public class dialogBox {
                     if(dataFile.getName().equals("fire.xml")){
 //                        Pair<String, Game> p = new Pair<>(dataFile.getName(), new XMLParser("media").getGame(dataFile));
 //                        showMessage(AlertType.INFORMATION, p.getSecond().toString());
-                       new Reader("type").getFire(dataFile, dataFile.getName());
+                       new Reader("type").getFire(dataFile);
                     }
                     else if(dataFile.getName().equals("gameOfLife.xml")){
                         new Reader("type").getGame(dataFile);

@@ -9,7 +9,7 @@
         <Right>No </Right>
         <Top> No</Top>
         <Bottom> No</Bottom>
-        <probCatch>0.15</probCatch>
+        <Threshold>0.15</Threshold>
         <neighbours>8</neighbours>
         <type1>Empty</type1>
         <type2>Race1</type2>

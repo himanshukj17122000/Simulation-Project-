@@ -11,7 +11,6 @@
         <Bottom> Yes</Bottom>
         <neighbours>8</neighbours>
         <type1>Percolated</type1>
-        <probCatch>0</probCatch>
         <type2>Open</type2>
         <type3>Block</type3>
     </gridlayout>
