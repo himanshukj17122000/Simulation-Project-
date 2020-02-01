@@ -18,9 +18,6 @@ public class Fire extends Configuration {
         public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
                 "top","bottom","neighbours","probCatch","type1","type2","type3");
 
-    public Fire(Object passedIn) {
-        super(passedIn);
-    }
 
 
     // specific data values for this instance
