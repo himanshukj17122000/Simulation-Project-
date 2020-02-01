@@ -1,8 +1,16 @@
 package cellsociety;
 
-import cellsociety.FireSimulation.EmptyCell;
 import cellsociety.FireSimulation.FireCell;
 import cellsociety.FireSimulation.TreeCell;
+import cellsociety.GameSimulation.DeadCell;
+import cellsociety.GameSimulation.LiveCell;
+import cellsociety.PercolationSimulation.AirCell;
+import cellsociety.PercolationSimulation.WaterCell;
+import cellsociety.PreySimulation.PredatorCell;
+import cellsociety.PreySimulation.PreyCell;
+import cellsociety.SegregationSimulation.PersonCell;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,10 +24,14 @@ public class GridEntry {
 
     private int containsCellType;
     private Cell containedCell;
-    private Boolean isOccupied;
+    private boolean isOccupied;
     private static Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
     private static int ROW;
     private static int COLUMN;
+    private static final Paint FIREFILL = Color.WHITE; //fills for empty cells, put these variables somewhere elseeee
+    private static final Paint PERCOLATIONFILL = Color.DARKGRAY;
+    private static final Paint PREYFILL = Color.PALEGREEN;
+    private static final Paint SEGREGATIONFILL = Color.WHITE;
 
     public GridEntry(int row, int col, String simulation, int type){
         initializeGridEntryID(row, col);
@@ -83,7 +95,7 @@ public class GridEntry {
         }
     }
 
-    public void createCell(String simulation, int type) {
+    public void createCell(String simulation, int type) { // refactor (make into smaller functions)
         Cell cellToSet;
         switch(simulation){
             case "FIRE":
@@ -92,12 +104,40 @@ public class GridEntry {
                 }else if(type == 2){
                 cellToSet = new TreeCell(this);
                 }else{
-                cellToSet = new EmptyCell(this);
+                cellToSet = new EmptyCell(this, FIREFILL);
                 }
                 break;
-
+            case "GAME":
+                if(type == 2){
+                    cellToSet = new LiveCell(this);
+                }else{
+                    cellToSet = new DeadCell(this);
+                }
+                break;
+            case "PERCOLATION":
+                if(type == 3){
+                    cellToSet = new WaterCell(this);
+                }else if(type == 2){
+                    cellToSet = new AirCell(this);
+                }else{
+                    cellToSet = new EmptyCell(this, PERCOLATIONFILL);
+                }
+            case "PREY":
+                if(type == 3){
+                    cellToSet = new PredatorCell(this);
+                }else if(type == 2){
+                    cellToSet = new PreyCell(this);
+                }else{
+                    cellToSet = new EmptyCell(this, PREYFILL);
+                }
+            case "SEGREGATION":
+                if(type == 1){
+                    cellToSet = new EmptyCell(this, SEGREGATIONFILL);
+                }else{
+                    cellToSet = new PersonCell(this, type);
+                }
             default:
-                cellToSet = new EmptyCell(this);
+                cellToSet = new EmptyCell(this, SEGREGATIONFILL);
         }
 
         setCell(cellToSet);

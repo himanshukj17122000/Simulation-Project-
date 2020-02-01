@@ -1,6 +1,7 @@
 package cellsociety.PreySimulation;
 
 import cellsociety.Cell;
+import cellsociety.EmptyCell;
 import cellsociety.GridEntry;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -13,6 +14,7 @@ import java.util.Set;
 public class PreyCell extends Cell {
     private static final int TYPE = 2;
     private static final Paint FILL = Color.TAN;
+    private static final Paint PREYFILL = Color.PALEGREEN;
     private int timeStepsToReproduce = 5;
     private int timeStepsSinceReproduce;
     private static final boolean CANUPDATE = true;
@@ -53,7 +55,7 @@ public class PreyCell extends Cell {
         int i = 0;
         for(GridEntry gridSpace : emptyCellSet) {
             if (i == space){
-                Cell newEmptyCell = new EmptyCell(entry);
+                Cell newEmptyCell = new EmptyCell(entry, PREYFILL);
                 grid.add(newEmptyCell.getRectangle(), entry.getRow(),entry.getColumn()); // setting current space to empty cell
                 entry.setCell(newEmptyCell);
 

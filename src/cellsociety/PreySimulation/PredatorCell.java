@@ -1,6 +1,7 @@
 package cellsociety.PreySimulation;
 
 import cellsociety.Cell;
+import cellsociety.EmptyCell;
 import cellsociety.GridEntry;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -13,6 +14,7 @@ import java.util.Set;
 public class PredatorCell extends Cell { // make animal superclass // contains long classes plz refactor
     private static final int TYPE = 3;
     private static final Paint FILL = Color.web("#614A32");
+    private static final Paint PREYFILL = Color.PALEGREEN;
     private static final boolean CANUPDATE = true;
     private int timeStepsToReproduce = 5;
     private int timeStepsSinceReproduce;
@@ -68,7 +70,7 @@ public class PredatorCell extends Cell { // make animal superclass // contains l
         boolean moved = false;
         for (GridEntry gridSpace : preyCellSet) {
             if (i == space) {
-                Cell newEmptyCell = new EmptyCell(entry);
+                Cell newEmptyCell = new EmptyCell(entry, PREYFILL);
                 grid.add(newEmptyCell.getRectangle(), entry.getRow(), entry.getColumn()); // setting current space to empty cell
                 entry.setCell(newEmptyCell);
                 grid.add(this.getRectangle(), gridSpace.getRow(), gridSpace.getColumn()); //setting prey space to instance of current cell
@@ -85,7 +87,7 @@ public class PredatorCell extends Cell { // make animal superclass // contains l
             i = 0;
             for (GridEntry gridSpace : emptyCellSet) {
                 if (i == space) {
-                    Cell newEmptyCell = new EmptyCell(entry);
+                    Cell newEmptyCell = new EmptyCell(entry,PREYFILL);
                     grid.add(newEmptyCell.getRectangle(), entry.getRow(), entry.getColumn()); // setting current space to empty cell
                     entry.setCell(newEmptyCell);
                     grid.add(this.getRectangle(), gridSpace.getRow(), gridSpace.getColumn()); //setting empty space to instance of current cell
@@ -153,7 +155,7 @@ public class PredatorCell extends Cell { // make animal superclass // contains l
     }
 
     private void die(GridPane grid, GridEntry entry) {
-        Cell newEmptyCell = new EmptyCell(entry);
+        Cell newEmptyCell = new EmptyCell(entry, PREYFILL);
         grid.add(newEmptyCell.getRectangle(), entry.getRow(), entry.getColumn());
     }
 
