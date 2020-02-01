@@ -46,7 +46,7 @@ public class XMLReader {
             e.printStackTrace();
         }
     }
-    public int getRows(){return Integer.parseInt(rows);}
+    public static int getRows(){return Integer.parseInt(rows);}
     public int getNeighbours(){
         return Integer.parseInt(neighbour);
     }
@@ -88,7 +88,7 @@ public class XMLReader {
         return 1;
     }
 
-    public int getColumns(){
+    public static int getColumns(){
         return Integer.parseInt(columns);
     }
 
