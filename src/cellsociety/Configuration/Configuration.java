@@ -10,16 +10,14 @@ public class Configuration {
 //    private static XMLReader myReader;
 //    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;;
 //    private static ArrayList<Integer> myParameters;
-    Object simulation;
+    private static Object simulation;
 
 //    private static Cell[] myGridArray;
 
     public Configuration(Object file){
        simulation=file;
     }
-    public Object getSimulation(){
-        return simulation;
-    }
+
 
 //    private void checkprob() {
 //        if(myReader.getProbCatch()!=-1){
