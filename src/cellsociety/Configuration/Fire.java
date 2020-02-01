@@ -45,7 +45,7 @@ public class Fire extends Configuration {
         @Override
         public void setParameters (Map<String, String> dataValues) {
             myTitle=dataValues.get(DATA_FIELDS.get(0));
-            maxStates=Integer.parseInt(DATA_FIELDS.get(1));
+            maxStates=Integer.parseInt(dataValues.get(DATA_FIELDS.get(1)));
             rows=Integer.parseInt(DATA_FIELDS.get(2));
             columns=Integer.parseInt(DATA_FIELDS.get(3));
             left=Integer.parseInt(DATA_FIELDS.get(4));
