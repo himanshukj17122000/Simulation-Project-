@@ -13,6 +13,15 @@ public class Configuration {
 //    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;;
 //    private static ArrayList<Integer> myParameters;
 
+   public Configuration() {
+       StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+       StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
+       String methodName = e.getMethodName();
+       if(methodName=="getPrey"){
+           Prey=
+       }
+   }
+
 
 
 //    private void checkprob() {
