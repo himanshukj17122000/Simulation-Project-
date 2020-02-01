@@ -5,10 +5,10 @@
         <maxstates> 3</maxstates>
         <rows>15</rows>
         <columns>15</columns>
-        <left> No</left>
-        <Right>No </Right>
-        <Top> No</Top>
-        <Bottom> No</Bottom>
+        <left>0</left>
+        <Right>0 </Right>
+        <Top> 0</Top>
+        <Bottom> 0</Bottom>
         <neighbours>4</neighbours>
         <fishBreed>8</fishBreed>
         <sharkBreed>8</sharkBreed>
