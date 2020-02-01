@@ -3,7 +3,7 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
-public class Percolation {
+public class Percolation extends Configuration {
 
     // name in data file that will indicate it represents data for this type of object
     public static final String DATA_TYPE = "Percolation";
