@@ -53,7 +53,7 @@ public class Reader {
      * Get data contained in this XML file as an object
      */
     public void getFire (File dataFile) {
-        results.clear();
+        //results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Fire.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Fire.DATA_TYPE);
@@ -70,7 +70,7 @@ public class Reader {
      * Get data contained in this XML file as an object
      */
         public void getPercolation (File dataFile) {
-            results.clear();
+            //results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Percolation.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Percolation.DATA_TYPE);
@@ -87,7 +87,7 @@ public class Reader {
      * Get data contained in this XML file as an object
      */
     public void getSegregation (File dataFile) {
-        results.clear();
+        //results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Segregation.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Segregation.DATA_TYPE);
@@ -104,7 +104,7 @@ public class Reader {
      * Get data contained in this XML file as an object
      */
     public void getPrey (File dataFile) {
-        results.clear();
+        //results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Prey.DATA_TYPE)) {
             throw new FileInputException(ERROR_MESSAGE, Prey.DATA_TYPE);
