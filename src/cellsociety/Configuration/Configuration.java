@@ -9,6 +9,11 @@ import java.util.Map;
 import java.util.Random;
 
 public abstract class Configuration {
+    private static Prey preyClass;
+    private static Game gameClass;
+    private static Fire fireClass;
+    private static Percolation perClass;
+    private static Segregation segClass;
 
 //    private static final int mySize=400;
 //    private static XMLReader myReader;
@@ -16,24 +21,26 @@ public abstract class Configuration {
 //    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;;
 //    private static ArrayList<Integer> myParameters;
 //
+
+
   public static void config(Map<String, String> maps) {
        StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
        StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
        String methodName = e.getMethodName();
        if(methodName.equals("getPrey")){
-           Prey preyClass= new Prey(maps);
+          preyClass= new Prey(maps);
        }
        else if(methodName.equals("getGame")){
-           Game gameClass= new Game(maps);
+           gameClass= new Game(maps);
        }
        else if(methodName.equals("getFire")){
-           Fire fireClass= new Fire(maps);
+           fireClass= new Fire(maps);
        }
        else if(methodName.equals("getPercolation")){
-           Percolation perClass= new Percolation(maps);
+           perClass= new Percolation(maps);
        }
        else if(methodName.equals("getSegregation")){
-           Segregation segClass= new Segregation(maps);
+           segClass= new Segregation(maps);
        }
    }
 
@@ -42,6 +49,25 @@ public abstract class Configuration {
     protected double probCatch;
 
     public abstract void paraTitle(String title);
+    public Prey getPreyClass(){
+        return preyClass;
+    }
+
+    public Game getGameClass(){
+        return gameClass;
+    }
+
+    public Fire getFireClass(){
+        return fireClass;
+    }
+
+    public Percolation getPerClass(){
+        return perClass;
+    }
+
+    public Segregation getSegClass(){
+        return segClass;
+    }
 
 
     private int getRandomNumberInRange() {
