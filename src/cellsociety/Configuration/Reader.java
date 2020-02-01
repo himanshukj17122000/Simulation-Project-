@@ -45,8 +45,7 @@ public class Reader {
             for (String field : Game.DATA_FIELDS) {
                 results.put(field, getTextValue(root, field));
             }
-            Game gameClass= new Game();
-            gameClass.setParameters(results);
+            Configuration.config(new Game(results));
         }
     /**
      * Get data contained in this XML file as an object
@@ -61,8 +60,7 @@ public class Reader {
         for (String field : Fire.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        Fire fireClass= new Fire();
-        fireClass.setParameters(results);
+        Configuration.config(new Fire(results));
     }
 
     /**
@@ -78,8 +76,7 @@ public class Reader {
         for (String field : Percolation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        Percolation percolClass= new Percolation();
-        percolClass.setParameters(results);
+        Configuration.config(new Percolation(results));
     }
 
     /**
@@ -95,8 +92,7 @@ public class Reader {
         for (String field : Segregation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        Segregation segClass= new Segregation();
-        segClass.setParameters(results);
+        Configuration.config(new Segregation(results));
     }
 
     /**
@@ -112,8 +108,7 @@ public class Reader {
         for (String field : Prey.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        Prey preyClass= new Prey();
-        preyClass.setParameters(results);
+        Configuration.config(new Prey(results));
     }
 
         // get root element of an XML file
