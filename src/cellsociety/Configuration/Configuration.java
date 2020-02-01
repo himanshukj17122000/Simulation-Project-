@@ -10,8 +10,24 @@ import java.util.Random;
 public abstract class Configuration {
 //    private static final int mySize=400;
 //    private static XMLReader myReader;
+
+//    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;;
+//    private static ArrayList<Integer> myParameters;
+
+//  public Configuration() {
+//       StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+//       StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
+//       String methodName = e.getMethodName();
+//       if(methodName=="getPrey"){
+//           Prey=
+//       }
+//   }
+
+
+
     private String myTitle,left,right,top,bottom,type1,type2,type3;
     private int maxStates,rows,columns,neighbours,probCatch;
+
 
 //    private void checkprob() {
 //        if(myReader.getProbCatch()!=-1){

@@ -5,10 +5,10 @@
         <maxlevels> 3</maxlevels>
         <rows>15</rows>
         <columns>15</columns>
-        <left> No</left>
-        <Right>No </Right>
-        <Top> No</Top>
-        <Bottom> No</Bottom>
+        <left> 0</left>
+        <Right>0 </Right>
+        <Top> 0</Top>
+        <Bottom> 0</Bottom>
         <Threshold>0.15</Threshold>
         <neighbours>8</neighbours>
         <type1>Empty</type1>
