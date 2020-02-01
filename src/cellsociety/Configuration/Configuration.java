@@ -12,13 +12,7 @@ public class Configuration {
 //    private static XMLReader myReader;
 //    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;;
 //    private static ArrayList<Integer> myParameters;
-    private static Object simulation;
 
-//    private static Cell[] myGridArray;
-
-    public Configuration(Object file){
-       simulation=file;
-    }
 
 
 //    private void checkprob() {
@@ -63,7 +57,7 @@ public class Configuration {
 
     private static GridEntry createBorderGridEntry(int row, int col, String simulation) {
         if (myIsBottomPresent != 0 && row == myNumRows + 1) {
-            return new GridEntry(row, col, simulation, myIsBottomPresent);
+            return new GridEntry(row, col, simulation, simulation.getmyIsBottomPresent);
         }
         else if (myIsTopPresent != 0 && row == 0) {
             return new GridEntry(row, col, simulation, myIsTopPresent);
