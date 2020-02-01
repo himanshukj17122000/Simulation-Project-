@@ -23,11 +23,8 @@ public abstract class Configuration {
 //       }
 //   }
 
-
-
-    private String myTitle,left,right,top,bottom,type1,type2,type3;
-    private int maxStates,rows,columns,neighbours,probCatch;
-
+    private String myTitle,type1,type2,type3;
+    private int maxStates,rows,columns,left,right,top,bottom, neighbours,probCatch;
 
 //    private void checkprob() {
 //        if(myReader.getProbCatch()!=-1){

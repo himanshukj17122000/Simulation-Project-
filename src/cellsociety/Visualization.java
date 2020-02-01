@@ -32,9 +32,9 @@ public class Visualization {
     private Scene mySplashScene;
     private Scene myAnimationScene;
 
-    public Visualization(Stage primaryStage, Timeline timeline) {
+    public Visualization(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
         mySplashScene = buildSplashScene(primaryStage, timeline);
-        myAnimationScene = buildAnimationScene(primaryStage, timeline);
+        myAnimationScene = buildAnimationScene(primaryStage, timeline, simulationConfig);
     }
 
     public Scene getMySplashScene() {
@@ -70,16 +70,16 @@ public class Visualization {
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
-    private Scene buildAnimationScene(Stage primaryStage, Timeline timeline) {
+    private Scene buildAnimationScene(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
         ToolBar toolBar = buildToolBar(primaryStage, timeline);
         HBox root = new HBox();
-        GridPane grid = initializeGrid();
+        GridPane grid = initializeGrid(simulationConfig);
         root.getChildren().addAll(toolBar, grid);
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
-    private GridPane initializeGrid() {
-        List<List<GridEntry>> cellStates = Configuration.makeCellGrid();
+    private GridPane initializeGrid(Configuration simulationConfig) {
+        List<List<GridEntry>> cellStates = simulationConfig.makeCellGrid();
         return drawGrid(cellStates);
     }
 
