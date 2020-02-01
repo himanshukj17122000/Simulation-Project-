@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.FireSimulation.EmptyCell;
 import cellsociety.FireSimulation.FireCell;
 import cellsociety.FireSimulation.TreeCell;
 

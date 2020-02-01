@@ -24,7 +24,7 @@ public class TreeCell extends Cell {
         return TYPE;
     }
 
-    public Boolean checkBurningNeighbor(GridEntry entry) {
+    private Boolean checkBurningNeighbor(GridEntry entry) {
         Set<GridEntry> neighborSet = getNeighbors(entry);
         Boolean neighborFire = false;
         for (GridEntry neighbor : neighborSet) {
@@ -43,12 +43,23 @@ public class TreeCell extends Cell {
         return catchFireProb;
     }
 
-    public void checkCatchFire(GridPane grid, GridEntry entry){
+    private Boolean checkCatchFire(GridPane grid, GridEntry entry){
         Boolean FireNeighbor = checkBurningNeighbor(entry);
         double random = Math.random();
         if(random < catchFireProb && FireNeighbor){
             Cell fireCell = new FireCell(entry);
-            updateCell(grid, getLocation()[0], getLocation()[1], fireCell, entry);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void updateCell(GridPane grid, int row, int col, Cell newCell, GridEntry entry){
+        Boolean catchFire = checkCatchFire(grid, entry);
+        if(catchFire){
+            grid.add(null, row, col);
+            grid.add(newCell.getRectangle(), row, col);
+            entry.setCell(newCell);
         }
     }
 
