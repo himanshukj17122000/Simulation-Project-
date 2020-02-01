@@ -57,7 +57,7 @@ public class Reader {
             throw new FileInputException(ERROR_MESSAGE, Fire.DATA_TYPE);
         }
         // read data associated with the fields given by the object
-        Map<String, String> results = new HashMap<>();
+        Map<Integer, String> results = new HashMap<>();
         for (String field : Fire.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
