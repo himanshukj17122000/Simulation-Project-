@@ -15,6 +15,10 @@ public class Game extends Configuration {
     private String myTitle,type1,type2,type3;
     private int maxStates,rows,columns,neighbours,left,right,top,bottom;
 
+    public Game(Object passedIn) {
+        super(passedIn);
+    }
+
 //        // NOTE: keep just as an example for converting toString(), otherwise not used
 //        private Map<String, String> myDataValues;
 

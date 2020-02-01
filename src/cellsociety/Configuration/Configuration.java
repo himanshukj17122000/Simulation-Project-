@@ -16,31 +16,31 @@ public abstract class Configuration {
 //    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;;
 //    private static ArrayList<Integer> myParameters;
 //
-//  public Configuration(Object passedIn) {
-//       StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-//       StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
-//       String methodName = e.getMethodName();
-//       if(methodName.equals("getPrey")){
-//           Prey preyClass= new Prey("Prey");
-//           preyClass= (Prey)passedIn;
-//       }
-//       else if(methodName.equals("getGame")){
-//           Game gameClass= new Game("getGame");
-//           gameClass= (Game) passedIn;
-//       }
-//       else if(methodName.equals("getFire")){
-//           Fire fireClass= new Fire("getFire");
-//           fireClass= (Fire) passedIn;
-//       }
-//       else if(methodName.equals("getGame")){
-//           Game gameClass= new Game("getGame");
-//           gameClass= (Game) passedIn;
-//       }
-//       else if(methodName.equals("getGame")){
-//           Game gameClass= new Game("getGame");
-//           gameClass= (Game) passedIn;
-//       }
-//   }
+  public Configuration(Object passedIn) {
+       StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+       StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
+       String methodName = e.getMethodName();
+       if(methodName.equals("getPrey")){
+           Prey preyClass= new Prey(passedIn);
+           preyClass= (Prey)passedIn;
+       }
+       else if(methodName.equals("getGame")){
+           Game gameClass= new Game(passedIn);
+           gameClass= (Game) passedIn;
+       }
+       else if(methodName.equals("getFire")){
+           Fire fireClass= new Fire(passedIn);
+           fireClass= (Fire) passedIn;
+       }
+       else if(methodName.equals("getPercolation")){
+           Percolation perClass= new Percolation(passedIn);
+           perClass= (Percolation) passedIn;
+       }
+       else if(methodName.equals("getSegregation")){
+           Segregation segClass= new Segregation(passedIn);
+           segClass= (Segregation) passedIn;
+       }
+   }
 
     protected String myTitle,type1,type2,type3;
     protected int maxStates,rows,columns,left,right,top,bottom, neighbours;

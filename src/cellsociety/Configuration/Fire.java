@@ -18,8 +18,12 @@ public class Fire extends Configuration {
         public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
                 "top","bottom","neighbours","probCatch","type1","type2","type3");
 
+    public Fire(Object passedIn) {
+        super(passedIn);
+    }
 
-        // specific data values for this instance
+
+    // specific data values for this instance
         //private String myTitle,type1,type2,type3;
         //private int maxStates,rows,columns,neighbours,left,right,top,bottom;
         //private double probCatch;
@@ -47,7 +51,6 @@ public class Fire extends Configuration {
         public void setParameters (Map<String, String> dataValues) {
             myTitle=dataValues.get(DATA_FIELDS.get(0));
             maxStates=Integer.parseInt(dataValues.get(DATA_FIELDS.get(1)));
-
             rows=Integer.parseInt(dataValues.get(DATA_FIELDS.get(2)));
             columns=Integer.parseInt(dataValues.get(DATA_FIELDS.get(3)));
             left=Integer.parseInt(dataValues.get(DATA_FIELDS.get(4)));

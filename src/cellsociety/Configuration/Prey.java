@@ -11,6 +11,10 @@ public class Prey extends Configuration {
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxstates", "rows","columns","left","Right","Top","Bottom","neighbours","type1","type2","type3");
 
+    public Prey(Object passedIn) {
+        super(passedIn);
+    }
+
 //    // specific data values for this instance
     //private String myTitle,type1,type2,type3;
    //private int maxStates,rows,columns,neighbours,left,right,top,bottom;
