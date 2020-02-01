@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.Configuration.Fire;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,7 +25,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         primaryStage.setTitle(TITLE);
-        Visualization simulation = new Visualization(primaryStage, myTimeline);
+        Visualization simulation = new Visualization(primaryStage, myTimeline, new Fire());
         primaryStage.setScene(simulation.getMySplashScene());
         primaryStage.show();
     }
