@@ -66,64 +66,13 @@ public class Splash {
     private void uploadSim(Button buttonUpload, Stage primaryStage) {
         buttonUpload.setOnAction(e -> {
             try {
-                start(primaryStage);
+                DialogBox popup = new DialogBox();
+                popup.start(primaryStage, this.getSimulationConfig());
+                mySimulationConfig = popup.getMySimulationConfig();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
-    }
-
-    public static final String DATA_FILE_EXTENSION = "*.xml";
-    // NOTE: generally accepted behavior that the chooser remembers where user left it last
-    public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
-
-    public void start (Stage primaryStage) throws Exception {
-        File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
-        try {
-            if(dataFile.getName().equals("fire.xml")){
-                new Reader("type").getFire(dataFile);
-                mySimulationConfig = Configuration.getFireClass();
-            }
-            else if(dataFile.getName().equals("gameOfLife.xml")){
-                new Reader("type").getGame(dataFile);
-                mySimulationConfig = Configuration.getGameClass();
-            }
-            else if(dataFile.getName().equals("percolation.xml")){
-                new Reader("type").getPercolation(dataFile);
-                mySimulationConfig = Configuration.getPerClass();
-            }
-            else if(dataFile.getName().equals("prey.xml")){
-                new Reader("type").getPrey(dataFile);
-                mySimulationConfig = Configuration.getPreyClass();
-            }
-            else if(dataFile.getName().equals("segregation.xml")){
-                new Reader("type").getSegregation(dataFile);
-                mySimulationConfig = Configuration.getSegClass();
-            }
-            Visualization animation = new Visualization(primaryStage, mySimulationConfig);
-            primaryStage.setScene(animation.getMyAnimationScene());
-        }
-        catch (FileInputException e) {
-            // handle error of unexpected file format
-            showMessage(Alert.AlertType.ERROR, e.getMessage());
-        }
-        // nothing selected, so quit the application
-        if (dataFile == null) Platform.exit();
-    }
-
-    // display given message to user using the given type of Alert dialog box
-    private void showMessage (Alert.AlertType type, String message) {
-        new Alert(type, message).showAndWait();
-    }
-
-    // set some sensible defaults when the FileChooser is created
-    private static FileChooser makeChooser (String extensionAccepted) {
-        FileChooser result = new FileChooser();
-        result.setTitle("Open Data File");
-        // pick a reasonable place to start searching for files
-        result.setInitialDirectory(new File(System.getProperty("user.dir")));
-        result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Text Files", extensionAccepted));
-        return result;
     }
 }
 
