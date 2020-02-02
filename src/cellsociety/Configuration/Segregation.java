@@ -47,7 +47,7 @@ public class Segregation extends Configuration {
         top=Integer.parseInt(dataValues.get(DATA_FIELDS.get(6)));
         bottom=Integer.parseInt(dataValues.get(DATA_FIELDS.get(7)));
         neighbours=Integer.parseInt(dataValues.get(DATA_FIELDS.get(8)));
-        probCatch=Integer.parseInt(dataValues.get(DATA_FIELDS.get(9)));
+        probCatch=Double.parseDouble(dataValues.get(DATA_FIELDS.get(9)));
         type1=dataValues.get(DATA_FIELDS.get(10));
         type2=dataValues.get(DATA_FIELDS.get(11));
         type3=dataValues.get(DATA_FIELDS.get(12));
