@@ -11,9 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -60,6 +58,8 @@ public class Visualization {
         VBox toolBar = buildToolBar(primaryStage, simulationConfig);
         HBox root = new HBox();
         GridPane grid = initializeGrid(simulationConfig);
+        Background splashBackground = new Background(new BackgroundFill(SCREEN_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY));
+        root.setBackground(splashBackground);
         root.getChildren().addAll(toolBar, grid);
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
@@ -131,6 +131,7 @@ public class Visualization {
         slider.setMajorTickUnit(0.5);
         slider.setMinorTickCount(5);
         slider.setBlockIncrement(0.05);
+        slider.setStyle("-fx-tick-label-fill: white");
         return slider;
     }
 
