@@ -37,6 +37,7 @@ public class Visualization {
 
     private Scene myAnimationScene;
     private Configuration myNewSimulationConfig;
+    private Simulation mySimulation;
 
     public Visualization(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, timeline, simulationConfig);
@@ -54,12 +55,22 @@ public class Visualization {
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
-    private GridPane initializeGrid(Configuration simulationConfig) {
-        List<List<GridEntry>> cellStates = simulationConfig.makeCellGrid();
-        return drawGrid(cellStates);
+    private void initializeSimulation(List<List<GridEntry>> cellArray){
+        mySimulation = new Simulation(cellArray);
     }
 
-    public GridPane drawGrid(List<List<GridEntry>> cellStates) {
+    private Simulation getMySimulation(){
+        return mySimulation;
+    }
+
+    private GridPane initializeGrid(Configuration simulationConfig) {
+        List<List<GridEntry>> cellStates = simulationConfig.makeCellGrid();
+        initializeSimulation(cellStates);
+        return drawGrid();
+    }
+
+    public GridPane drawGrid() {
+        List<List<GridEntry>> cellStates = getMySimulation().getSimulationGrid();
         GridPane grid = new GridPane();
         grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
         grid.setStyle("-fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; " +

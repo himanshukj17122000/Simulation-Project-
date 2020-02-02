@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class AirCell extends Cell {
     private static final int TYPE = 2;
-    private static final Paint FILL = Color.DARKGRAY;
+    private static final Paint FILL = Color.WHITE;
     private static final boolean CANUPDATE = true;
 
     public AirCell(GridEntry entry) {
