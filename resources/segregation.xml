@@ -2,13 +2,13 @@
 <simulation type="Segregation">
     <gridlayout>
         <title>Segregation</title>
-        <maxlevels> 3</maxlevels>
+        <maxlevels>3</maxlevels>
         <rows>15</rows>
         <columns>15</columns>
-        <left> 0</left>
-        <Right>0 </Right>
-        <Top> 0</Top>
-        <Bottom> 0</Bottom>
+        <left>0</left>
+        <Right>0</Right>
+        <Top>0</Top>
+        <Bottom>0</Bottom>
         <probCatch>0.15</probCatch>
         <neighbours>8</neighbours>
         <type1>Empty</type1>

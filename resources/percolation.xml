@@ -2,13 +2,13 @@
 <simulation type="Percolation">
     <gridlayout>
         <title>Percolation</title>
-        <maxstates> 3</maxstates>
+        <maxstates>3</maxstates>
         <rows>15</rows>
         <columns>15</columns>
-        <left> 0</left>
+        <left>0</left>
         <Right>0 </Right>
-        <Top> 1</Top>
-        <Bottom> 1</Bottom>
+        <Top>1</Top>
+        <Bottom>1</Bottom>
         <neighbours>8</neighbours>
         <type1>Percolated</type1>
         <type2>Open</type2>
