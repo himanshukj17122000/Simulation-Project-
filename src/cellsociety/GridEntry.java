@@ -121,9 +121,9 @@ public class GridEntry {
             case "Prey":
                 cellToSet = preySimulationCell(type);
                 break;
-            case "Segregation":
-                cellToSet = segregationSimulationCell(type);
-                break;
+//            case "Segregation":
+//                cellToSet = segregationSimulationCell(type);
+//                break;
             default:
                 cellToSet = new EmptyCell(this, SEGREGATIONFILL);
         }
@@ -158,13 +158,13 @@ public class GridEntry {
         }
     }
 
-    private Cell segregationSimulationCell(int type){
-        if(type == 1){
-            return new EmptyCell(this, SEGREGATIONFILL);
-        }else{
-            return new PersonCell(this, type);
-        }
-    }
+//    private Cell segregationSimulationCell(int type){
+//        if(type == 1){
+//            return new EmptyCell(this, SEGREGATIONFILL);
+//        }else{
+//            return new PersonCell(this, type);
+//        }
+//    }
 
     private Cell preySimulationCell(int type){
         if(type == 3){
