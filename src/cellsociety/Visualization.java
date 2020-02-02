@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.Configuration.*;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -159,7 +160,12 @@ public class Visualization {
 
     // Next 3 methods: Creating the button functions
     private void pauseGame(Button buttonPause) {
-        buttonPause.setOnAction(e -> myTimeline.pause());
+        if (myTimeline.getStatus() == Animation.Status.PAUSED) {
+            buttonPause.setOnAction(e -> myTimeline.play());
+        }
+        else {
+            buttonPause.setOnAction(e -> myTimeline.pause());
+        }
     }
 
     private void stopGame(Button buttonStop) {
