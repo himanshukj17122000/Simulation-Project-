@@ -10,6 +10,7 @@
         <top>0</top>
         <bottom>0</bottom>
         <probCatch>0.15</probCatch>
+        <probCatchLabel>Probability of Catching on Fire</probCatchLabel>
         <neighbours>4</neighbours>
         <type1>Empty</type1>
         <type2>Burnt</type2>

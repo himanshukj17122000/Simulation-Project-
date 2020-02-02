@@ -10,6 +10,7 @@
         <top>0</top>
         <bottom>0</bottom>
         <probCatch>0.15</probCatch>
+        <probCatchLabel>Threshold Value</probCatchLabel>
         <neighbours>8</neighbours>
         <type1>Empty</type1>
         <type2>Race1</type2>
