@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -91,7 +92,6 @@ public class Visualization {
 
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         VBox toolBar = new VBox(20);
-        Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
         Button buttonHome = createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getMySplashScene()));
         Button buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
@@ -100,7 +100,13 @@ public class Visualization {
         stopGame(buttonStop);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage);
-        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStop, probabilitySlider, buttonUpload);
+        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStop, buttonUpload);
+        String probCatchLabel = simulationConfig.getProbCatchLabel();
+        if (probCatchLabel != null) {
+            Label setProbCatch = new Label("Set the" + probCatchLabel);
+            Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
+            toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
+        }
         toolBar.setPadding(new Insets(50));
         return toolBar;
     }
