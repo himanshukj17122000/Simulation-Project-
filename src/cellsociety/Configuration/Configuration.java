@@ -35,7 +35,7 @@ public abstract class Configuration {
         }
    }
 
-    protected String myTitle,type1,type2,type3;
+    protected String myTitle,type1,type2,type3,probCatchLabel;
     protected int maxStates,rows,columns,left,right,top,bottom, neighbours,fishBreed,sharkBreed;
     protected double probCatch;
 
@@ -105,4 +105,5 @@ public abstract class Configuration {
     public String getType3(){return type3;}
     public int getFishBreed(){return fishBreed;}
     public int getSharkBreed(){return sharkBreed;}
+    public String getProbCatchLabel(){return probCatchLabel;}
 }

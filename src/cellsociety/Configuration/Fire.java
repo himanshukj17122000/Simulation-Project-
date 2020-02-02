@@ -10,7 +10,7 @@ public class Fire extends Configuration {
         // NOTE: simple way to create an immutable list
 
         public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-                "top","bottom","neighbours","probCatch","type1","type2","type3");
+                "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel");
         /**
          * Create game data from given data.
          */
@@ -38,6 +38,7 @@ public class Fire extends Configuration {
             type1=dataValues.get(DATA_FIELDS.get(10));
             type2=dataValues.get(DATA_FIELDS.get(11));
             type3=dataValues.get(DATA_FIELDS.get(12));
+            probCatchLabel=dataValues.get(DATA_FIELDS.get(13));
         }
 }
 
