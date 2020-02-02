@@ -35,13 +35,12 @@ public class Visualization {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
     }
 
-    public Scene getMyAnimationScene() {
-        return myAnimationScene;
-    }
+    // Getter methods
+    public Scene getMyAnimationScene() { return myAnimationScene; }
     public Configuration getMySimulationConfig() { return mySimulationConfig; }
+    private Simulation getMySimulation(){ return mySimulation; }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
-
         GridPane grid = initializeGrid(simulationConfig);
         setSimulationLoop(grid);
         VBox toolBar = buildToolBar(primaryStage, simulationConfig);
@@ -52,12 +51,23 @@ public class Visualization {
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
-    private void initializeSimulation(List<List<GridEntry>> cellArray){
-        mySimulation = new Simulation(cellArray);
+    // Creating the simulation loop and timeline
+    private void setSimulationLoop(GridPane grid) {
+        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(grid));
+        myTimeline = new Timeline();
+        myTimeline.setCycleCount(Timeline.INDEFINITE);
+        myTimeline.getKeyFrames().add(frame);
+        myTimeline.play();
     }
 
-    private Simulation getMySimulation(){
-        return mySimulation;
+    // Updating how the grid simulation looks
+    public void step(GridPane grid){
+        mySimulation.step();
+        drawGrid(grid);
+    }
+
+    private void initializeSimulation(List<List<GridEntry>> cellArray){
+        mySimulation = new Simulation(cellArray);
     }
 
     private GridPane initializeGrid(Configuration simulationConfig) {
@@ -67,11 +77,7 @@ public class Visualization {
         return drawGrid(initializedGrid);
     }
 
-    public void step(GridPane grid){
-        mySimulation.step();
-        drawGrid(grid);
-    }
-
+    // Redrawing the grid after every time step, adding each cell to the grid
     public GridPane drawGrid(GridPane grid) {
         List<List<GridEntry>> cellStates = getMySimulation().getSimulationGrid();
         grid.getChildren().clear();
@@ -86,6 +92,7 @@ public class Visualization {
         return grid;
     }
 
+    // Next 4 Methods: Creating the toolbar for the visualization scene
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         VBox toolBar = new VBox(20);
         implementButtons(primaryStage, toolBar);
@@ -138,6 +145,7 @@ public class Visualization {
         return slider;
     }
 
+    // Next 3 methods: Creating the button functions
     private void pauseGame(Button buttonPause) {
         buttonPause.setOnAction(e -> myTimeline.pause());
     }
@@ -158,14 +166,6 @@ public class Visualization {
                 ex.printStackTrace();
             }
         });
-    }
-
-    private void setSimulationLoop(GridPane grid) {
-        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(grid));
-        myTimeline = new Timeline();
-        myTimeline.setCycleCount(Timeline.INDEFINITE);
-        myTimeline.getKeyFrames().add(frame);
-        myTimeline.play();
     }
 }
 

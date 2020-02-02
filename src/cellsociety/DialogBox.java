@@ -18,25 +18,27 @@ public class DialogBox {
     public void start(Stage primaryStage, Configuration simConfig) throws Exception {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         try {
-            if(dataFile.getName().equals("fire.xml")){
-                new Reader("type").getFire(dataFile);
-                simConfig = Configuration.getFireClass();
-            }
-            else if(dataFile.getName().equals("gameOfLife.xml")){
-                new Reader("type").getGame(dataFile);
-                simConfig = Configuration.getGameClass();
-            }
-            else if(dataFile.getName().equals("percolation.xml")){
-                new Reader("type").getPercolation(dataFile);
-                simConfig = Configuration.getPerClass();
-            }
-            else if(dataFile.getName().equals("prey.xml")){
-                new Reader("type").getPrey(dataFile);
-                simConfig = Configuration.getPreyClass();
-            }
-            else if(dataFile.getName().equals("segregation.xml")){
-                new Reader("type").getSegregation(dataFile);
-                simConfig = Configuration.getSegClass();
+            switch (dataFile.getName()) {
+                case "fire.xml":
+                    new Reader("type").getFire(dataFile);
+                    simConfig = Configuration.getFireClass();
+                    break;
+                case "gameOfLife.xml":
+                    new Reader("type").getGame(dataFile);
+                    simConfig = Configuration.getGameClass();
+                    break;
+                case "percolation.xml":
+                    new Reader("type").getPercolation(dataFile);
+                    simConfig = Configuration.getPerClass();
+                    break;
+                case "prey.xml":
+                    new Reader("type").getPrey(dataFile);
+                    simConfig = Configuration.getPreyClass();
+                    break;
+                case "segregation.xml":
+                    new Reader("type").getSegregation(dataFile);
+                    simConfig = Configuration.getSegClass();
+                    break;
             }
             Visualization animation = new Visualization(primaryStage, simConfig);
             primaryStage.setScene(animation.getMyAnimationScene());
@@ -65,5 +67,6 @@ public class DialogBox {
         return result;
     }
 
+    // Getter method for configuration to be passed on in Visualization and Simulation
     public Configuration getMySimulationConfig() { return mySimulationConfig; }
 }
