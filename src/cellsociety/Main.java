@@ -21,14 +21,12 @@ public class Main extends Application {
     public static final String TITLE = "Cell Society";
     public static final int FRAME_DELAY_MILLISECONDS = 15;
 
-    private Timeline myTimeline;
-
     // Initialize what will be displayed and how it will be updated.
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         primaryStage.setTitle(TITLE);
-        Splash simulation = new Splash(primaryStage, myTimeline);
+        Splash simulation = new Splash(primaryStage);
         primaryStage.setScene(simulation.getMySplashScene());
         primaryStage.show();
 
