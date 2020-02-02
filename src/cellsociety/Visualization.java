@@ -57,7 +57,7 @@ public class Visualization {
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         setSimulationLoop();
-        ToolBar toolBar = buildToolBar(primaryStage, simulationConfig);
+        VBox toolBar = buildToolBar(primaryStage, simulationConfig);
         HBox root = new HBox();
         GridPane grid = initializeGrid(simulationConfig);
         root.getChildren().addAll(toolBar, grid);
@@ -98,21 +98,19 @@ public class Visualization {
         return grid;
     }
 
-    private ToolBar buildToolBar(Stage primaryStage, Configuration simulationConfig) {
-        ToolBar toolBar = new ToolBar();
-        toolBar.setOrientation(Orientation.VERTICAL);
+    private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
+        VBox toolBar = new VBox(20);
         Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
-        Button buttonHome = createButton("Back to Main", null, BUTTON_FONT_SIZE);
-        Splash home = new Splash(primaryStage);
-        buttonHome.setOnAction(e -> primaryStage.setScene(home.getMySplashScene()));
+        Button buttonHome = createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
+        buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getMySplashScene()));
         Button buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         pauseGame(buttonPause);
         Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         stopGame(buttonStop);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage);
-        toolBar.getItems().addAll(buttonHome, buttonPause, buttonStop, probabilitySlider, buttonUpload);
-        toolBar.setPadding(new Insets(20));
+        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStop, probabilitySlider, buttonUpload);
+        toolBar.setPadding(new Insets(50));
         return toolBar;
     }
 
