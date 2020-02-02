@@ -37,13 +37,12 @@ public class Visualization {
 
     private Scene mySplashScene;
     private Scene myAnimationScene;
-    //private Configuration simulationConfig;
+    private Configuration simulationConfig;
 
     public Visualization(Stage primaryStage, Timeline timeline) {
         mySplashScene = buildSplashScene(primaryStage, timeline);
-        Reader.getFire();
-        Map<String, String> dataVal = Reader.getResults();
-        myAnimationScene = buildAnimationScene(primaryStage, timeline, new Fire(dataVal));
+        myAnimationScene = buildAnimationScene(primaryStage, timeline);
+
     }
 
     public Scene getMySplashScene() {
@@ -79,8 +78,8 @@ public class Visualization {
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
-    private Scene buildAnimationScene(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
-        ToolBar toolBar = buildToolBar(primaryStage, timeline, simulationConfig);
+    private Scene buildAnimationScene(Stage primaryStage, Timeline timeline) {
+        ToolBar toolBar = buildToolBar(primaryStage, timeline);
         HBox root = new HBox();
         GridPane grid = initializeGrid(simulationConfig);
         root.getChildren().addAll(toolBar, grid);
@@ -92,7 +91,7 @@ public class Visualization {
         return drawGrid(cellStates);
     }
 
-    private ToolBar buildToolBar(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
+    private ToolBar buildToolBar(Stage primaryStage, Timeline timeline) {
         ToolBar toolBar = new ToolBar();
         toolBar.setOrientation(Orientation.VERTICAL);
         Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
@@ -159,24 +158,28 @@ public class Visualization {
                 if(dataFile.getName().equals("fire.xml")){
 //                        Pair<String, Game> p = new Pair<>(dataFile.getName(), new XMLParser("media").getGame(dataFile));
 //                        showMessage(AlertType.INFORMATION, p.getSecond().toString());
-                    //simulationConfig = new Fire();
                     new Reader("type").getFire(dataFile);
+                    simulationConfig = Configuration.getFireClass();
                 }
                 else if(dataFile.getName().equals("gameOfLife.xml")){
                     //simulationConfig = new Game();
                     new Reader("type").getGame(dataFile);
+                    simulationConfig = Configuration.getGameClass();
                 }
                 else if(dataFile.getName().equals("percolation.xml")){
                     //simulationConfig = new Percolation();
                     new Reader("type").getPercolation(dataFile);
+                    simulationConfig = Configuration.getPerClass();
                 }
                 else if(dataFile.getName().equals("prey.xml")){
                     //simulationConfig = new Prey();
                     new Reader("type").getPrey(dataFile);
+                    simulationConfig = Configuration.getPreyClass();
                 }
                 else if(dataFile.getName().equals("segregation.xml")){
                     //simulationConfig = new Segregation();
                     new Reader("type").getSegregation(dataFile);
+                    simulationConfig = Configuration.getSegClass();
                 }
 
             }

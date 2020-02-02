@@ -1,4 +1,4 @@
-package cellsociety.PercolationSimulation;
+package cellsociety;
 
 import cellsociety.Cell;
 import cellsociety.GridEntry;
@@ -6,20 +6,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class DirtCell extends Cell {
+public class EmptyCell extends Cell {
     private static final int TYPE = 1;
-    private static final Paint FILL = Color.DARKGRAY;
-    private static final boolean CANUPDATE = true;
+    private static final boolean CANUPDATE = false;
 
-    public DirtCell(GridEntry entry) {
-        super(FILL, entry);
+    public EmptyCell(GridEntry entry, Paint color) {
+        super(color, entry);
+
     }
 
     @Override
     public void updateCell(GridPane grid, GridEntry entry) {
+
     }
 
     @Override

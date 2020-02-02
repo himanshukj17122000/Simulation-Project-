@@ -1,37 +1,41 @@
 package cellsociety.PreySimulation;
 
 import cellsociety.Cell;
+import cellsociety.EmptyCell;
 import cellsociety.GridEntry;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class PredatorCell extends Cell { // make animal superclass // contains long classes plz refactor
+public class PredatorCell extends AnimalCell { // make animal superclass // contains long classes plz refactor
     private static final int TYPE = 3;
     private static final Paint FILL = Color.web("#614A32");
+    private static final Paint PREYFILL = Color.PALEGREEN;
     private static final boolean CANUPDATE = true;
-    private int timeStepsToReproduce = 5;
-    private int timeStepsSinceReproduce;
-    private int timeStepsSurviveWithoutFood = 5;
-    private int timeStepsSinceFood;
+    private int reproductionTime = 30;
+    private int timeSinceReproduction;
+    private int maxTimeWithoutEating = 5;
+    private int timeSinceEating;
 
     public PredatorCell(GridEntry entry) {
-        super(FILL, entry);
-        setTimeStepsSinceFood(0);
-        setTimeStepsSinceReproduce(0);
+        super(entry);
+        this.setColor(FILL);
+        setReproductionTime(30); // get value from FILEEEEE
+        setTimeSinceEating(0);
+        setTimeSinceReproduction(0);
     }
 
     @Override
     public void updateCell(GridPane grid,  GridEntry entry) {
-        if(getTimeStepsSinceFood() > timeStepsSurviveWithoutFood){
+        if(getTimeSinceEating() > maxTimeWithoutEating){
             die(grid, entry);
         }else{
             move(grid, entry);
+            super.reproduce(grid, entry);
         }
     }
 
@@ -45,118 +49,82 @@ public class PredatorCell extends Cell { // make animal superclass // contains l
         return 0;
     }
 
-    private void setTimeStepsSinceReproduce(int time){
-        timeStepsSinceReproduce = time;
+    protected void setTimeSinceReproduction(int time){
+        timeSinceReproduction = time;
     }
 
-    private int getTimeStepsSinceReproduce(){
-        return timeStepsSinceReproduce;
+    protected int getTimeSinceReproduction(){
+        return timeSinceReproduction;
     }
 
-    private void setTimeStepsSinceFood(int time){
-        timeStepsSinceFood = time;
+    private void setTimeSinceEating(int time){
+        timeSinceEating = time;
     }
 
-    private int getTimeStepsSinceFood(){
-        return timeStepsSinceFood;
+    private int getTimeSinceEating(){
+        return timeSinceEating;
     }
 
-    private void move(GridPane grid, GridEntry entry) {
-        Set<GridEntry> preyCellSet = setOfPreyNeighbors();
+    @Override
+    public int getReproductionTime() {
+        return reproductionTime;
+    }
+
+    @Override
+    public void setReproductionTime(int reproductionTime) {
+        this.reproductionTime = reproductionTime;
+    }
+
+    @Override
+    protected AnimalCell offSpring(GridEntry entry){
+        return new PredatorCell(entry);
+    }
+
+    @Override
+    protected void move(GridPane grid, GridEntry entry) {
+        Set<GridEntry> preyCellSet = setOfPreyNeighbors(entry);
         int size = preyCellSet.size();
         int space = new Random().nextInt(size);
         int i = 0;
-        boolean moved = false;
+        boolean ate = false;
         for (GridEntry gridSpace : preyCellSet) {
             if (i == space) {
-                Cell newEmptyCell = new EmptyCell(entry);
-                grid.add(newEmptyCell.getRectangle(), entry.getRow(), entry.getColumn()); // setting current space to empty cell
-                entry.setCell(newEmptyCell);
-                grid.add(this.getRectangle(), gridSpace.getRow(), gridSpace.getColumn()); //setting prey space to instance of current cell
-                gridSpace.setCell(this);
-                moved = true;
+                eatAnimal(grid, entry, gridSpace);
+                ate = true;
                 break;
             }
             i++;
         }
-        if (!moved) {
-            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors();
-            size = emptyCellSet.size();
-            space = new Random().nextInt(size);
-            i = 0;
-            for (GridEntry gridSpace : emptyCellSet) {
-                if (i == space) {
-                    Cell newEmptyCell = new EmptyCell(entry);
-                    grid.add(newEmptyCell.getRectangle(), entry.getRow(), entry.getColumn()); // setting current space to empty cell
-                    entry.setCell(newEmptyCell);
-                    grid.add(this.getRectangle(), gridSpace.getRow(), gridSpace.getColumn()); //setting empty space to instance of current cell
-                    gridSpace.setCell(this);
-                    break;
-                }
-                i++;
-            }
-        }
-        if (moved) {
-            setTimeStepsSinceFood(0);
+        if (ate) {
+            setTimeSinceEating(0);
         } else {
-            setTimeStepsSinceFood(getTimeStepsSinceFood() + 1);
+            super.move(grid, entry);
+            setTimeSinceEating(getTimeSinceEating() + 1);
         }
     }
 
-    private Set<GridEntry> setOfEmptyNeighbors(){
-        Set<GridEntry> neighborSet = getNeighbors();
-        Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
-        for (GridEntry neighbor : neighborSet) {
-            if (neighbor.getCell().getType() == 1) {
-                emptyCellSet.add(neighbor);
-            }
-        }
-        return emptyCellSet;
+    private void eatAnimal(GridPane grid, GridEntry currentGridSpace, GridEntry newGridSpace){
+        Cell newEmptyCell = new EmptyCell(currentGridSpace, PREYFILL);
+        grid.add(newEmptyCell.getRectangle(), currentGridSpace.getRow(), currentGridSpace.getColumn()); // setting current space to empty cell
+        currentGridSpace.setCell(newEmptyCell);
+        grid.add(this.getRectangle(), newGridSpace.getRow(), newGridSpace.getColumn()); //setting prey space to instance of current cell
+        newGridSpace.setCell(this);
     }
 
-    private Set<GridEntry> setOfPreyNeighbors(){
-        Set<GridEntry> neighborSet = getNeighbors();
+    private Set<GridEntry> setOfPreyNeighbors(GridEntry entry){
+        Set<GridEntry> neighborSet = entry.getNeighbors();
         Set<GridEntry> preyCellSet = new HashSet<GridEntry>();
         for (GridEntry neighbor : neighborSet) {
-            if (neighbor.getCell().getType() == 1) {
+            if (neighbor.getCell().getType() == 2) {
                 preyCellSet.add(neighbor);
             }
         }
         return preyCellSet;
     }
 
-    private void reproduce(GridPane grid, GridEntry entry) {
-        boolean reproduced = false;
-        if (getTimeStepsSinceReproduce() == timeStepsToReproduce) {
-            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors();
-            int size = emptyCellSet.size();
-            int space = new Random().nextInt(size);
-            int i = 0;
-            for (GridEntry gridSpace : emptyCellSet) {
-                if (i == space) {
-                    Cell newPredatorCell = new PredatorCell(entry);
-                    grid.add(newPredatorCell.getRectangle(), entry.getRow(), entry.getColumn()); // setting current space to empty cell
-                    entry.setCell(newPredatorCell);
-
-                    grid.add(this.getRectangle(), gridSpace.getRow(), gridSpace.getColumn()); //setting empty space to instance of current cell
-                    gridSpace.setCell(this);
-                    reproduced = true;
-                    break;
-                }
-                i++;
-            }
-        }
-        if (!reproduced) {
-            setTimeStepsSinceReproduce(0);
-        } else {
-            setTimeStepsSinceReproduce(getTimeStepsSinceReproduce()+1);
-        }
-    }
-
     private void die(GridPane grid, GridEntry entry) {
-        Cell newEmptyCell = new EmptyCell(entry);
+        Cell newEmptyCell = new EmptyCell(entry, PREYFILL);
         grid.add(newEmptyCell.getRectangle(), entry.getRow(), entry.getColumn());
     }
-
 
 }

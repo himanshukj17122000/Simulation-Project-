@@ -20,7 +20,7 @@ public class AirCell extends Cell {
 
     @Override
     public void updateCell(GridPane grid, GridEntry entry) {
-        Boolean fillWater = checkWaterNeighbor();
+        Boolean fillWater = checkWaterNeighbor(entry);
         if(fillWater){
             Cell waterCell = new WaterCell(entry);
             grid.add(null, entry.getRow(), entry.getColumn());
@@ -39,8 +39,8 @@ public class AirCell extends Cell {
         return 0;
     }
 
-    private Boolean checkWaterNeighbor() {
-        Set<GridEntry> neighborSet = getNeighbors();
+    private Boolean checkWaterNeighbor(GridEntry entry) {
+        Set<GridEntry> neighborSet = entry.getNeighbors();
         Boolean neighborWater = false;
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 3) {
