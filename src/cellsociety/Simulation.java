@@ -20,7 +20,6 @@ public class Simulation {
         return SimulationGrid;
     }
 
-
     public void step(){
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {

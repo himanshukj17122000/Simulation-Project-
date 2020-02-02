@@ -5,14 +5,9 @@ import cellsociety.Configuration.FileInputException;
 import cellsociety.Configuration.Reader;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToolBar;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -20,28 +15,21 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
-import java.sql.Time;
-import java.util.List;
-
 import static cellsociety.Main.TITLE;
 
 public class Splash {
     public static final int SCREEN_WIDTH = 1200;
     public static final int SCREEN_HEIGHT = 800;
     public static final Paint SCREEN_BACKGROUND = Color.web("1f2e50");
-    public static final double GRID_WIDTH = 600.0;
-    public static final double GRID_HEIGHT = 600.0;
     public static final String BUTTON_STYLE_COLOR = "#3197bc";
     public static final int BUTTON_FONT_SIZE = 16;
 
     private Scene mySplashScene;
-    private Scene myAnimationScene;
     private Configuration simulationConfig;
 
-    public Splash(Stage primaryStage, Timeline timeline) {
-        mySplashScene = buildSplashScene(primaryStage, timeline);
+    public Splash(Stage primaryStage) {
+        mySplashScene = buildSplashScene(primaryStage);
     }
 
     public Scene getMySplashScene() {
@@ -49,12 +37,12 @@ public class Splash {
     }
     public Configuration getSimulationConfig() { return simulationConfig; }
 
-    private Scene buildSplashScene(Stage primaryStage, Timeline timeline) {
+    private Scene buildSplashScene(Stage primaryStage) {
         Text simTitle = new Text(TITLE);
         simTitle.setTextAlignment(TextAlignment.CENTER);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         buttonUpload.setLayoutX(550);
-        uploadSim(buttonUpload, primaryStage, timeline);
+        uploadSim(buttonUpload, primaryStage);
         VBox root = new VBox(20);
         root.getChildren().addAll(simTitle, buttonUpload);
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
@@ -67,11 +55,10 @@ public class Splash {
         return button;
     }
 
-    private void uploadSim(Button buttonUpload, Stage primaryStage, Timeline timeline) {
+    private void uploadSim(Button buttonUpload, Stage primaryStage) {
         buttonUpload.setOnAction(e -> {
-            //if (timeline.getStatus() != Animation.Status.STOPPED) timeline.stop();
             try {
-                start(primaryStage, timeline);
+                start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -82,7 +69,7 @@ public class Splash {
     // NOTE: generally accepted behavior that the chooser remembers where user left it last
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
 
-    public void start (Stage primaryStage, Timeline timeline) throws Exception {
+    public void start (Stage primaryStage) throws Exception {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         try {
             if(dataFile.getName().equals("fire.xml")){
@@ -111,7 +98,7 @@ public class Splash {
                 new Reader("type").getSegregation(dataFile);
                 simulationConfig = Configuration.getSegClass();
             }
-            Visualization animation = new Visualization(primaryStage, timeline, simulationConfig);
+            Visualization animation = new Visualization(primaryStage, simulationConfig);
             primaryStage.setScene(animation.getMyAnimationScene());
         }
         catch (FileInputException e) {

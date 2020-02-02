@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.Configuration.*;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -19,8 +20,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.ObjectInputFilter;
 import java.util.List;
 import java.util.Map;
@@ -35,21 +38,26 @@ public class Visualization {
     public static final double GRID_HEIGHT = 600.0;
     public static final String BUTTON_STYLE_COLOR = "#3197bc";
     public static final int BUTTON_FONT_SIZE = 16;
+    public static final int FRAMES_PER_SECOND = 60;
+    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
     private Scene myAnimationScene;
     private Configuration myNewSimulationConfig;
     private Simulation mySimulation;
+    private Timeline timeline;
 
-    public Visualization(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
-        myAnimationScene = buildAnimationScene(primaryStage, timeline, simulationConfig);
+    public Visualization(Stage primaryStage, Configuration simulationConfig) {
+        myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
     }
 
     public Scene getMyAnimationScene() {
         return myAnimationScene;
     }
 
-    private Scene buildAnimationScene(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
-        ToolBar toolBar = buildToolBar(primaryStage, timeline, simulationConfig);
+    private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
+        setSimulationLoop();
+        ToolBar toolBar = buildToolBar(primaryStage, simulationConfig);
         HBox root = new HBox();
         GridPane grid = initializeGrid(simulationConfig);
         root.getChildren().addAll(toolBar, grid);
@@ -90,19 +98,19 @@ public class Visualization {
         return grid;
     }
 
-    private ToolBar buildToolBar(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
+    private ToolBar buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         ToolBar toolBar = new ToolBar();
         toolBar.setOrientation(Orientation.VERTICAL);
         //Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
         Button buttonHome = createButton("Back to Main", null, BUTTON_FONT_SIZE);
-        Splash home = new Splash(primaryStage, timeline);
+        Splash home = new Splash(primaryStage);
         buttonHome.setOnAction(e -> primaryStage.setScene(home.getMySplashScene()));
         Button buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        pauseGame(buttonPause, timeline);
+        pauseGame(buttonPause);
         Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        stopGame(buttonStop, timeline);
+        stopGame(buttonStop);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        uploadSim(buttonUpload, primaryStage, timeline);
+        uploadSim(buttonUpload, primaryStage);
         toolBar.getItems().addAll(buttonHome, buttonPause, buttonStop, buttonUpload);
         toolBar.setPadding(new Insets(20));
         return toolBar;
@@ -128,15 +136,15 @@ public class Visualization {
         return slider;
     }
 
-    private void pauseGame(Button buttonPause, Timeline timeline) {
+    private void pauseGame(Button buttonPause) {
         buttonPause.setOnAction(e -> timeline.pause());
     }
 
-    private void stopGame(Button buttonStop, Timeline timeline) {
+    private void stopGame(Button buttonStop) {
         buttonStop.setOnAction(e -> timeline.stop());
     }
 
-    private void uploadSim(Button buttonUpload, Stage primaryStage, Timeline timeline) {
+    private void uploadSim(Button buttonUpload, Stage primaryStage) {
         buttonUpload.setOnAction(e -> {
             //if (timeline.getStatus() != Animation.Status.STOPPED) timeline.stop();
             try {
@@ -145,6 +153,14 @@ public class Visualization {
                 ex.printStackTrace();
             }
         });
+    }
+
+    private void setSimulationLoop() {
+        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(frame);
+        timeline.play();
     }
 
     public static final String DATA_FILE_EXTENSION = "*.xml";
@@ -177,7 +193,7 @@ public class Visualization {
                 new Reader("type").getSegregation(dataFile);
                 myNewSimulationConfig = Configuration.getSegClass();
             }
-            Visualization newAnimation = new Visualization(primaryStage, timeline, myNewSimulationConfig);
+            Visualization newAnimation = new Visualization(primaryStage, myNewSimulationConfig);
             primaryStage.setScene(newAnimation.getMyAnimationScene());
         }
         catch (FileInputException e) {
