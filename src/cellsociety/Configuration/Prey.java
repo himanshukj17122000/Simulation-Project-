@@ -6,7 +6,7 @@ import java.util.Map;
 public class Prey extends Configuration {
 
     // name in data file that will indicate it represents data for this type of object
-    public static final String DATA_TYPE = "Game of Life";
+    public static final String DATA_TYPE = "Prey";
 
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list

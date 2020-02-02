@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<simulation type="GameOfLife">
+<simulation type="Game of Life">
     <gridlayout>
         <title>Game of Life</title>
         <maxStates>3</maxStates>
