@@ -19,13 +19,11 @@ public class AirCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridPane grid, GridEntry entry) {
+    public void updateCell(GridEntry entry) {
         Boolean fillWater = checkWaterNeighbor(entry);
         if(fillWater){
             Cell waterCell = new WaterCell(entry);
-            grid.add(null, entry.getRow(), entry.getColumn());
-            grid.add(waterCell.getRectangle(), entry.getRow(), entry.getColumn());
-            entry.setCell(waterCell);
+            entry.setNextStepCell(waterCell);
         }
     }
 

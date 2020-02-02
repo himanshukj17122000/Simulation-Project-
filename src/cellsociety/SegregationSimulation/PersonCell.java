@@ -25,7 +25,7 @@ public class PersonCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridPane grid, GridEntry entry) { //need to fix to get empty cell set somewhere or make new method
+    public void updateCell(GridEntry entry) { //need to fix to get empty cell set somewhere or make new method
         Boolean satisfied = checkSatisfaction(entry);
         if(!satisfied){
             Set<GridEntry> pseudoEmptySet = entry.getNeighbors();
@@ -33,11 +33,9 @@ public class PersonCell extends Cell {
             int i = 0;
             for(GridEntry gridSpace : pseudoEmptySet) {
                 if (i == space){
-                    Cell newEmptyCell = new EmptyCell(entry, SEGREGATIONFILL);
-                    grid.add(newEmptyCell.getRectangle(), entry.getRow(),entry.getColumn()); // setting current space to empty cell
-                    entry.setCell(newEmptyCell);
-                    grid.add(this.getRectangle(), gridSpace.getRow(), gridSpace.getColumn()); //setting empty space to instance of current cell
-                    gridSpace.setCell(this);
+                    Cell newEmptyCell = new EmptyCell(entry, SEGREGATIONFILL); // setting current space to empty cell
+                    entry.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
+                    gridSpace.setNextStepCell(this);
                     break;
                 }
                 i++;

@@ -19,7 +19,7 @@ public class WaterCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridPane grid, GridEntry entry) {
+    public void updateCell(GridEntry entry) {
 
     }
 
