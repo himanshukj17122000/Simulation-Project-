@@ -97,7 +97,7 @@ public class Visualization {
         stopGame(buttonStop, timeline);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage, timeline);
-      //  toolBar.getItems().addAll(probabilitySlider, buttonHome, buttonPause, buttonStop, buttonUpload);
+        toolBar.getItems().addAll(buttonHome, buttonPause, buttonStop, buttonUpload);
         return toolBar;
     }
 
