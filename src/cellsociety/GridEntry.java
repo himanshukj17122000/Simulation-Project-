@@ -56,9 +56,7 @@ public class GridEntry {
         setCell(getNextStepCell());
     }
 
-    private void setNeighbors(List<List<GridEntry>> grid, String simulation){ //refactor to be 20 lines
-        int numRows = XMLReader.getRows();
-        int numCols = XMLReader.getColumns();
+    public void setNeighbors(List<List<GridEntry>> grid, String simulation, int numRows, int numCols){ //refactor to be 20 lines
 
         if(ROW>1){
             GridEntry topNeighbor = grid.get(ROW -1).get(COLUMN);
