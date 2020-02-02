@@ -6,9 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import cellsociety.Configuration.FileInputException;
-import cellsociety.Configuration.Game;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

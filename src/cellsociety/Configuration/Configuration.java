@@ -1,8 +1,6 @@
 package cellsociety.Configuration;
 
 import cellsociety.GridEntry;
-import cellsociety.XMLReader;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
