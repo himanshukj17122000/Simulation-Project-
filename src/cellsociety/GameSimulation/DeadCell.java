@@ -25,6 +25,8 @@ public class DeadCell extends Cell {
         if(enoughNeighbors){
             Cell liveCell = new LiveCell(entry);
             entry.setNextStepCell(liveCell);
+        }else{
+            entry.setNextStepCell(this);
         }
     }
 

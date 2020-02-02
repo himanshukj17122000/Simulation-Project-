@@ -3,6 +3,7 @@ package cellsociety.SegregationSimulation;
 import cellsociety.Cell;
 import cellsociety.EmptyCell;
 import cellsociety.GridEntry;
+import cellsociety.Simulation;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -17,29 +18,44 @@ public class PersonCell extends Cell {
     private static int RACE;
     private double Threshold = 0.3;
     private static final Paint SEGREGATIONFILL = Color.WHITE;
+    private Simulation mySimulation;
 
 
-    public PersonCell(GridEntry entry, int race) {
+    public PersonCell(GridEntry entry, int race, Simulation simulation ) {
         super(FILL[race-2], entry);
         initializeRace(race);
+        updateSimulation(simulation);
+    }
+
+    private void updateSimulation(Simulation simulation){
+        mySimulation = simulation;
+    }
+
+    private Simulation getSimulation(){
+        return mySimulation;
     }
 
     @Override
     public void updateCell(GridEntry entry) { //need to fix to get empty cell set somewhere or make new method
-        Boolean satisfied = checkSatisfaction(entry);
+        boolean satisfied = checkSatisfaction(entry);
+        boolean moved = false;
         if(!satisfied){
-            Set<GridEntry> pseudoEmptySet = entry.getNeighbors();
-            int space = new Random().nextInt(pseudoEmptySet.size());
+            Set<GridEntry> emptySet = getSimulation().getEmptyCellSet();
+            int space = new Random().nextInt(emptySet.size());
             int i = 0;
-            for(GridEntry gridSpace : pseudoEmptySet) {
+            for(GridEntry gridSpace : emptySet) {
                 if (i == space){
                     Cell newEmptyCell = new EmptyCell(entry, SEGREGATIONFILL); // setting current space to empty cell
                     entry.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
                     gridSpace.setNextStepCell(this);
+                    moved = true;
                     break;
                 }
                 i++;
             }
+        }
+        if(!moved){
+            entry.setNextStepCell(this);
         }
     }
 

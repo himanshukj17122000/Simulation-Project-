@@ -24,6 +24,8 @@ public class AirCell extends Cell {
         if(fillWater){
             Cell waterCell = new WaterCell(entry);
             entry.setNextStepCell(waterCell);
+        }else{
+            entry.setNextStepCell(this);
         }
     }
 
