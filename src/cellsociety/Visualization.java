@@ -54,10 +54,11 @@ public class Visualization {
     }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
-        setSimulationLoop();
+
+        GridPane grid = initializeGrid(simulationConfig);
+        setSimulationLoop(grid);
         VBox toolBar = buildToolBar(primaryStage, simulationConfig);
         HBox root = new HBox();
-        GridPane grid = initializeGrid(simulationConfig);
         Background splashBackground = new Background(new BackgroundFill(SCREEN_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY));
         root.setBackground(splashBackground);
         root.getChildren().addAll(toolBar, grid);
@@ -75,17 +76,18 @@ public class Visualization {
     private GridPane initializeGrid(Configuration simulationConfig) {
         List<List<GridEntry>> cellStates = simulationConfig.makeCellGrid();
         initializeSimulation(cellStates);
-        return drawGrid();
+        GridPane initializedGrid = new GridPane();
+        return drawGrid(initializedGrid);
     }
 
-    public void step(){
+    public void step(GridPane grid){
         mySimulation.step();
-        drawGrid();
+        drawGrid(grid);
     }
 
-    public GridPane drawGrid() {
+    public GridPane drawGrid(GridPane grid) {
         List<List<GridEntry>> cellStates = getMySimulation().getSimulationGrid();
-        GridPane grid = new GridPane();
+        grid.getChildren().clear();
         grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
         grid.setStyle("-fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 25; " +
                 "-fx-border-color: black;");
@@ -154,8 +156,8 @@ public class Visualization {
         });
     }
 
-    private void setSimulationLoop() {
-        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
+    private void setSimulationLoop(GridPane grid) {
+        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(grid));
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(frame);

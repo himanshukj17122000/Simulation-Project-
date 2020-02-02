@@ -63,6 +63,8 @@ public class TreeCell extends Cell {
         if(catchFire){
             Cell fireCell = new FireCell(entry);
             entry.setNextStepCell(fireCell);
+        }else{
+            entry.setNextStepCell(this);
         }
     }
 
