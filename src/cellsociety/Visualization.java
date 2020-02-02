@@ -46,6 +46,19 @@ public class Visualization {
         return myAnimationScene;
     }
 
+    private Scene buildAnimationScene(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
+        ToolBar toolBar = buildToolBar(primaryStage, timeline, simulationConfig);
+        HBox root = new HBox();
+        GridPane grid = initializeGrid(simulationConfig);
+        root.getChildren().addAll(toolBar, grid);
+        return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
+    }
+
+    private GridPane initializeGrid(Configuration simulationConfig) {
+        List<List<GridEntry>> cellStates = simulationConfig.makeCellGrid();
+        return drawGrid(cellStates);
+    }
+
     public GridPane drawGrid(List<List<GridEntry>> cellStates) {
         GridPane grid = new GridPane();
         grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
@@ -58,19 +71,6 @@ public class Visualization {
             }
         }
         return grid;
-    }
-
-    private Scene buildAnimationScene(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
-        ToolBar toolBar = buildToolBar(primaryStage, timeline, simulationConfig);
-        HBox root = new HBox();
-        GridPane grid = initializeGrid(simulationConfig);
-        root.getChildren().addAll(toolBar, grid);
-        return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
-    }
-
-    private GridPane initializeGrid(Configuration simulationConfig) {
-        List<List<GridEntry>> cellStates = simulationConfig.makeCellGrid();
-        return drawGrid(cellStates);
     }
 
     private ToolBar buildToolBar(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {

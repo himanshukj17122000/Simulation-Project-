@@ -98,19 +98,19 @@ public class GridEntry {
     public void createCell(String simulation, int type) { // refactor (make into smaller functions)
         Cell cellToSet;
         switch(simulation){
-            case "FIRE":
+            case "Fire":
                 cellToSet = fireSimulationCell(type);
                 break;
-            case "GAME":
+            case "Game of Life":
                 cellToSet = gameSimulationCell(type);
                 break;
-            case "PERCOLATION":
+            case "Percolation":
                 cellToSet = percolationSimulationCell(type);
                 break;
-            case "PREY":
+            case "Prey-Predator":
                 cellToSet = preySimulationCell(type);
                 break;
-            case "SEGREGATION":
+            case "Segregation":
                 cellToSet = segregationSimulationCell(type);
                 break;
             default:

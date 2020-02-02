@@ -37,7 +37,7 @@ public class Reader {
          * Get data contained in this XML file as an object
          */
         public void getGame (File dataFile) {
-            results.clear();
+            //results.clear();
             Element root = getRootElement(dataFile);
             if (! isValidFile(root, Game.DATA_TYPE)) {
                 throw new FileInputException(ERROR_MESSAGE, Game.DATA_TYPE);
