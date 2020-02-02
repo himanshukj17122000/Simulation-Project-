@@ -87,8 +87,8 @@ public class Visualization {
         List<List<GridEntry>> cellStates = getMySimulation().getSimulationGrid();
         GridPane grid = new GridPane();
         grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
-        grid.setStyle("-fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; " +
-                "-fx-border-radius: 5; -fx-border-color: black;");
+        grid.setStyle("-fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 25; " +
+                "-fx-border-color: black;");
         for (int row = 0; row < cellStates.size(); row += 1) {
             for (int col = 0; col < cellStates.get(row).size(); col += 1) {
                 Cell cell = cellStates.get(row).get(col).getCell();

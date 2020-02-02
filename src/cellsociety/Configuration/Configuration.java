@@ -15,26 +15,26 @@ public abstract class Configuration {
     private static Percolation perClass;
     private static Segregation segClass;
     public static void config(Map<String, String> maps) {
-      StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-      StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
-      String methodName = e.getMethodName();
-      switch (methodName) {
-          case "getPrey":
-              preyClass = new Prey(maps);
-              break;
-          case "getGame":
-              gameClass = new Game(maps);
-              break;
-          case "getFire":
-              fireClass = new Fire(maps);
-              break;
-          case "getPercolation":
-              perClass = new Percolation(maps);
-              break;
-          case "getSegregation":
-              segClass = new Segregation(maps);
-              break;
-      }
+        StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+        StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
+        String methodName = e.getMethodName();
+        switch (methodName) {
+            case "getPrey":
+                preyClass = new Prey(maps);
+                break;
+            case "getGame":
+                gameClass = new Game(maps);
+                break;
+            case "getFire":
+                fireClass = new Fire(maps);
+                break;
+            case "getPercolation":
+                perClass = new Percolation(maps);
+                break;
+            case "getSegregation":
+                segClass = new Segregation(maps);
+                break;
+        }
    }
 
     protected String myTitle,type1,type2,type3;
@@ -43,31 +43,11 @@ public abstract class Configuration {
 
     public abstract void paraTitle(String title);
 
-    public static Prey getPreyClass(){
-        return preyClass;
-    }
-
-    public static Game getGameClass(){
-        return gameClass;
-    }
-
-    public static Fire getFireClass(){
-        return fireClass;
-    }
-
-    public static Percolation getPerClass(){
-        return perClass;
-    }
-
-    public static Segregation getSegClass(){
-        return segClass;
-    }
-
-
-    private int getRandomNumberInRange() {
-        Random r = new Random();
-        return r.nextInt(this.getMaxStates())+1;
-    }
+    public static Prey getPreyClass(){ return preyClass; }
+    public static Game getGameClass(){ return gameClass; }
+    public static Fire getFireClass(){ return fireClass; }
+    public static Percolation getPerClass(){ return perClass; }
+    public static Segregation getSegClass(){ return segClass; }
 
     public List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
         List<List<GridEntry>> grid = new ArrayList<>();
@@ -99,6 +79,11 @@ public abstract class Configuration {
             return new GridEntry(row, col, simulation, this.getRight());
         }
         return null;
+    }
+
+    private int getRandomNumberInRange() {
+        Random r = new Random();
+        return r.nextInt(this.getMaxStates())+1;
     }
 
     private GridEntry randomizeGridEntry(int row, int col, String simulation) {
