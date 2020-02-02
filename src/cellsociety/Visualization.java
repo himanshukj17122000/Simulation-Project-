@@ -101,7 +101,7 @@ public class Visualization {
     private ToolBar buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         ToolBar toolBar = new ToolBar();
         toolBar.setOrientation(Orientation.VERTICAL);
-        //Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
+        Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
         Button buttonHome = createButton("Back to Main", null, BUTTON_FONT_SIZE);
         Splash home = new Splash(primaryStage);
         buttonHome.setOnAction(e -> primaryStage.setScene(home.getMySplashScene()));
@@ -111,7 +111,7 @@ public class Visualization {
         stopGame(buttonStop);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage);
-        toolBar.getItems().addAll(buttonHome, buttonPause, buttonStop, buttonUpload);
+        toolBar.getItems().addAll(buttonHome, buttonPause, buttonStop, probabilitySlider, buttonUpload);
         toolBar.setPadding(new Insets(20));
         return toolBar;
     }
