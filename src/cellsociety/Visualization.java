@@ -38,19 +38,8 @@ public class Visualization {
     private Scene myAnimationScene;
     private Configuration myNewSimulationConfig;
 
-<<<<<<< HEAD
     public Visualization(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, timeline, simulationConfig);
-=======
-    public Visualization(Stage primaryStage, Timeline timeline) {
-        mySplashScene = buildSplashScene(primaryStage, timeline);
-        myAnimationScene = buildAnimationScene(primaryStage, timeline);
-
-    }
-
-    public Scene getMySplashScene() {
-        return mySplashScene;
->>>>>>> 6ed096f092fa8369adb1dd370df5694e38afd274
     }
 
     public Scene getMyAnimationScene() {
@@ -182,7 +171,7 @@ public class Visualization {
                 // handle error of unexpected file format
                 showMessage(Alert.AlertType.ERROR, e.getMessage());
             }
-            dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
+            //dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         }
         // nothing selected, so quit the application
         Platform.exit();
