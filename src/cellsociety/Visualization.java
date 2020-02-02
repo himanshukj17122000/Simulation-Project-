@@ -11,9 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -56,10 +54,13 @@ public class Visualization {
     }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
+
         GridPane grid = initializeGrid(simulationConfig);
         setSimulationLoop(grid);
-        ToolBar toolBar = buildToolBar(primaryStage, simulationConfig);
+        VBox toolBar = buildToolBar(primaryStage, simulationConfig);
         HBox root = new HBox();
+        Background splashBackground = new Background(new BackgroundFill(SCREEN_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY));
+        root.setBackground(splashBackground);
         root.getChildren().addAll(toolBar, grid);
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
@@ -100,21 +101,19 @@ public class Visualization {
         return grid;
     }
 
-    private ToolBar buildToolBar(Stage primaryStage, Configuration simulationConfig) {
-        ToolBar toolBar = new ToolBar();
-        toolBar.setOrientation(Orientation.VERTICAL);
-        //Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
-        Button buttonHome = createButton("Back to Main", null, BUTTON_FONT_SIZE);
-        Splash home = new Splash(primaryStage);
-        buttonHome.setOnAction(e -> primaryStage.setScene(home.getMySplashScene()));
+    private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
+        VBox toolBar = new VBox(20);
+        Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
+        Button buttonHome = createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
+        buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getMySplashScene()));
         Button buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         pauseGame(buttonPause);
         Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         stopGame(buttonStop);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage);
-        toolBar.getItems().addAll(buttonHome, buttonPause, buttonStop, buttonUpload);
-        toolBar.setPadding(new Insets(20));
+        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStop, probabilitySlider, buttonUpload);
+        toolBar.setPadding(new Insets(50));
         return toolBar;
     }
 
@@ -135,6 +134,7 @@ public class Visualization {
         slider.setMajorTickUnit(0.5);
         slider.setMinorTickCount(5);
         slider.setBlockIncrement(0.05);
+        slider.setStyle("-fx-tick-label-fill: white");
         return slider;
     }
 
