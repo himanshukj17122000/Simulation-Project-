@@ -17,7 +17,7 @@ public class FireCell extends Cell {
 
     @Override
     public void updateCell(GridEntry entry) {
-
+        entry.setNextStepCell(this);
     }
 
     @Override
