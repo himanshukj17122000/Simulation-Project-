@@ -64,7 +64,7 @@ public abstract class Configuration {
         return grid;
     }
 
-    public void initializeGridNeighbors(List<List<GridEntry>> grid, String simulation) {  // initialization of a grid of empty cells
+    public void initializeGridNeighbors(List<List<GridEntry>> grid, String simulation) {
         for (int r = 0; r < this.getRows(); r++) {
             for (int c = 0; c < this.getColumns(); c++) {
                 GridEntry currentGridEntry = grid.get(r).get(c);
