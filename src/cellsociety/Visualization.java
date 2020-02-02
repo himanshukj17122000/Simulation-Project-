@@ -28,7 +28,7 @@ public class Visualization {
     public static final String BUTTON_STYLE_COLOR = "#3197bc";
     public static final int BUTTON_FONT_SIZE = 16;
     public static final int FRAMES_PER_SECOND = 60;
-    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    public static final int MILLISECOND_DELAY = 10000 / FRAMES_PER_SECOND;
 
     private Scene myAnimationScene;
     private Configuration mySimulationConfig;
@@ -92,6 +92,13 @@ public class Visualization {
 
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         VBox toolBar = new VBox(20);
+        implementButtons(primaryStage, toolBar);
+        implementSlider(simulationConfig, toolBar);
+        toolBar.setPadding(new Insets(50));
+        return toolBar;
+    }
+
+    private void implementButtons(Stage primaryStage, VBox toolBar) {
         Button buttonHome = createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getMySplashScene()));
         Button buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
@@ -101,14 +108,6 @@ public class Visualization {
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage);
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStop, buttonUpload);
-        String probCatchLabel = simulationConfig.getProbCatchLabel();
-        if (probCatchLabel != null) {
-            Label setProbCatch = new Label("Set the" + probCatchLabel);
-            Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
-            toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
-        }
-        toolBar.setPadding(new Insets(50));
-        return toolBar;
     }
 
     private Button createButton(String text, String styleColor, int fontSize) {
@@ -116,6 +115,17 @@ public class Visualization {
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color:" + styleColor + ";-fx-font-size:" + fontSize + " px;");
         return button;
+    }
+
+    private void implementSlider(Configuration simulationConfig, VBox toolBar) {
+        String probCatchLabel = simulationConfig.getProbCatchLabel();
+        if (probCatchLabel != null) {
+            Label setProbCatch = new Label("Set the " + probCatchLabel);
+            setProbCatch.setStyle("-fx-font-size: 16");
+            setProbCatch.setTextFill(Color.WHITE);
+            Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
+            toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
+        }
     }
 
     private Slider createSlider(double defaultValue) {
