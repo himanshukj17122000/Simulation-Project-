@@ -20,7 +20,7 @@ public class PersonCell extends Cell {
 
 
     public PersonCell(GridEntry entry, int race) {
-        super(FILL[race], entry);
+        super(FILL[race-2], entry);
         initializeRace(race);
     }
 

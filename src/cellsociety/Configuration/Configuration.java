@@ -75,7 +75,7 @@ public abstract class Configuration {
 
     private int getRandomNumberInRange() {
         Random r = new Random();
-        return r.nextInt(this.getMaxStates() + 1);
+        return r.nextInt(this.getMaxStates())+1;
     }
 
     public List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells

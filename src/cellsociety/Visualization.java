@@ -69,6 +69,11 @@ public class Visualization {
         return drawGrid();
     }
 
+    public void step(){
+        mySimulation.step();
+        drawGrid();
+    }
+
     public GridPane drawGrid() {
         List<List<GridEntry>> cellStates = getMySimulation().getSimulationGrid();
         GridPane grid = new GridPane();

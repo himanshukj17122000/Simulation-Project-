@@ -21,7 +21,7 @@ public class Simulation {
     }
 
 
-    public List<List<GridEntry>> step(){
+    public void step(){
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
@@ -37,7 +37,6 @@ public class Simulation {
                 currentGridEntry.updateGridEntry();
             }
         }
-        return currentGridConfig;
     }
 
 }
