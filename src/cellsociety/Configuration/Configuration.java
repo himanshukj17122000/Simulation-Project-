@@ -12,6 +12,7 @@ public abstract class Configuration {
     private static Fire fireClass;
     private static Percolation perClass;
     private static Segregation segClass;
+
     public static void config(Map<String, String> maps) {
         StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
         StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
@@ -117,4 +118,8 @@ public abstract class Configuration {
     public int getFishBreed(){return fishBreed;}
     public int getSharkBreed(){return sharkBreed;}
     public String getProbCatchLabel(){return probCatchLabel;}
+
+    public void setProbCatch(Double newVal){
+        probCatch=newVal;
+    }
 }
