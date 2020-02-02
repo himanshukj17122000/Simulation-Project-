@@ -14,16 +14,7 @@ public abstract class Configuration {
     private static Fire fireClass;
     private static Percolation perClass;
     private static Segregation segClass;
-
-//    private static final int mySize=400;
-//    private static XMLReader myReader;
-
-//    private static int myNumRows, myNumColumns, myProbCatch, myNumStates,myIsLeftPresent, myIsRightPresent, myIsTopPresent, myIsBottomPresent;;
-//    private static ArrayList<Integer> myParameters;
-//
-
-
-  public static void config(Map<String, String> maps) {
+    public static void config(Map<String, String> maps) {
       StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
       StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
       String methodName = e.getMethodName();
