@@ -38,8 +38,19 @@ public class Visualization {
     private Scene myAnimationScene;
     private Configuration myNewSimulationConfig;
 
+<<<<<<< HEAD
     public Visualization(Stage primaryStage, Timeline timeline, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, timeline, simulationConfig);
+=======
+    public Visualization(Stage primaryStage, Timeline timeline) {
+        mySplashScene = buildSplashScene(primaryStage, timeline);
+        myAnimationScene = buildAnimationScene(primaryStage, timeline);
+
+    }
+
+    public Scene getMySplashScene() {
+        return mySplashScene;
+>>>>>>> 6ed096f092fa8369adb1dd370df5694e38afd274
     }
 
     public Scene getMyAnimationScene() {
