@@ -83,10 +83,12 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     @Override
     protected void move(GridEntry entry) {
         Set<GridEntry> preyCellSet = setOfPreyNeighbors(entry);
+        boolean ate = false;
         int size = preyCellSet.size();
+        if(size > 0){
         int space = new Random().nextInt(size);
         int i = 0;
-        boolean ate = false;
+
         for (GridEntry gridSpace : preyCellSet) {
             if (i == space) {
                 eatAnimal(entry, gridSpace);
@@ -94,7 +96,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
                 break;
             }
             i++;
-        }
+        }}
         if (ate) {
             setTimeSinceEating(0);
         } else {

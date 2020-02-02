@@ -70,7 +70,7 @@ public class GridEntry {
         }if(COLUMN<numCols -1){
             GridEntry rightNeighbor = grid.get(ROW).get(COLUMN+1);
             NEIGHBORS.add(rightNeighbor);
-        } if(simulation.equals("FIRE") || simulation.equals("PERCOLATION") || simulation.equals("GAME")){
+        } if(simulation.equals("Fire") || simulation.equals("PERCOLATION") || simulation.equals("GAME")){
             if(ROW>1){
                 if(COLUMN>1){
                     GridEntry topLeftNeighbor = grid.get(ROW-1).get(COLUMN-1);

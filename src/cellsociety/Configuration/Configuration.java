@@ -42,6 +42,10 @@ public abstract class Configuration {
 
     public abstract void paraTitle(String title);
 
+    private String getMyTitle(){
+        return myTitle;
+    }
+
     public static Prey getPreyClass(){ return preyClass; }
     public static Game getGameClass(){ return gameClass; }
     public static Fire getFireClass(){ return fireClass; }
@@ -61,7 +65,7 @@ public abstract class Configuration {
             }
             grid.add(insertRow);
         }
-        initializeGridNeighbors(grid, "FIRE");
+        initializeGridNeighbors(grid,  "PERCOLATION");
         return grid;
     }
 
