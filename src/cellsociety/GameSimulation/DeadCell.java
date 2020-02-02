@@ -21,7 +21,7 @@ public class DeadCell extends Cell {
 
     @Override
     public void updateCell(GridPane grid, GridEntry entry) {
-        Boolean enoughNeighbors = checkNeighbors();
+        Boolean enoughNeighbors = checkNeighbors(entry);
         if(enoughNeighbors){
             Cell liveCell = new LiveCell(entry);
             grid.add(null, entry.getRow(), entry.getColumn());
@@ -40,8 +40,8 @@ public class DeadCell extends Cell {
         return 0;
     }
 
-    private Boolean checkNeighbors(){
-        Set<GridEntry> neighborSet = getNeighbors();
+    private Boolean checkNeighbors(GridEntry entry){
+        Set<GridEntry> neighborSet = entry.getNeighbors();
         int numLiveCellNeighbors = 0;
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 3) {

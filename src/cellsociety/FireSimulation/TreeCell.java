@@ -30,7 +30,7 @@ public class TreeCell extends Cell {
     }
 
     private Boolean checkBurningNeighbor(GridEntry entry) {
-        Set<GridEntry> neighborSet = getNeighbors();
+        Set<GridEntry> neighborSet = entry.getNeighbors();
         boolean neighborFire = false;
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 3) {

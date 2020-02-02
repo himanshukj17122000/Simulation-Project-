@@ -15,8 +15,8 @@ public abstract class Cell { // potentially implement a check conditions method 
     private Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
     private int Row;
     private int Column;
-    private double standardWidth;
-    private double standardHeight;
+    private double standardWidth = 50; //need to assign / finalzie
+    private double standardHeight = 50;
 
     public Cell(Paint color, GridEntry entry){
         CELLVISUAL = new Rectangle(standardWidth, standardHeight);
@@ -48,18 +48,12 @@ public abstract class Cell { // potentially implement a check conditions method 
 
     public abstract int getType();
 
-    public void setNeighbors(GridEntry entry) {
-        NEIGHBORS = entry.getNeighbors();
-    }
-
-    protected Set<GridEntry> getNeighbors() {
-        return NEIGHBORS;
-    }
-
     private void setLocation(GridEntry entry){
         Row = entry.getRow();
         Column = entry.getColumn();
     }
 
     public abstract int getRace();
+
+
 }

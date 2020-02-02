@@ -49,7 +49,7 @@ public class PreyCell extends Cell {
     }
 
     private void move(GridPane grid, GridEntry entry){
-       Set<GridEntry> emptyCellSet = setOfEmptyNeighbors();
+       Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
         int size = emptyCellSet.size();
         int space = new Random().nextInt(size);
         int i = 0;
@@ -68,8 +68,8 @@ public class PreyCell extends Cell {
         }
     }
 
-    private Set<GridEntry> setOfEmptyNeighbors(){
-        Set<GridEntry> neighborSet = getNeighbors();
+    private Set<GridEntry> setOfEmptyNeighbors(GridEntry entry){
+        Set<GridEntry> neighborSet = entry.getNeighbors();
         Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 1) {
@@ -81,7 +81,7 @@ public class PreyCell extends Cell {
 
     private void reproduce(GridPane grid, GridEntry entry){
         if(getTimeStepsSinceReproduce() == timeStepsToReproduce){
-            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors();
+            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
             int size = emptyCellSet.size();
             int space = new Random().nextInt(size);
             int i = 0;

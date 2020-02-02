@@ -28,7 +28,7 @@ public class PersonCell extends Cell {
     public void updateCell(GridPane grid, GridEntry entry) { //need to fix to get empty cell set somewhere or make new method
         Boolean satisfied = checkSatisfaction(entry);
         if(!satisfied){
-            Set<GridEntry> pseudoEmptySet = getNeighbors();
+            Set<GridEntry> pseudoEmptySet = entry.getNeighbors();
             int space = new Random().nextInt(pseudoEmptySet.size());
             int i = 0;
             for(GridEntry gridSpace : pseudoEmptySet) {
@@ -46,7 +46,7 @@ public class PersonCell extends Cell {
     }
 
     private Boolean checkSatisfaction(GridEntry entry) {
-        Set<GridEntry> neighborSet = getNeighbors();
+        Set<GridEntry> neighborSet = entry.getNeighbors();
         double numSameRaceNeighbors = 0;
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 2) {

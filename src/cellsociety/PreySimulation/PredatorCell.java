@@ -63,7 +63,7 @@ public class PredatorCell extends Cell { // make animal superclass // contains l
     }
 
     private void move(GridPane grid, GridEntry entry) {
-        Set<GridEntry> preyCellSet = setOfPreyNeighbors();
+        Set<GridEntry> preyCellSet = setOfPreyNeighbors(entry);
         int size = preyCellSet.size();
         int space = new Random().nextInt(size);
         int i = 0;
@@ -81,7 +81,7 @@ public class PredatorCell extends Cell { // make animal superclass // contains l
             i++;
         }
         if (!moved) {
-            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors();
+            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
             size = emptyCellSet.size();
             space = new Random().nextInt(size);
             i = 0;
@@ -104,8 +104,8 @@ public class PredatorCell extends Cell { // make animal superclass // contains l
         }
     }
 
-    private Set<GridEntry> setOfEmptyNeighbors(){
-        Set<GridEntry> neighborSet = getNeighbors();
+    private Set<GridEntry> setOfEmptyNeighbors(GridEntry entry){
+        Set<GridEntry> neighborSet = entry.getNeighbors();
         Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 1) {
@@ -115,8 +115,8 @@ public class PredatorCell extends Cell { // make animal superclass // contains l
         return emptyCellSet;
     }
 
-    private Set<GridEntry> setOfPreyNeighbors(){
-        Set<GridEntry> neighborSet = getNeighbors();
+    private Set<GridEntry> setOfPreyNeighbors(GridEntry entry){
+        Set<GridEntry> neighborSet = entry.getNeighbors();
         Set<GridEntry> preyCellSet = new HashSet<GridEntry>();
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 1) {
@@ -129,7 +129,7 @@ public class PredatorCell extends Cell { // make animal superclass // contains l
     private void reproduce(GridPane grid, GridEntry entry) {
         boolean reproduced = false;
         if (getTimeStepsSinceReproduce() == timeStepsToReproduce) {
-            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors();
+            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
             int size = emptyCellSet.size();
             int space = new Random().nextInt(size);
             int i = 0;
