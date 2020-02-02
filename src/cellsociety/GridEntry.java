@@ -121,9 +121,9 @@ public class GridEntry {
             case "Prey":
                 cellToSet = preySimulationCell(type);
                 break;
-            //case "Segregation":
-             //   cellToSet = segregationSimulationCell(type);
-             //   break;
+//            case "Segregation":
+//                cellToSet = segregationSimulationCell(type);
+//                break;
             default:
                 cellToSet = new EmptyCell(this, SEGREGATIONFILL);
         }
@@ -157,6 +157,7 @@ public class GridEntry {
             return new EmptyCell(this, PERCOLATIONFILL);
         }
     }
+
     /*
     private Cell segregationSimulationCell(int type){
         if(type == 1){
@@ -166,6 +167,7 @@ public class GridEntry {
         //}
     }
     */
+
     private Cell preySimulationCell(int type){
         if(type == 3){
             return new PredatorCell(this);
