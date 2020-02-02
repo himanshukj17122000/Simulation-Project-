@@ -3,6 +3,8 @@ package cellsociety;
 import cellsociety.Configuration.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -120,6 +122,15 @@ public class Visualization {
         return button;
     }
 
+    private void updateProbCatch(Slider slider, Configuration simulationConfig) {
+        slider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                simulationConfig.setProbCatch((double) newValue);
+            }
+        });
+    }
+
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
         String probCatchLabel = simulationConfig.getProbCatchLabel();
         if (probCatchLabel != null) {
@@ -127,6 +138,7 @@ public class Visualization {
             setProbCatch.setStyle("-fx-font-size: 16");
             setProbCatch.setTextFill(Color.WHITE);
             Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
+            updateProbCatch(probabilitySlider, simulationConfig);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
     }
