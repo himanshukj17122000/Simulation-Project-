@@ -3,6 +3,7 @@ package cellsociety;
 import cellsociety.Configuration.*;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -103,6 +104,7 @@ public class Visualization {
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage, timeline);
         toolBar.getItems().addAll(buttonHome, buttonPause, buttonStop, buttonUpload);
+        toolBar.setPadding(new Insets(20));
         return toolBar;
     }
 

@@ -120,7 +120,7 @@ public class GridEntry {
             case "Percolation":
                 cellToSet = percolationSimulationCell(type);
                 break;
-            case "Prey-Predator":
+            case "Prey":
                 cellToSet = preySimulationCell(type);
                 break;
             case "Segregation":
