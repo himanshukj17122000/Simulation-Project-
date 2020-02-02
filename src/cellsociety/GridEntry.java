@@ -24,6 +24,7 @@ public class GridEntry {
 
     private int containsCellType;
     private Cell containedCell;
+    private Cell nextStepCell;
     private boolean isOccupied;
     private static Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
     private static int ROW;
@@ -41,6 +42,18 @@ public class GridEntry {
     private void initializeGridEntryID(int row, int col){
         ROW = row;
         COLUMN = col;
+    }
+
+    public void setNextStepCell(Cell nextCell){
+        nextStepCell = nextCell;
+    }
+
+    private Cell getNextStepCell(){
+        return nextStepCell;
+    }
+
+    public void updateGridEntry(){
+        setCell(getNextStepCell());
     }
 
     private void setNeighbors(List<List<GridEntry>> grid, String simulation){ //refactor to be 20 lines

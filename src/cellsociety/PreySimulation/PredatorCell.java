@@ -30,12 +30,12 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     }
 
     @Override
-    public void updateCell(GridPane grid,  GridEntry entry) {
+    public void updateCell(GridEntry entry) {
         if(getTimeSinceEating() > maxTimeWithoutEating){
-            die(grid, entry);
+            die(entry);
         }else{
-            move(grid, entry);
-            super.reproduce(grid, entry);
+            move(entry);
+            super.reproduce(entry);
         }
     }
 
@@ -81,7 +81,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     }
 
     @Override
-    protected void move(GridPane grid, GridEntry entry) {
+    protected void move(GridEntry entry) {
         Set<GridEntry> preyCellSet = setOfPreyNeighbors(entry);
         int size = preyCellSet.size();
         int space = new Random().nextInt(size);
@@ -89,7 +89,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         boolean ate = false;
         for (GridEntry gridSpace : preyCellSet) {
             if (i == space) {
-                eatAnimal(grid, entry, gridSpace);
+                eatAnimal(entry, gridSpace);
                 ate = true;
                 break;
             }
@@ -98,17 +98,15 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         if (ate) {
             setTimeSinceEating(0);
         } else {
-            super.move(grid, entry);
+            super.move(entry);
             setTimeSinceEating(getTimeSinceEating() + 1);
         }
     }
 
-    private void eatAnimal(GridPane grid, GridEntry currentGridSpace, GridEntry newGridSpace){
-        Cell newEmptyCell = new EmptyCell(currentGridSpace, PREYFILL);
-        grid.add(newEmptyCell.getRectangle(), currentGridSpace.getRow(), currentGridSpace.getColumn()); // setting current space to empty cell
-        currentGridSpace.setCell(newEmptyCell);
-        grid.add(this.getRectangle(), newGridSpace.getRow(), newGridSpace.getColumn()); //setting prey space to instance of current cell
-        newGridSpace.setCell(this);
+    private void eatAnimal(GridEntry currentGridSpace, GridEntry newGridSpace){
+        Cell newEmptyCell = new EmptyCell(currentGridSpace, PREYFILL); // setting current space to empty cell
+        currentGridSpace.setNextStepCell(newEmptyCell);//setting prey space to instance of current cell
+        newGridSpace.setNextStepCell(this);
     }
 
     private Set<GridEntry> setOfPreyNeighbors(GridEntry entry){
@@ -122,9 +120,9 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         return preyCellSet;
     }
 
-    private void die(GridPane grid, GridEntry entry) {
+    private void die(GridEntry entry) {
         Cell newEmptyCell = new EmptyCell(entry, PREYFILL);
-        grid.add(newEmptyCell.getRectangle(), entry.getRow(), entry.getColumn());
+        entry.setNextStepCell(newEmptyCell);
     }
 
 }

@@ -58,13 +58,11 @@ public class TreeCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridPane grid, GridEntry entry){
+    public void updateCell(GridEntry entry){
         Boolean catchFire = checkCatchFire(entry);
         if(catchFire){
             Cell fireCell = new FireCell(entry);
-            grid.add(null, entry.getColumn(), entry.getColumn());
-            grid.add(fireCell.getRectangle(), entry.getColumn(), entry.getColumn());
-            entry.setCell(fireCell);
+            entry.setNextStepCell(fireCell);
         }
     }
 

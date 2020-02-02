@@ -20,13 +20,11 @@ public class LiveCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridPane grid, GridEntry entry) {
+    public void updateCell(GridEntry entry) {
         Boolean enoughNeighbors = checkNeighbors(entry);
         if(enoughNeighbors){
             Cell deadCell = new DeadCell(entry);
-            grid.add(null, entry.getRow(), entry.getColumn());
-            grid.add(deadCell.getRectangle(), entry.getRow(), entry.getColumn());
-            entry.setCell(deadCell);
+            entry.setNextStepCell(deadCell);
         }
     }
 

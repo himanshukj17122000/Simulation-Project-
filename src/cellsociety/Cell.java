@@ -12,7 +12,6 @@ public abstract class Cell { // potentially implement a check conditions method 
     //also make a hashmap of cell types
     //potentially implement a super updateCell method
     private Rectangle CELLVISUAL;
-    private Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
     private int Row;
     private int Column;
     private double standardWidth = 50; //need to assign / finalzie
@@ -44,7 +43,7 @@ public abstract class Cell { // potentially implement a check conditions method 
         CELLVISUAL.setHeight(newHeight);
     }
 
-    public abstract void updateCell(GridPane grid, GridEntry entry);
+    public abstract void updateCell(GridEntry entry);
 
     public abstract int getType();
 
