@@ -41,7 +41,7 @@ public class Visualization {
 
     public Visualization(Stage primaryStage, Timeline timeline) {
         mySplashScene = buildSplashScene(primaryStage, timeline);
-        Reader.getFire()
+        Reader.getFire();
         Map<String, String> dataVal = Reader.getResults();
         myAnimationScene = buildAnimationScene(primaryStage, timeline, new Fire(dataVal));
     }
