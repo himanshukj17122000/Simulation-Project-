@@ -52,7 +52,6 @@ public class Fire extends Configuration {
             bottom=Integer.parseInt(dataValues.get(DATA_FIELDS.get(7)));
             neighbours=Integer.parseInt(dataValues.get(DATA_FIELDS.get(8)));
             probCatch=Double.parseDouble(dataValues.get(DATA_FIELDS.get(9)));
-
             type1=dataValues.get(DATA_FIELDS.get(10));
             type2=dataValues.get(DATA_FIELDS.get(11));
             type3=dataValues.get(DATA_FIELDS.get(12));

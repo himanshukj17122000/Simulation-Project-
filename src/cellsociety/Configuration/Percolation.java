@@ -9,11 +9,11 @@ public class Percolation extends Configuration {
     public static final String DATA_TYPE = "Percolation";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
-    public static final List<String> DATA_FIELDS = List.of("title", "maxstates", "rows","columns","left","Right","Top","Bottom","neighbours","type1","type2","type3");
-
+    public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
+            "top","bottom","neighbours","type1","type2","type3");
     // specific data values for this instance
-    private String myTitle,type1,type2,type3;
-    private int maxStates,rows,columns,neighbours,left,right,top,bottom;
+//    private String myTitle,type1,type2,type3;
+//    private int maxStates,rows,columns,neighbours,left,right,top,bottom;
 
 
 

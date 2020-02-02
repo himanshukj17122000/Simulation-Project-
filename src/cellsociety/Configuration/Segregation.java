@@ -9,11 +9,11 @@ public class Segregation extends Configuration {
     public static final String DATA_TYPE = "Fire";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
-    public static final List<String> DATA_FIELDS = List.of("title", "maxstates", "rows", "columns", "left", "Right", "Top", "Bottom", "neighbours", "probCatch", "type1", "type2", "type3");
-
+    public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
+            "top","bottom","neighbours","probCatch","type1","type2","type3");
     // specific data values for this instance
-    private String myTitle, type1, type2, type3;
-    private int maxStates, rows, columns, neighbours, probCatch, left, right, top, bottom;
+//    private String myTitle, type1, type2, type3;
+//    private int maxStates, rows, columns, neighbours, probCatch, left, right, top, bottom;
 
 
 

@@ -47,7 +47,7 @@ public abstract class Configuration {
    }
 
     protected String myTitle,type1,type2,type3;
-    protected int maxStates,rows,columns,left,right,top,bottom, neighbours;
+    protected int maxStates,rows,columns,left,right,top,bottom, neighbours,fishBreed,sharkBreed;
     protected double probCatch;
 
     public abstract void paraTitle(String title);
@@ -75,7 +75,7 @@ public abstract class Configuration {
 
     private int getRandomNumberInRange() {
         Random r = new Random();
-        return r.nextInt(this.getMax() + 1);
+        return r.nextInt(this.getMaxStates() + 1);
     }
 
     public List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
@@ -117,7 +117,7 @@ public abstract class Configuration {
     }
 
     public String getTitle(){return myTitle;}
-    public int getMax(){return maxStates;}
+    public int getMaxStates(){return maxStates;}
     public int getRows(){return rows;}
     public int getColumns(){return columns;}
     public int getLeft(){return left;}
@@ -129,4 +129,6 @@ public abstract class Configuration {
     public String getType1(){return type1;}
     public String getType2(){return type2;}
     public String getType3(){return type3;}
+    public int getFishBreed(){return fishBreed;}
+    public int getSharkBreed(){return sharkBreed;}
 }
