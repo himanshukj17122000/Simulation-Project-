@@ -122,12 +122,10 @@ public class Visualization {
         buttonUpload.setOnAction(e -> {
             //if (timeline.getStatus() != Animation.Status.STOPPED) timeline.stop();
             try {
-                start(primaryStage);
+                start(primaryStage, timeline);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            Visualization animation = new Visualization(primaryStage, timeline, myNewSimulationConfig);
-            primaryStage.setScene(animation.getMyAnimationScene());
         });
     }
 
@@ -135,46 +133,41 @@ public class Visualization {
     // NOTE: generally accepted behavior that the chooser remembers where user left it last
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
 
-    public void start (Stage primaryStage) throws Exception {
+    public void start (Stage primaryStage, Timeline timeline) throws Exception {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
-        while (dataFile != null) {
-            try {
-                if(dataFile.getName().equals("fire.xml")){
-//                        Pair<String, Game> p = new Pair<>(dataFile.getName(), new XMLParser("media").getGame(dataFile));
-//                        showMessage(AlertType.INFORMATION, p.getSecond().toString());
-                    new Reader("type").getFire(dataFile);
-                    myNewSimulationConfig = Configuration.getFireClass();
-                }
-                else if(dataFile.getName().equals("gameOfLife.xml")){
-                    //simulationConfig = new Game();
-                    new Reader("type").getGame(dataFile);
-                    myNewSimulationConfig = Configuration.getGameClass();
-                }
-                else if(dataFile.getName().equals("percolation.xml")){
-                    //simulationConfig = new Percolation();
-                    new Reader("type").getPercolation(dataFile);
-                    myNewSimulationConfig = Configuration.getPerClass();
-                }
-                else if(dataFile.getName().equals("prey.xml")){
-                    //simulationConfig = new Prey();
-                    new Reader("type").getPrey(dataFile);
-                    myNewSimulationConfig = Configuration.getPreyClass();
-                }
-                else if(dataFile.getName().equals("segregation.xml")){
-                    //simulationConfig = new Segregation();
-                    new Reader("type").getSegregation(dataFile);
-                    myNewSimulationConfig = Configuration.getSegClass();
-                }
-
+        try {
+            if(dataFile.getName().equals("fire.xml")){
+                new Reader("type").getFire(dataFile);
+                myNewSimulationConfig = Configuration.getFireClass();
             }
-            catch (FileInputException e) {
-                // handle error of unexpected file format
-                showMessage(Alert.AlertType.ERROR, e.getMessage());
+            else if(dataFile.getName().equals("gameOfLife.xml")){
+                new Reader("type").getGame(dataFile);
+                myNewSimulationConfig = Configuration.getGameClass();
             }
-            //dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
+            else if(dataFile.getName().equals("percolation.xml")){
+                //simulationConfig = new Percolation();
+                new Reader("type").getPercolation(dataFile);
+                myNewSimulationConfig = Configuration.getPerClass();
+            }
+            else if(dataFile.getName().equals("prey.xml")){
+                //simulationConfig = new Prey();
+                new Reader("type").getPrey(dataFile);
+                myNewSimulationConfig = Configuration.getPreyClass();
+            }
+            else if(dataFile.getName().equals("segregation.xml")){
+                //simulationConfig = new Segregation();
+                new Reader("type").getSegregation(dataFile);
+                myNewSimulationConfig = Configuration.getSegClass();
+            }
+            Visualization newAnimation = new Visualization(primaryStage, timeline, myNewSimulationConfig);
+            primaryStage.setScene(newAnimation.getMyAnimationScene());
+        }
+        catch (FileInputException e) {
+            // handle error of unexpected file format
+            showMessage(Alert.AlertType.ERROR, e.getMessage());
         }
         // nothing selected, so quit the application
-        Platform.exit();
+        if (dataFile == null) Platform.exit();
     }
 
     // display given message to user using the given type of Alert dialog box
