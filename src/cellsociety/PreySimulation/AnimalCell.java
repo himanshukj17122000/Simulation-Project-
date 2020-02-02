@@ -26,8 +26,9 @@ public class AnimalCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridPane grid, GridEntry entry) {
-        move(grid, entry);
+    public void updateCell(GridEntry entry) {
+        move(entry);
+        reproduce(entry);
     }
 
     @Override
@@ -54,31 +55,28 @@ public class AnimalCell extends Cell {
 
     protected int getReproductionTime(){ return reproductionTime; }
 
-    protected void move(GridPane grid, GridEntry entry){
+    protected void move(GridEntry entry){
        Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
         int size = emptyCellSet.size();
         int space = new Random().nextInt(size);
         int i = 0;
         for(GridEntry gridSpace : emptyCellSet) {
             if (i == space){
-                moveToEmptyGridEntry(grid, entry, gridSpace);
+                moveToEmptyGridEntry(entry, gridSpace);
                 break;
             }
             i++;
         }
     }
 
-    private void moveToEmptyGridEntry(GridPane grid, GridEntry currentGridSpace, GridEntry newGridSpace){
-        Cell newEmptyCell = new EmptyCell(currentGridSpace, PREYFILL);
-        grid.add(newEmptyCell.getRectangle(), currentGridSpace.getRow(),currentGridSpace.getColumn()); // setting current space to empty cell
-        currentGridSpace.setCell(newEmptyCell);
-        grid.add(this.getRectangle(), newGridSpace.getRow(), newGridSpace.getColumn()); //setting empty space to instance of current cell
-        newGridSpace.setCell(this);
+    private void moveToEmptyGridEntry(GridEntry currentGridSpace, GridEntry newGridSpace){
+        Cell newEmptyCell = new EmptyCell(currentGridSpace, PREYFILL); // setting current space to empty cell
+        currentGridSpace.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
+        newGridSpace.setNextStepCell(this);
     }
 
-    private void reproduceInEmptyGridEntry(GridPane grid, GridEntry newGridSpace, AnimalCell offSpring){
-        grid.add(offSpring.getRectangle(), newGridSpace.getRow(),newGridSpace.getColumn()); // setting current space to empty cell
-        newGridSpace.setCell(offSpring);
+    private void reproduceInEmptyGridEntry(GridEntry newGridSpace, AnimalCell offSpring){ // setting current space to empty cell
+        newGridSpace.setNextStepCell(offSpring);
     }
 
     protected AnimalCell offSpring(GridEntry entry){
@@ -96,7 +94,7 @@ public class AnimalCell extends Cell {
         return emptyCellSet;
     }
 
-    protected void reproduce(GridPane grid, GridEntry entry){
+    protected void reproduce(GridEntry entry){
         boolean reproduced = false;
         if(getTimeSinceReproduction() == getReproductionTime()){
             Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
@@ -105,7 +103,7 @@ public class AnimalCell extends Cell {
             int i = 0;
             for(GridEntry gridSpace : emptyCellSet) {
                 if (i == space){
-                    reproduceInEmptyGridEntry(grid, gridSpace, offSpring(gridSpace));
+                    reproduceInEmptyGridEntry(gridSpace, offSpring(gridSpace));
                     reproduced = true;
                     break;
                 }
