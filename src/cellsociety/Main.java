@@ -25,7 +25,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         primaryStage.setTitle(TITLE);
-        Visualization simulation = new Visualization(primaryStage, myTimeline);
+        Splash simulation = new Splash(primaryStage, myTimeline);
         primaryStage.setScene(simulation.getMySplashScene());
         primaryStage.show();
     }
