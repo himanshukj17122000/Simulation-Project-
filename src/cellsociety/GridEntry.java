@@ -6,8 +6,8 @@ import cellsociety.GameSimulation.DeadCell;
 import cellsociety.GameSimulation.LiveCell;
 import cellsociety.PercolationSimulation.AirCell;
 import cellsociety.PercolationSimulation.WaterCell;
+import cellsociety.PreySimulation.AnimalCell;
 import cellsociety.PreySimulation.PredatorCell;
-import cellsociety.PreySimulation.PreyCell;
 import cellsociety.SegregationSimulation.PersonCell;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -126,7 +126,7 @@ public class GridEntry {
                 if(type == 3){
                     cellToSet = new PredatorCell(this);
                 }else if(type == 2){
-                    cellToSet = new PreyCell(this);
+                    cellToSet = new AnimalCell(this);
                 }else{
                     cellToSet = new EmptyCell(this, PREYFILL);
                 }
@@ -148,15 +148,13 @@ public class GridEntry {
         return NEIGHBORS;
     }
 
-
-    public Boolean getOccupancy(){
+    public Boolean getIsOccupied(){
         return isOccupied;
     }
 
-    public int getContainsCellType(){
+    public int getCellType(){
        return containsCellType;
     }
-
 
     public Cell getCell(){
         return containedCell;
