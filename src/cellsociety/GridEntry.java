@@ -43,7 +43,7 @@ public class GridEntry {
         COLUMN = col;
     }
 
-    private void setNeighbors(List<List<GridEntry>> grid, String simulation){ //this is only applicable for simulations with 4 neighbors. Will adjust in a bit
+    private void setNeighbors(List<List<GridEntry>> grid, String simulation){ //refactor to be 20 lines
         int numRows = XMLReader.getRows();
         int numCols = XMLReader.getColumns();
 
@@ -99,50 +99,71 @@ public class GridEntry {
         Cell cellToSet;
         switch(simulation){
             case "FIRE":
-                if(type == 3){
-                cellToSet = new FireCell(this);
-                }else if(type == 2){
-                cellToSet = new TreeCell(this);
-                }else{
-                cellToSet = new EmptyCell(this, FIREFILL);
-                }
+                cellToSet = fireSimulationCell(type);
                 break;
             case "GAME":
-                if(type == 2){
-                    cellToSet = new LiveCell(this);
-                }else{
-                    cellToSet = new DeadCell(this);
-                }
+                cellToSet = gameSimulationCell(type);
                 break;
             case "PERCOLATION":
-                if(type == 3){
-                    cellToSet = new WaterCell(this);
-                }else if(type == 2){
-                    cellToSet = new AirCell(this);
-                }else{
-                    cellToSet = new EmptyCell(this, PERCOLATIONFILL);
-                }
+                cellToSet = percolationSimulationCell(type);
+                break;
             case "PREY":
-                if(type == 3){
-                    cellToSet = new PredatorCell(this);
-                }else if(type == 2){
-                    cellToSet = new AnimalCell(this);
-                }else{
-                    cellToSet = new EmptyCell(this, PREYFILL);
-                }
+                cellToSet = preySimulationCell(type);
+                break;
             case "SEGREGATION":
-                if(type == 1){
-                    cellToSet = new EmptyCell(this, SEGREGATIONFILL);
-                }else{
-                    cellToSet = new PersonCell(this, type);
-                }
+                cellToSet = segregationSimulationCell(type);
+                break;
             default:
                 cellToSet = new EmptyCell(this, SEGREGATIONFILL);
         }
-
         setCell(cellToSet);
     }
 
+    private Cell fireSimulationCell(int type){
+        if(type == 3){
+            return new FireCell(this);
+        }else if(type == 2){
+            return new TreeCell(this);
+        }else{
+            return new EmptyCell(this, FIREFILL);
+        }
+    }
+
+    private Cell gameSimulationCell(int type){
+        if(type == 2){
+            return new LiveCell(this);
+        }else{
+            return new DeadCell(this);
+        }
+    }
+
+    private Cell percolationSimulationCell(int type){
+        if(type == 3){
+            return new WaterCell(this);
+        }else if(type == 2){
+            return new AirCell(this);
+        }else{
+            return new EmptyCell(this, PERCOLATIONFILL);
+        }
+    }
+
+    private Cell segregationSimulationCell(int type){
+        if(type == 1){
+            return new EmptyCell(this, SEGREGATIONFILL);
+        }else{
+            return new PersonCell(this, type);
+        }
+    }
+
+    private Cell preySimulationCell(int type){
+        if(type == 3){
+            return new PredatorCell(this);
+        }else if(type == 2){
+            return new AnimalCell(this);
+        }else{
+            return new EmptyCell(this, PREYFILL);
+        }
+    }
 
     public Set<GridEntry> getNeighbors(){
         return NEIGHBORS;

@@ -40,12 +40,12 @@ public class AnimalCell extends Cell {
         return 0;
     }
 
-    private void setTimeSinceReproduction(int time){
-        timeSinceReproduction = time;
+    protected void setTimeSinceReproduction(int time){
+        this.timeSinceReproduction = time;
     }
 
-    private int getTimeSinceReproduction(){
-        return timeSinceReproduction;
+    protected int getTimeSinceReproduction(){
+        return this.timeSinceReproduction;
     }
 
     protected void setReproductionTime(int time){

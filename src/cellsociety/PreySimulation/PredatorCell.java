@@ -16,7 +16,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     private static final Paint FILL = Color.web("#614A32");
     private static final Paint PREYFILL = Color.PALEGREEN;
     private static final boolean CANUPDATE = true;
-    private int ReproductionTime = 5;
+    private int reproductionTime = 30;
     private int timeSinceReproduction;
     private int maxTimeWithoutEating = 5;
     private int timeSinceEating;
@@ -24,8 +24,9 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     public PredatorCell(GridEntry entry) {
         super(entry);
         this.setColor(FILL);
+        setReproductionTime(30); // get value from FILEEEEE
         setTimeSinceEating(0);
-        setTimeStepsSinceReproduce(0);
+        setTimeSinceReproduction(0);
     }
 
     @Override
@@ -48,11 +49,11 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         return 0;
     }
 
-    private void setTimeStepsSinceReproduce(int time){
+    protected void setTimeSinceReproduction(int time){
         timeSinceReproduction = time;
     }
 
-    private int getTimeSinceReproduction(){
+    protected int getTimeSinceReproduction(){
         return timeSinceReproduction;
     }
 
@@ -62,6 +63,16 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
 
     private int getTimeSinceEating(){
         return timeSinceEating;
+    }
+
+    @Override
+    public int getReproductionTime() {
+        return reproductionTime;
+    }
+
+    @Override
+    public void setReproductionTime(int reproductionTime) {
+        this.reproductionTime = reproductionTime;
     }
 
     @Override
@@ -115,6 +126,5 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         Cell newEmptyCell = new EmptyCell(entry, PREYFILL);
         grid.add(newEmptyCell.getRectangle(), entry.getRow(), entry.getColumn());
     }
-
 
 }
