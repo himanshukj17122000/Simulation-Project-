@@ -3,7 +3,6 @@ package cellsociety;
 import cellsociety.Configuration.Configuration;
 import cellsociety.Configuration.FileInputException;
 import cellsociety.Configuration.Reader;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -31,7 +30,7 @@ public class Splash {
     public static final int BUTTON_FONT_SIZE = 16;
 
     private Scene mySplashScene;
-    private Configuration simulationConfig;
+    private Configuration mySimulationConfig;
 
     public Splash(Stage primaryStage) {
         mySplashScene = buildSplashScene(primaryStage);
@@ -40,7 +39,7 @@ public class Splash {
     public Scene getMySplashScene() {
         return mySplashScene;
     }
-    public Configuration getSimulationConfig() { return simulationConfig; }
+    public Configuration getSimulationConfig() { return mySimulationConfig; }
 
     private Scene buildSplashScene(Stage primaryStage) {
         Text simTitle = new Text(TITLE);
@@ -82,32 +81,26 @@ public class Splash {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         try {
             if(dataFile.getName().equals("fire.xml")){
-//                        Pair<String, Game> p = new Pair<>(dataFile.getName(), new XMLParser("media").getGame(dataFile));
-//                        showMessage(AlertType.INFORMATION, p.getSecond().toString());
                 new Reader("type").getFire(dataFile);
-                simulationConfig = Configuration.getFireClass();
+                mySimulationConfig = Configuration.getFireClass();
             }
             else if(dataFile.getName().equals("gameOfLife.xml")){
-                //simulationConfig = new Game();
                 new Reader("type").getGame(dataFile);
-                simulationConfig = Configuration.getGameClass();
+                mySimulationConfig = Configuration.getGameClass();
             }
             else if(dataFile.getName().equals("percolation.xml")){
-                //simulationConfig = new Percolation();
                 new Reader("type").getPercolation(dataFile);
-                simulationConfig = Configuration.getPerClass();
+                mySimulationConfig = Configuration.getPerClass();
             }
             else if(dataFile.getName().equals("prey.xml")){
-                //simulationConfig = new Prey();
                 new Reader("type").getPrey(dataFile);
-                simulationConfig = Configuration.getPreyClass();
+                mySimulationConfig = Configuration.getPreyClass();
             }
             else if(dataFile.getName().equals("segregation.xml")){
-                //simulationConfig = new Segregation();
                 new Reader("type").getSegregation(dataFile);
-                simulationConfig = Configuration.getSegClass();
+                mySimulationConfig = Configuration.getSegClass();
             }
-            Visualization animation = new Visualization(primaryStage, simulationConfig);
+            Visualization animation = new Visualization(primaryStage, mySimulationConfig);
             primaryStage.setScene(animation.getMyAnimationScene());
         }
         catch (FileInputException e) {

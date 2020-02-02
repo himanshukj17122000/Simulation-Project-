@@ -5,28 +5,18 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.ObjectInputFilter;
 import java.util.List;
-import java.util.Map;
-
-import static cellsociety.Main.TITLE;
 
 public class Visualization {
     public static final int SCREEN_WIDTH = 1200;
@@ -43,7 +33,7 @@ public class Visualization {
     private Scene myAnimationScene;
     private Configuration myNewSimulationConfig;
     private Simulation mySimulation;
-    private Timeline timeline;
+    private Timeline myTimeline;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
@@ -89,8 +79,7 @@ public class Visualization {
         List<List<GridEntry>> cellStates = getMySimulation().getSimulationGrid();
         grid.getChildren().clear();
         grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
-        grid.setStyle("-fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 25; " +
-                "-fx-border-color: black;");
+        grid.setStyle("-fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 25; -fx-border-color: black;");
         for (int row = 0; row < cellStates.size(); row += 1) {
             for (int col = 0; col < cellStates.get(row).size(); col += 1) {
                 Cell cell = cellStates.get(row).get(col).getCell();
@@ -138,18 +127,18 @@ public class Visualization {
     }
 
     private void pauseGame(Button buttonPause) {
-        buttonPause.setOnAction(e -> timeline.pause());
+        buttonPause.setOnAction(e -> myTimeline.pause());
     }
 
     private void stopGame(Button buttonStop) {
-        buttonStop.setOnAction(e -> timeline.stop());
+        buttonStop.setOnAction(e -> myTimeline.stop());
     }
 
     private void uploadSim(Button buttonUpload, Stage primaryStage) {
         buttonUpload.setOnAction(e -> {
-            //if (timeline.getStatus() != Animation.Status.STOPPED) timeline.stop();
+            //if (myTimeline.getStatus() != Animation.Status.STOPPED) myTimeline.stop();
             try {
-                start(primaryStage, timeline);
+                start(primaryStage, myTimeline);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -158,10 +147,10 @@ public class Visualization {
 
     private void setSimulationLoop(GridPane grid) {
         KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(grid));
-        timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.getKeyFrames().add(frame);
-        timeline.play();
+        myTimeline = new Timeline();
+        myTimeline.setCycleCount(Timeline.INDEFINITE);
+        myTimeline.getKeyFrames().add(frame);
+        myTimeline.play();
     }
 
     public static final String DATA_FILE_EXTENSION = "*.xml";
@@ -180,17 +169,14 @@ public class Visualization {
                 myNewSimulationConfig = Configuration.getGameClass();
             }
             else if(dataFile.getName().equals("percolation.xml")){
-                //simulationConfig = new Percolation();
                 new Reader("type").getPercolation(dataFile);
                 myNewSimulationConfig = Configuration.getPerClass();
             }
             else if(dataFile.getName().equals("prey.xml")){
-                //simulationConfig = new Prey();
                 new Reader("type").getPrey(dataFile);
                 myNewSimulationConfig = Configuration.getPreyClass();
             }
             else if(dataFile.getName().equals("segregation.xml")){
-                //simulationConfig = new Segregation();
                 new Reader("type").getSegregation(dataFile);
                 myNewSimulationConfig = Configuration.getSegClass();
             }
