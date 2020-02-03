@@ -3,7 +3,6 @@ package cellsociety.SegregationSimulation;
 import cellsociety.Cell;
 import cellsociety.EmptyCell;
 import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -14,8 +13,8 @@ public class PersonCell extends Cell {
     private static final int TYPE = 2;
     private static final Paint[] FILL = {Color.BLUE, Color.RED}; // array entry corresponds to race
     private static boolean CANUPDATE = true;
-    private static int RACE;
-    private double Threshold = 0.3;
+    private int RACE;
+    private double Threshold = 0.4;
     private static final Paint SEGREGATIONFILL = Color.WHITE;
 
 
@@ -31,14 +30,14 @@ public class PersonCell extends Cell {
         if(!satisfied){
             int space = new Random().nextInt(emptyCells.size());
             int i = 0;
+            System.out.println(emptyCells.size());
             for(GridEntry gridSpace : emptyCells) {
-                if ( !entry.getIsOccupied()) {
+                if(i == space) {
                     Cell newEmptyCell = new EmptyCell(entry, SEGREGATIONFILL); // setting current space to empty cell
                     entry.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
                     gridSpace.setNextStepCell(this);
                     emptyCells.add(entry);
-                    emptyCells.remove(space);
-
+                    emptyCells.remove(gridSpace);
                     moved = true;
                     break;
                 }
@@ -53,14 +52,16 @@ public class PersonCell extends Cell {
     private Boolean checkSatisfaction(GridEntry entry) {
         Set<GridEntry> neighborSet = entry.getNeighbors();
         double numSameRaceNeighbors = 0;
+        double numNeighbors = 0;
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 2) {
+                numNeighbors++;
                 if(neighbor.getCell().getRace() == this.getRace()){
                     numSameRaceNeighbors++;
                 }
             }
         }
-        if((numSameRaceNeighbors / neighborSet.size()) < Threshold){
+        if((numSameRaceNeighbors / numNeighbors) < Threshold || numNeighbors == 0){
             return false;
         }
         return true;

@@ -3,7 +3,6 @@ package cellsociety.PreySimulation;
 import cellsociety.Cell;
 import cellsociety.EmptyCell;
 import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -15,7 +14,7 @@ public class AnimalCell extends Cell {
     private static final int TYPE = 2;
     private static final Paint FILL = Color.TAN;
     protected static final Paint PREYFILL = Color.PALEGREEN;
-    private int reproductionTime = 5;
+    private int reproductionTime = 1000;
     private int timeSinceReproduction;
     private static final boolean CANUPDATE = true;
 
@@ -27,8 +26,9 @@ public class AnimalCell extends Cell {
 
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
-        move(entry, emptyCells);
         reproduce(entry, emptyCells);
+        move(entry, emptyCells);
+
     }
 
     @Override
@@ -56,7 +56,7 @@ public class AnimalCell extends Cell {
     protected int getReproductionTime(){ return reproductionTime; }
 
     protected void move(GridEntry entry, Set<GridEntry> emptyCells){
-       Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
+       Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry, emptyCells);
         boolean moved = false;
         int size = emptyCellSet.size();
         if(size > 0){
@@ -67,7 +67,7 @@ public class AnimalCell extends Cell {
             if (i == space){
                 moveToEmptyGridEntry(entry, gridSpace);
                 emptyCells.add(entry);
-                emptyCells.remove(space);
+                emptyCells.remove(gridSpace);
                 moved = true;
                 break;
             }
@@ -92,13 +92,12 @@ public class AnimalCell extends Cell {
         return new AnimalCell(entry);
     }
 
-    private Set<GridEntry> setOfEmptyNeighbors(GridEntry entry){
+    private Set<GridEntry> setOfEmptyNeighbors(GridEntry entry, Set<GridEntry> emptyCells){
         Set<GridEntry> neighborSet = entry.getNeighbors();
         Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
         for (GridEntry neighbor : neighborSet) {
-            if (!neighbor.getIsOccupied()) {
+            if(emptyCells.contains(neighbor))
                 emptyCellSet.add(neighbor);
-            }
         }
         return emptyCellSet;
     }
@@ -106,7 +105,7 @@ public class AnimalCell extends Cell {
     protected void reproduce(GridEntry entry, Set<GridEntry> emptyCells){
         boolean reproduced = false;
         if(getTimeSinceReproduction() == getReproductionTime()){
-            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
+            Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry, emptyCells);
             int size = emptyCellSet.size();
             if(size>0){
             int space = new Random().nextInt(size);
@@ -114,7 +113,7 @@ public class AnimalCell extends Cell {
             for(GridEntry gridSpace : emptyCellSet) {
                 if (i == space){
                     reproduceInEmptyGridEntry(gridSpace, offSpring(gridSpace));
-                    emptyCells.remove(space);
+                    emptyCells.remove(gridSpace);
                     reproduced = true;
                     break;
                 }

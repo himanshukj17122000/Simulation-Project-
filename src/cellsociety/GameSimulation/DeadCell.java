@@ -1,9 +1,7 @@
 package cellsociety.GameSimulation;
 
 import cellsociety.Cell;
-import cellsociety.FireSimulation.FireCell;
 import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -45,10 +43,11 @@ public class DeadCell extends Cell {
         Set<GridEntry> neighborSet = entry.getNeighbors();
         int numLiveCellNeighbors = 0;
         for (GridEntry neighbor : neighborSet) {
-            if (neighbor.getCell().getType() == 3) {
+            if (neighbor.getCell().getType() == 2) {
                 numLiveCellNeighbors++;
             }
         }
+        //System.out.println(numLiveCellNeighbors);
         if(numLiveCellNeighbors == LiveCellsNeeded){
             return true;
         }

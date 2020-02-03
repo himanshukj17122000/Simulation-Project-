@@ -24,11 +24,11 @@ public class GridEntry {
 
     private int containsCellType;
     private Cell containedCell;
-    private Cell nextStepCell;
+    private Cell nextStepCell = null;
     private boolean isOccupied;
-    private static Set<GridEntry> NEIGHBORS= new HashSet<GridEntry>();
-    private static int ROW;
-    private static int COLUMN;
+    private Set<GridEntry> NEIGHBORS;
+    private int ROW;
+    private int COLUMN;
     private static final Paint FIREFILL = Color.WHITE; //fills for empty cells, put these variables somewhere elseeee
     private static final Paint PERCOLATIONFILL = Color.DARKGRAY;
     private static final Paint PREYFILL = Color.PALEGREEN;
@@ -44,6 +44,7 @@ public class GridEntry {
         COLUMN = col;
     }
 
+
     public void setNextStepCell(Cell nextCell){
         nextStepCell = nextCell;
     }
@@ -53,43 +54,55 @@ public class GridEntry {
     }
 
     public void updateGridEntry(){
-        setCell(getNextStepCell());
+        if(getNextStepCell() == null){
+            setCell(getCell());
+        }else {
+            setCell(getNextStepCell());
+        }
     }
 
     public void setNeighbors(List<List<GridEntry>> grid, String simulation, int numRows, int numCols){ //refactor to be 20 lines
-
-        if(ROW>1){
-            GridEntry topNeighbor = grid.get(ROW -1).get(COLUMN);
-            NEIGHBORS.add(topNeighbor);
-        }if(ROW<numRows -1){
-            GridEntry bottomNeighbor = grid.get(ROW +1).get(COLUMN);
-            NEIGHBORS.add(bottomNeighbor);
-        }if(COLUMN>1){
-            GridEntry leftNeighbor = grid.get(ROW).get(COLUMN-1);
-            NEIGHBORS.add(leftNeighbor);
-        }if(COLUMN<numCols -1){
-            GridEntry rightNeighbor = grid.get(ROW).get(COLUMN+1);
-            NEIGHBORS.add(rightNeighbor);
-        } if(simulation.equals("Fire") || simulation.equals("PERCOLATION") || simulation.equals("GAME")){
-            if(ROW>1){
-                if(COLUMN>1){
-                    GridEntry topLeftNeighbor = grid.get(ROW-1).get(COLUMN-1);
-                    NEIGHBORS.add(topLeftNeighbor);
-                } if(COLUMN< numCols -1){
-                    GridEntry topRightNeighbor = grid.get(ROW-1).get(COLUMN+1);
-                    NEIGHBORS.add(topRightNeighbor);
-                }
-            }if(ROW < numRows -1){
-                if(COLUMN>1){
-                    GridEntry bottomLeftNeighbor = grid.get(ROW+1).get(COLUMN-1);
-                    NEIGHBORS.add(bottomLeftNeighbor);
-                } if(COLUMN < numCols -1){
-                    GridEntry bottomRightNeighbor = grid.get(ROW+1).get(COLUMN+1);
-                    NEIGHBORS.add(bottomRightNeighbor);
-                }
+        Set<GridEntry> NSET = new HashSet<GridEntry>();
+            if (getRow() > 0) {
+                GridEntry topNeighbor = grid.get(getRow() - 1).get(getColumn());
+                NSET.add(topNeighbor);
             }
+            if (getRow() < numRows - 1) {
+                GridEntry bottomNeighbor = grid.get(getRow() + 1).get(getColumn());
+                NSET.add(bottomNeighbor);
+            }
+            if (getColumn() > 0) {
+                GridEntry leftNeighbor = grid.get(getRow()).get(getColumn() - 1);
+                NSET.add(leftNeighbor);
+            }
+            if (getColumn() < numCols - 1) {
+                GridEntry rightNeighbor = grid.get(getRow()).get(getColumn() + 1);
+                NSET.add(rightNeighbor);
+            }
+            if (simulation.equals("Prey") || simulation.equals("Game of Life") || simulation.equals("Segregation")) {
+                if (getRow() > 0) {
+                    if (getColumn() > 0) {
+                        GridEntry topLeftNeighbor = grid.get(getRow() - 1).get(getColumn() - 1);
+                        NSET.add(topLeftNeighbor);
+                    }
+                    if (getColumn() < numCols - 1) {
+                        GridEntry topRightNeighbor = grid.get(getRow() - 1).get(getColumn() + 1);
+                        NSET.add(topRightNeighbor);
+                    }
+                }
+                if (getRow() < numRows - 1) {
+                    if (getColumn() > 0) {
+                        GridEntry bottomLeftNeighbor = grid.get(getRow() + 1).get(getColumn() - 1);
+                        NSET.add(bottomLeftNeighbor);
+                    }
+                    if (getColumn() < numCols - 1) {
+                        GridEntry bottomRightNeighbor = grid.get(getRow() + 1).get(getColumn() + 1);
+                        NSET.add(bottomRightNeighbor);
+                    }
+                }
 
-        }
+            }
+        NEIGHBORS = NSET;
     }
 
     private void setOccupancy(Boolean set){
@@ -121,9 +134,9 @@ public class GridEntry {
             case "Prey":
                 cellToSet = preySimulationCell(type);
                 break;
-//            case "Segregation":
-//                cellToSet = segregationSimulationCell(type);
-//                break;
+            case "Segregation":
+                cellToSet = segregationSimulationCell(type);
+                break;
             default:
                 cellToSet = new EmptyCell(this, SEGREGATIONFILL);
         }
@@ -158,15 +171,15 @@ public class GridEntry {
         }
     }
 
-    /*
+
     private Cell segregationSimulationCell(int type){
         if(type == 1){
             return new EmptyCell(this, SEGREGATIONFILL);
-        //}else{
-            //return new PersonCell(this, type);
-        //}
+        }else{
+            return new PersonCell(this, type);
+        }
     }
-    */
+
 
     private Cell preySimulationCell(int type){
         if(type == 3){
@@ -182,11 +195,6 @@ public class GridEntry {
         return NEIGHBORS;
     }
 
-    public Boolean getIsOccupied(){
-        return isOccupied;
-    }
-
-    public void setIsOccupied(){ isOccupied = !isOccupied; }
 
     public int getCellType(){
        return containsCellType;

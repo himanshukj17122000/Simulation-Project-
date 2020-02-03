@@ -2,7 +2,6 @@ package cellsociety.GameSimulation;
 
 import cellsociety.Cell;
 import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -23,11 +22,11 @@ public class LiveCell extends Cell {
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
         Boolean enoughNeighbors = checkNeighbors(entry);
         if(enoughNeighbors){
+            entry.setNextStepCell(this);
+        }else{
             Cell deadCell = new DeadCell(entry);
             emptyCells.add(entry);
             entry.setNextStepCell(deadCell);
-        }else{
-            entry.setNextStepCell(this);
         }
 
     }
@@ -46,11 +45,12 @@ public class LiveCell extends Cell {
         Set<GridEntry> neighborSet = entry.getNeighbors();
         int numLiveCellNeighbors = 0;
         for (GridEntry neighbor : neighborSet) {
-            if (neighbor.getCell().getType() == 3) {
+            if (neighbor.getCell().getType() == 2) {
                 numLiveCellNeighbors++;
             }
         }
-        if(numLiveCellNeighbors >= minLiveCellsNeeded || numLiveCellNeighbors <= maxLiveCellsNeeded){
+        System.out.println(numLiveCellNeighbors);
+        if(numLiveCellNeighbors >= minLiveCellsNeeded && numLiveCellNeighbors <= maxLiveCellsNeeded){
             return true;
         }
         return false;

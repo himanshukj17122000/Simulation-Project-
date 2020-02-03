@@ -3,7 +3,6 @@ package cellsociety.PreySimulation;
 import cellsociety.Cell;
 import cellsociety.EmptyCell;
 import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -16,9 +15,9 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     private static final Paint FILL = Color.web("#614A32");
     private static final Paint PREYFILL = Color.PALEGREEN;
     private static final boolean CANUPDATE = true;
-    private int reproductionTime = 30;
+    private int reproductionTime = 0;
     private int timeSinceReproduction;
-    private int maxTimeWithoutEating = 5;
+    private int maxTimeWithoutEating = 1000000000;
     private int timeSinceEating;
 
     public PredatorCell(GridEntry entry) {
@@ -93,6 +92,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
             if (i == space) {
                 eatAnimal(entry, gridSpace);
                 emptyCells.add(entry);
+
                 ate = true;
                 break;
             }

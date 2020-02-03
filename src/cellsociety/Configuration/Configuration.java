@@ -65,7 +65,7 @@ public abstract class Configuration {
             }
             grid.add(insertRow);
         }
-        initializeGridNeighbors(grid,  "PERCOLATION");
+        initializeGridNeighbors(grid, this.getTitle());
         return grid;
     }
 
@@ -102,7 +102,6 @@ public abstract class Configuration {
 
     private GridEntry randomizeGridEntry(int row, int col, String simulation) {
         int randomType = getRandomNumberInRange();
-        System.out.println(randomType);
         return new GridEntry(row, col, simulation, randomType);
     }
 

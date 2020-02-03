@@ -1,11 +1,8 @@
 package cellsociety;
 
-import javafx.scene.Group;
-import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Paint;
-import javafx.scene.paint.Color;
-import java.util.HashSet;
+import javafx.scene.shape.Rectangle;
+
 import java.util.Set;
 
 public abstract class Cell { // potentially implement a check conditions method to override

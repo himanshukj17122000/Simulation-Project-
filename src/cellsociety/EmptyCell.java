@@ -1,9 +1,5 @@
 package cellsociety;
 
-import cellsociety.Cell;
-import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.Set;
@@ -19,9 +15,6 @@ public class EmptyCell extends Cell {
 
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
-        if(emptyCells.contains(entry)){
-            entry.setNextStepCell(this);
-        }
     }
 
     @Override
