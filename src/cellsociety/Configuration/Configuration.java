@@ -57,7 +57,7 @@ public abstract class Configuration {
         for (int r = 0; r < this.getRows(); r++) {
             List<GridEntry> insertRow = new ArrayList<>();
             for (int c = 0; c < this.getColumns(); c++) {
-                GridEntry insertGridEntry = createBorderGridEntry(r, c, this.getTitle());
+                GridEntry insertGridEntry = createBorderGridEntry(c, r, this.getTitle());
                 if (insertGridEntry == null) {
                     insertGridEntry = randomizeGridEntry(r, c, this.getTitle());
                 }
