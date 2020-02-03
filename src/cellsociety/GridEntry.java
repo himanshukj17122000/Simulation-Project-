@@ -186,6 +186,8 @@ public class GridEntry {
         return isOccupied;
     }
 
+    public void setIsOccupied(){ isOccupied = !isOccupied; }
+
     public int getCellType(){
        return containsCellType;
     }

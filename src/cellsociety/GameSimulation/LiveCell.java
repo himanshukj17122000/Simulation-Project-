@@ -20,14 +20,16 @@ public class LiveCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
         Boolean enoughNeighbors = checkNeighbors(entry);
         if(enoughNeighbors){
             Cell deadCell = new DeadCell(entry);
+            emptyCells.add(entry);
             entry.setNextStepCell(deadCell);
         }else{
             entry.setNextStepCell(this);
         }
+
     }
 
     @Override

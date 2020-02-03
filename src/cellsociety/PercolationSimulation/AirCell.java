@@ -19,7 +19,7 @@ public class AirCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
         Boolean fillWater = checkWaterNeighbor(entry);
         if(fillWater){
             Cell waterCell = new WaterCell(entry);

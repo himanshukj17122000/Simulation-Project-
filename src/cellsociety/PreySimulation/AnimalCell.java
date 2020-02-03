@@ -26,9 +26,9 @@ public class AnimalCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry) {
-        move(entry);
-        reproduce(entry);
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
+        move(entry, emptyCells);
+        reproduce(entry, emptyCells);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class AnimalCell extends Cell {
 
     protected int getReproductionTime(){ return reproductionTime; }
 
-    protected void move(GridEntry entry){
+    protected void move(GridEntry entry, Set<GridEntry> emptyCells){
        Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
         boolean moved = false;
         int size = emptyCellSet.size();
@@ -66,6 +66,8 @@ public class AnimalCell extends Cell {
         for(GridEntry gridSpace : emptyCellSet) {
             if (i == space){
                 moveToEmptyGridEntry(entry, gridSpace);
+                emptyCells.add(entry);
+                emptyCells.remove(space);
                 moved = true;
                 break;
             }
@@ -101,7 +103,7 @@ public class AnimalCell extends Cell {
         return emptyCellSet;
     }
 
-    protected void reproduce(GridEntry entry){
+    protected void reproduce(GridEntry entry, Set<GridEntry> emptyCells){
         boolean reproduced = false;
         if(getTimeSinceReproduction() == getReproductionTime()){
             Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry);
@@ -112,6 +114,7 @@ public class AnimalCell extends Cell {
             for(GridEntry gridSpace : emptyCellSet) {
                 if (i == space){
                     reproduceInEmptyGridEntry(gridSpace, offSpring(gridSpace));
+                    emptyCells.remove(space);
                     reproduced = true;
                     break;
                 }

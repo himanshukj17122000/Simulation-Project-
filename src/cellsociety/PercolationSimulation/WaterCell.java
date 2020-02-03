@@ -19,7 +19,7 @@ public class WaterCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
         entry.setNextStepCell(this);
     }
 

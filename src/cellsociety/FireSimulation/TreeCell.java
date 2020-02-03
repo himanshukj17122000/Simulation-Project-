@@ -58,7 +58,7 @@ public class TreeCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry){
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells){
         Boolean catchFire = checkCatchFire(entry);
         if(catchFire){
             Cell fireCell = new FireCell(entry);
