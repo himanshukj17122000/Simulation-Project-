@@ -13,6 +13,7 @@ public class Simulation {
 
     public Simulation(List<List<GridEntry>> simGrid) {
         setSimulationGrid(simGrid);
+        initializeEmptyCellSet();
     }
 
     private void setSimulationGrid(List<List<GridEntry>> simGrid) {
@@ -31,15 +32,30 @@ public class Simulation {
         return emptyCellSet;
     }
 
+    private void initializeEmptyCellSet(){
+        Set<GridEntry> emptyCells = getEmptyCellSet();
+        List<List<GridEntry>> currentGridConfig = getSimulationGrid();
+        for (int r = 0; r < currentGridConfig.size(); r++) {
+            for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
+                GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
+                if (currentGridEntry.getCellType() == 1) { // update to not hard code
+                    emptyCells.add(currentGridEntry);
+                }
+            }
+        }
+        setEmptyCellSet(emptyCells);
+    }
+
 
     public void step() {
-        Set<GridEntry> newEmptyCellSet = new HashSet<GridEntry>();
+        Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 Cell currentCell = currentGridEntry.getCell();
-                currentCell.updateCell(currentGridEntry);
+                currentCell.updateCell(currentGridEntry, emptyCells);
+                System.out.println(emptyCells.size());
             }
         }
 
@@ -48,10 +64,10 @@ public class Simulation {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 currentGridEntry.updateGridEntry();
                 if (currentGridEntry.getCellType() == 1) { // update to not hard code
-                    newEmptyCellSet.add(currentGridEntry);
+                    emptyCells.add(currentGridEntry);
                 }
             }
-            setEmptyCellSet(newEmptyCellSet);
+            setEmptyCellSet(emptyCells);
         }
     }
 }

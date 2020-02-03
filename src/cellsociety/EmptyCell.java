@@ -6,9 +6,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.Set;
+
 public class EmptyCell extends Cell {
     private static final int TYPE = 1;
-    private static final boolean CANUPDATE = false;
+    private boolean CANUPDATE = false;
 
     public EmptyCell(GridEntry entry, Paint color) {
         super(color, entry);
@@ -16,8 +18,10 @@ public class EmptyCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry) {
-        entry.setNextStepCell(this);
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
+        if(emptyCells.contains(entry)){
+            entry.setNextStepCell(this);
+        }
     }
 
     @Override

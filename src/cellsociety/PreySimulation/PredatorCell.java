@@ -30,12 +30,12 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     }
 
     @Override
-    public void updateCell(GridEntry entry) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
         if(getTimeSinceEating() > maxTimeWithoutEating){
-            die(entry);
+            die(entry, emptyCells);
         }else{
-            move(entry);
-            super.reproduce(entry);
+            move(entry, emptyCells);
+            super.reproduce(entry, emptyCells);
         }
     }
 
@@ -81,7 +81,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     }
 
     @Override
-    protected void move(GridEntry entry) {
+    protected void move(GridEntry entry, Set<GridEntry> emptyCells) {
         Set<GridEntry> preyCellSet = setOfPreyNeighbors(entry);
         boolean ate = false;
         int size = preyCellSet.size();
@@ -92,6 +92,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         for (GridEntry gridSpace : preyCellSet) {
             if (i == space) {
                 eatAnimal(entry, gridSpace);
+                emptyCells.add(entry);
                 ate = true;
                 break;
             }
@@ -100,7 +101,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         if (ate) {
             setTimeSinceEating(0);
         } else {
-            super.move(entry);
+            super.move(entry, emptyCells);
             setTimeSinceEating(getTimeSinceEating() + 1);
         }
     }
@@ -122,9 +123,10 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         return preyCellSet;
     }
 
-    private void die(GridEntry entry) {
+    private void die(GridEntry entry, Set<GridEntry> emptyCells) {
         Cell newEmptyCell = new EmptyCell(entry, PREYFILL);
         entry.setNextStepCell(newEmptyCell);
+        emptyCells.add(entry);
     }
 
 }

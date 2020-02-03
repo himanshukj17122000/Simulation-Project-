@@ -6,6 +6,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.Set;
+
 public class FireCell extends Cell {
     private static final int TYPE = 3;
     private static final Paint FILL = Color.TOMATO;
@@ -16,7 +18,7 @@ public class FireCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
         entry.setNextStepCell(this);
     }
 
