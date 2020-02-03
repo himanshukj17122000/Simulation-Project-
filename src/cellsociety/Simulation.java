@@ -10,7 +10,6 @@ public class Simulation {
     private int status;
     private Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
 
-
     public Simulation(List<List<GridEntry>> simGrid) {
         setSimulationGrid(simGrid);
         initializeEmptyCellSet();
@@ -45,7 +44,6 @@ public class Simulation {
         }
         setEmptyCellSet(emptyCells);
     }
-
 
     public void step() {
         Set<GridEntry> emptyCells = getEmptyCellSet();
