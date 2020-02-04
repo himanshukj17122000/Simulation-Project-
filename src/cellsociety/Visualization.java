@@ -18,6 +18,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.sql.Time;
 import java.util.List;
 
 public class Visualization {
@@ -73,8 +75,9 @@ public class Visualization {
     public void step(GridPane grid){
         mySimulation.step();
         drawGrid(grid);
-        if (!isPaused) pauseGame(buttonPause);
-        if (isPaused) resumeGame(buttonResume);    }
+        if (!isPaused) pauseSim(buttonPause);
+        if (isPaused) resumeSim(buttonResume);
+    }
 
     private void initializeSimulation(List<List<GridEntry>> cellArray){
         mySimulation = new Simulation(cellArray);
@@ -116,11 +119,13 @@ public class Visualization {
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getMySplashScene()));
         buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         isPaused = false;
-        if (!isPaused) pauseGame(buttonPause);
+        if (!isPaused) pauseSim(buttonPause);
         buttonResume = createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        if (isPaused) resumeGame(buttonResume);
+        if (isPaused) resumeSim(buttonResume);
         Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        stopGame(buttonStop);
+        stopSim(buttonStop);
+        Button buttonRestart = createButton("Restart Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        restartSim(buttonRestart);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage);
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonResume, buttonStop, buttonUpload);
@@ -169,18 +174,26 @@ public class Visualization {
     }
 
     // Next 3 methods: Creating the button functions
-    private void pauseGame(Button buttonPause) {
+    private void pauseSim(Button buttonPause) {
         buttonPause.setOnAction(e -> myTimeline.pause());
         isPaused = true;
         System.out.println(isPaused);
     }
 
-    private void resumeGame(Button buttonResume) {
+    private void resumeSim(Button buttonResume) {
         buttonResume.setOnAction(e -> myTimeline.play());
         isPaused = false;
         System.out.println(isPaused);
     }
-    private void stopGame(Button buttonStop) {
+
+    private void restartSim(Button buttonRestart) {
+        buttonRestart.setOnAction(e -> {
+            myTimeline.pause();
+            myTimeline = new Timeline();
+        });
+    }
+
+    private void stopSim(Button buttonStop) {
         buttonStop.setOnAction(e -> myTimeline.stop());
     }
 
