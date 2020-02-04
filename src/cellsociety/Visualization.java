@@ -6,6 +6,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -36,6 +38,9 @@ public class Visualization {
     private Configuration mySimulationConfig;
     private Simulation mySimulation;
     private Timeline myTimeline;
+    private Button buttonPause;
+    private Button buttonResume;
+    private Boolean isPaused;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
@@ -70,7 +75,8 @@ public class Visualization {
     public void step(GridPane grid){
         mySimulation.step();
         drawGrid(grid);
-    }
+        if (!isPaused) pauseGame(buttonPause);
+        if (isPaused) resumeGame(buttonResume);    }
 
     private void initializeSimulation(List<List<GridEntry>> cellArray){
         mySimulation = new Simulation(cellArray);
@@ -112,13 +118,16 @@ public class Visualization {
     private void implementButtons(Stage primaryStage, VBox toolBar) {
         Button buttonHome = createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getMySplashScene()));
-        Button buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        pauseGame(buttonPause);
+        buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        isPaused = false;
+        if (!isPaused) pauseGame(buttonPause);
+        buttonResume = createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        if (isPaused) resumeGame(buttonResume);
         Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         stopGame(buttonStop);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage);
-        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStop, buttonUpload);
+        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonResume, buttonStop, buttonUpload);
     }
 
     private Button createButton(String text, String styleColor, int fontSize) {
@@ -165,14 +174,16 @@ public class Visualization {
 
     // Next 3 methods: Creating the button functions
     private void pauseGame(Button buttonPause) {
-        if (myTimeline.getStatus() == Animation.Status.PAUSED) {
-            buttonPause.setOnAction(e -> myTimeline.play());
-        }
-        else {
-            buttonPause.setOnAction(e -> myTimeline.pause());
-        }
+        buttonPause.setOnAction(e -> myTimeline.pause());
+        isPaused = true;
+        System.out.println(isPaused);
     }
 
+    private void resumeGame(Button buttonResume) {
+        buttonResume.setOnAction(e -> myTimeline.play());
+        isPaused = false;
+        System.out.println(isPaused);
+    }
     private void stopGame(Button buttonStop) {
         buttonStop.setOnAction(e -> myTimeline.stop());
     }
