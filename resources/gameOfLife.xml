@@ -3,8 +3,8 @@
     <gridlayout>
         <title>Game of Life</title>
         <maxStates>3</maxStates>
-        <rows>15</rows>
-        <columns>15</columns>
+        <rows>50</rows>
+        <columns>50</columns>
         <left>0</left>
         <right>0</right>
         <top>0</top>

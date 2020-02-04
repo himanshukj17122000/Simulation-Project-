@@ -11,17 +11,24 @@ import java.util.Random;
 import java.util.Set;
 
 public class AnimalCell extends Cell {
-    private static final int TYPE = 2;
+    private static final int TYPE = 1;
     private static final Paint FILL = Color.TAN;
     protected static final Paint PREYFILL = Color.PALEGREEN;
-    private int reproductionTime = 1000;
+    private int reproductionTime = 2;
     private int timeSinceReproduction;
     private static final boolean CANUPDATE = true;
+    private int RACE;
 
 
-    public AnimalCell(GridEntry entry) {
+    public AnimalCell(GridEntry entry, int species) {
         super(FILL, entry);
         setTimeSinceReproduction(0);
+        setRace(1);
+
+    }
+
+    private void setRace(int race){
+        RACE = race;
     }
 
     @Override
@@ -38,7 +45,7 @@ public class AnimalCell extends Cell {
 
     @Override
     public int getRace() {
-        return 0;
+        return 1;
     }
 
     protected void setTimeSinceReproduction(int time){
@@ -59,6 +66,7 @@ public class AnimalCell extends Cell {
        Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry, emptyCells);
         boolean moved = false;
         int size = emptyCellSet.size();
+
         if(size > 0){
         int space = new Random().nextInt(size);
         int i = 0;
@@ -74,30 +82,52 @@ public class AnimalCell extends Cell {
             i++;
         }}
         if(!moved){
-            entry.setNextStepCell(this);
+            if(entry.getNextStepCell() == null){
+                //System.out.print("hi");
+                entry.setNextStepCell(this);
+            }
         }
     }
 
-    private void moveToEmptyGridEntry(GridEntry currentGridSpace, GridEntry newGridSpace){
-        Cell newEmptyCell = new EmptyCell(currentGridSpace, PREYFILL); // setting current space to empty cell
-        currentGridSpace.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
-        newGridSpace.setNextStepCell(this);
+    protected void moveToEmptyGridEntry(GridEntry currentGridSpace, GridEntry newGridSpace){
+        if(currentGridSpace.getNextStepCell()!=null) {
+            if (currentGridSpace.getNextStepCell().getRace() != 2) {
+                Cell newEmptyCell = new EmptyCell(currentGridSpace, PREYFILL); // setting current space to empty cell
+                currentGridSpace.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
+                newGridSpace.setNextStepCell(this);
+            }
+        }else{
+            Cell newEmptyCell = new EmptyCell(currentGridSpace, PREYFILL); // setting current space to empty cell
+            currentGridSpace.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
+            newGridSpace.setNextStepCell(this);
+        }
     }
 
     private void reproduceInEmptyGridEntry(GridEntry newGridSpace, AnimalCell offSpring){ // setting current space to empty cell
-        newGridSpace.setNextStepCell(offSpring);
+        if(newGridSpace.getCell().getRace() == 0){
+            newGridSpace.setNextStepCell(offSpring);
+        }
+
     }
 
-    protected AnimalCell offSpring(GridEntry entry){
-        return new AnimalCell(entry);
+    protected AnimalCell offSpring(GridEntry entry, Set<GridEntry> emptyCells){
+        return new AnimalCell(entry, 1);
     }
 
-    private Set<GridEntry> setOfEmptyNeighbors(GridEntry entry, Set<GridEntry> emptyCells){
+    protected Set<GridEntry> setOfEmptyNeighbors(GridEntry entry, Set<GridEntry> emptyCells){
         Set<GridEntry> neighborSet = entry.getNeighbors();
         Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
         for (GridEntry neighbor : neighborSet) {
-            if(emptyCells.contains(neighbor))
-                emptyCellSet.add(neighbor);
+            Cell neighborCell = neighbor.getCell();
+            if(emptyCells.contains(neighbor)) {
+                if (neighbor.getNextStepCell() == null) {
+                    if (neighborCell.getRace() == 0) {
+                        emptyCellSet.add(neighbor);
+                    }
+                } else if (neighbor.getNextStepCell().getRace() ==0) {
+                    emptyCellSet.add(neighbor);
+                }
+            }
         }
         return emptyCellSet;
     }
@@ -112,8 +142,7 @@ public class AnimalCell extends Cell {
             int i = 0;
             for(GridEntry gridSpace : emptyCellSet) {
                 if (i == space){
-                    reproduceInEmptyGridEntry(gridSpace, offSpring(gridSpace));
-                    emptyCells.remove(gridSpace);
+                    reproduceInEmptyGridEntry(gridSpace, offSpring(gridSpace, emptyCells));
                     reproduced = true;
                     break;
                 }

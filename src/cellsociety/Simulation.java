@@ -11,7 +11,7 @@ public class Simulation {
 
     public Simulation(List<List<GridEntry>> simGrid) {
         setSimulationGrid(simGrid);
-        initializeEmptyCellSet();
+        initializeCellSets();
     }
 
     private void setSimulationGrid(List<List<GridEntry>> simGrid) {
@@ -30,7 +30,7 @@ public class Simulation {
         return emptyCellSet;
     }
 
-    private void initializeEmptyCellSet(){
+    private void initializeCellSets(){
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
@@ -46,7 +46,6 @@ public class Simulation {
 
     public void step() {
         Set<GridEntry> emptyCells = getEmptyCellSet();
-        //System.out.println(emptyCells.size());
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {

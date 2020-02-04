@@ -49,7 +49,7 @@ public class GridEntry {
         nextStepCell = nextCell;
     }
 
-    private Cell getNextStepCell(){
+    public Cell getNextStepCell(){
         return nextStepCell;
     }
 
@@ -79,7 +79,7 @@ public class GridEntry {
                 GridEntry rightNeighbor = grid.get(getRow()).get(getColumn() + 1);
                 NSET.add(rightNeighbor);
             }
-            if (simulation.equals("Prey") || simulation.equals("Game of Life") || simulation.equals("Segregation")) {
+            if (simulation.equals("Percolation") || simulation.equals("Game of Life") || simulation.equals("Segregation")) {
                 if (getRow() > 0) {
                     if (getColumn() > 0) {
                         GridEntry topLeftNeighbor = grid.get(getRow() - 1).get(getColumn() - 1);
@@ -185,7 +185,7 @@ public class GridEntry {
         if(type == 3){
             return new PredatorCell(this);
         }else if(type == 2){
-            return new AnimalCell(this);
+            return new AnimalCell(this, 1);
         }else{
             return new EmptyCell(this, PREYFILL);
         }

@@ -14,7 +14,7 @@ public class PersonCell extends Cell {
     private static final Paint[] FILL = {Color.BLUE, Color.RED}; // array entry corresponds to race
     private static boolean CANUPDATE = true;
     private int RACE;
-    private double Threshold = 0.4;
+    private double Threshold = 0.7;
     private static final Paint SEGREGATIONFILL = Color.WHITE;
 
 
@@ -30,9 +30,9 @@ public class PersonCell extends Cell {
         if(!satisfied){
             int space = new Random().nextInt(emptyCells.size());
             int i = 0;
-            System.out.println(emptyCells.size());
             for(GridEntry gridSpace : emptyCells) {
                 if(i == space) {
+
                     Cell newEmptyCell = new EmptyCell(entry, SEGREGATIONFILL); // setting current space to empty cell
                     entry.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
                     gridSpace.setNextStepCell(this);

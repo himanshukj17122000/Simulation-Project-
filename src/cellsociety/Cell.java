@@ -11,8 +11,8 @@ public abstract class Cell { // potentially implement a check conditions method 
     private Rectangle CELLVISUAL;
     private int Row;
     private int Column;
-    private double standardWidth = 50; //need to assign / finalzie
-    private double standardHeight = 50;
+    private double standardWidth = 25; //need to assign / finalzie
+    private double standardHeight = 25;
 
     public Cell(Paint color, GridEntry entry){
         CELLVISUAL = new Rectangle(standardWidth, standardHeight);
