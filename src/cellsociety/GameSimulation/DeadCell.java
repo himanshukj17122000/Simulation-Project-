@@ -47,7 +47,6 @@ public class DeadCell extends Cell {
                 numLiveCellNeighbors++;
             }
         }
-        //System.out.println(numLiveCellNeighbors);
         if(numLiveCellNeighbors == LiveCellsNeeded){
             return true;
         }

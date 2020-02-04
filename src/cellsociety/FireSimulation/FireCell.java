@@ -1,8 +1,8 @@
 package cellsociety.FireSimulation;
 
 import cellsociety.Cell;
+import cellsociety.EmptyCell;
 import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -19,7 +19,8 @@ public class FireCell extends Cell {
 
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
-        entry.setNextStepCell(this);
+        Cell burntCell= new EmptyCell(entry, Color.WHITE);
+        entry.setNextStepCell(burntCell);
     }
 
     @Override

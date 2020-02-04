@@ -49,7 +49,6 @@ public class LiveCell extends Cell {
                 numLiveCellNeighbors++;
             }
         }
-        System.out.println(numLiveCellNeighbors);
         if(numLiveCellNeighbors >= minLiveCellsNeeded && numLiveCellNeighbors <= maxLiveCellsNeeded){
             return true;
         }

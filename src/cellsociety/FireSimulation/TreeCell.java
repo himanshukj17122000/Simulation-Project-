@@ -2,10 +2,9 @@ package cellsociety.FireSimulation;
 
 import cellsociety.Cell;
 import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import java.util.HashSet;
+
 import java.util.Set;
 
 public class TreeCell extends Cell {
@@ -26,7 +25,11 @@ public class TreeCell extends Cell {
 
     @Override
     public int getRace() {
-        return 0;
+        return 5;
+    }
+
+    public void setCatchProb(Double prob){
+        catchFireProb = prob;
     }
 
     private Boolean checkBurningNeighbor(GridEntry entry) {
