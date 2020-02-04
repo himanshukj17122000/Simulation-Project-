@@ -32,10 +32,12 @@ public class Visualization {
     public static final double DEFAULT_SPEED = 500;
 
     private Scene myAnimationScene;
+    private GridPane myGrid;
     private Configuration mySimulationConfig;
     private Simulation mySimulation;
     private Timeline myTimeline;
     private Button buttonPause;
+    private Button buttonStep;
     private Button buttonResume;
     private Slider mySpeedSlider;
     private Boolean isPaused;
@@ -52,20 +54,20 @@ public class Visualization {
     private Simulation getMySimulation(){ return mySimulation; }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
-        GridPane grid = initializeGrid(simulationConfig);
+        myGrid = initializeGrid(simulationConfig);
         mySpeed = DEFAULT_SPEED;
-        setSimulationLoop(grid);
+        setSimulationLoop();
         VBox toolBar = buildToolBar(primaryStage, simulationConfig);
         HBox root = new HBox();
         Background splashBackground = new Background(new BackgroundFill(SCREEN_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY));
         root.setBackground(splashBackground);
-        root.getChildren().addAll(toolBar, grid);
+        root.getChildren().addAll(toolBar, myGrid);
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
     // Creating the simulation loop and timeline
-    private void setSimulationLoop(GridPane grid) {
-        myKeyFrame = new KeyFrame(Duration.millis(mySpeed), e -> step(grid));
+    private void setSimulationLoop() {
+        myKeyFrame = new KeyFrame(Duration.millis(mySpeed), e -> step());
         myTimeline = new Timeline();
         myTimeline.setCycleCount(Timeline.INDEFINITE);
         myTimeline.getKeyFrames().add(myKeyFrame);
@@ -73,12 +75,15 @@ public class Visualization {
     }
 
     // Updating how the grid simulation looks
-    public void step(GridPane grid){
+    public void step(){
         mySimulation.step();
-        drawGrid(grid);
+        drawGrid(myGrid);
         System.out.println(mySpeed);
         if (!isPaused) pauseSim(buttonPause);
-        if (isPaused) resumeSim(buttonResume);
+        if (isPaused) {
+            stepSim(buttonStep);
+            resumeSim(buttonResume);
+        }
     }
 
     private void initializeSimulation(List<List<GridEntry>> cellArray){
@@ -124,6 +129,8 @@ public class Visualization {
         buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         isPaused = false;
         if (!isPaused) pauseSim(buttonPause);
+        buttonStep = createButton("Next Step", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        if (isPaused) stepSim(buttonStep);
         buttonResume = createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         if (isPaused) resumeSim(buttonResume);
         Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
@@ -132,7 +139,7 @@ public class Visualization {
         restartSim(buttonRestart);
         Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage);
-        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonResume, buttonStop, buttonUpload);
+        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonUpload);
     }
 
     private Button createButton(String text, String styleColor, int fontSize) {
@@ -199,13 +206,18 @@ public class Visualization {
     private void pauseSim(Button buttonPause) {
         buttonPause.setOnAction(e -> myTimeline.pause());
         isPaused = true;
-        System.out.println(isPaused);
+    }
+
+    private void stepSim(Button buttonStep) {
+        buttonStep.setOnAction(e -> {
+            mySimulation.step();
+            drawGrid(myGrid);
+        });
     }
 
     private void resumeSim(Button buttonResume) {
         buttonResume.setOnAction(e -> myTimeline.play());
         isPaused = false;
-        System.out.println(isPaused);
     }
 
     private void restartSim(Button buttonRestart) {
