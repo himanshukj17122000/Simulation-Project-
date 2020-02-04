@@ -27,8 +27,9 @@ public class Visualization {
     public static final String BUTTON_STYLE_COLOR = "#3197bc";
     public static final int BUTTON_FONT_SIZE = 16;
     public static final int FRAMES_PER_SECOND = 60;
-    public static final int MILLISECOND_DELAY = 30000 / FRAMES_PER_SECOND;
-
+    public static final double MAX_SPEED = 1000;
+    public static final double MIN_SPEED = 0;
+    public static final double DEFAULT_SPEED = 500;
 
     private Scene myAnimationScene;
     private Configuration mySimulationConfig;
@@ -36,7 +37,10 @@ public class Visualization {
     private Timeline myTimeline;
     private Button buttonPause;
     private Button buttonResume;
+    private Slider mySpeedSlider;
     private Boolean isPaused;
+    private KeyFrame myKeyFrame;
+    private double mySpeed;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
@@ -49,6 +53,7 @@ public class Visualization {
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         GridPane grid = initializeGrid(simulationConfig);
+        mySpeed = DEFAULT_SPEED;
         setSimulationLoop(grid);
         VBox toolBar = buildToolBar(primaryStage, simulationConfig);
         HBox root = new HBox();
@@ -60,10 +65,10 @@ public class Visualization {
 
     // Creating the simulation loop and timeline
     private void setSimulationLoop(GridPane grid) {
-        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(grid));
+        myKeyFrame = new KeyFrame(Duration.millis(mySpeed), e -> step(grid));
         myTimeline = new Timeline();
         myTimeline.setCycleCount(Timeline.INDEFINITE);
-        myTimeline.getKeyFrames().add(frame);
+        myTimeline.getKeyFrames().add(myKeyFrame);
         myTimeline.play();
     }
 
@@ -71,6 +76,7 @@ public class Visualization {
     public void step(GridPane grid){
         mySimulation.step();
         drawGrid(grid);
+        System.out.println(mySpeed);
         if (!isPaused) pauseSim(buttonPause);
         if (isPaused) resumeSim(buttonResume);
     }
@@ -133,6 +139,7 @@ public class Visualization {
         Button button = new Button(text);
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color:" + styleColor + ";-fx-font-size:" + fontSize + " px;");
+        button.setPrefWidth(180);
         return button;
     }
 
@@ -145,28 +152,45 @@ public class Visualization {
         });
     }
 
+    private void updateSpeed(Slider slider) {
+        slider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                mySpeed = (double) newValue;
+            }
+        });
+    }
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
         String probCatchLabel = simulationConfig.getProbCatchLabel();
         if (probCatchLabel != null) {
-            Label setProbCatch = new Label("Set the " + probCatchLabel);
+            Label setProbCatch = new Label("Set the " + probCatchLabel + ":");
             setProbCatch.setStyle("-fx-font-size: 16");
             setProbCatch.setTextFill(Color.WHITE);
-            Slider probabilitySlider = createSlider(simulationConfig.getProbCatch());
+            Slider probabilitySlider = createSlider(simulationConfig.getProbCatch(), 0, 1, 0.5,
+                    5, 0.05);
             updateProbCatch(probabilitySlider, simulationConfig);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
+        Label setSpeed = new Label ("Set the simulation speed:");
+        setSpeed.setStyle("-fx-font-size: 16");
+        setSpeed.setTextFill(Color.WHITE);
+        mySpeedSlider = createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/2,
+                (MAX_SPEED-MIN_SPEED)/100, 100);
+        updateSpeed(mySpeedSlider);
+        toolBar.getChildren().addAll(setSpeed, mySpeedSlider);
     }
 
-    private Slider createSlider(double defaultValue) {
+    private Slider createSlider(double defaultValue, double min, double max, double majorTickUnit,
+                                double minorTickCount, double blockIncrement) {
         Slider slider = new Slider();
-        slider.setMin(0);
-        slider.setMax(1);
+        slider.setMin(min);
+        slider.setMax(max);
         slider.setValue(defaultValue);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
-        slider.setMajorTickUnit(0.5);
-        slider.setMinorTickCount(5);
-        slider.setBlockIncrement(0.05);
+        slider.setMajorTickUnit(majorTickUnit);
+        slider.setMinorTickCount((int) minorTickCount);
+        slider.setBlockIncrement(blockIncrement);
         slider.setStyle("-fx-tick-label-fill: white");
         return slider;
     }
