@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.Configuration;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;

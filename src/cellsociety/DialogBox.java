@@ -11,6 +11,12 @@ import java.io.File;
 
 public class DialogBox {
     public static final String DATA_FILE_EXTENSION = "*.xml";
+    public static final String FIRE_FILE = "fire.xml";
+    public static final String GAME_FILE = "gameOfLife.xml";
+    public static final String PERC_FILE = "percolation.xml";
+    public static final String PREY_FILE = "prey.xml";
+    public static final String SEG_FILE = "segregation.xml";
+    public static final String TYPE = "type";
     // NOTE: generally accepted behavior that the chooser remembers where user left it last
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private Configuration mySimulationConfig;
@@ -19,29 +25,29 @@ public class DialogBox {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         try {
             switch (dataFile.getName()) {
-                case "fire.xml":
-                    new Reader("type").getFire(dataFile);
+                case FIRE_FILE:
+                    new Reader(TYPE).getFire(dataFile);
                     simConfig = Configuration.getFireClass();
                     break;
-                case "gameOfLife.xml":
-                    new Reader("type").getGame(dataFile);
+                case GAME_FILE:
+                    new Reader(TYPE).getGame(dataFile);
                     simConfig = Configuration.getGameClass();
                     break;
-                case "percolation.xml":
-                    new Reader("type").getPercolation(dataFile);
+                case PERC_FILE:
+                    new Reader(TYPE).getPercolation(dataFile);
                     simConfig = Configuration.getPerClass();
                     break;
-                case "prey.xml":
-                    new Reader("type").getPrey(dataFile);
+                case PREY_FILE:
+                    new Reader(TYPE).getPrey(dataFile);
                     simConfig = Configuration.getPreyClass();
                     break;
-                case "segregation.xml":
-                    new Reader("type").getSegregation(dataFile);
+                case SEG_FILE:
+                    new Reader(TYPE).getSegregation(dataFile);
                     simConfig = Configuration.getSegClass();
                     break;
             }
             Visualization animation = new Visualization(primaryStage, simConfig);
-            primaryStage.setScene(animation.getMyAnimationScene());
+            primaryStage.setScene(animation.getAnimationScene());
             mySimulationConfig = simConfig;
         }
         catch (FileInputException e) {
@@ -68,5 +74,5 @@ public class DialogBox {
     }
 
     // Getter method for configuration to be passed on in Visualization and Simulation
-    public Configuration getMySimulationConfig() { return mySimulationConfig; }
+    public Configuration getSimulationConfig() { return mySimulationConfig; }
 }

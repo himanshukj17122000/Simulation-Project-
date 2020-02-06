@@ -36,7 +36,7 @@ public class Splash {
         mySplashScene = buildSplashScene(primaryStage);
     }
 
-    public Scene getMySplashScene() {
+    public Scene getSplashScene() {
         return mySplashScene;
     }
     public Configuration getSimulationConfig() { return mySimulationConfig; }
@@ -68,9 +68,9 @@ public class Splash {
             try {
                 DialogBox popup = new DialogBox();
                 popup.start(primaryStage, this.getSimulationConfig());
-                mySimulationConfig = popup.getMySimulationConfig();
+                mySimulationConfig = popup.getSimulationConfig();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                ex.printStackTrace();                       // NEED TO CHANGE THIS CATCH EXCEPTION STATEMENT!!!!
             }
         });
     }

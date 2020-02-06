@@ -49,9 +49,9 @@ public class Visualization {
     }
 
     // Getter methods
-    public Scene getMyAnimationScene() { return myAnimationScene; }
-    public Configuration getMySimulationConfig() { return mySimulationConfig; }
-    private Simulation getMySimulation(){ return mySimulation; }
+    public Scene getAnimationScene() { return myAnimationScene; }
+    public Configuration getSimulationConfig() { return mySimulationConfig; }
+    private Simulation getSimulation(){ return mySimulation; }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         myGrid = initializeGrid(simulationConfig);
@@ -99,7 +99,7 @@ public class Visualization {
 
     // Redrawing the grid after every time step, adding each cell to the grid
     public GridPane drawGrid(GridPane grid) {
-        List<List<GridEntry>> cellStates = getMySimulation().getSimulationGrid();
+        List<List<GridEntry>> cellStates = getSimulation().getSimulationGrid();
         grid.getChildren().clear();
         grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
         grid.setStyle("-fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 25; -fx-border-color: black;");
@@ -114,7 +114,6 @@ public class Visualization {
         return grid;
     }
 
-    // Next 4 Methods: Creating the toolbar for the visualization scene
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         VBox toolBar = new VBox(20);
         implementButtons(primaryStage, toolBar);
@@ -125,7 +124,7 @@ public class Visualization {
 
     private void implementButtons(Stage primaryStage, VBox toolBar) {
         Button buttonHome = createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
-        buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getMySplashScene()));
+        buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
         buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         isPaused = false;
         if (!isPaused) pauseSim(buttonPause);
@@ -151,40 +150,34 @@ public class Visualization {
     }
 
     private void updateProbCatch(Slider slider, Configuration simulationConfig) {
-        slider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                simulationConfig.setProbCatch((double) newValue);
-            }
-        });
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> simulationConfig.setProbCatch((double) newValue));
     }
 
     private void updateSpeed(Slider slider) {
-        slider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                mySpeed = (double) newValue;
-            }
-        });
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> mySpeed = (double) newValue);
     }
+
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
         String probCatchLabel = simulationConfig.getProbCatchLabel();
         if (probCatchLabel != null) {
-            Label setProbCatch = new Label("Set the " + probCatchLabel + ":");
-            setProbCatch.setStyle("-fx-font-size: 16");
-            setProbCatch.setTextFill(Color.WHITE);
+            Label setProbCatch = createLabel("Set the " + probCatchLabel + ":", 16, Color.WHITE);
             Slider probabilitySlider = createSlider(simulationConfig.getProbCatch(), 0, 1, 0.5,
                     5, 0.05);
             updateProbCatch(probabilitySlider, simulationConfig);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
-        Label setSpeed = new Label ("Set the simulation speed:");
-        setSpeed.setStyle("-fx-font-size: 16");
-        setSpeed.setTextFill(Color.WHITE);
+        Label setSpeed = createLabel ("Set the simulation speed:", 16, Color.WHITE);
         mySpeedSlider = createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/2,
                 (MAX_SPEED-MIN_SPEED)/100, 100);
         updateSpeed(mySpeedSlider);
         toolBar.getChildren().addAll(setSpeed, mySpeedSlider);
+    }
+
+    private Label createLabel(String text, int fontSize, Color textFill) {
+        Label label = new Label(text);
+        label.setStyle("-fx-font-size: " + fontSize);
+        label.setTextFill(textFill);
+        return label;
     }
 
     private Slider createSlider(double defaultValue, double min, double max, double majorTickUnit,
@@ -202,7 +195,7 @@ public class Visualization {
         return slider;
     }
 
-    // Next 3 methods: Creating the button functions
+    // Next 6 methods: Creating the button functions
     private void pauseSim(Button buttonPause) {
         buttonPause.setOnAction(e -> myTimeline.pause());
         isPaused = true;
@@ -237,10 +230,10 @@ public class Visualization {
             try {
                 //start(primaryStage, myTimeline);
                 DialogBox popup = new DialogBox();
-                popup.start(primaryStage, this.getMySimulationConfig());
-                mySimulationConfig = popup.getMySimulationConfig();
+                popup.start(primaryStage, this.getSimulationConfig());
+                mySimulationConfig = popup.getSimulationConfig();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                ex.printStackTrace();                       // NEED TO CHANGE THIS CATCH EXCEPTION STATEMENT!!!!
             }
         });
     }

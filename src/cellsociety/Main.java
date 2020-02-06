@@ -27,7 +27,7 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setTitle(TITLE);
         Splash simulation = new Splash(primaryStage);
-        primaryStage.setScene(simulation.getMySplashScene());
+        primaryStage.setScene(simulation.getSplashScene());
         primaryStage.show();
 
     }
