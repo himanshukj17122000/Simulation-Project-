@@ -12,25 +12,31 @@ public abstract class Configuration {
     private static Fire fireClass;
     private static Percolation perClass;
     private static Segregation segClass;
+    private static final String prey = "getPrey";
+    private static final String percolation = "getPercolation";
+    private static final String game="getGame";
+    private static final String segregation="getSegregation";
+    private static final String fire="getFire";
+
 
     public static void config(Map<String, String> maps) {
         StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
         StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
         String methodName = e.getMethodName();
         switch (methodName) {
-            case "getPrey":
+            case prey:
                 preyClass = new Prey(maps);
                 break;
-            case "getGame":
+            case game:
                 gameClass = new Game(maps);
                 break;
-            case "getFire":
+            case fire:
                 fireClass = new Fire(maps);
                 break;
-            case "getPercolation":
+            case percolation:
                 perClass = new Percolation(maps);
                 break;
-            case "getSegregation":
+            case segregation:
                 segClass = new Segregation(maps);
                 break;
         }
@@ -39,7 +45,6 @@ public abstract class Configuration {
     protected String myTitle,type1,type2,type3,probCatchLabel;
     protected int maxStates,rows,columns,left,right,top,bottom, neighbours,fishBreed,sharkBreed;
     protected double probCatch;
-
     public abstract void paraTitle(String title);
 
     private String getMyTitle(){
