@@ -4,6 +4,7 @@ import cellsociety.Configuration.Configuration;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -65,8 +66,8 @@ public class Splash {
                 popup.start(primaryStage, this.getSimulationConfig());
                 mySimulationConfig = popup.getSimulationConfig();
             } catch (Exception ex) {
-                ex.printStackTrace();                       // NEED TO CHANGE THIS CATCH EXCEPTION STATEMENT!!!!
-            }
+                String errorMessage = "No file chosen";
+                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();            }
         });
     }
 }
