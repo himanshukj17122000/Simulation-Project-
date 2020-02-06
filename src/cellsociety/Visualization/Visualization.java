@@ -2,6 +2,7 @@ package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
 import cellsociety.GridEntry;
+import cellsociety.Layout;
 import cellsociety.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -20,29 +21,19 @@ import javafx.util.Duration;
 import java.util.List;
 
 public class Visualization {
-    public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 800;
-    public static final Paint SCREEN_BACKGROUND = Color.web("1f2e50");
-    public static final double GRID_WIDTH = 750.0;
-    public static final double GRID_HEIGHT = 750.0;
-    public static final String BUTTON_STYLE_COLOR = "#3197bc";
-    public static final int BUTTON_FONT_SIZE = 16;
-    public static final int FRAMES_PER_SECOND = 60;
-    public static final double MAX_SPEED = 1000;
-    public static final double MIN_SPEED = 0;
-    public static final double DEFAULT_SPEED = 500;
+    private static final int SCREEN_WIDTH = 1200;
+    private static final int SCREEN_HEIGHT = 800;
+    private static final Paint SCREEN_BACKGROUND = Color.web("1f2e50");
+    private static final double GRID_WIDTH = 750.0;
+    private static final double GRID_HEIGHT = 750.0;
+    private static final int FRAMES_PER_SECOND = 60;
+    private static final double DEFAULT_SPEED = 500;
 
     private Scene myAnimationScene;
     private HBox myRoot;
     private GridPane myGrid;
-    private Configuration mySimulationConfig;
     private Simulation mySimulation;
-    private Timeline myTimeline;
-    private Button buttonPause;
-    private Button buttonStep;
-    private Button buttonResume;
-    private Boolean isPaused;
-    private double mySpeed;
+    private Layout myLayout;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
@@ -50,15 +41,16 @@ public class Visualization {
 
     // Getter methods
     public Scene getAnimationScene() { return myAnimationScene; }
-    public Configuration getSimulationConfig() { return mySimulationConfig; }
+    //public Configuration getSimulationConfig() { return mySimulationConfig; }
     private Simulation getSimulation(){ return mySimulation; }
     public HBox getRoot() { return myRoot; }
     public void setRoot(HBox root) { myRoot = root; }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         myGrid = initializeGrid(simulationConfig);
-        mySpeed = DEFAULT_SPEED;
+        myLayout.setSpeed(DEFAULT_SPEED);
         setSimulationLoop();
+        myLayout = new Layout();
         VBox toolBar = buildToolBar(primaryStage, simulationConfig);
         myRoot = new HBox();
         Background splashBackground = new Background(new BackgroundFill(SCREEN_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY));
@@ -69,21 +61,21 @@ public class Visualization {
 
     // Creating the simulation loop and timeline
     private void setSimulationLoop() {
-        KeyFrame myKeyFrame = new KeyFrame(Duration.millis(mySpeed), e -> step());
-        myTimeline = new Timeline();
-        myTimeline.setCycleCount(Timeline.INDEFINITE);
-        myTimeline.getKeyFrames().add(myKeyFrame);
-        myTimeline.play();
+        KeyFrame myKeyFrame = new KeyFrame(Duration.millis(myLayout.getSpeed()), e -> step());
+        myLayout.setTimeline(new Timeline());
+        myLayout.getTimeline().setCycleCount(Timeline.INDEFINITE);
+        myLayout.getTimeline().getKeyFrames().add(myKeyFrame);
+        myLayout.getTimeline().play();
     }
 
     // Updating how the grid simulation looks
     public void step(){
         mySimulation.step();
         drawGrid(myGrid);
-        if (!isPaused) pauseSim(buttonPause);
-        if (isPaused) {
-            stepSim(buttonStep);
-            resumeSim(buttonResume);
+        if (! myLayout.getIsPaused()) myLayout.pauseSim(myLayout.getButtonPause());
+        if (myLayout.getIsPaused()) {
+            myLayout.stepSim(myLayout.getButtonStep());
+            myLayout.resumeSim(myLayout.getButtonResume());
         }
     }
 
@@ -117,22 +109,26 @@ public class Visualization {
 
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         VBox toolBar = new VBox(20);
-        implementButtons(primaryStage, toolBar);
-        implementSlider(simulationConfig, toolBar);
+        myLayout.implementButtons(primaryStage, toolBar);
+        myLayout.implementSlider(simulationConfig, toolBar);
         toolBar.setPadding(new Insets(50));
         return toolBar;
     }
-
+    /*
     private void implementButtons(Stage primaryStage, VBox toolBar) {
         Button buttonHome = createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
         buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         isPaused = false;
-        if (!isPaused) pauseSim(buttonPause);
+        if (!isPaused) {
+            pauseSim(buttonPause);
+        }
         buttonStep = createButton("Next Step", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        if (isPaused) stepSim(buttonStep);
         buttonResume = createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        if (isPaused) resumeSim(buttonResume);
+        if (isPaused) {
+            stepSim(buttonStep);
+            resumeSim(buttonResume);
+        }
         Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         stopSim(buttonStop);
         Button buttonRestart = createButton("Restart Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
@@ -161,13 +157,13 @@ public class Visualization {
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
         String probCatchLabel = simulationConfig.getProbCatchLabel();
         if (probCatchLabel != null) {
-            Label setProbCatch = createLabel("Set the " + probCatchLabel + ":", 16, Color.WHITE);
+            Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel + ":", 16, Color.WHITE);
             Slider probabilitySlider = createSlider(simulationConfig.getProbCatch(), 0, 1, 0.5,
                     5, 0.05);
             updateProbCatch(probabilitySlider, simulationConfig);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
-        Label setSpeed = createLabel ("Set the simulation speed:", 16, Color.WHITE);
+        Label setSpeed = myLayout.createLabel ("Set the simulation speed:", 16, Color.WHITE);
         Slider mySpeedSlider = createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED - MIN_SPEED) / 2,
                 (MAX_SPEED - MIN_SPEED) / 100, 100);
         updateSpeed(mySpeedSlider);
@@ -227,17 +223,16 @@ public class Visualization {
 
     private void uploadSim(Button buttonUpload, Stage primaryStage) {
         buttonUpload.setOnAction(e -> {
-            //if (myTimeline.getStatus() != Animation.Status.STOPPED) myTimeline.stop();
             try {
-                //start(primaryStage, myTimeline);
                 DialogBox popup = new DialogBox();
                 popup.start(primaryStage, this.getSimulationConfig());
                 mySimulationConfig = popup.getSimulationConfig();
-            } catch (Exception ex) {
+            } catch (NullPointerException ex) {
                 String errorMessage = "No file chosen";
                 new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
             }
         });
     }
+     */
 }
 
