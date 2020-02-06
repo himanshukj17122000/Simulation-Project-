@@ -65,9 +65,10 @@ public class Splash {
                 DialogBox popup = new DialogBox();
                 popup.start(primaryStage, this.getSimulationConfig());
                 mySimulationConfig = popup.getSimulationConfig();
-            } catch (Exception ex) {
+            } catch (NullPointerException ex) {
                 String errorMessage = "No file chosen";
-                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();            }
+                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
+            }
         });
     }
 }
