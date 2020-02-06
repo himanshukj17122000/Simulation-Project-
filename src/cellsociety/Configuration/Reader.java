@@ -33,7 +33,7 @@ public class Reader {
         /**
          * Get data contained in this XML file as an object
          */
-        public void getGame (File dataFile) {
+        public Map<String,String> getGame (File dataFile) {
             //results.clear();
             Element root = getRootElement(dataFile);
             if (! isValidFile(root, Game.DATA_TYPE)) {
@@ -44,12 +44,12 @@ public class Reader {
             for (String field : Game.DATA_FIELDS) {
                 results.put(field, getTextValue(root, field));
             }
-            Game.config(results);
+            return results;
         }
     /**
      * Get data contained in this XML file as an object
      */
-    public void getFire (File dataFile) {
+    public Map<String, String> getFire (File dataFile) {
         //results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Fire.DATA_TYPE)) {
@@ -60,13 +60,13 @@ public class Reader {
         for (String field : Fire.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        Fire.config(results);
+        return results;
     }
 
     /**
      * Get data contained in this XML file as an object
      */
-        public void getPercolation (File dataFile) {
+        public Map<String,String> getPercolation (File dataFile) {
             //results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Percolation.DATA_TYPE)) {
@@ -77,30 +77,30 @@ public class Reader {
         for (String field : Percolation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        Percolation.config(results);
+        return results;
     }
 
     /**
      * Get data contained in this XML file as an object
      */
-    public void getSegregation (File dataFile) {
+    public Map<String, String> getSimulation (File dataFile) {
         //results.clear();
         Element root = getRootElement(dataFile);
-        if (! isValidFile(root, Segregation.DATA_TYPE)) {
-            throw new FileInputException(ERROR_MESSAGE, Segregation.DATA_TYPE);
-        }
+//        if (! isValidFile(root, Segregation.DATA_TYPE)) {
+//            throw new FileInputException(ERROR_MESSAGE, Segregation.DATA_TYPE);
+//        }
         // read data associated with the fields given by the object
         results = new HashMap<>();
         for (String field : Segregation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        Segregation.config(results);
+        return results;
     }
 
     /**
      * Get data contained in this XML file as an object
      */
-    public void getPrey (File dataFile) {
+    public Map<String,String> getPrey (File dataFile) {
         //results.clear();
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Prey.DATA_TYPE)) {
@@ -111,7 +111,7 @@ public class Reader {
         for (String field : Prey.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
         }
-        Prey.config(results);
+        return results;
     }
 
         // get root element of an XML file
@@ -157,9 +157,5 @@ public class Reader {
                 throw new FileInputException(e);
             }
         }
-
-    public static Map<String, String> getResults() {
-        return results;
-    }
 }
 

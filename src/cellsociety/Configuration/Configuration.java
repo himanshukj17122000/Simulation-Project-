@@ -7,40 +7,40 @@ import java.util.Map;
 import java.util.Random;
 
 public abstract class Configuration {
-    private static Prey preyClass;
-    private static Game gameClass;
-    private static Fire fireClass;
-    private static Percolation perClass;
-    private static Segregation segClass;
-    private static final String prey = "getPrey";
-    private static final String percolation = "getPercolation";
-    private static final String game="getGame";
-    private static final String segregation="getSegregation";
-    private static final String fire="getFire";
+//    private static Prey preyClass;
+//    private static Game gameClass;
+//    private static Fire fireClass;
+//    private static Percolation perClass;
+//    private static Segregation segClass;
+//    private static final String prey = "getPrey";
+//    private static final String percolation = "getPercolation";
+//    private static final String game="getGame";
+//    private static final String segregation="getSegregation";
+//    private static final String fire="getFire";
 
 
-    public static void config(Map<String, String> maps) {
-        StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-        StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
-        String methodName = e.getMethodName();
-        switch (methodName) {
-            case prey:
-                preyClass = new Prey(maps);
-                break;
-            case game:
-                gameClass = new Game(maps);
-                break;
-            case fire:
-                fireClass = new Fire(maps);
-                break;
-            case percolation:
-                perClass = new Percolation(maps);
-                break;
-            case segregation:
-                segClass = new Segregation(maps);
-                break;
-        }
-   }
+//    public static void config(Map<String, String> maps) {
+//        StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+//        StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
+//        String methodName = e.getMethodName();
+//        switch (methodName) {
+//            case prey:
+//                preyClass = new Prey(maps);
+//                break;
+//            case game:
+//                gameClass = new Game(maps);
+//                break;
+//            case fire:
+//                fireClass = new Fire(maps);
+//                break;
+//            case percolation:
+//                perClass = new Percolation(maps);
+//                break;
+//            case segregation:
+//                segClass = new Segregation(maps);
+//                break;
+//        }
+//   }
 
     protected String myTitle,type1,type2,type3,probCatchLabel;
     protected int maxStates,rows,columns,left,right,top,bottom, neighbours,fishBreed,sharkBreed;
@@ -51,11 +51,11 @@ public abstract class Configuration {
         return myTitle;
     }
 
-    public static Prey getPreyClass(){ return preyClass; }
-    public static Game getGameClass(){ return gameClass; }
-    public static Fire getFireClass(){ return fireClass; }
-    public static Percolation getPerClass(){ return perClass; }
-    public static Segregation getSegClass(){ return segClass; }
+//    public static Prey getPreyClass(){ return preyClass; }
+//    public static Game getGameClass(){ return gameClass; }
+//    public static Fire getFireClass(){ return fireClass; }
+//    public static Percolation getPerClass(){ return perClass; }
+//    public static Segregation getSegClass(){ return segClass; }
 
     public List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
         List<List<GridEntry>> grid = new ArrayList<>();
