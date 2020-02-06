@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.ObjectInputFilter;
 
 public class DialogBox {
     public static final String DATA_FILE_EXTENSION = "*.xml";

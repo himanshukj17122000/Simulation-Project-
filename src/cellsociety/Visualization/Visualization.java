@@ -128,11 +128,15 @@ public class Visualization {
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
         buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         isPaused = false;
-        if (!isPaused) pauseSim(buttonPause);
+        if (!isPaused) {
+            pauseSim(buttonPause);
+        }
         buttonStep = createButton("Next Step", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        if (isPaused) stepSim(buttonStep);
         buttonResume = createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        if (isPaused) resumeSim(buttonResume);
+        if (isPaused) {
+            stepSim(buttonStep);
+            resumeSim(buttonResume);
+        }
         Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         stopSim(buttonStop);
         Button buttonRestart = createButton("Restart Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
