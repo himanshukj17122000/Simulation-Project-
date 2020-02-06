@@ -6,6 +6,7 @@ import cellsociety.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +17,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.util.List;
 
 public class Visualization {
@@ -44,6 +46,7 @@ public class Visualization {
     private Boolean isPaused;
     private KeyFrame myKeyFrame;
     private double mySpeed;
+    private Group myGroup;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
@@ -55,6 +58,12 @@ public class Visualization {
     public HBox getRoot() { return myRoot; }
     public void setRoot(HBox root) { myRoot = root; }
     private Simulation getSimulation(){ return mySimulation; }
+    public double getGridWidth(){
+        return GRID_WIDTH;
+    }
+    public double getGridHeight(){
+        return GRID_HEIGHT;
+    }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         myGrid = initializeGrid(simulationConfig);
@@ -79,7 +88,7 @@ public class Visualization {
 
     // Updating how the grid simulation looks
     public void step(){
-        mySimulation.step();
+       /* myGroup = */mySimulation.step();
         drawGrid(myGrid);
         System.out.println(mySpeed);
         if (!isPaused) pauseSim(buttonPause);
