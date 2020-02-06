@@ -22,7 +22,7 @@ public class DialogBox {
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private Configuration mySimulationConfig;
 
-    public void start(Stage primaryStage, Configuration simConfig) throws Exception {
+    public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         try {
             switch (dataFile.getName()) {
@@ -55,8 +55,6 @@ public class DialogBox {
             // handle error of unexpected file format
             showMessage(Alert.AlertType.ERROR, e.getMessage());
         }
-        // nothing selected, so quit the application
-        if (dataFile == null) Platform.exit();
     }
 
     // display given message to user using the given type of Alert dialog box

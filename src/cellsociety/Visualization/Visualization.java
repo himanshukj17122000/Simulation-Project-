@@ -20,17 +20,17 @@ import javafx.util.Duration;
 import java.util.List;
 
 public class Visualization {
-    public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 800;
-    public static final Paint SCREEN_BACKGROUND = Color.web("1f2e50");
-    public static final double GRID_WIDTH = 750.0;
-    public static final double GRID_HEIGHT = 750.0;
-    public static final String BUTTON_STYLE_COLOR = "#3197bc";
-    public static final int BUTTON_FONT_SIZE = 16;
-    public static final int FRAMES_PER_SECOND = 60;
-    public static final double MAX_SPEED = 1000;
-    public static final double MIN_SPEED = 0;
-    public static final double DEFAULT_SPEED = 500;
+    private static final int SCREEN_WIDTH = 1200;
+    private static final int SCREEN_HEIGHT = 800;
+    private static final Paint SCREEN_BACKGROUND = Color.web("1f2e50");
+    private static final double GRID_WIDTH = 750.0;
+    private static final double GRID_HEIGHT = 750.0;
+    private static final String BUTTON_STYLE_COLOR = "#3197bc";
+    private static final int BUTTON_FONT_SIZE = 16;
+    private static final int FRAMES_PER_SECOND = 60;
+    private static final double MAX_SPEED = 1000;
+    private static final double MIN_SPEED = 0;
+    private static final double DEFAULT_SPEED = 500;
 
     private Scene myAnimationScene;
     private HBox myRoot;
@@ -233,7 +233,7 @@ public class Visualization {
                 DialogBox popup = new DialogBox();
                 popup.start(primaryStage, this.getSimulationConfig());
                 mySimulationConfig = popup.getSimulationConfig();
-            } catch (Exception ex) {
+            } catch (NullPointerException ex) {
                 String errorMessage = "No file chosen";
                 new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
             }
