@@ -1,13 +1,9 @@
-package cellsociety;
+package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
-import cellsociety.Configuration.FileInputException;
-import cellsociety.Configuration.Reader;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -17,9 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.File;
+
 import static cellsociety.Main.TITLE;
 
 public class Splash {

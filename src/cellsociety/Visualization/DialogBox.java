@@ -1,8 +1,9 @@
-package cellsociety;
+package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
 import cellsociety.Configuration.FileInputException;
 import cellsociety.Configuration.Reader;
+import cellsociety.Visualization.Visualization;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
@@ -11,12 +12,12 @@ import java.io.File;
 
 public class DialogBox {
     public static final String DATA_FILE_EXTENSION = "*.xml";
-    public static final String FIRE_FILE = "fire.xml";
-    public static final String GAME_FILE = "gameOfLife.xml";
-    public static final String PERC_FILE = "percolation.xml";
-    public static final String PREY_FILE = "prey.xml";
-    public static final String SEG_FILE = "segregation.xml";
-    public static final String TYPE = "type";
+    private static final String FIRE_FILE = "fire.xml";
+    private static final String GAME_FILE = "gameOfLife.xml";
+    private static final String PERC_FILE = "percolation.xml";
+    private static final String PREY_FILE = "prey.xml";
+    private static final String SEG_FILE = "segregation.xml";
+    private static final String TYPE = "type";
     // NOTE: generally accepted behavior that the chooser remembers where user left it last
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private Configuration mySimulationConfig;

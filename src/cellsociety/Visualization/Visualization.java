@@ -1,10 +1,10 @@
-package cellsociety;
+package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
+import cellsociety.GridEntry;
+import cellsociety.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

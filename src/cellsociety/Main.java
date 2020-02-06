@@ -1,15 +1,8 @@
 package cellsociety;
 
-import cellsociety.Configuration.Fire;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javafx.application.Application;
-import javafx.util.Duration;
-
-import java.util.List;
 
 /**
  * Feel free to completely change this code or delete it entirely.
