@@ -231,9 +231,7 @@ public class Visualization {
 
     private void uploadSim(Button buttonUpload, Stage primaryStage) {
         buttonUpload.setOnAction(e -> {
-            //if (myTimeline.getStatus() != Animation.Status.STOPPED) myTimeline.stop();
             try {
-                //start(primaryStage, myTimeline);
                 DialogBox popup = new DialogBox();
                 popup.start(primaryStage, this.getSimulationConfig());
                 mySimulationConfig = popup.getSimulationConfig();
