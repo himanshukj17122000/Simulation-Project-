@@ -17,6 +17,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Author:Himanshu Jain 
+ */
+
 public class DialogBox {
     public static final String DATA_FILE_EXTENSION = "*.xml";
     private static final String FIRE_FILE = "Fire";
