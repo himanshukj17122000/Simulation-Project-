@@ -32,6 +32,7 @@ public class Visualization {
     public static final double DEFAULT_SPEED = 500;
 
     private Scene myAnimationScene;
+    private HBox myRoot;
     private GridPane myGrid;
     private Configuration mySimulationConfig;
     private Simulation mySimulation;
@@ -51,6 +52,8 @@ public class Visualization {
     // Getter methods
     public Scene getAnimationScene() { return myAnimationScene; }
     public Configuration getSimulationConfig() { return mySimulationConfig; }
+    public HBox getRoot() { return myRoot; }
+    public void setRoot(HBox root) { myRoot = root; }
     private Simulation getSimulation(){ return mySimulation; }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
@@ -58,11 +61,11 @@ public class Visualization {
         mySpeed = DEFAULT_SPEED;
         setSimulationLoop();
         VBox toolBar = buildToolBar(primaryStage, simulationConfig);
-        HBox root = new HBox();
+        myRoot = new HBox();
         Background splashBackground = new Background(new BackgroundFill(SCREEN_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY));
-        root.setBackground(splashBackground);
-        root.getChildren().addAll(toolBar, myGrid);
-        return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
+        myRoot.setBackground(splashBackground);
+        myRoot.getChildren().addAll(toolBar, myGrid);
+        return new Scene(myRoot, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
     // Creating the simulation loop and timeline

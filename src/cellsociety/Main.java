@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.Visualization.Splash;
 import javafx.stage.Stage;
 
 import javafx.application.Application;
