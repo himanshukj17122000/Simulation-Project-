@@ -7,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -40,9 +41,7 @@ public class Visualization {
     private Button buttonPause;
     private Button buttonStep;
     private Button buttonResume;
-    private Slider mySpeedSlider;
     private Boolean isPaused;
-    private KeyFrame myKeyFrame;
     private double mySpeed;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
@@ -52,9 +51,9 @@ public class Visualization {
     // Getter methods
     public Scene getAnimationScene() { return myAnimationScene; }
     public Configuration getSimulationConfig() { return mySimulationConfig; }
+    private Simulation getSimulation(){ return mySimulation; }
     public HBox getRoot() { return myRoot; }
     public void setRoot(HBox root) { myRoot = root; }
-    private Simulation getSimulation(){ return mySimulation; }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         myGrid = initializeGrid(simulationConfig);
@@ -70,7 +69,7 @@ public class Visualization {
 
     // Creating the simulation loop and timeline
     private void setSimulationLoop() {
-        myKeyFrame = new KeyFrame(Duration.millis(mySpeed), e -> step());
+        KeyFrame myKeyFrame = new KeyFrame(Duration.millis(mySpeed), e -> step());
         myTimeline = new Timeline();
         myTimeline.setCycleCount(Timeline.INDEFINITE);
         myTimeline.getKeyFrames().add(myKeyFrame);
@@ -81,7 +80,6 @@ public class Visualization {
     public void step(){
         mySimulation.step();
         drawGrid(myGrid);
-        System.out.println(mySpeed);
         if (!isPaused) pauseSim(buttonPause);
         if (isPaused) {
             stepSim(buttonStep);
@@ -170,8 +168,8 @@ public class Visualization {
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
         Label setSpeed = createLabel ("Set the simulation speed:", 16, Color.WHITE);
-        mySpeedSlider = createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/2,
-                (MAX_SPEED-MIN_SPEED)/100, 100);
+        Slider mySpeedSlider = createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED - MIN_SPEED) / 2,
+                (MAX_SPEED - MIN_SPEED) / 100, 100);
         updateSpeed(mySpeedSlider);
         toolBar.getChildren().addAll(setSpeed, mySpeedSlider);
     }
@@ -236,7 +234,8 @@ public class Visualization {
                 popup.start(primaryStage, this.getSimulationConfig());
                 mySimulationConfig = popup.getSimulationConfig();
             } catch (Exception ex) {
-                ex.printStackTrace();                       // NEED TO CHANGE THIS CATCH EXCEPTION STATEMENT!!!!
+                String errorMessage = "No file chosen";
+                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
             }
         });
     }
