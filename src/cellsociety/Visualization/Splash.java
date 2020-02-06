@@ -67,7 +67,8 @@ public class Splash {
                 mySimulationConfig = popup.getSimulationConfig();
             } catch (NullPointerException ex) {
                 String errorMessage = "No file chosen";
-                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();            }
+                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
+            }
         });
     }
 }
