@@ -9,7 +9,20 @@ import java.util.Map;
 import java.util.Random;
 
 public abstract class Configuration {
-    private String myTitle,type1,type2,type3;
+    private String myTitle;
+    private String type1;
+    private String type2;
+    private String type3;
+
+    public String getShape() {
+        return shape;
+    }
+
+    public void setShape(String shape) {
+        this.shape = shape;
+    }
+
+    private String shape;
     private ArrayList<String> probCatchLabel= new ArrayList<>();
     private ArrayList<Double> maxProb=new ArrayList<>();
     private ArrayList<Double> probCatch=new ArrayList<>();

@@ -14,5 +14,6 @@
         <type2>Live</type2>
         <type3>Dead</type3>
         <neighPattern>10101111</neighPattern>
+        <shape>Rectangle</shape>
     </gridlayout>
 </simulation>

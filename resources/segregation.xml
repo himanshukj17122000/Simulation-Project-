@@ -17,5 +17,6 @@
         <type3>Race2</type3>
         <maxProbCatch>1</maxProbCatch>
         <neighPattern>10101111</neighPattern>
+        <shape>Rectangle</shape>
     </gridlayout>
 </simulation>

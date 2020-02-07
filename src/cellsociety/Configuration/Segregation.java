@@ -9,7 +9,7 @@ public class Segregation extends Configuration {
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern");
+            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape");
     //,"neighPattern"
     /**
      * Create game data from given data.
@@ -42,6 +42,7 @@ public class Segregation extends Configuration {
         setProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)));
         setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(14))));
         setNeighPattern(dataValues.get(DATA_FIELDS.get(15)));
+        setShape(dataValues.get(DATA_FIELDS.get(16)));
     }
 }
 
