@@ -40,7 +40,7 @@ public abstract class Cell { // potentially implement a check conditions method 
         CELLVISUAL.setHeight(newHeight);
     }
 
-    public abstract void updateCell(GridEntry entry, Set<GridEntry> emptyCells);
+    public abstract void updateCell(GridEntry entry, Set<GridEntry> emptyCells, int[] parameters);
 
     public abstract int getType();
 

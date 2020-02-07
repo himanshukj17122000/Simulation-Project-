@@ -14,7 +14,7 @@ public class EmptyCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, int[] parameters) {
     }
 
     @Override

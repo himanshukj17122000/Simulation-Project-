@@ -72,6 +72,8 @@ public class Visualization {
     //public void setRoot(HBox root) { myRoot = root; }
     public HashMap<Slider, Double> getNewProbCatch() { return myNewProbCatch; }
 
+
+
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         myGrid = initializeGrid(simulationConfig);
         mySpeed = DEFAULT_SPEED;

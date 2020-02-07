@@ -2,11 +2,9 @@ package cellsociety.PercolationSimulation;
 
 import cellsociety.Cell;
 import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class AirCell extends Cell {
@@ -19,7 +17,7 @@ public class AirCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, int[] parameters) {
         boolean fillWater = checkWaterNeighbor(entry);
         if(fillWater){
             Cell waterCell = new WaterCell(entry);
@@ -41,10 +39,7 @@ public class AirCell extends Cell {
 
     private Boolean checkWaterNeighbor(GridEntry entry) {
         Set<GridEntry> neighborSet = entry.getNeighbors();
-        //System.out.println(neighborSet.size());
         for (GridEntry neighbor : neighborSet) {
-
-            //System.out.println(neighbor.getCell().getType());
             if (neighbor.getCell().getType() == 3) {
 
                 return true;
@@ -54,13 +49,3 @@ public class AirCell extends Cell {
     }
 
 }
-
-
-//    Set<GridEntry> neighborSet = entry.getNeighbors();
-//    boolean neighborFire = false;
-//        for (GridEntry neighbor : neighborSet) {
-//                if (neighbor.getCell().getType() == 3) {
-//                neighborFire = true;
-//                }
-//                }
-//                return neighborFire;
