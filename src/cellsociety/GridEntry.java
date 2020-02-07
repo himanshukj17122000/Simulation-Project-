@@ -63,7 +63,7 @@ public class GridEntry {
 
     public void setNeighbors(List<List<GridEntry>> grid, String simulation, int numRows, int numCols){ //refactor to be 20 lines
         Set<GridEntry> NSET = new HashSet<GridEntry>();
-            if (getRow() > 0) {
+            if (getRow() > 0 && ) {
                 GridEntry topNeighbor = grid.get(getRow() - 1).get(getColumn());
                 NSET.add(topNeighbor);
             }

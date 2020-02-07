@@ -34,7 +34,7 @@ public class AnimalCell extends Cell {
 
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, int[] parameters) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
 
         reproduce(entry, emptyCells);
         move(entry, emptyCells);

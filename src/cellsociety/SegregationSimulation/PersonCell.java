@@ -29,7 +29,7 @@ public class PersonCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, int[] parameters) { //need to fix to get empty cell set somewhere or make new method
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) { //need to fix to get empty cell set somewhere or make new method
         setThreshold(parameters[0]);
         boolean satisfied = checkSatisfaction(entry);
         boolean moved = false;

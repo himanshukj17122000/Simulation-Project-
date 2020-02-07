@@ -30,7 +30,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, int[] parameters) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
 
         if(getTimeSinceEating() > maxTimeWithoutEating){
             die(entry, emptyCells);

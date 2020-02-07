@@ -62,7 +62,7 @@ public class Simulation {
         setEmptyCellSet(emptyCells);
     }
 
-    public void step() {
+    public void step(double[] parameters) {
         int[] cellType = new int[2];  // random line to initialize
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
@@ -70,10 +70,9 @@ public class Simulation {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 Cell currentCell = currentGridEntry.getCell();
-                currentCell.updateCell(currentGridEntry, emptyCells);
+                currentCell.updateCell(currentGridEntry, emptyCells, parameters);
             }
         }
-
        for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);

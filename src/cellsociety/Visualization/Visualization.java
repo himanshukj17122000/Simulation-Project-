@@ -21,11 +21,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Visualization {
     private static final int SCREEN_WIDTH = 1200;
@@ -73,7 +72,24 @@ public class Visualization {
     //public void setRoot(HBox root) { myRoot = root; }
     public HashMap<Slider, ProbConstant> getNewProbCatch() { return myNewProbCatch; }
 
+    private double[] getParameters(){
+        Map<Slider, ProbConstant> inputHash = getNewProbCatch();
+        Map<String, Double> map = new HashMap<>();
+        String[] stringArray = new String[3];
+        double[] doubleArray = new double[3];
+        int i = 0; //itterator
+        for(ProbConstant pair: inputHash.values()){
+            map.put(pair.getMyLabel(), pair.getMyProbCatch());
+            stringArray[i] = pair.getMyLabel();
+            i++;
+        }
+        Arrays.sort(stringArray);
 
+        for(i = 0; i < stringArray.length; i++){
+            doubleArray[i] = map.get(stringArray[i]);
+        }
+        return doubleArray;
+    }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         myGrid = initializeGrid(simulationConfig);
@@ -99,7 +115,7 @@ public class Visualization {
 
     // Updating how the grid simulation looks
     public void step(){
-       /* myGroup = */mySimulation.step();
+       /* myGroup = */mySimulation.step(getParameters());
         drawGrid(myGrid);
     }
 
@@ -203,7 +219,7 @@ public class Visualization {
 
     private void stepSim(Button buttonStep) {
         buttonStep.setOnAction(e -> {
-            mySimulation.step();
+            mySimulation.step(getParameters());
             drawGrid(myGrid);
         });
     }

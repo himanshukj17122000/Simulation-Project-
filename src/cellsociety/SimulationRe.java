@@ -65,7 +65,7 @@ public class SimulationRe {
         setEmptyCellSet(emptyCells);
     }
 
-    public Group step(int[] parameters) {
+    public Group step(double[] parameters) {
         myGroup.getChildren().clear();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();

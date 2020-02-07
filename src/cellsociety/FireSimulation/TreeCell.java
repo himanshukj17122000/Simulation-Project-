@@ -58,7 +58,7 @@ public class TreeCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, int[] parameters){
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters){
         setBurnProbability(parameters[0]);
         Boolean catchFire = checkCatchFire(entry);
         if(catchFire){

@@ -18,7 +18,7 @@ public class FireCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, int[] parameters) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
         Cell burntCell= new EmptyCell(entry, Color.WHITE);
         entry.setNextStepCell(burntCell);
     }
