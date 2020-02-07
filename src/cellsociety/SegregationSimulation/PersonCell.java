@@ -19,13 +19,19 @@ public class PersonCell extends Cell {
     private static final Paint SEGREGATIONFILL = Color.WHITE;
 
 
-    public PersonCell(GridEntry entry, int race) {
+    public PersonCell(GridEntry entry, int race, double threshold) {
         super(FILL[race-2], entry);
         initializeRace(race);
+        setThreshold(threshold);
+    }
+
+    private void setThreshold(double newValue){
+        Threshold = newValue;
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) { //need to fix to get empty cell set somewhere or make new method
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) { //need to fix to get empty cell set somewhere or make new method
+        setThreshold(parameters[0]);
         boolean satisfied = checkSatisfaction(entry);
         boolean moved = false;
         if(!satisfied){
@@ -33,7 +39,6 @@ public class PersonCell extends Cell {
             int i = 0;
             for(GridEntry gridSpace : emptyCells) {
                 if(i == space) {
-
                     Cell newEmptyCell = new EmptyCell(entry, SEGREGATIONFILL); // setting current space to empty cell
                     entry.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
                     gridSpace.setNextStepCell(this);

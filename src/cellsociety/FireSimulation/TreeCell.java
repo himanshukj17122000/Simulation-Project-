@@ -14,8 +14,9 @@ public class TreeCell extends Cell {
     private static final boolean CANUPDATE = true;
     private double catchFireProb = 0.15;
 
-    public TreeCell(GridEntry entry) {
+    public TreeCell(GridEntry entry, double burnProb) {
         super(FILL, entry);
+        setCatchProb(burnProb);
     }
 
     @Override
@@ -50,10 +51,6 @@ public class TreeCell extends Cell {
         catchFireProb = probability;
     }
 
-    public double getBurnProbability(){
-        return catchFireProb;
-    }
-
     private Boolean checkCatchFire(GridEntry entry){
         Boolean FireNeighbor = checkBurningNeighbor(entry);
         double random = Math.random();
@@ -64,7 +61,8 @@ public class TreeCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells){
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters){
+        setBurnProbability(parameters[0]);
         Boolean catchFire = checkCatchFire(entry);
         if(catchFire){
             Cell fireCell = new FireCell(entry);

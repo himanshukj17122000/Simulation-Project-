@@ -21,16 +21,18 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     private int maxTimeWithoutEating = 5;
     private int timeSinceEating;
 
-    public PredatorCell(GridEntry entry) {
-        super(entry, 2);
+    public PredatorCell(GridEntry entry, int reproductionTime, int maxTimeWithoutEating) {
+        super(entry, 2, reproductionTime);
         this.setColor(FILL);
-        setReproductionTime(15); // get value from FILEEEEE
+        setReproductionTime(reproductionTime);
+        setMaxTimeWithoutEating(maxTimeWithoutEating);
         setTimeSinceEating(0);
         setTimeSinceReproduction(0);
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
+
         if(getTimeSinceEating() > maxTimeWithoutEating){
             die(entry, emptyCells);
         }else{
@@ -78,10 +80,14 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         this.reproductionTime = reproductionTime;
     }
 
+    public void setMaxTimeWithoutEating(int time){
+        maxTimeWithoutEating = time;
+    }
+
     @Override
     protected AnimalCell offSpring(GridEntry entry, Set<GridEntry> emptyCells){
         emptyCells.remove(entry);
-        return new PredatorCell(entry);
+        return new PredatorCell(entry, getReproductionTime(), maxTimeWithoutEating);
     }
 
     @Override

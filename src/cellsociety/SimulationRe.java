@@ -1,7 +1,6 @@
 package cellsociety;
 
 import javafx.scene.Group;
-import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
 import java.util.HashSet;
@@ -66,16 +65,15 @@ public class SimulationRe {
         setEmptyCellSet(emptyCells);
     }
 
-    public Group step() {
+    public Group step(double[] parameters) {
         myGroup.getChildren().clear();
-        //myGroup.getPrefHeight();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 Cell currentCell = currentGridEntry.getCell();
-                currentCell.updateCell(currentGridEntry, emptyCells);
+                currentCell.updateCell(currentGridEntry, emptyCells, parameters);
             }
         }
 

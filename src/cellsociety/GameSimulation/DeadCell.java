@@ -19,7 +19,7 @@ public class DeadCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
         Boolean enoughNeighbors = checkNeighbors(entry);
         if(enoughNeighbors){
             Cell liveCell = new LiveCell(entry);
