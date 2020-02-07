@@ -63,7 +63,8 @@ public class Simulation {
     }
 
     public void step(double[] parameters) {
-        int[] cellType = new int[2];  // random line to initialize
+        //int[] cellType = new int[2];  // random line to initialize
+        typesOfCells = new HashMap<>();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {

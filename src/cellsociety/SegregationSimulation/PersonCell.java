@@ -19,7 +19,7 @@ public class PersonCell extends Cell {
     private static final Paint SEGREGATIONFILL = Color.WHITE;
 
 
-    public PersonCell(GridEntry entry, int race, int threshold) {
+    public PersonCell(GridEntry entry, int race, double threshold) {
         super(FILL[race-2], entry);
         initializeRace(race);
         setThreshold(threshold);
