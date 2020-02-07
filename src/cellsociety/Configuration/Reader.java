@@ -4,8 +4,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputFilter;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -83,12 +85,12 @@ public class Reader {
     /**
      * Get data contained in this XML file as an object
      */
-    public Map<String, String> getSimulation (File dataFile) {
+    public Map<String, String> getSegregation (File dataFile) {
         //results.clear();
         Element root = getRootElement(dataFile);
-//        if (! isValidFile(root, Segregation.DATA_TYPE)) {
-//            throw new FileInputException(ERROR_MESSAGE, Segregation.DATA_TYPE);
-//        }
+        if (! isValidFile(root, Segregation.DATA_TYPE)) {
+            throw new FileInputException(ERROR_MESSAGE, Segregation.DATA_TYPE);
+        }
         // read data associated with the fields given by the object
         results = new HashMap<>();
         for (String field : Segregation.DATA_FIELDS) {

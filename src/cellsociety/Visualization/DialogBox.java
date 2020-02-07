@@ -23,11 +23,11 @@ import java.util.Map;
 
 public class DialogBox {
     public static final String DATA_FILE_EXTENSION = "*.xml";
-    private static final String FIRE_FILE = "Fire";
-    private static final String GAME_FILE = "Game of Life";
-    private static final String PERC_FILE = "Percolation";
-    private static final String PREY_FILE = "Prey";
-    private static final String SEG_FILE = "Segregation";
+    private static final String FIRE_FILE = "fire.xml";
+    private static final String GAME_FILE = "gameOfLife.xml";
+    private static final String PERC_FILE = "percolation.xml";
+    private static final String PREY_FILE = "prey.xml";
+    private static final String SEG_FILE = "segregation.xml";
     private static final String TYPE = "type";
     private static String title;
     private static Map<String,String> result= new HashMap<>();
@@ -37,31 +37,31 @@ public class DialogBox {
 
     public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(dataFile);
-        doc.getDocumentElement().normalize();
-        NodeList nList = doc.getElementsByTagName("gridlayout");
-            Node nNode = nList.item(0);
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
-                title= getTagValue("title", eElement);
-            }
+//        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+//        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+//        Document doc = dBuilder.parse(dataFile);
+//        doc.getDocumentElement().normalize();
+//        NodeList nList = doc.getElementsByTagName("gridlayout");
+//            Node nNode = nList.item(0);
+//            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+//                Element eElement = (Element) nNode;
+//                title= getTagValue("title", eElement);
+//            }
         try {
-            switch (title) {
+            switch (dataFile.getName()) {
                 case FIRE_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(dataFile);
+                    result= new Reader(TYPE).getFire(dataFile);
                     simConfig = new Fire(result);
                     break;
                 case GAME_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(dataFile);
+                    result= new Reader(TYPE).getGame(dataFile);
                     simConfig = new Game(result);
                     break;
                 case PERC_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(dataFile);
+                    result= new Reader(TYPE).getPercolation(dataFile);
                     simConfig = new Percolation(result);
                     break;
                 case PREY_FILE:
@@ -71,7 +71,7 @@ public class DialogBox {
                     break;
                 case SEG_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(dataFile);
+                    result= new Reader(TYPE).getSegregation(dataFile);
                     simConfig = new Segregation(result);
                     break;
             }
@@ -104,9 +104,9 @@ public class DialogBox {
     public Configuration getSimulationConfig() { return mySimulationConfig; }
 
 
-    private static String getTagValue(String sTag, Element eElement) {
-        NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-        Node nValue = (Node) nlList.item(0);
-        return nValue.getNodeValue();
-    }
+//    private static String getTagValue(String sTag, Element eElement) {
+//        NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
+//        Node nValue = (Node) nlList.item(0);
+//        return nValue.getNodeValue();
+//    }
 }
