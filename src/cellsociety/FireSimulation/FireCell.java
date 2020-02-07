@@ -6,6 +6,7 @@ import cellsociety.GridEntry;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Set;
 
 public class FireCell extends Cell {
@@ -19,7 +20,7 @@ public class FireCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
         Cell burntCell= new EmptyCell(entry, Color.WHITE);
         entry.setNextStepCell(burntCell);
     }

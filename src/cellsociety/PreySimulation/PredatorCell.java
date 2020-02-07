@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
 
         if(getTimeSinceEating() > maxTimeWithoutEating){
             die(entry, emptyCells);

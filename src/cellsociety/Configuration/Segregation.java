@@ -9,7 +9,8 @@ public class Segregation extends Configuration {
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern");
+            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch");
+    //,"neighPattern"
     /**
      * Create game data from given data.
      */
