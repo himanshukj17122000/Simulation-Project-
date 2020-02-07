@@ -10,7 +10,7 @@ public class Prey extends Configuration {
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
             "top","bottom","neighbours","type1","type2","type3","fishBreed","sharkBreed","fishLabel","sharkLabel","numLabel","maxFishBreed"
-    ,"maxSharkBreed","numWithoutFood","maxDays");
+    ,"maxSharkBreed","numWithoutFood","maxDays","neighPattern");
 
     /**
      * Create game data from given data.
@@ -48,6 +48,7 @@ public class Prey extends Configuration {
         setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(18))));
         setProbCatch(Double.parseDouble(dataValues.get(DATA_FIELDS.get(19))));
         setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(20))));
+        setNeighPattern(dataValues.get(DATA_FIELDS.get(21)));
 
     }
 }

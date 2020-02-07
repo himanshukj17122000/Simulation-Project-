@@ -22,5 +22,6 @@
         <maxSharkBreed>20</maxSharkBreed>
         <numWithoutFood>10</numWithoutFood>
         <maxDays>20</maxDays>
+        <neighPattern>10101111</neighPattern>
     </gridlayout>
 </simulation>
