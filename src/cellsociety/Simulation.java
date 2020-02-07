@@ -53,6 +53,7 @@ public class Simulation {
     }
 
     public void step() {
+
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {

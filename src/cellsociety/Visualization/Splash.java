@@ -1,9 +1,11 @@
 package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
+import cellsociety.Layout;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -34,13 +36,13 @@ public class Splash {
     public Scene getSplashScene() {
         return mySplashScene;
     }
-    public Configuration getSimulationConfig() { return mySimulationConfig; }
 
     private Scene buildSplashScene(Stage primaryStage) {
         Text simTitle = new Text(TITLE);
         simTitle.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: white");
         simTitle.setTextAlignment(TextAlignment.CENTER);
-        Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        Layout layout = new Layout();
+        Button buttonUpload = layout.createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         buttonUpload.setLayoutX(550);
         uploadSim(buttonUpload, primaryStage);
         VBox root = new VBox(20);
@@ -51,21 +53,15 @@ public class Splash {
         return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
-    private Button createButton(String text, String styleColor, int fontSize) {
-        Button button = new Button(text);
-        button.setTextFill(Color.BLACK);
-        button.setStyle("-fx-background-color:" + styleColor + ";-fx-font-size:" + fontSize + " px;");
-        return button;
-    }
-
     private void uploadSim(Button buttonUpload, Stage primaryStage) {
         buttonUpload.setOnAction(e -> {
             try {
                 DialogBox popup = new DialogBox();
-                popup.start(primaryStage, this.getSimulationConfig());
+                popup.start(primaryStage, mySimulationConfig);
                 mySimulationConfig = popup.getSimulationConfig();
-            } catch (Exception ex) {
-                ex.printStackTrace();                       // NEED TO CHANGE THIS CATCH EXCEPTION STATEMENT!!!!
+            } catch (NullPointerException ex) {
+                String errorMessage = "No file chosen";
+                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
             }
         });
     }

@@ -1,14 +1,25 @@
 package cellsociety.Visualization;
 
-import cellsociety.Configuration.Configuration;
-import cellsociety.Configuration.FileInputException;
-import cellsociety.Configuration.Reader;
+import cellsociety.Configuration.*;
 import cellsociety.Visualization.Visualization;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Author:Himanshu Jain 
+ */
 
 public class DialogBox {
     public static final String DATA_FILE_EXTENSION = "*.xml";
@@ -18,33 +29,50 @@ public class DialogBox {
     private static final String PREY_FILE = "prey.xml";
     private static final String SEG_FILE = "segregation.xml";
     private static final String TYPE = "type";
+    private static String title;
+    private static Map<String,String> result= new HashMap<>();
     // NOTE: generally accepted behavior that the chooser remembers where user left it last
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private Configuration mySimulationConfig;
 
-    public void start(Stage primaryStage, Configuration simConfig) throws Exception {
+    public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
+//        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+//        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+//        Document doc = dBuilder.parse(dataFile);
+//        doc.getDocumentElement().normalize();
+//        NodeList nList = doc.getElementsByTagName("gridlayout");
+//            Node nNode = nList.item(0);
+//            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+//                Element eElement = (Element) nNode;
+//                title= getTagValue("title", eElement);
+//            }
         try {
             switch (dataFile.getName()) {
                 case FIRE_FILE:
-                    new Reader(TYPE).getFire(dataFile);
-                    simConfig = Configuration.getFireClass();
+                    result.clear();
+                    result= new Reader(TYPE).getFire(dataFile);
+                    simConfig = new Fire(result);
                     break;
                 case GAME_FILE:
-                    new Reader(TYPE).getGame(dataFile);
-                    simConfig = Configuration.getGameClass();
+                    result.clear();
+                    result= new Reader(TYPE).getGame(dataFile);
+                    simConfig = new Game(result);
                     break;
                 case PERC_FILE:
-                    new Reader(TYPE).getPercolation(dataFile);
-                    simConfig = Configuration.getPerClass();
+                    result.clear();
+                    result= new Reader(TYPE).getPercolation(dataFile);
+                    simConfig = new Percolation(result);
                     break;
                 case PREY_FILE:
-                    new Reader(TYPE).getPrey(dataFile);
-                    simConfig = Configuration.getPreyClass();
+                    result.clear();
+                    result= new Reader(TYPE).getPrey(dataFile);
+                    simConfig = new Prey(result);
                     break;
                 case SEG_FILE:
-                    new Reader(TYPE).getSegregation(dataFile);
-                    simConfig = Configuration.getSegClass();
+                    result.clear();
+                    result= new Reader(TYPE).getSegregation(dataFile);
+                    simConfig = new Segregation(result);
                     break;
             }
             Visualization animation = new Visualization(primaryStage, simConfig);
@@ -55,8 +83,6 @@ public class DialogBox {
             // handle error of unexpected file format
             showMessage(Alert.AlertType.ERROR, e.getMessage());
         }
-        // nothing selected, so quit the application
-        if (dataFile == null) Platform.exit();
     }
 
     // display given message to user using the given type of Alert dialog box
@@ -76,4 +102,11 @@ public class DialogBox {
 
     // Getter method for configuration to be passed on in Visualization and Simulation
     public Configuration getSimulationConfig() { return mySimulationConfig; }
+
+
+//    private static String getTagValue(String sTag, Element eElement) {
+//        NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
+//        Node nValue = (Node) nlList.item(0);
+//        return nValue.getNodeValue();
+//    }
 }
