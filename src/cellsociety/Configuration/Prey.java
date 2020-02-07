@@ -48,7 +48,7 @@ public class Prey extends Configuration {
         setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(18))));
         setProbCatch(Double.parseDouble(dataValues.get(DATA_FIELDS.get(19))));
         setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(20))));
-        setNeighPattern(dataValues.get(DATA_FIELDS.get(21)));
+//        setNeighPattern(dataValues.get(DATA_FIELDS.get(21)));
 
     }
 }

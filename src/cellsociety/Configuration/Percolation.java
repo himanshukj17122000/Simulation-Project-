@@ -35,6 +35,6 @@ public class Percolation extends Configuration {
         setType1(dataValues.get(DATA_FIELDS.get(9)));
         setType2(dataValues.get(DATA_FIELDS.get(10)));
         setType3(dataValues.get(DATA_FIELDS.get(11)));
-        setNeighPattern(dataValues.get(DATA_FIELDS.get(12)));
+//        setNeighPattern(dataValues.get(DATA_FIELDS.get(12)));
     }
 }

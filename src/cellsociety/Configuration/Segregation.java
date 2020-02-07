@@ -40,7 +40,7 @@ public class Segregation extends Configuration {
         setType3(dataValues.get(DATA_FIELDS.get(12)));
         setProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)));
         setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(14))));
-        setNeighPattern(dataValues.get(DATA_FIELDS.get(15)));
+//        setNeighPattern(dataValues.get(DATA_FIELDS.get(15)));
     }
 }
 
