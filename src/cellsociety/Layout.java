@@ -42,7 +42,6 @@ public class Layout {
     public PieChart createChart() {
         ObservableList<PieChart.Data> pieChartData =
             FXCollections.observableArrayList(
-
                 new PieChart.Data("Grapefruit", 13),
                 new PieChart.Data("Oranges", 25),
                 new PieChart.Data("Plums", 10),
