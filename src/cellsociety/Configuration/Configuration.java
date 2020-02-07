@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Random;
 
 public abstract class Configuration {
-
-
     protected String myTitle,type1,type2,type3;
     protected ArrayList<String> probCatchLabel;
     protected ArrayList<Double> maxProb;

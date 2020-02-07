@@ -19,14 +19,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-<<<<<<< HEAD
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-=======
 import java.util.ArrayList;
->>>>>>> 8bdf19a7c04bb3cdffac630e0512fabc630745e8
 import java.util.List;
 
 public class Visualization {

@@ -15,6 +15,7 @@
         <type1>Empty</type1>
         <type2>Burnt</type2>
         <type3>Tree</type3>
+        <maxProbCatch>1</maxProbCatch>
     </gridlayout>
 </simulation>
 

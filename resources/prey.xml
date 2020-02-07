@@ -15,5 +15,12 @@
         <type3>Shark</type3>
         <fishBreed>8</fishBreed>
         <sharkBreed>8</sharkBreed>
+        <fishLabel>Fish Breeding Time</fishLabel>
+        <sharkLabel>Shark Breeding Time</sharkLabel>
+        <numLabel>Number Of Days Without Food</numLabel>
+        <maxFishBreed>15</maxFishBreed>
+        <maxSharkBreed>20</maxSharkBreed>
+        <numWithoutFood>10</numWithoutFood>
+        <maxDays>20</maxDays>
     </gridlayout>
 </simulation>

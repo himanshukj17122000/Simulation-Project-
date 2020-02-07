@@ -15,5 +15,6 @@
         <type1>Empty</type1>
         <type2>Race1</type2>
         <type3>Race2</type3>
+        <maxProbCatch>1</maxProbCatch>
     </gridlayout>
 </simulation>
