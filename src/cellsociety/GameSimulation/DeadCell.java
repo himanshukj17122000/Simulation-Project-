@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class DeadCell extends Cell {
     private static final int TYPE = 1;
+    private static final String LABEL = "Dead";
     private static final Paint FILL = Color.MIDNIGHTBLUE;
     private static final boolean CANUPDATE = true;
     private int LiveCellsNeeded = 3;
@@ -38,6 +39,9 @@ public class DeadCell extends Cell {
     public int getRace() {
         return 0;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 
     private Boolean checkNeighbors(GridEntry entry){
         Set<GridEntry> neighborSet = entry.getNeighbors();

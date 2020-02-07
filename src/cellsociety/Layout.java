@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class Layout {
     public Button createButton(String text, String styleColor, int fontSize) {
         Button button = new Button(text);
@@ -39,17 +42,18 @@ public class Layout {
         return slider;
     }
 
-    public PieChart createChart() {
+    public PieChart createChart(Simulation mySimulation) {
+        Map<String, Integer> cellTypes = mySimulation.getTypesOfCells();
+        ArrayList<PieChart.Data> cellData = new ArrayList<>();
+        for (String cellType : cellTypes.keySet()) {
+            PieChart.Data data = new PieChart.Data(cellType, cellTypes.get(cellType));
+            cellData.add(data);
+        }
         ObservableList<PieChart.Data> pieChartData =
-            FXCollections.observableArrayList(
-
-                new PieChart.Data("Grapefruit", 13),
-                new PieChart.Data("Oranges", 25),
-                new PieChart.Data("Plums", 10),
-                new PieChart.Data("Pears", 22),
-                new PieChart.Data("Apples", 30));
+            FXCollections.observableArrayList(cellData);
         final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle("Imported Fruits");
+        chart.setTitle("Population Stats");
+        chart.setStyle("-fx-background-color: #ffffff");
         return chart;
     }
 }

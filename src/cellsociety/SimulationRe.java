@@ -68,7 +68,7 @@ public class SimulationRe {
 
     public Group step() {
         myGroup.getChildren().clear();
-        myGroup.getPrefHeight();
+        //myGroup.getPrefHeight();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {

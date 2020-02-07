@@ -10,10 +10,8 @@ import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -42,6 +40,7 @@ public class Visualization {
 
     private Scene myAnimationScene;
     private HBox myRoot;
+    private VBox toolBar;
     private GridPane myGrid;
     private Simulation mySimulation;
     private Layout myLayout;
@@ -49,6 +48,7 @@ public class Visualization {
     private Timeline myTimeline;
     private Boolean isPaused;
     private HashMap<Slider, ProbConstant> myNewProbCatch;
+    private PieChart stats;
     private double mySpeed;
     private Group myGroup;
 
@@ -78,7 +78,7 @@ public class Visualization {
         mySpeed = DEFAULT_SPEED;
         setSimulationLoop();
         myLayout = new Layout();
-        VBox toolBar = buildToolBar(primaryStage, simulationConfig);
+        toolBar = buildToolBar(primaryStage, simulationConfig);
         myRoot = new HBox();
         Background splashBackground = new Background(new BackgroundFill(SCREEN_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY));
         myRoot.setBackground(splashBackground);
@@ -99,6 +99,9 @@ public class Visualization {
     public void step(){
        /* myGroup = */mySimulation.step();
         drawGrid(myGrid);
+        toolBar.getChildren().remove(stats);
+        stats = myLayout.createChart(mySimulation);
+        toolBar.getChildren().add(stats);
     }
 
     private void initializeSimulation(List<List<GridEntry>> cellArray){
@@ -130,9 +133,11 @@ public class Visualization {
     }
 
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
-        VBox toolBar = new VBox(20);
+        toolBar = new VBox(20);
         implementButtons(primaryStage, toolBar);
         implementSlider(simulationConfig, toolBar);
+        stats = myLayout.createChart(mySimulation);
+        toolBar.getChildren().add(stats);
         toolBar.setPadding(new Insets(50));
         return toolBar;
     }
@@ -173,18 +178,20 @@ public class Visualization {
     }
 
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
-        myNewProbCatch = new HashMap<Slider, ProbConstant>();
+        myNewProbCatch = new HashMap<>();
         ArrayList<String> probCatchLabel = simulationConfig.getProbCatchLabel();
         ArrayList<Double> maxProb = simulationConfig.getMaxProb();
         ArrayList<Double> probCatch = simulationConfig.getProbCatch();
-        for (int i = 0; i < probCatch.size(); i += 1) {
-            Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
-            Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
-                    5, 0.05);
-            ProbConstant probConstant = new ProbConstant(probCatchLabel.get(i), probCatch.get(i));
-            myNewProbCatch.put(probabilitySlider, probConstant);
-            updateProbCatch(probabilitySlider);
-            toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
+        if (probCatch != null) {
+            for (int i = 0; i < probCatch.size(); i += 1) {
+                Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
+                Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
+                        5, 0.05);
+                ProbConstant probConstant = new ProbConstant(probCatchLabel.get(i), probCatch.get(i));
+                myNewProbCatch.put(probabilitySlider, probConstant);
+                updateProbCatch(probabilitySlider);
+                toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
+            }
         }
         Label setSpeed = myLayout.createLabel ("Set the simulation speed:", 16, Color.WHITE);
         Slider mySpeedSlider = myLayout.createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED - MIN_SPEED) / 2,

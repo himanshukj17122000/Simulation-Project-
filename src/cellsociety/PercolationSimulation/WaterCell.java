@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class WaterCell extends Cell {
     private static final int TYPE = 3;
+    private static final String LABEL = "Water";
     private static final Paint FILL = Color.PALETURQUOISE;
     private static final boolean CANUPDATE = false;
 
@@ -32,4 +33,7 @@ public class WaterCell extends Cell {
     public int getRace() {
         return 0;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 }

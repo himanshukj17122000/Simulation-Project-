@@ -9,10 +9,10 @@ import java.util.Set;
 
 public class TreeCell extends Cell {
     private static final int TYPE = 2;
+    private static final String LABEL = "Trees";
     private static final Paint FILL = Color.CHARTREUSE;
     private static final boolean CANUPDATE = true;
     private double catchFireProb = 0.15;
-
 
     public TreeCell(GridEntry entry) {
         super(FILL, entry);
@@ -27,6 +27,9 @@ public class TreeCell extends Cell {
     public int getRace() {
         return 0;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 
     public void setCatchProb(double prob){
         catchFireProb = prob;
