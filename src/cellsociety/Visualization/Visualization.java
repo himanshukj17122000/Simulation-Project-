@@ -28,12 +28,20 @@ public class Visualization {
     private static final double GRID_HEIGHT = 750.0;
     private static final int FRAMES_PER_SECOND = 60;
     private static final double DEFAULT_SPEED = 500;
+    private static final String BUTTON_STYLE_COLOR = "#3197bc";
+    private static final int BUTTON_FONT_SIZE = 16;
+    private static final double MAX_SPEED = 1000;
+    private static final double MIN_SPEED = 0;
 
     private Scene myAnimationScene;
     private HBox myRoot;
     private GridPane myGrid;
     private Simulation mySimulation;
     private Layout myLayout;
+    private Configuration mySimulationConfig;
+    private Timeline myTimeline;
+    private Boolean isPaused;
+    private double mySpeed;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
@@ -41,14 +49,12 @@ public class Visualization {
 
     // Getter methods
     public Scene getAnimationScene() { return myAnimationScene; }
-    //public Configuration getSimulationConfig() { return mySimulationConfig; }
-    private Simulation getSimulation(){ return mySimulation; }
-    public HBox getRoot() { return myRoot; }
-    public void setRoot(HBox root) { myRoot = root; }
+    //public HBox getRoot() { return myRoot; }
+    //public void setRoot(HBox root) { myRoot = root; }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         myGrid = initializeGrid(simulationConfig);
-        myLayout.setSpeed(DEFAULT_SPEED);
+        mySpeed = DEFAULT_SPEED;
         setSimulationLoop();
         myLayout = new Layout();
         VBox toolBar = buildToolBar(primaryStage, simulationConfig);
@@ -61,22 +67,17 @@ public class Visualization {
 
     // Creating the simulation loop and timeline
     private void setSimulationLoop() {
-        KeyFrame myKeyFrame = new KeyFrame(Duration.millis(myLayout.getSpeed()), e -> step());
-        myLayout.setTimeline(new Timeline());
-        myLayout.getTimeline().setCycleCount(Timeline.INDEFINITE);
-        myLayout.getTimeline().getKeyFrames().add(myKeyFrame);
-        myLayout.getTimeline().play();
+        KeyFrame myKeyFrame = new KeyFrame(Duration.millis(mySpeed), e -> step());
+        myTimeline = new Timeline();
+        myTimeline.setCycleCount(Timeline.INDEFINITE);
+        myTimeline.getKeyFrames().add(myKeyFrame);
+        myTimeline.play();
     }
 
     // Updating how the grid simulation looks
     public void step(){
         mySimulation.step();
         drawGrid(myGrid);
-        if (! myLayout.getIsPaused()) myLayout.pauseSim(myLayout.getButtonPause());
-        if (myLayout.getIsPaused()) {
-            stepSim(myLayout.getButtonStep());
-            myLayout.resumeSim(myLayout.getButtonResume());
-        }
     }
 
     private void initializeSimulation(List<List<GridEntry>> cellArray){
@@ -92,7 +93,7 @@ public class Visualization {
 
     // Redrawing the grid after every time step, adding each cell to the grid
     public GridPane drawGrid(GridPane grid) {
-        List<List<GridEntry>> cellStates = getSimulation().getSimulationGrid();
+        List<List<GridEntry>> cellStates = mySimulation.getSimulationGrid();
         grid.getChildren().clear();
         grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
         grid.setStyle("-fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 25; -fx-border-color: black;");
@@ -109,41 +110,33 @@ public class Visualization {
 
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         VBox toolBar = new VBox(20);
-        myLayout.implementButtons(primaryStage, toolBar);
-        myLayout.implementSlider(simulationConfig, toolBar);
+        implementButtons(primaryStage, toolBar);
+        implementSlider(simulationConfig, toolBar);
         toolBar.setPadding(new Insets(50));
         return toolBar;
     }
-    /*
+
     private void implementButtons(Stage primaryStage, VBox toolBar) {
-        Button buttonHome = createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
+        Button buttonHome = myLayout.createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
-        buttonPause = createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        Button buttonPause = myLayout.createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         isPaused = false;
+        Button buttonStep = myLayout.createButton("Next Step", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        Button buttonResume = myLayout.createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        Button buttonStop = myLayout.createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        Button buttonRestart = myLayout.createButton("Restart Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        Button buttonUpload = myLayout.createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         if (!isPaused) {
             pauseSim(buttonPause);
         }
-        buttonStep = createButton("Next Step", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        buttonResume = createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         if (isPaused) {
             stepSim(buttonStep);
             resumeSim(buttonResume);
         }
-        Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         stopSim(buttonStop);
-        Button buttonRestart = createButton("Restart Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         restartSim(buttonRestart);
-        Button buttonUpload = createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         uploadSim(buttonUpload, primaryStage);
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonUpload);
-    }
-
-    private Button createButton(String text, String styleColor, int fontSize) {
-        Button button = new Button(text);
-        button.setTextFill(Color.BLACK);
-        button.setStyle("-fx-background-color:" + styleColor + ";-fx-font-size:" + fontSize + " px;");
-        button.setPrefWidth(180);
-        return button;
     }
 
     private void updateProbCatch(Slider slider, Configuration simulationConfig) {
@@ -158,38 +151,16 @@ public class Visualization {
         String probCatchLabel = simulationConfig.getProbCatchLabel();
         if (probCatchLabel != null) {
             Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel + ":", 16, Color.WHITE);
-            Slider probabilitySlider = createSlider(simulationConfig.getProbCatch(), 0, 1, 0.5,
+            Slider probabilitySlider = myLayout.createSlider(simulationConfig.getProbCatch(), 0, 1, 0.5,
                     5, 0.05);
             updateProbCatch(probabilitySlider, simulationConfig);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
         Label setSpeed = myLayout.createLabel ("Set the simulation speed:", 16, Color.WHITE);
-        Slider mySpeedSlider = createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED - MIN_SPEED) / 2,
+        Slider mySpeedSlider = myLayout.createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED - MIN_SPEED) / 2,
                 (MAX_SPEED - MIN_SPEED) / 100, 100);
         updateSpeed(mySpeedSlider);
         toolBar.getChildren().addAll(setSpeed, mySpeedSlider);
-    }
-
-    private Label createLabel(String text, int fontSize, Color textFill) {
-        Label label = new Label(text);
-        label.setStyle("-fx-font-size: " + fontSize);
-        label.setTextFill(textFill);
-        return label;
-    }
-
-    private Slider createSlider(double defaultValue, double min, double max, double majorTickUnit,
-                                double minorTickCount, double blockIncrement) {
-        Slider slider = new Slider();
-        slider.setMin(min);
-        slider.setMax(max);
-        slider.setValue(defaultValue);
-        slider.setShowTickLabels(true);
-        slider.setShowTickMarks(true);
-        slider.setMajorTickUnit(majorTickUnit);
-        slider.setMinorTickCount((int) minorTickCount);
-        slider.setBlockIncrement(blockIncrement);
-        slider.setStyle("-fx-tick-label-fill: white");
-        return slider;
     }
 
     // Next 6 methods: Creating the button functions
@@ -197,14 +168,14 @@ public class Visualization {
         buttonPause.setOnAction(e -> myTimeline.pause());
         isPaused = true;
     }
-    */
+
     private void stepSim(Button buttonStep) {
         buttonStep.setOnAction(e -> {
             mySimulation.step();
             drawGrid(myGrid);
         });
     }
-/*
+
     private void resumeSim(Button buttonResume) {
         buttonResume.setOnAction(e -> myTimeline.play());
         isPaused = false;
@@ -225,7 +196,7 @@ public class Visualization {
         buttonUpload.setOnAction(e -> {
             try {
                 DialogBox popup = new DialogBox();
-                popup.start(primaryStage, this.getSimulationConfig());
+                popup.start(primaryStage, mySimulationConfig);
                 mySimulationConfig = popup.getSimulationConfig();
             } catch (NullPointerException ex) {
                 String errorMessage = "No file chosen";
@@ -233,6 +204,5 @@ public class Visualization {
             }
         });
     }
-     */
 }
 
