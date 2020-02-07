@@ -3,6 +3,7 @@ package cellsociety.Visualization;
 import cellsociety.Configuration.Configuration;
 import cellsociety.GridEntry;
 import cellsociety.Layout;
+import cellsociety.ProbConstant;
 import cellsociety.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -47,7 +48,7 @@ public class Visualization {
     private Configuration mySimulationConfig;
     private Timeline myTimeline;
     private Boolean isPaused;
-    private HashMap<Slider, Double> myNewProbCatch;
+    private HashMap<Slider, ProbConstant> myNewProbCatch;
     private double mySpeed;
     private Group myGroup;
 
@@ -70,7 +71,7 @@ public class Visualization {
     }
     //public HBox getRoot() { return myRoot; }
     //public void setRoot(HBox root) { myRoot = root; }
-    public HashMap<Slider, Double> getNewProbCatch() { return myNewProbCatch; }
+    public HashMap<Slider, ProbConstant> getNewProbCatch() { return myNewProbCatch; }
 
 
 
@@ -163,7 +164,9 @@ public class Visualization {
 
     private void updateProbCatch(Slider slider) {
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            myNewProbCatch.put(slider, (double) newValue);
+            myNewProbCatch.put(slider,
+                    new ProbConstant(myNewProbCatch.get(slider).getMyLabel(), (double) newValue));
+            myNewProbCatch.get(slider).setMyProbCatch((double) newValue);
         });
     }
 
@@ -172,7 +175,7 @@ public class Visualization {
     }
 
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
-        myNewProbCatch = new HashMap<Slider, Double>();
+        myNewProbCatch = new HashMap<Slider, ProbConstant>();
         ArrayList<String> probCatchLabel = simulationConfig.getProbCatchLabel();
         ArrayList<Double> maxProb = simulationConfig.getMaxProb();
         ArrayList<Double> probCatch = simulationConfig.getProbCatch();
@@ -180,7 +183,8 @@ public class Visualization {
             Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
             Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
                     5, 0.05);
-            myNewProbCatch.put(probabilitySlider, probCatch.get(i));
+            ProbConstant probConstant = new ProbConstant(probCatchLabel.get(i), probCatch.get(i));
+            myNewProbCatch.put(probabilitySlider, probConstant);
             updateProbCatch(probabilitySlider);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
