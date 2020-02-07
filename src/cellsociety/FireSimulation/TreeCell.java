@@ -11,7 +11,7 @@ public class TreeCell extends Cell {
     private static final int TYPE = 2;
     private static final Paint FILL = Color.CHARTREUSE;
     private static final boolean CANUPDATE = true;
-    private Double catchFireProb = 0.15;
+    private double catchFireProb = getProbCatch();
 
 
     public TreeCell(GridEntry entry) {
