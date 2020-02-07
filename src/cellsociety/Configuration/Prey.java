@@ -11,6 +11,7 @@ public class Prey extends Configuration {
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
             "top","bottom","neighbours","type1","type2","type3","fishBreed","sharkBreed","fishLabel","sharkLabel","numLabel","maxFishBreed"
     ,"maxSharkBreed","numWithoutFood","maxDays","neighPattern");
+    //,"neighPattern"
 
     /**
      * Create game data from given data.

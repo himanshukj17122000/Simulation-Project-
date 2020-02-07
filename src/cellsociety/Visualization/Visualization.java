@@ -72,22 +72,25 @@ public class Visualization {
     //public void setRoot(HBox root) { myRoot = root; }
     public HashMap<Slider, ProbConstant> getNewProbCatch() { return myNewProbCatch; }
 
-    private double[] getParameters(){
+    private List<Double> getParameters(){
         Map<Slider, ProbConstant> inputHash = getNewProbCatch();
         Map<String, Double> map = new HashMap<>();
-        String[] stringArray = new String[3];
-        double[] doubleArray = new double[3];
+        List<String> stringArray = new ArrayList<>();
+        List<Double> doubleArray = new ArrayList<>();
         int i = 0; //itterator
         for(ProbConstant pair: inputHash.values()){
             map.put(pair.getMyLabel(), pair.getMyProbCatch());
-            stringArray[i] = pair.getMyLabel();
+            stringArray.add(i, pair.getMyLabel());
             i++;
         }
-        Arrays.sort(stringArray);
+        if(stringArray.size() > 0){
+            Collections.sort(stringArray);
 
-        for(i = 0; i < stringArray.length; i++){
-            doubleArray[i] = map.get(stringArray[i]);
+            for(i = 0; i < stringArray.size(); i++){
+                doubleArray.add(i, map.get(stringArray.get(i)));
+            }
         }
+
         return doubleArray;
     }
 

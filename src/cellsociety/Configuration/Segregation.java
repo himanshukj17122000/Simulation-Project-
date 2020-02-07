@@ -10,6 +10,7 @@ public class Segregation extends Configuration {
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
             "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern");
+    //,"neighPattern"
     /**
      * Create game data from given data.
      */

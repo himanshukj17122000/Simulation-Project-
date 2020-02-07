@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ public class AnimalCell extends Cell {
 
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
 
         reproduce(entry, emptyCells);
         move(entry, emptyCells);
