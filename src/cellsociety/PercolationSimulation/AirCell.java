@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class AirCell extends Cell {
     private static final int TYPE = 2;
+    private static final String LABEL = "Air";
     private static final Paint FILL = Color.WHITE;
     private static final boolean CANUPDATE = true;
 
@@ -36,6 +37,9 @@ public class AirCell extends Cell {
     public int getRace() {
         return 0;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 
     private Boolean checkWaterNeighbor(GridEntry entry) {
         Set<GridEntry> neighborSet = entry.getNeighbors();

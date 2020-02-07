@@ -26,4 +26,7 @@ public class EmptyCell extends Cell {
     public int getRace() {
         return 0;
     }
+
+    @Override
+    public String getLabel() { return null; }
 }

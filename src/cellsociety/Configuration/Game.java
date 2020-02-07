@@ -8,7 +8,7 @@ public class Game extends Configuration {
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","type1","type2","type3");
+            "top","bottom","neighbours","type1","type2","type3","neighPattern");
     /**
      * Create game data from given data.
      */
@@ -36,6 +36,7 @@ public class Game extends Configuration {
         setType1(dataValues.get(DATA_FIELDS.get(9)));
         setType2(dataValues.get(DATA_FIELDS.get(10)));
         setType3(dataValues.get(DATA_FIELDS.get(11)));
+        setNeighPattern(dataValues.get(DATA_FIELDS.get(12)));
 
     }
 }
