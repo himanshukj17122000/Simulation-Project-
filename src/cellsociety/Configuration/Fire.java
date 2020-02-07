@@ -16,7 +16,7 @@ public class Fire extends Configuration {
          */
         @Override
         public void paraTitle (String title) {
-            myTitle = title;
+            setMyTitle(title);
        }
 
         /**
@@ -25,21 +25,21 @@ public class Fire extends Configuration {
          * @param dataValues map of field names to their values
          */
         public Fire (Map<String, String> dataValues) {
-            myTitle=dataValues.get(DATA_FIELDS.get(0));
-            maxStates=Integer.parseInt(dataValues.get(DATA_FIELDS.get(1)));
-            rows=Integer.parseInt(dataValues.get(DATA_FIELDS.get(2)));
-            columns=Integer.parseInt(dataValues.get(DATA_FIELDS.get(3)));
-            left=Integer.parseInt(dataValues.get(DATA_FIELDS.get(4)));
-            right=Integer.parseInt(dataValues.get(DATA_FIELDS.get(5)));
-            top=Integer.parseInt(dataValues.get(DATA_FIELDS.get(6)));
-            bottom=Integer.parseInt(dataValues.get(DATA_FIELDS.get(7)));
-            neighbours=Integer.parseInt(dataValues.get(DATA_FIELDS.get(8)));
-            probCatch.add(Double.parseDouble(dataValues.get(DATA_FIELDS.get(9))));
-            type1=dataValues.get(DATA_FIELDS.get(10));
-            type2=dataValues.get(DATA_FIELDS.get(11));
-            type3=dataValues.get(DATA_FIELDS.get(12));
-            probCatchLabel.add(dataValues.get(DATA_FIELDS.get(13)));
-            maxProb.add(Double.parseDouble(dataValues.get(DATA_FIELDS.get(14))));
+            setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
+            setMaxStates(Integer.parseInt(dataValues.get(DATA_FIELDS.get(1))));
+            setRows(Integer.parseInt(dataValues.get(DATA_FIELDS.get(2))));
+            setColumns(Integer.parseInt(dataValues.get(DATA_FIELDS.get(3))));
+            setLeft(Integer.parseInt(dataValues.get(DATA_FIELDS.get(4))));
+            setRight(Integer.parseInt(dataValues.get(DATA_FIELDS.get(5))));
+            setTop(Integer.parseInt(dataValues.get(DATA_FIELDS.get(6))));
+            setBottom(Integer.parseInt(dataValues.get(DATA_FIELDS.get(7))));
+            setNeighbours(Integer.parseInt(dataValues.get(DATA_FIELDS.get(8))));
+            setProbCatch(Double.parseDouble(dataValues.get(DATA_FIELDS.get(9))));
+            setType1(dataValues.get(DATA_FIELDS.get(10)));
+            setType2(dataValues.get(DATA_FIELDS.get(11)));
+            setType3(dataValues.get(DATA_FIELDS.get(12)));
+            setProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)));
+            setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(14))));
         }
         public Fire(){
 
