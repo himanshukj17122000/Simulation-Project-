@@ -148,5 +148,9 @@ public class Reader {
                 throw new FileInputException(e);
             }
         }
+
+    public static Map<String, String> getResults() {
+        return results;
+    }
 }
 
