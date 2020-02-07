@@ -83,11 +83,14 @@ public class Visualization {
             stringArray[i] = pair.getMyLabel();
             i++;
         }
-        Arrays.sort(stringArray);
+        if(stringArray.length > 0){
+            Arrays.sort(stringArray);
 
-        for(i = 0; i < stringArray.length; i++){
-            doubleArray[i] = map.get(stringArray[i]);
+            for(i = 0; i < stringArray.length; i++){
+                doubleArray[i] = map.get(stringArray[i]);
+            }
         }
+
         return doubleArray;
     }
 
