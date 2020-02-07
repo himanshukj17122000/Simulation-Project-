@@ -8,45 +8,60 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-
-
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DialogBox {
     public static final String DATA_FILE_EXTENSION = "*.xml";
-    private static final String FIRE_FILE = "fire.xml";
-    private static final String GAME_FILE = "gameOfLife.xml";
-    private static final String PERC_FILE = "percolation.xml";
-    private static final String PREY_FILE = "prey.xml";
-    private static final String SEG_FILE = "segregation.xml";
+    public static final String FIRE_FILE = "Fire";
+    public static final String GAME_FILE = "Game of Life";
+    public static final String PERC_FILE = "Percolation";
+    public static final String PREY_FILE = "Prey";
+    public static final String SEG_FILE = "Segregation";
     private static final String TYPE = "type";
     // NOTE: generally accepted behavior that the chooser remembers where user left it last
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private Configuration mySimulationConfig;
 
-    public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException {
+    public void start(Stage primaryStage, Configuration simConfig) throws ParserConfigurationException, IOException, SAXException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         try {
             switch (dataFile.getName()) {
                 case FIRE_FILE:
-                    new Reader(TYPE).getFire(dataFile);
-                    simConfig = Configuration.getFireClass();
+                    result.clear();
+                    result= new Reader(TYPE).getSimulation(FIRE_FILE,dataFile);
+                    simConfig = new Fire(result);
                     break;
                 case GAME_FILE:
-                    new Reader(TYPE).getGame(dataFile);
-                    simConfig = Configuration.getGameClass();
+                    result.clear();
+                    result= new Reader(TYPE).getSimulation(GAME_FILE,dataFile);
+                    simConfig = new Game(result);
                     break;
                 case PERC_FILE:
-                    new Reader(TYPE).getPercolation(dataFile);
-                    simConfig = Configuration.getPerClass();
+                    result.clear();
+                    result= new Reader(TYPE).getSimulation(PERC_FILE,dataFile);
+                    simConfig = new Percolation(result);
                     break;
                 case PREY_FILE:
-                    new Reader(TYPE).getPrey(dataFile);
-                    simConfig = Configuration.getPreyClass();
+                    result.clear();
+                    result= new Reader(TYPE).getSimulation(PREY_FILE,dataFile);
+                    simConfig = new Prey(result);
                     break;
                 case SEG_FILE:
-                    new Reader(TYPE).getSegregation(dataFile);
-                    simConfig = Configuration.getSegClass();
+                    result.clear();
+                    result= new Reader(TYPE).getSimulation(SEG_FILE,dataFile);
+                    simConfig = new Segregation(result);
                     break;
             }
             Visualization animation = new Visualization(primaryStage, simConfig);

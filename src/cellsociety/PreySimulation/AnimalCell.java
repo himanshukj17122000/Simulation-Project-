@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class AnimalCell extends Cell {
     private static final int TYPE = 1;
+    private static final String LABEL = "Preys";
     private static final Paint FILL = Color.TAN;
     protected static final Paint PREYFILL = Color.PALEGREEN;
     private int reproductionTime = 2;
@@ -47,6 +48,9 @@ public class AnimalCell extends Cell {
     public int getRace() {
         return 1;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 
     protected void setTimeSinceReproduction(int time){
         this.timeSinceReproduction = time;

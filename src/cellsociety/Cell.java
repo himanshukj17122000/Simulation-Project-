@@ -51,5 +51,5 @@ public abstract class Cell { // potentially implement a check conditions method 
 
     public abstract int getRace();
 
-
+    public abstract String getLabel();
 }

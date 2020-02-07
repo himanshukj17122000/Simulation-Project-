@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class PredatorCell extends AnimalCell { // make animal superclass // contains long classes plz refactor
     private static final int TYPE = 3;
+    private static final String LABEL = "Predators";
     private static final Paint FILL = Color.web("#614A32");
     private static final Paint PREYFILL = Color.PALEGREEN;
     private static final boolean CANUPDATE = true;
@@ -47,6 +48,9 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     public int getRace() {
         return 2;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 
     protected void setTimeSinceReproduction(int time){
         timeSinceReproduction = time;

@@ -1,61 +1,26 @@
 package cellsociety.Configuration;
 
 import cellsociety.GridEntry;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 public abstract class Configuration {
-    private static Prey preyClass;
-    private static Game gameClass;
-    private static Fire fireClass;
-    private static Percolation perClass;
-    private static Segregation segClass;
-    private static final String prey = "getPrey";
-    private static final String percolation = "getPercolation";
-    private static final String game="getGame";
-    private static final String segregation="getSegregation";
-    private static final String fire="getFire";
-
-
-    public static void config(Map<String, String> maps) {
-        StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-        StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
-        String methodName = e.getMethodName();
-        switch (methodName) {
-            case prey:
-                preyClass = new Prey(maps);
-                break;
-            case game:
-                gameClass = new Game(maps);
-                break;
-            case fire:
-                fireClass = new Fire(maps);
-                break;
-            case percolation:
-                perClass = new Percolation(maps);
-                break;
-            case segregation:
-                segClass = new Segregation(maps);
-                break;
-        }
-   }
-
-    protected String myTitle,type1,type2,type3,probCatchLabel;
-    protected int maxStates,rows,columns,left,right,top,bottom, neighbours,fishBreed,sharkBreed;
-    protected double probCatch;
+    private String myTitle,type1,type2,type3;
+    private ArrayList<String> probCatchLabel;
+    private ArrayList<Double> maxProb;
+    private ArrayList<Double> probCatch;
+    private int[] neighPattern;
+    private int maxStates,rows,columns,left,right,top,bottom, neighbours;
     public abstract void paraTitle(String title);
 
     private String getMyTitle(){
         return myTitle;
     }
 
-    public static Prey getPreyClass(){ return preyClass; }
-    public static Game getGameClass(){ return gameClass; }
-    public static Fire getFireClass(){ return fireClass; }
-    public static Percolation getPerClass(){ return perClass; }
-    public static Segregation getSegClass(){ return segClass; }
 
     public List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
         List<List<GridEntry>> grid = new ArrayList<>();
@@ -119,15 +84,78 @@ public abstract class Configuration {
     public int getTop(){return top;}
     public int getBottom(){return bottom;}
     public int getNeighbours(){return neighbours;}
-    public double getProbCatch(){return probCatch;}
     public String getType1(){return type1;}
     public String getType2(){return type2;}
     public String getType3(){return type3;}
-    public int getFishBreed(){return fishBreed;}
-    public int getSharkBreed(){return sharkBreed;}
-    public String getProbCatchLabel(){return probCatchLabel;}
+    public ArrayList<String> getProbCatchLabel(){return probCatchLabel;}
+    public ArrayList<Double> getProbCatch(){return probCatch;}
+    public ArrayList<Double> getMaxProb(){return maxProb;}
+    public int[] getNeighPattern(){return neighPattern;}
 
-    public void setProbCatch(Double newVal){
-        probCatch=newVal;
+    public void setMyTitle(String myTitle) {
+        this.myTitle = myTitle;
+    }
+
+    public void setType1(String type1) {
+        this.type1 = type1;
+    }
+
+    public void setType2(String type2) {
+        this.type2 = type2;
+    }
+
+    public void setType3(String type3) {
+        this.type3 = type3;
+    }
+
+    public void setProbCatchLabel(String label) {
+        probCatchLabel.add(label);
+    }
+
+    public void setMaxProb(Double maxProbability) {
+        maxProb.add(maxProbability);
+    }
+
+    public void setProbCatch(Double probValue) {
+        probCatch.add(probValue);
+    }
+
+    public void setMaxStates(int maxStates) {
+        this.maxStates = maxStates;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    public void setLeft(int left) {
+        this.left = left;
+    }
+
+    public void setRight(int right) {
+        this.right = right;
+    }
+
+    public void setTop(int top) {
+        this.top = top;
+    }
+
+    public void setBottom(int bottom) {
+        this.bottom = bottom;
+    }
+
+    public void setNeighbours(int neighbours) {
+        this.neighbours = neighbours;
+    }
+
+    public void setNeighPattern(String pattern){
+        char[] pattArray= pattern.toCharArray();
+        for(int i=0;i<pattArray.length;i++){
+            neighPattern[i]= (int) pattArray[i];
+        }
     }
 }
