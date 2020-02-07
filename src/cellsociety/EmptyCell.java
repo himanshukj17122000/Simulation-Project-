@@ -2,6 +2,7 @@ package cellsociety;
 
 import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Set;
 
 public class EmptyCell extends Cell {
@@ -14,7 +15,7 @@ public class EmptyCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
     }
 
     @Override

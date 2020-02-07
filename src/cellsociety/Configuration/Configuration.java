@@ -2,10 +2,8 @@ package cellsociety.Configuration;
 
 import cellsociety.GridEntry;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public abstract class Configuration {
@@ -43,7 +41,7 @@ public abstract class Configuration {
         for (int r = 0; r < this.getRows(); r++) {
             for (int c = 0; c < this.getColumns(); c++) {
                 GridEntry currentGridEntry = grid.get(r).get(c);
-                currentGridEntry.setNeighbors(grid, simulation, getRows(), getColumns());
+                currentGridEntry.setNeighbors(grid, simulation, getRows(), getColumns(), getNeighPattern());
             }
         }
     }
