@@ -76,7 +76,6 @@ public class Layout {
         sp.setPrefWidth(MAX_WIDTH);
         sp.setFitToWidth(true);
         sp.setStyle("-fx-background: rgb(90, 118, 161)");
-        //sp.setPrefSize(115, 150);
         sp.setContent(toolBar);
         return sp;
     }
