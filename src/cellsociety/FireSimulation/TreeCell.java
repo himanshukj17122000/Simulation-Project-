@@ -25,7 +25,7 @@ public class TreeCell extends Cell {
 
     @Override
     public int getRace() {
-        return 5;
+        return 0;
     }
 
     public void setCatchProb(double prob){
