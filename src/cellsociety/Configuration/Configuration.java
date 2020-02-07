@@ -127,7 +127,7 @@ public abstract class Configuration {
     public int getSharkBreed(){return sharkBreed;}
     public String getProbCatchLabel(){return probCatchLabel;}
 
-    public void setProbCatch(Double newVal){
-        probCatch=newVal;
+    public void setProbCatch(double newVal){
+        probCatch = newVal;
     }
 }
