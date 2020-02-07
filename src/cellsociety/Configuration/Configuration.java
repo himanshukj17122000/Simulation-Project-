@@ -13,6 +13,7 @@ public abstract class Configuration {
     private ArrayList<String> probCatchLabel;
     private ArrayList<Double> maxProb;
     private ArrayList<Double> probCatch;
+    private int[] neighPattern;
     private int maxStates,rows,columns,left,right,top,bottom, neighbours;
     public abstract void paraTitle(String title);
 
@@ -89,6 +90,7 @@ public abstract class Configuration {
     public ArrayList<String> getProbCatchLabel(){return probCatchLabel;}
     public ArrayList<Double> getProbCatch(){return probCatch;}
     public ArrayList<Double> getMaxProb(){return maxProb;}
+    public int[] getNeighPattern(){return neighPattern;}
 
     public void setMyTitle(String myTitle) {
         this.myTitle = myTitle;
@@ -148,5 +150,12 @@ public abstract class Configuration {
 
     public void setNeighbours(int neighbours) {
         this.neighbours = neighbours;
+    }
+
+    public void setNeighPattern(String pattern){
+        char[] pattArray= pattern.toCharArray();
+        for(int i=0;i<pattArray.length;i++){
+            neighPattern[i]= (int) pattArray[i];
+        }
     }
 }
