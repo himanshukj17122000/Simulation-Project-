@@ -47,7 +47,7 @@ public class Layout {
         buttonStep = createButton("Next Step", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         buttonResume = createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
         if (isPaused) {
-            stepSim(buttonStep);
+            //stepSim(buttonStep);
             resumeSim(buttonResume);
         }
         Button buttonStop = createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
@@ -117,13 +117,6 @@ public class Layout {
     public void pauseSim(Button buttonPause) {
         buttonPause.setOnAction(e -> myTimeline.pause());
         isPaused = true;
-    }
-
-    public void stepSim(Button buttonStep, Simulation simulation) {
-        buttonStep.setOnAction(e -> {
-            mySimulation.step();
-            drawGrid(myGrid);
-        });
     }
 
     public void resumeSim(Button buttonResume) {

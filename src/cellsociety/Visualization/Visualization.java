@@ -74,7 +74,7 @@ public class Visualization {
         drawGrid(myGrid);
         if (! myLayout.getIsPaused()) myLayout.pauseSim(myLayout.getButtonPause());
         if (myLayout.getIsPaused()) {
-            myLayout.stepSim(myLayout.getButtonStep());
+            stepSim(myLayout.getButtonStep());
             myLayout.resumeSim(myLayout.getButtonResume());
         }
     }
@@ -197,14 +197,14 @@ public class Visualization {
         buttonPause.setOnAction(e -> myTimeline.pause());
         isPaused = true;
     }
-
+    */
     private void stepSim(Button buttonStep) {
         buttonStep.setOnAction(e -> {
             mySimulation.step();
             drawGrid(myGrid);
         });
     }
-
+/*
     private void resumeSim(Button buttonResume) {
         buttonResume.setOnAction(e -> myTimeline.play());
         isPaused = false;
