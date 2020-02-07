@@ -101,30 +101,12 @@ public abstract class Configuration {
     public void setProbCatch(Double probValue) { probCatch.add(probValue); }
     public void setMaxStates(int maxStates) { this.maxStates = maxStates; }
     public void setRows(int rows) { this.rows = rows; }
-    public void setColumns(int columns) {
-        this.columns = columns;
-    }
-
-    public void setLeft(int left) {
-        this.left = left;
-    }
-
-    public void setRight(int right) {
-        this.right = right;
-    }
-
-    public void setTop(int top) {
-        this.top = top;
-    }
-
-    public void setBottom(int bottom) {
-        this.bottom = bottom;
-    }
-
-    public void setNeighbours(int neighbours) {
-        this.neighbours = neighbours;
-    }
-
+    public void setColumns(int columns) { this.columns = columns; }
+    public void setLeft(int left) { this.left = left; }
+    public void setRight(int right) { this.right = right; }
+    public void setTop(int top) { this.top = top; }
+    public void setBottom(int bottom) { this.bottom = bottom; }
+    public void setNeighbours(int neighbours) { this.neighbours = neighbours; }
     public void setNeighPattern(String pattern){
         char[] pattArray= pattern.toCharArray();
         for(int i=0;i<pattArray.length;i++){
