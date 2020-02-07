@@ -225,7 +225,7 @@ public class Visualization {
                 popup.start(primaryStage, mySimulationConfig);
                 mySimulationConfig = popup.getSimulationConfig();
             } catch (ParserConfigurationException | IOException | SAXException ex) {
-                String errorMessage = "No file chosen";
+                String errorMessage = "Exception Caught!";
                 new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
             }
         });
