@@ -10,24 +10,23 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Author:Himanshu Jain 
- */
-
 public class DialogBox {
     public static final String DATA_FILE_EXTENSION = "*.xml";
-    private static final String FIRE_FILE = "fire.xml";
-    private static final String GAME_FILE = "gameOfLife.xml";
-    private static final String PERC_FILE = "percolation.xml";
-    private static final String PREY_FILE = "prey.xml";
-    private static final String SEG_FILE = "segregation.xml";
+    public static final String FIRE_FILE = "Fire";
+    public static final String GAME_FILE = "Game of Life";
+    public static final String PERC_FILE = "Percolation";
+    public static final String PREY_FILE = "Prey";
+    public static final String SEG_FILE = "Segregation";
     private static final String TYPE = "type";
     private static String title;
     private static Map<String,String> result= new HashMap<>();
@@ -35,43 +34,43 @@ public class DialogBox {
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private Configuration mySimulationConfig;
 
-    public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException {
+    public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException, ParserConfigurationException, IOException, SAXException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
-//        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-//        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-//        Document doc = dBuilder.parse(dataFile);
-//        doc.getDocumentElement().normalize();
-//        NodeList nList = doc.getElementsByTagName("gridlayout");
-//            Node nNode = nList.item(0);
-//            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-//                Element eElement = (Element) nNode;
-//                title= getTagValue("title", eElement);
-//            }
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(dataFile);
+        doc.getDocumentElement().normalize();
+        NodeList nList = doc.getElementsByTagName("gridlayout");
+            Node nNode = nList.item(0);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) nNode;
+                title= getTagValue("title", eElement);
+            }
         try {
-            switch (dataFile.getName()) {
+            switch (title) {
                 case FIRE_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getFire(dataFile);
+                    result= new Reader(TYPE).getSimulation(FIRE_FILE,dataFile);
                     simConfig = new Fire(result);
                     break;
                 case GAME_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getGame(dataFile);
+                    result= new Reader(TYPE).getSimulation(GAME_FILE,dataFile);
                     simConfig = new Game(result);
                     break;
                 case PERC_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getPercolation(dataFile);
+                    result= new Reader(TYPE).getSimulation(PERC_FILE,dataFile);
                     simConfig = new Percolation(result);
                     break;
                 case PREY_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getPrey(dataFile);
+                    result= new Reader(TYPE).getSimulation(PREY_FILE,dataFile);
                     simConfig = new Prey(result);
                     break;
                 case SEG_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getSegregation(dataFile);
+                    result= new Reader(TYPE).getSimulation(SEG_FILE,dataFile);
                     simConfig = new Segregation(result);
                     break;
             }
@@ -104,9 +103,9 @@ public class DialogBox {
     public Configuration getSimulationConfig() { return mySimulationConfig; }
 
 
-//    private static String getTagValue(String sTag, Element eElement) {
-//        NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-//        Node nValue = (Node) nlList.item(0);
-//        return nValue.getNodeValue();
-//    }
+    private static String getTagValue(String sTag, Element eElement) {
+        NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
+        Node nValue = (Node) nlList.item(0);
+        return nValue.getNodeValue();
+    }
 }

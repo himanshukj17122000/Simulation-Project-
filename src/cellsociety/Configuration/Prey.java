@@ -9,7 +9,7 @@ public class Prey extends Configuration {
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","fishBreed","sharkBreed","type1","type2","type3");
+            "top","bottom","neighbours","type1","type2","type3","fishBreed","sharkBreed");
     /**
      * Create game data from given data.
      */
@@ -34,11 +34,11 @@ public class Prey extends Configuration {
         top=Integer.parseInt(dataValues.get(DATA_FIELDS.get(6)));
         bottom=Integer.parseInt(dataValues.get(DATA_FIELDS.get(7)));
         neighbours=Integer.parseInt(dataValues.get(DATA_FIELDS.get(8)));
-        fishBreed=Integer.parseInt(dataValues.get(DATA_FIELDS.get(9)));
-        sharkBreed=Integer.parseInt(dataValues.get(DATA_FIELDS.get(10)));
-        type1=dataValues.get(DATA_FIELDS.get(11));
-        type2=dataValues.get(DATA_FIELDS.get(12));
-        type3=dataValues.get(DATA_FIELDS.get(13));
+        type1=dataValues.get(DATA_FIELDS.get(9));
+        type2=dataValues.get(DATA_FIELDS.get(10));
+        type3=dataValues.get(DATA_FIELDS.get(11));
+        fishBreed=Integer.parseInt(dataValues.get(DATA_FIELDS.get(12)));
+        sharkBreed=Integer.parseInt(dataValues.get(DATA_FIELDS.get(13)));
     }
 }
 
