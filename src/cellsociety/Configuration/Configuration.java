@@ -1,6 +1,8 @@
 package cellsociety.Configuration;
 
 import cellsociety.GridEntry;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,9 +44,11 @@ public abstract class Configuration {
 //        }
 //   }
 
-    protected String myTitle,type1,type2,type3,probCatchLabel;
+    protected String myTitle,type1,type2,type3;
+    protected ArrayList<String> probCatchLabel;
+    protected ArrayList<Double> maxProb;
+    protected ArrayList<Double> probCatch;
     protected int maxStates,rows,columns,left,right,top,bottom, neighbours,fishBreed,sharkBreed;
-    protected double probCatch;
     public abstract void paraTitle(String title);
 
     private String getMyTitle(){
@@ -119,15 +123,12 @@ public abstract class Configuration {
     public int getTop(){return top;}
     public int getBottom(){return bottom;}
     public int getNeighbours(){return neighbours;}
-    public double getProbCatch(){return probCatch;}
     public String getType1(){return type1;}
     public String getType2(){return type2;}
     public String getType3(){return type3;}
     public int getFishBreed(){return fishBreed;}
     public int getSharkBreed(){return sharkBreed;}
-    public String getProbCatchLabel(){return probCatchLabel;}
-
-    public void setProbCatch(double newVal){
-        probCatch = newVal;
-    }
+    public ArrayList<String> getProbCatchLabel(){return probCatchLabel;}
+    public ArrayList<Double> getProbCatch(){return probCatch;}
+    public ArrayList<Double> getMaxProb(){return maxProb;}
 }

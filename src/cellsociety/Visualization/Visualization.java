@@ -18,6 +18,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Visualization {
@@ -41,6 +44,7 @@ public class Visualization {
     private Configuration mySimulationConfig;
     private Timeline myTimeline;
     private Boolean isPaused;
+    private ArrayList<Double> myNewProbCatch;
     private double mySpeed;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
@@ -139,8 +143,8 @@ public class Visualization {
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonUpload);
     }
 
-    private void updateProbCatch(Slider slider, Configuration simulationConfig) {
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> simulationConfig.setProbCatch((double) newValue));
+    private void updateProbCatch(Slider slider) {
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> myNewProbCatch.add((double) newValue));
     }
 
     private void updateSpeed(Slider slider) {
@@ -148,12 +152,15 @@ public class Visualization {
     }
 
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
-        String probCatchLabel = simulationConfig.getProbCatchLabel();
-        if (probCatchLabel != null) {
-            Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel + ":", 16, Color.WHITE);
-            Slider probabilitySlider = myLayout.createSlider(simulationConfig.getProbCatch(), 0, 1, 0.5,
+        myNewProbCatch = new ArrayList<>();
+        ArrayList<String> probCatchLabel = simulationConfig.getProbCatchLabel();
+        ArrayList<Double> maxProb = simulationConfig.getMaxProb();
+        ArrayList<Double> probCatch = simulationConfig.getProbCatch();
+        for (int i = 0; i < probCatch.size(); i += 1) {
+            Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
+            Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
                     5, 0.05);
-            updateProbCatch(probabilitySlider, simulationConfig);
+            updateProbCatch(probabilitySlider);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
         Label setSpeed = myLayout.createLabel ("Set the simulation speed:", 16, Color.WHITE);
