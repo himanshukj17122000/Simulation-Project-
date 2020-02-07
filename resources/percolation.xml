@@ -13,6 +13,6 @@
         <type1>Percolated</type1>
         <type2>Open</type2>
         <type3>Block</type3>
-        <neighPattern>10101111</neighPattern>
+<!--        <neighPattern>10101111</neighPattern>-->
     </gridlayout>
 </simulation>
