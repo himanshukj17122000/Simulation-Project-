@@ -5,6 +5,7 @@ import cellsociety.GridEntry;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Set;
 
 public class TreeCell extends Cell {
@@ -61,8 +62,8 @@ public class TreeCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters){
-        setBurnProbability(parameters[0]);
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters){
+        setBurnProbability(parameters.get(0));
         Boolean catchFire = checkCatchFire(entry);
         if(catchFire){
             Cell fireCell = new FireCell(entry);

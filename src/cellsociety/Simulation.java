@@ -62,7 +62,7 @@ public class Simulation {
         setEmptyCellSet(emptyCells);
     }
 
-    public void step(double[] parameters) {
+    public void step(List<Double> parameters) {
         //int[] cellType = new int[2];  // random line to initialize
         typesOfCells = new HashMap<>();
         Set<GridEntry> emptyCells = getEmptyCellSet();

@@ -5,6 +5,7 @@ import cellsociety.GridEntry;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Set;
 
 public class LiveCell extends Cell {
@@ -20,7 +21,7 @@ public class LiveCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
         Boolean enoughNeighbors = checkNeighbors(entry);
         if(enoughNeighbors){
             entry.setNextStepCell(this);

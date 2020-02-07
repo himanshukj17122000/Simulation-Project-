@@ -6,6 +6,7 @@ import cellsociety.GridEntry;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -30,8 +31,8 @@ public class PersonCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, double[] parameters) { //need to fix to get empty cell set somewhere or make new method
-        setThreshold(parameters[0]);
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) { //need to fix to get empty cell set somewhere or make new method
+        setThreshold(parameters.get(0));
         boolean satisfied = checkSatisfaction(entry);
         boolean moved = false;
         if(!satisfied){
