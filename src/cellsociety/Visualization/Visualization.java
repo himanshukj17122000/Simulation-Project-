@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Visualization {
@@ -46,7 +47,7 @@ public class Visualization {
     private Configuration mySimulationConfig;
     private Timeline myTimeline;
     private Boolean isPaused;
-    private ArrayList<Double> myNewProbCatch;
+    private HashMap<Slider, Double> myNewProbCatch;
     private double mySpeed;
     private Group myGroup;
 
@@ -69,6 +70,7 @@ public class Visualization {
     }
     //public HBox getRoot() { return myRoot; }
     //public void setRoot(HBox root) { myRoot = root; }
+    public HashMap<Slider, Double> getNewProbCatch() { return myNewProbCatch; }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         myGrid = initializeGrid(simulationConfig);
@@ -158,7 +160,9 @@ public class Visualization {
     }
 
     private void updateProbCatch(Slider slider) {
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> myNewProbCatch.add((double) newValue));
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            myNewProbCatch.put(slider, (double) newValue);
+        });
     }
 
     private void updateSpeed(Slider slider) {
@@ -166,7 +170,7 @@ public class Visualization {
     }
 
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
-        myNewProbCatch = new ArrayList<>();
+        myNewProbCatch = new HashMap<Slider, Double>();
         ArrayList<String> probCatchLabel = simulationConfig.getProbCatchLabel();
         ArrayList<Double> maxProb = simulationConfig.getMaxProb();
         ArrayList<Double> probCatch = simulationConfig.getProbCatch();
@@ -174,6 +178,7 @@ public class Visualization {
             Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
             Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
                     5, 0.05);
+            myNewProbCatch.put(probabilitySlider, probCatch.get(i));
             updateProbCatch(probabilitySlider);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
@@ -219,15 +224,9 @@ public class Visualization {
                 DialogBox popup = new DialogBox();
                 popup.start(primaryStage, mySimulationConfig);
                 mySimulationConfig = popup.getSimulationConfig();
-            } catch (NullPointerException ex) {
+            } catch (ParserConfigurationException | IOException | SAXException ex) {
                 String errorMessage = "No file chosen";
                 new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
-            } catch (ParserConfigurationException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (SAXException ex) {
-                ex.printStackTrace();
             }
         });
     }
