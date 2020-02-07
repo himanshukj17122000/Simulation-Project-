@@ -16,6 +16,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 import static cellsociety.Main.TITLE;
 
@@ -62,6 +66,12 @@ public class Splash {
             } catch (NullPointerException ex) {
                 String errorMessage = "No file chosen";
                 new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
+            } catch (ParserConfigurationException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (SAXException ex) {
+                ex.printStackTrace();
             }
         });
     }

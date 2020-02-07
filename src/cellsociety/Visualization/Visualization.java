@@ -18,6 +18,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.List;
 
 public class Visualization {
@@ -201,6 +205,12 @@ public class Visualization {
             } catch (NullPointerException ex) {
                 String errorMessage = "No file chosen";
                 new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
+            } catch (ParserConfigurationException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (SAXException ex) {
+                ex.printStackTrace();
             }
         });
     }

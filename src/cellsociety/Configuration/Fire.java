@@ -40,6 +40,9 @@ public class Fire extends Configuration {
             type3=dataValues.get(DATA_FIELDS.get(12));
             probCatchLabel=dataValues.get(DATA_FIELDS.get(13));
         }
+        public Fire(){
+
+        }
 }
 
 
