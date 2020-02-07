@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="Rps">
+    <gridlayout>
+        <title>Rock</title>
+        <maxStates>3</maxStates>
+        <rows>15</rows>
+        <columns>15</columns>
+        <left>0</left>
+        <right>0</right>
+        <top>0</top>
+        <bottom>0</bottom>
+        <probCatch>4</probCatch>
+        <probCatchLabel>Threshold for winning</probCatchLabel>
+        <neighbours>8</neighbours>
+        <type1>Rock</type1>
+        <type2>Paper</type2>
+        <type3>Scissor</type3>
+        <maxProbCatch>8</maxProbCatch>
+        <neighPattern>10101111</neighPattern>
+        <shape>Rectangle</shape>
+        <randomNumber>2</randomNumber>
+        <maxRandomNumber>4</maxRandomNumber>
+        <randomLabel>Value of the Random Number</randomLabel>
+    </gridlayout>
+</simulation>

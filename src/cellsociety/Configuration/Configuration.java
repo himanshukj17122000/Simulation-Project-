@@ -13,6 +13,37 @@ public abstract class Configuration {
     private String type1;
     private String type2;
     private String type3;
+    private String shape;
+    private String randomLabel;
+    private ArrayList<String> probCatchLabel= new ArrayList<>();
+    private ArrayList<Double> maxProb=new ArrayList<>();
+    private ArrayList<Double> probCatch=new ArrayList<>();
+    private int[] neighPattern= new int[8];
+    private int maxStates,rows,columns,left,right,top,bottom, neighbours,randomNumber,maxRandomNumber;
+
+
+    public String getRandomLabel() {
+        return randomLabel;
+    }
+
+    public void setRandomLabel(String randomLabel) {
+        this.randomLabel = randomLabel;
+    }
+    public int getRandomNumber() {
+        return randomNumber;
+    }
+
+    public void setRandomNumber(int randomNumber) {
+        this.randomNumber = randomNumber;
+    }
+
+    public int getMaxRandomNumber() {
+        return maxRandomNumber;
+    }
+
+    public void setMaxRandomNumber(int maxRandomNumber) {
+        this.maxRandomNumber = maxRandomNumber;
+    }
 
     public String getShape() {
         return shape;
@@ -22,12 +53,7 @@ public abstract class Configuration {
         this.shape = shape;
     }
 
-    private String shape;
-    private ArrayList<String> probCatchLabel= new ArrayList<>();
-    private ArrayList<Double> maxProb=new ArrayList<>();
-    private ArrayList<Double> probCatch=new ArrayList<>();
-    private int[] neighPattern= new int[8];
-    private int maxStates,rows,columns,left,right,top,bottom, neighbours;
+
     public abstract void paraTitle(String title);
 
     private String getMyTitle(){
