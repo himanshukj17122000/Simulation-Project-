@@ -34,7 +34,7 @@ public class DialogBox {
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private Configuration mySimulationConfig;
 
-    public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException, ParserConfigurationException, IOException, SAXException {
+    public void start(Stage primaryStage, Configuration simConfig) throws ParserConfigurationException, IOException, SAXException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

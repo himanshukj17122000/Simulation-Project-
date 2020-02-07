@@ -228,15 +228,9 @@ public class Visualization {
                 DialogBox popup = new DialogBox();
                 popup.start(primaryStage, mySimulationConfig);
                 mySimulationConfig = popup.getSimulationConfig();
-            } catch (NullPointerException ex) {
-                String errorMessage = "No file chosen";
+            } catch (ParserConfigurationException | IOException | SAXException ex) {
+                String errorMessage = "Exception Caught!";
                 new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
-            } catch (ParserConfigurationException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (SAXException ex) {
-                ex.printStackTrace();
             }
         });
     }
