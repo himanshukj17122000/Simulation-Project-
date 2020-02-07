@@ -7,6 +7,7 @@ import cellsociety.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -18,10 +19,14 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+<<<<<<< HEAD
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+=======
+import java.util.ArrayList;
+>>>>>>> 8bdf19a7c04bb3cdffac630e0512fabc630745e8
 import java.util.List;
 
 public class Visualization {
@@ -45,7 +50,9 @@ public class Visualization {
     private Configuration mySimulationConfig;
     private Timeline myTimeline;
     private Boolean isPaused;
+    private ArrayList<Double> myNewProbCatch;
     private double mySpeed;
+    private Group myGroup;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
@@ -53,6 +60,17 @@ public class Visualization {
 
     // Getter methods
     public Scene getAnimationScene() { return myAnimationScene; }
+
+    public Configuration getSimulationConfig() { return mySimulationConfig; }
+    public HBox getRoot() { return myRoot; }
+    public void setRoot(HBox root) { myRoot = root; }
+    private Simulation getSimulation(){ return mySimulation; }
+    public double getGridWidth(){
+        return GRID_WIDTH;
+    }
+    public double getGridHeight(){
+        return GRID_HEIGHT;
+    }
     //public HBox getRoot() { return myRoot; }
     //public void setRoot(HBox root) { myRoot = root; }
 
@@ -80,7 +98,7 @@ public class Visualization {
 
     // Updating how the grid simulation looks
     public void step(){
-        mySimulation.step();
+       /* myGroup = */mySimulation.step();
         drawGrid(myGrid);
     }
 
@@ -143,8 +161,8 @@ public class Visualization {
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonUpload);
     }
 
-    private void updateProbCatch(Slider slider, Configuration simulationConfig) {
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> simulationConfig.setProbCatch((double) newValue));
+    private void updateProbCatch(Slider slider) {
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> myNewProbCatch.add((double) newValue));
     }
 
     private void updateSpeed(Slider slider) {
@@ -152,12 +170,15 @@ public class Visualization {
     }
 
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
-        String probCatchLabel = simulationConfig.getProbCatchLabel();
-        if (probCatchLabel != null) {
-            Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel + ":", 16, Color.WHITE);
-            Slider probabilitySlider = myLayout.createSlider(simulationConfig.getProbCatch(), 0, 1, 0.5,
+        myNewProbCatch = new ArrayList<>();
+        ArrayList<String> probCatchLabel = simulationConfig.getProbCatchLabel();
+        ArrayList<Double> maxProb = simulationConfig.getMaxProb();
+        ArrayList<Double> probCatch = simulationConfig.getProbCatch();
+        for (int i = 0; i < probCatch.size(); i += 1) {
+            Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
+            Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
                     5, 0.05);
-            updateProbCatch(probabilitySlider, simulationConfig);
+            updateProbCatch(probabilitySlider);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
         Label setSpeed = myLayout.createLabel ("Set the simulation speed:", 16, Color.WHITE);

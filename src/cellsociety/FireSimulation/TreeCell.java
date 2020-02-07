@@ -11,7 +11,7 @@ public class TreeCell extends Cell {
     private static final int TYPE = 2;
     private static final Paint FILL = Color.CHARTREUSE;
     private static final boolean CANUPDATE = true;
-    private Double catchFireProb = 0.15;
+    private double catchFireProb = 0.15;
 
 
     public TreeCell(GridEntry entry) {
@@ -25,10 +25,10 @@ public class TreeCell extends Cell {
 
     @Override
     public int getRace() {
-        return 5;
+        return 0;
     }
 
-    public void setCatchProb(Double prob){
+    public void setCatchProb(double prob){
         catchFireProb = prob;
     }
 
@@ -43,11 +43,11 @@ public class TreeCell extends Cell {
         return neighborFire;
     }
 
-    public void setBurnProbability(Double probability){
+    public void setBurnProbability(double probability){
         catchFireProb = probability;
     }
 
-    public Double getBurnProbability(){
+    public double getBurnProbability(){
         return catchFireProb;
     }
 
