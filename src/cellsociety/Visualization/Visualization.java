@@ -20,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Visualization {
@@ -43,7 +44,7 @@ public class Visualization {
     private Configuration mySimulationConfig;
     private Timeline myTimeline;
     private Boolean isPaused;
-    private ArrayList<Double> myNewProbCatch;
+    private HashMap<Slider, Double> myNewProbCatch;
     private double mySpeed;
     private Group myGroup;
 
@@ -155,7 +156,9 @@ public class Visualization {
     }
 
     private void updateProbCatch(Slider slider) {
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> myNewProbCatch.add((double) newValue));
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            myNewProbCatch.put(slider, (double) newValue);
+        });
     }
 
     private void updateSpeed(Slider slider) {
@@ -163,7 +166,7 @@ public class Visualization {
     }
 
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
-        myNewProbCatch = new ArrayList<>();
+        myNewProbCatch = new HashMap<Slider, Double>();
         ArrayList<String> probCatchLabel = simulationConfig.getProbCatchLabel();
         ArrayList<Double> maxProb = simulationConfig.getMaxProb();
         ArrayList<Double> probCatch = simulationConfig.getProbCatch();
@@ -171,6 +174,7 @@ public class Visualization {
             Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
             Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
                     5, 0.05);
+            myNewProbCatch.put(probabilitySlider, probCatch.get(i));
             updateProbCatch(probabilitySlider);
             toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
         }
