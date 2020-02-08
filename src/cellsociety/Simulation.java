@@ -169,5 +169,5 @@ public class Simulation {
     private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
                                     List<Double> parameters) {
         cell.getRectangle().setOnMouseClicked(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
-    }*/
+    }
 }

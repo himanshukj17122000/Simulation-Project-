@@ -5,6 +5,7 @@ import cellsociety.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
@@ -52,6 +53,7 @@ public class Visualization {
     private HashMap<Slider, ProbConstant> myNewProbCatch;
     private PieChart stats;
     private double mySpeed;
+    private Group myGroup;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
@@ -60,6 +62,12 @@ public class Visualization {
     // Getter methods
     public Scene getAnimationScene() { return myAnimationScene; }
 
+    public static double getGridHeight() {
+        return GRID_HEIGHT;
+    }
+    public static double getGridWidth() {
+        return GRID_WIDTH;
+    }
     public HashMap<Slider, ProbConstant> getNewProbCatch() { return myNewProbCatch; }
 
     private List<Double> getParameters(){
