@@ -16,23 +16,22 @@ import org.xml.sax.SAXException;
 import static cellsociety.Visualization.DialogBox.*;
 
 public class Reader {
+    // Readable error message that can be displayed by the GUI
+    public static final String ERROR_MESSAGE = "XML file does not represent %s";
+    // name of root attribute that notes the type of file expecting to parse
+    private final String TYPE_ATTRIBUTE;
+    // keep only one documentBuilder because it is expensive to make and can reset it before parsing
+    private final DocumentBuilder DOCUMENT_BUILDER;
+    private static Map<String, String> results;
 
-        // Readable error message that can be displayed by the GUI
-        public static final String ERROR_MESSAGE = "XML file does not represent %s";
-        // name of root attribute that notes the type of file expecting to parse
-        private final String TYPE_ATTRIBUTE;
-        // keep only one documentBuilder because it is expensive to make and can reset it before parsing
-        private final DocumentBuilder DOCUMENT_BUILDER;
-        private static Map<String, String> results;
 
-
-        /**
-         * Create parser for XML files of given type.
-         */
-        public Reader(String type) {
-            DOCUMENT_BUILDER = getDocumentBuilder();
-            TYPE_ATTRIBUTE = type;
-        }
+    /**
+     * Create parser for XML files of given type.
+     */
+    public Reader(String type) {
+        DOCUMENT_BUILDER = getDocumentBuilder();
+        TYPE_ATTRIBUTE = type;
+    }
 
         /**
      * Get data contained in this XML file as an object
