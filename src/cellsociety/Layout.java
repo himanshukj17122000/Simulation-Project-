@@ -62,7 +62,12 @@ public class Layout {
             cellData.add(data);
         }
         ObservableList<PieChart.Data> pieChartData =
-            FXCollections.observableArrayList(cellData);
+            FXCollections.observableArrayList(
+                new PieChart.Data("Grapefruit", 13),
+                new PieChart.Data("Oranges", 25),
+                new PieChart.Data("Plums", 10),
+                new PieChart.Data("Pears", 22),
+                new PieChart.Data("Apples", 30));
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle("Population Stats");
         chart.setPrefSize(CHART_WIDTH, CHART_HEIGHT);
