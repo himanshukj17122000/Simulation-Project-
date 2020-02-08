@@ -55,8 +55,21 @@ public class Reader {
         else if(name.equals("PercolationFile")){
             forPercolation(root);
         }
+        else if(name.equals(RPS_FILE)){
+            forRps(root);
+        }
 
         return results;
+    }
+
+    private void forRps(Element root) {
+        if (! isValidFile(root, Rps.DATA_TYPE)) {
+            throw new FileInputException(ERROR_MESSAGE, Rps.DATA_TYPE);
+        }
+        results = new HashMap<>();
+        for (String field : Rps.DATA_FIELDS) {
+            results.put(field, getTextValue(root, field));
+        }
     }
 
     private void forPercolation(Element root) {

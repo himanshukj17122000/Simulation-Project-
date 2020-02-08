@@ -24,8 +24,8 @@ public class DialogBox {
     public static final String PERC_FILE = "Percolation";
     public static final String PREY_FILE = "Prey";
     public static final String SEG_FILE = "Segregation";
-    public static final String TYPE = "type";
-    public static final String OPEN_DATA = "Open Data File";
+    public static final String RPS_FILE= "Rps";
+    private static final String TYPE = "type";
     private static String title;
     private static Map<String,String> result= new HashMap<>();
     // NOTE: generally accepted behavior that the chooser remembers where user left it last
@@ -46,6 +46,12 @@ public class DialogBox {
             }
         try {
             switch (title) {
+                case RPS_FILE:
+                    result.clear();
+                    result= new Reader(TYPE).getSimulation(RPS_FILE,dataFile);
+                    simConfig = new Rps(result);
+                    break;
+
                 case FIRE_FILE:
                     result.clear();
                     result= new Reader(TYPE).getSimulation(FIRE_FILE,dataFile);

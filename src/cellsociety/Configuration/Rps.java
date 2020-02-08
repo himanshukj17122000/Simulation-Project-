@@ -1,15 +1,12 @@
 package cellsociety.Configuration;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
 import java.util.List;
 import java.util.Map;
 
-public class Segregation extends Configuration {
-    public static final String DATA_TYPE = "Segregation";
-    // field names expected to appear in data file holding values for this object
-    // NOTE: simple way to create an immutable list
+public class Rps extends Configuration {
+    public static final String DATA_TYPE = "Rps";
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape");
+            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape", "randomNumber", "maxRandomNumber","randomLabel");
 
     /**
      * Create game data from given data.
@@ -24,8 +21,8 @@ public class Segregation extends Configuration {
      *
      * @param dataValues map of field names to their values
      */
+    public Rps (Map<String, String> dataValues) {
 
-    public Segregation (Map<String, String> dataValues) {
         setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
         setMaxStates(Integer.parseInt(dataValues.get(DATA_FIELDS.get(1))));
         setRows(Integer.parseInt(dataValues.get(DATA_FIELDS.get(2))));
@@ -43,6 +40,11 @@ public class Segregation extends Configuration {
         setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(14))));
         setNeighPattern(dataValues.get(DATA_FIELDS.get(15)));
         setShape(dataValues.get(DATA_FIELDS.get(16)));
+        setProbCatch(Double.parseDouble(dataValues.get(DATA_FIELDS.get(17))));
+        setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(18))));
+        setProbCatchLabel(dataValues.get(DATA_FIELDS.get(19)));
+    }
+    public Rps(){
+
     }
 }
-
