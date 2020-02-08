@@ -1,7 +1,10 @@
 package cellsociety.Visualization;
 
-import cellsociety.*;
 import cellsociety.Configuration.Configuration;
+import cellsociety.Layout;
+import cellsociety.Main;
+import cellsociety.ProbConstant;
+import cellsociety.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -12,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.xml.sax.SAXException;
@@ -34,7 +36,7 @@ public class Visualization {
     private static final int BUTTON_FONT_SIZE = 16;
     private static final double MAX_SPEED = 1000;
     private static final double MIN_SPEED = 0;
-    private static final String BUTTON_HOME = "Back to Main";
+    private static final String ButtonHome = "Back to Main";
     private static final String BUTTON_PAUSE = "Pause Simulation";
     private static final String BUTTON_STEP = "Next Step";
     private static final String BUTTON_RESUME = "Resume Simulation";
@@ -42,7 +44,7 @@ public class Visualization {
     private static final String BUTTON_RESTART = "Restart Simulation";
     private static final String BUTTON_UPLOAD = "Upload New Simulation";
     private static final String BUTTON_CHANGE = "Change Simulation";
-    private static final String ERROR_MESSAGE= "No file chosen";
+    private static final String ErrorMessage= "No file chosen";
 
     private Scene myAnimationScene;
     private VBox myToolBar;
@@ -64,12 +66,6 @@ public class Visualization {
     // Getter methods
     public Scene getAnimationScene() { return myAnimationScene; }
 
-    public static double getGridHeight() {
-        return GRID_HEIGHT;
-    }
-    public static double getGridWidth() {
-        return GRID_WIDTH;
-    }
     public HashMap<Slider, ProbConstant> getNewProbCatch() { return myNewProbCatch; }
 
     private List<Double> getParameters(){
@@ -95,7 +91,7 @@ public class Visualization {
     }
 
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
-        myGrid = initializeGrid(simulationConfig);
+        initializeGrid(simulationConfig);
         mySpeed = DEFAULT_SPEED;
         setSimulationLoop();
         myLayout = new Layout();
@@ -105,7 +101,7 @@ public class Visualization {
         HBox myRoot = new HBox();
         Background splashBackground = new Background(new BackgroundFill(SCREEN_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY));
         myRoot.setBackground(splashBackground);
-        myRoot.getChildren().addAll(myScrollPane, myGrid);
+        myRoot.getChildren().addAll(myScrollPane, myGroup);
         return new Scene(myRoot, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
@@ -120,8 +116,7 @@ public class Visualization {
 
     // Updating how the grid simulation looks
     public void step(){
-       /* myGroup = */mySimulation.step(getParameters());
-        drawGrid(myGrid);
+        mySimulation.step(getParameters());
         if (myStats != null) {
             myToolBar.getChildren().remove(myStats);
             myStats = myLayout.createChart(mySimulation);
@@ -134,30 +129,29 @@ public class Visualization {
         mySimulation = new Simulation(simulationConfig, myGroup, GRID_HEIGHT, GRID_HEIGHT);
     }
 
-
-
-    private GridPane initializeGrid(Configuration simulationConfig) {
+    private void initializeGrid(Configuration simulationConfig) {
         initializeSimulation(simulationConfig);
-        GridPane initializedGrid = new GridPane();
-        return drawGrid(initializedGrid);
+        myGroup = mySimulation.initializeSimulationGrid();
+//        GridPane initializedGrid = new GridPane();
+//        return drawGrid(initializedGrid);
     }
 
     // Redrawing the grid after every time step, adding each cell to the grid
-    public GridPane drawGrid(GridPane grid) {
-        List<List<GridEntry>> cellStates = mySimulation.getSimulationGrid();
-        grid.getChildren().clear();
-        grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
-        grid.setStyle("-fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 25; -fx-border-color: black;");
-        for (int row = 0; row < cellStates.size(); row += 1) {
-            for (int col = 0; col < cellStates.get(row).size(); col += 1) {
-                Rectangle cell = cellStates.get(row).get(col).getCell().getRectangle();
-                cell.setWidth(GRID_WIDTH/cellStates.get(row).size());
-                cell.setHeight(GRID_HEIGHT/cellStates.size());
-                grid.add(cell, row, col);
-            }
-        }
-        return grid;
-    }
+//    public GridPane drawGrid(GridPane grid) {
+//        List<List<GridEntry>> cellStates = mySimulation.getSimulationGrid();
+//        grid.getChildren().clear();
+//        grid.setPrefSize(GRID_WIDTH,GRID_HEIGHT);
+//        grid.setStyle("-fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 25; -fx-border-color: black;");
+//        for (int row = 0; row < cellStates.size(); row += 1) {
+//            for (int col = 0; col < cellStates.get(row).size(); col += 1) {
+//                Rectangle cell = cellStates.get(row).get(col).getCell().getRectangle();
+//                cell.setWidth(GRID_WIDTH/cellStates.get(row).size());
+//                cell.setHeight(GRID_HEIGHT/cellStates.size());
+//                grid.add(cell, row, col);
+//            }
+//        }
+//        return grid;
+//    }
 
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         myToolBar = new VBox(20);
@@ -172,7 +166,7 @@ public class Visualization {
     }
 
     private void implementButtons(Stage primaryStage, VBox toolBar) {
-        Button buttonHome = myLayout.createButton(BUTTON_HOME, "lightgray", BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonHome = myLayout.createButton(ButtonHome, "lightgray", BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
         Button buttonPause = myLayout.createButton(BUTTON_PAUSE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         myIsPaused = false;
@@ -239,8 +233,8 @@ public class Visualization {
 
     private void stepSim(Button buttonStep) {
         buttonStep.setOnAction(e -> {
-            mySimulation.step(getParameters());
-            drawGrid(myGrid);
+            myGroup = mySimulation.step(getParameters());
+            //drawGrid(myGrid);
         });
     }
 
@@ -267,7 +261,8 @@ public class Visualization {
                 popup.start(primaryStage, mySimulationConfig);
                 mySimulationConfig = popup.getSimulationConfig();
             } catch (ParserConfigurationException | IOException | SAXException ex) {
-                new Alert(Alert.AlertType.ERROR, ERROR_MESSAGE).showAndWait();
+                String errorMessage = ErrorMessage;
+                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
             }
         });
     }
