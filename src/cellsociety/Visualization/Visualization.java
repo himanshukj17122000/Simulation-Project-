@@ -126,11 +126,9 @@ public class Visualization {
     public void step(){
        /* myGroup = */mySimulation.step(getParameters());
         drawGrid(myGrid);
-        if (stats != null) {
-            myToolBar.getChildren().remove(stats);
-            stats = myLayout.createChart(mySimulation);
-            myToolBar.getChildren().add(stats);
-        }
+        myToolBar.getChildren().remove(stats);
+        stats = myLayout.createChart(mySimulation);
+        myToolBar.getChildren().add(stats);
     }
 
     private void initializeSimulation(List<List<GridEntry>> cellArray){
@@ -165,10 +163,8 @@ public class Visualization {
         myToolBar = new VBox(20);
         implementButtons(primaryStage, myToolBar);
         implementSlider(simulationConfig, myToolBar);
-        if (!simulationConfig.getTitle().equals("Segregation")) {
-            stats = myLayout.createChart(mySimulation);
-            myToolBar.getChildren().addAll(stats);
-        }
+        stats = myLayout.createChart(mySimulation);
+        myToolBar.getChildren().addAll(stats);
         myToolBar.setPadding(new Insets(50));
         return myToolBar;
     }
