@@ -3,9 +3,7 @@ package cellsociety;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SimulationRe {
     private List<List<GridEntry>> SimulationGrid;
@@ -14,8 +12,9 @@ public class SimulationRe {
     public Group myGroup = new Group();
     private double Width;
     private double Height;
+    private Map<String, Integer> typesOfCells = new HashMap<>();
 
-    public SimulationRe(List<List<GridEntry>> simGrid, Group simGroup,double gridWidth,double gridHeight) {
+    public SimulationRe(List<List<GridEntry>> simGrid, Group simGroup, double gridWidth, double gridHeight) {
         setSimulationGrid(simGrid);
         setMyGroup(simGroup, gridWidth, gridHeight);
         initializeCellSets();
@@ -30,8 +29,7 @@ public class SimulationRe {
     }
 
 
-
-    private void setMyGroup(Group simGroup, double width, double height){
+    private void setMyGroup(Group simGroup, double width, double height) {
         myGroup = simGroup;
         simGroup.prefWidth(width);
         simGroup.prefHeight(height);
@@ -39,7 +37,7 @@ public class SimulationRe {
         Height = height;
     }
 
-    private Group getMyGroup(){
+    private Group getMyGroup() {
         return myGroup;
     }
 
@@ -51,7 +49,8 @@ public class SimulationRe {
         return emptyCellSet;
     }
 
-    private void initializeCellSets(){
+    private void initializeCellSets() {
+        typesOfCells = new HashMap<>();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
@@ -82,18 +81,24 @@ public class SimulationRe {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 currentGridEntry.updateGridEntry();
                 Rectangle cell = currentGridConfig.get(r).get(c).getCell().getRectangle();
-                cell.setWidth(Width/currentGridConfig.get(r).size());
-                cell.setHeight(Height/currentGridConfig.size());
-                cell.setX(cell.getWidth()*c);
-                cell.setY(cell.getHeight()*r);
+                cell.setWidth(Width / currentGridConfig.get(r).size());
+                cell.setHeight(Height / currentGridConfig.size());
+                cell.setX(cell.getWidth() * c);
+                cell.setY(cell.getHeight() * r);
                 myGroup.getChildren().add(cell);
                 if (currentGridEntry.getCellType() == 1) { // update to not hard code
                     emptyCells.add(currentGridEntry);
                 }
+                String cellType = currentGridEntry.getCell().getLabel();
+                if (cellType != null) {
+                    typesOfCells.putIfAbsent(cellType, 0);
+                    typesOfCells.put(cellType, typesOfCells.get(cellType) + 1);
+                }
             }
         }
+
         setEmptyCellSet(emptyCells);
         return myGroup;
-    }
 
+    }
 }

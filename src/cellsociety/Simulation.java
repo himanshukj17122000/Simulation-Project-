@@ -87,7 +87,7 @@ public class Simulation {
                 if (cellType != null) {
                     typesOfCells.putIfAbsent(cellType, 0);
                     typesOfCells.put(cellType, typesOfCells.get(cellType)+1);
-                    System.out.println(typesOfCells.get(cellType));
+                  //  System.out.println(typesOfCells.get(cellType));
                 }
            }
         }

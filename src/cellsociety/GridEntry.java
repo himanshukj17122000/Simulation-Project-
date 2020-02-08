@@ -64,22 +64,24 @@ public class GridEntry {
     public void setNeighbors(List<List<GridEntry>> grid, String simulation, int numRows, int numCols, int[] neighborBool){ //refactor to be 20 lines
 
         Set<GridEntry> NSET = new HashSet<GridEntry>();
-            if (getRow() > 0 && neighborBool[1] == 1) {
-                GridEntry topNeighbor = grid.get(getRow() - 1).get(getColumn());
-                NSET.add(topNeighbor);
-            }
-            if (getRow() < numRows - 1 && neighborBool[5] == 1) {
-                GridEntry bottomNeighbor = grid.get(getRow() + 1).get(getColumn());
-                NSET.add(bottomNeighbor);
-            }
-            if (getColumn() > 0 && neighborBool[7] == 1) {
-                GridEntry leftNeighbor = grid.get(getRow()).get(getColumn() - 1);
-                NSET.add(leftNeighbor);
-            }
-            if (getColumn() < numCols - 1 && neighborBool[3] == 1) {
-                GridEntry rightNeighbor = grid.get(getRow()).get(getColumn() + 1);
-                NSET.add(rightNeighbor);
-            }
+        if (getRow() > 0 && neighborBool[1] == 1) {
+            GridEntry topNeighbor = grid.get(getRow() - 1).get(getColumn());
+            NSET.add(topNeighbor);
+        }
+        if (getRow() < numRows - 1 && neighborBool[5] == 1) {
+            GridEntry bottomNeighbor = grid.get(getRow() + 1).get(getColumn());
+            NSET.add(bottomNeighbor);
+        }
+        if (getColumn() > 0 && neighborBool[3] == 1) {
+            GridEntry leftNeighbor = grid.get(getRow()).get(getColumn()-1);
+            NSET.add(leftNeighbor);
+            System.out.println(leftNeighbor.getCellType());
+        }
+        if (getColumn() < numCols - 1 && neighborBool[7] == 1) {
+            GridEntry rightNeighbor = grid.get(getRow()).get(getColumn()+1);
+            NSET.add(rightNeighbor);
+            System.out.println(rightNeighbor.getCellType());
+        }
             if (simulation.equals("Percolation") || simulation.equals("Game of Life") || simulation.equals("Segregation")) {
                 if (getRow() > 0) {
                     if (getColumn() > 0 && neighborBool[0] == 1) {

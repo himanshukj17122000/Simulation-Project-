@@ -109,7 +109,7 @@ public abstract class Configuration {
     public void setNeighPattern(String pattern){
         char[] pattArray= pattern.toCharArray();
         for(int i=0;i<pattArray.length;i++){
-            neighPattern[i]= (int) pattArray[i];
+            neighPattern[i]= (int) pattArray[i] - 48;
         }
     }
 }
