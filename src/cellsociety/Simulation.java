@@ -135,7 +135,7 @@ public class Simulation {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 Cell currentCell = currentGridEntry.getCell();
-                implementClickCell(currentCell, currentGridEntry, emptyCells, parameters);
+                //implementClickCell(currentCell, currentGridEntry, emptyCells, parameters);
                 currentCell.updateCell(currentGridEntry, emptyCells, parameters);
             }
         }
@@ -169,5 +169,5 @@ public class Simulation {
     private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
                                     List<Double> parameters) {
         cell.getRectangle().setOnMouseClicked(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
-    }
+    }*/
 }

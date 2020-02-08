@@ -7,12 +7,51 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class Configuration {
-    private String myTitle,type1,type2,type3;
+    private String myTitle;
+    private String type1;
+    private String type2;
+    private String type3;
+    private String shape;
+    private String randomLabel;
     private ArrayList<String> probCatchLabel= new ArrayList<>();
     private ArrayList<Double> maxProb=new ArrayList<>();
     private ArrayList<Double> probCatch=new ArrayList<>();
     private int[] neighPattern= new int[8];
-    private int maxStates,rows,columns,left,right,top,bottom, neighbours;
+    private int maxStates,rows,columns,left,right,top,bottom, neighbours,randomNumber,maxRandomNumber;
+
+
+    public String getRandomLabel() {
+        return randomLabel;
+    }
+
+    public void setRandomLabel(String randomLabel) {
+        this.randomLabel = randomLabel;
+    }
+    public int getRandomNumber() {
+        return randomNumber;
+    }
+
+    public void setRandomNumber(int randomNumber) {
+        this.randomNumber = randomNumber;
+    }
+
+    public int getMaxRandomNumber() {
+        return maxRandomNumber;
+    }
+
+    public void setMaxRandomNumber(int maxRandomNumber) {
+        this.maxRandomNumber = maxRandomNumber;
+    }
+
+    public String getShape() {
+        return shape;
+    }
+
+    public void setShape(String shape) {
+        this.shape = shape;
+    }
+
+
     public abstract void paraTitle(String title);
 
     private String getMyTitle(){

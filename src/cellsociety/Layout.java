@@ -22,7 +22,7 @@ public class Layout {
     private static final int MAX_WIDTH = 400;
     private static final int CHART_WIDTH = 300;
     private static final int CHART_HEIGHT = 300;
-    private static final String SIDEBAR_COLOR = "rgb(90, 118, 161)";
+    private static final Paint SIDEBAR_BACKGROUND = Color.web("5a76a1");
 
     public Button createButton(String text, String styleColor, Paint fontColor, int fontSize) {
         Button button = new Button(text);
@@ -74,7 +74,7 @@ public class Layout {
         sp.setVmax(MAX_SCREEN_HEIGHT);
         sp.setPrefWidth(MAX_WIDTH);
         sp.setFitToWidth(true);
-        sp.setStyle("-fx-background: " + SIDEBAR_COLOR);
+        sp.setStyle("-fx-background: rgb(90, 118, 161)");
         sp.setContent(toolBar);
         return sp;
     }
