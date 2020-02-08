@@ -16,6 +16,7 @@ public class Simulation {
     private Map<String, Integer> typesOfCells = new HashMap<>();
     private Configuration myConfiguration;
 
+    // Constructor for the Simulation class
     public Simulation(Configuration simConfig, Group simGroup, double width, double height) {
         setConfiguration(simConfig);
         initializeSimulationGrid();
@@ -23,6 +24,7 @@ public class Simulation {
         initializeCellSets();
     }
 
+    // Initializes the simulation grid based on boundary conditions and randomization
     public Group initializeSimulationGrid() {
         List<List<GridEntry>> grid = new ArrayList<>();
         for (int r = 0; r < myConfiguration.getRows(); r++) {
@@ -43,11 +45,11 @@ public class Simulation {
             grid.add(insertRow);
         }
         initializeGridNeighbors(grid, myConfiguration.getTitle());
-
         SimulationGrid = grid;
         return myGroup;
     }
 
+    // Getter method for simulation grid
     public List<List<GridEntry>> getSimulationGrid() {
         return SimulationGrid;
     }
@@ -70,11 +72,12 @@ public class Simulation {
         emptyCellSet = emptyCells;
     }
 
+    // Getter method for empty cell set
     public Set<GridEntry> getEmptyCellSet() {
         return emptyCellSet;
     }
 
-
+    // Getter method for types of cells
     public Map<String, Integer> getTypesOfCells(){
         return typesOfCells;
     }
