@@ -51,9 +51,9 @@ public class Visualization {
     private Layout myLayout;
     private Configuration mySimulationConfig;
     private Timeline myTimeline;
-    private Boolean isPaused;
+    private Boolean myIsPaused;
     private HashMap<Slider, ProbConstant> myNewProbCatch;
-    private PieChart stats;
+    private PieChart myStats;
     private double mySpeed;
     private Group myGroup;
 
@@ -122,10 +122,10 @@ public class Visualization {
     public void step(){
        /* myGroup = */mySimulation.step(getParameters());
         drawGrid(myGrid);
-        if (stats != null) {
-            myToolBar.getChildren().remove(stats);
-            stats = myLayout.createChart(mySimulation);
-            myToolBar.getChildren().add(stats);
+        if (myStats != null) {
+            myToolBar.getChildren().remove(myStats);
+            myStats = myLayout.createChart(mySimulation);
+            myToolBar.getChildren().add(myStats);
         }
     }
 
@@ -164,8 +164,8 @@ public class Visualization {
         implementButtons(primaryStage, myToolBar);
         implementSlider(simulationConfig, myToolBar);
         if (! simulationConfig.getTitle().equals("Segregation")) {
-            stats = myLayout.createChart(mySimulation);
-            myToolBar.getChildren().addAll(stats);
+            myStats = myLayout.createChart(mySimulation);
+            myToolBar.getChildren().addAll(myStats);
         }
         myToolBar.setPadding(new Insets(50));
         return myToolBar;
@@ -175,17 +175,17 @@ public class Visualization {
         Button buttonHome = myLayout.createButton(BUTTON_HOME, "lightgray", BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
         Button buttonPause = myLayout.createButton(BUTTON_PAUSE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
-        isPaused = false;
+        myIsPaused = false;
         Button buttonStep = myLayout.createButton(BUTTON_STEP, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonResume = myLayout.createButton(BUTTON_RESUME, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonStop = myLayout.createButton(BUTTON_STOP, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonRestart = myLayout.createButton(BUTTON_RESTART, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonChange = myLayout.createButton(BUTTON_CHANGE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonUpload = myLayout.createButton(BUTTON_UPLOAD, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
-        if (!isPaused) {
+        if (!myIsPaused) {
             pauseSim(buttonPause);
         }
-        if (isPaused) {
+        if (myIsPaused) {
             stepSim(buttonStep);
             resumeSim(buttonResume);
         }
@@ -234,7 +234,7 @@ public class Visualization {
     // Next 6 methods: Creating the button functions
     private void pauseSim(Button buttonPause) {
         buttonPause.setOnAction(e -> myTimeline.pause());
-        isPaused = true;
+        myIsPaused = true;
     }
 
     private void stepSim(Button buttonStep) {
@@ -246,7 +246,7 @@ public class Visualization {
 
     private void resumeSim(Button buttonResume) {
         buttonResume.setOnAction(e -> myTimeline.play());
-        isPaused = false;
+        myIsPaused = false;
     }
 
     private void restartSim(Button buttonRestart) {
