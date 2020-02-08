@@ -7,11 +7,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 public class AnimalCell extends Cell {
     private static final int TYPE = 1;
+    private static final String LABEL = "Preys";
     private static final Paint FILL = Color.TAN;
     protected static final Paint PREYFILL = Color.PALEGREEN;
     private int reproductionTime = 2;
@@ -20,9 +22,10 @@ public class AnimalCell extends Cell {
     private int RACE;
 
 
-    public AnimalCell(GridEntry entry, int species) {
+    public AnimalCell(GridEntry entry, int species, int reproductionTime) {
         super(FILL, entry);
         setTimeSinceReproduction(0);
+        setReproductionTime(reproductionTime);
         setRace(1);
 
     }
@@ -31,8 +34,10 @@ public class AnimalCell extends Cell {
         RACE = race;
     }
 
+
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
+
         reproduce(entry, emptyCells);
         move(entry, emptyCells);
 
@@ -47,6 +52,9 @@ public class AnimalCell extends Cell {
     public int getRace() {
         return 1;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 
     protected void setTimeSinceReproduction(int time){
         this.timeSinceReproduction = time;
@@ -111,7 +119,7 @@ public class AnimalCell extends Cell {
     }
 
     protected AnimalCell offSpring(GridEntry entry, Set<GridEntry> emptyCells){
-        return new AnimalCell(entry, 1);
+        return new AnimalCell(entry, 1, getReproductionTime());
     }
 
     protected Set<GridEntry> setOfEmptyNeighbors(GridEntry entry, Set<GridEntry> emptyCells){

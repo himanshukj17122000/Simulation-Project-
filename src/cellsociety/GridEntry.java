@@ -62,6 +62,7 @@ public class GridEntry {
     }
 
     public void setNeighbors(List<List<GridEntry>> grid, String simulation, int numRows, int numCols){ //refactor to be 20 lines
+
         Set<GridEntry> NSET = new HashSet<GridEntry>();
             if (getRow() > 0) {
                 GridEntry topNeighbor = grid.get(getRow() - 1).get(getColumn());
@@ -147,7 +148,7 @@ public class GridEntry {
         if(type == 3){
             return new FireCell(this);
         }else if(type == 2){
-            return new TreeCell(this);
+            return new TreeCell(this, 0.15);
         }else{
             return new EmptyCell(this, FIREFILL);
         }
@@ -176,16 +177,16 @@ public class GridEntry {
         if(type == 1){
             return new EmptyCell(this, SEGREGATIONFILL);
         }else{
-            return new PersonCell(this, type);
+            return new PersonCell(this, type, 0.5);
         }
     }
 
 
     private Cell preySimulationCell(int type){
         if(type == 3){
-            return new PredatorCell(this);
+            return new PredatorCell(this, 10, 5);
         }else if(type == 2){
-            return new AnimalCell(this, 1);
+            return new AnimalCell(this, 1, 3);
         }else{
             return new EmptyCell(this, PREYFILL);
         }

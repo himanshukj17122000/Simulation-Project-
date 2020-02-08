@@ -7,13 +7,13 @@ import cellsociety.ProbConstant;
 import cellsociety.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -21,11 +21,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Visualization {
     private static final int SCREEN_WIDTH = 1200;
@@ -35,13 +34,16 @@ public class Visualization {
     private static final double GRID_HEIGHT = 750.0;
     private static final int FRAMES_PER_SECOND = 60;
     private static final double DEFAULT_SPEED = 500;
-    private static final String BUTTON_STYLE_COLOR = "#3197bc";
+    private static final String BUTTON_STYLE_COLOR = "#bbd0ef";
+    private static final Paint BUTTON_FONT_COLOR = Color.BLACK;
     private static final int BUTTON_FONT_SIZE = 16;
     private static final double MAX_SPEED = 1000;
     private static final double MIN_SPEED = 0;
 
     private Scene myAnimationScene;
     private HBox myRoot;
+    private VBox myToolBar;
+    private ScrollPane myScrollPane;
     private GridPane myGrid;
     private Simulation mySimulation;
     private Layout myLayout;
@@ -49,6 +51,7 @@ public class Visualization {
     private Timeline myTimeline;
     private Boolean isPaused;
     private HashMap<Slider, ProbConstant> myNewProbCatch;
+    private PieChart stats;
     private double mySpeed;
     private Group myGroup;
 
@@ -73,16 +76,40 @@ public class Visualization {
     //public void setRoot(HBox root) { myRoot = root; }
     public HashMap<Slider, ProbConstant> getNewProbCatch() { return myNewProbCatch; }
 
+    private List<Double> getParameters(){
+        Map<Slider, ProbConstant> inputHash = getNewProbCatch();
+        Map<String, Double> map = new HashMap<>();
+        List<String> stringArray = new ArrayList<>();
+        List<Double> doubleArray = new ArrayList<>();
+        int i = 0; //itterator
+        for(ProbConstant pair: inputHash.values()){
+            map.put(pair.getMyLabel(), pair.getMyProbCatch());
+            stringArray.add(i, pair.getMyLabel());
+            i++;
+        }
+        if(stringArray.size() > 0){
+            Collections.sort(stringArray);
+
+            for(i = 0; i < stringArray.size(); i++){
+                doubleArray.add(i, map.get(stringArray.get(i)));
+            }
+        }
+
+        return doubleArray;
+    }
+
     private Scene buildAnimationScene(Stage primaryStage, Configuration simulationConfig) {
         myGrid = initializeGrid(simulationConfig);
         mySpeed = DEFAULT_SPEED;
         setSimulationLoop();
         myLayout = new Layout();
-        VBox toolBar = buildToolBar(primaryStage, simulationConfig);
+        myToolBar = buildToolBar(primaryStage, simulationConfig);
+        myScrollPane = myLayout.createScrollPane(myToolBar);
+        VBox.setVgrow(myScrollPane, Priority.ALWAYS);
         myRoot = new HBox();
         Background splashBackground = new Background(new BackgroundFill(SCREEN_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY));
         myRoot.setBackground(splashBackground);
-        myRoot.getChildren().addAll(toolBar, myGrid);
+        myRoot.getChildren().addAll(myScrollPane, myGrid);
         return new Scene(myRoot, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
@@ -97,8 +124,13 @@ public class Visualization {
 
     // Updating how the grid simulation looks
     public void step(){
-       /* myGroup = */mySimulation.step();
+       /* myGroup = */mySimulation.step(getParameters());
         drawGrid(myGrid);
+        if (stats != null) {
+            myToolBar.getChildren().remove(stats);
+            stats = myLayout.createChart(mySimulation);
+            myToolBar.getChildren().add(stats);
+        }
     }
 
     private void initializeSimulation(List<List<GridEntry>> cellArray){
@@ -130,23 +162,32 @@ public class Visualization {
     }
 
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
-        VBox toolBar = new VBox(20);
-        implementButtons(primaryStage, toolBar);
-        implementSlider(simulationConfig, toolBar);
-        toolBar.setPadding(new Insets(50));
-        return toolBar;
+        myToolBar = new VBox(20);
+        implementButtons(primaryStage, myToolBar);
+        implementSlider(simulationConfig, myToolBar);
+        if (!simulationConfig.getTitle().equals("Segregation")) {
+            stats = myLayout.createChart(mySimulation);
+            myToolBar.getChildren().addAll(stats);
+        }
+        myToolBar.setPadding(new Insets(50));
+        return myToolBar;
     }
 
     private void implementButtons(Stage primaryStage, VBox toolBar) {
-        Button buttonHome = myLayout.createButton("Back to Main", "lightgray", BUTTON_FONT_SIZE);
+        Button buttonHome = myLayout.createButton("Back to Main", "lightgray", BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
-        Button buttonPause = myLayout.createButton("Pause Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        Button buttonPause = myLayout.createButton("Pause Simulation", BUTTON_STYLE_COLOR,
+                BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         isPaused = false;
-        Button buttonStep = myLayout.createButton("Next Step", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        Button buttonResume = myLayout.createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        Button buttonStop = myLayout.createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        Button buttonRestart = myLayout.createButton("Restart Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
-        Button buttonUpload = myLayout.createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        Button buttonStep = myLayout.createButton("Next Step", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonResume = myLayout.createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
+                BUTTON_FONT_SIZE);
+        Button buttonStop = myLayout.createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
+                BUTTON_FONT_SIZE);
+        Button buttonRestart = myLayout.createButton("Restart Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
+                BUTTON_FONT_SIZE);
+        Button buttonUpload = myLayout.createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
+                BUTTON_FONT_SIZE);
         if (!isPaused) {
             pauseSim(buttonPause);
         }
@@ -158,6 +199,10 @@ public class Visualization {
         restartSim(buttonRestart);
         uploadSim(buttonUpload, primaryStage);
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonUpload);
+    }
+
+    private void implementScrolling(ScrollBar sc) {
+        sc.valueProperty().addListener((observable, oldValue, newValue) -> myToolBar.setLayoutY(-newValue.doubleValue()));
     }
 
     private void updateProbCatch(Slider slider) {
@@ -173,18 +218,20 @@ public class Visualization {
     }
 
     private void implementSlider(Configuration simulationConfig, VBox toolBar) {
-        myNewProbCatch = new HashMap<Slider, ProbConstant>();
+        myNewProbCatch = new HashMap<>();
         ArrayList<String> probCatchLabel = simulationConfig.getProbCatchLabel();
         ArrayList<Double> maxProb = simulationConfig.getMaxProb();
         ArrayList<Double> probCatch = simulationConfig.getProbCatch();
-        for (int i = 0; i < probCatch.size(); i += 1) {
-            Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
-            Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
-                    5, 0.05);
-            ProbConstant probConstant = new ProbConstant(probCatchLabel.get(i), probCatch.get(i));
-            myNewProbCatch.put(probabilitySlider, probConstant);
-            updateProbCatch(probabilitySlider);
-            toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
+        if (probCatch != null) {
+            for (int i = 0; i < probCatch.size(); i += 1) {
+                Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
+                Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
+                        5, 0.05);
+                ProbConstant probConstant = new ProbConstant(probCatchLabel.get(i), probCatch.get(i));
+                myNewProbCatch.put(probabilitySlider, probConstant);
+                updateProbCatch(probabilitySlider);
+                toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
+            }
         }
         Label setSpeed = myLayout.createLabel ("Set the simulation speed:", 16, Color.WHITE);
         Slider mySpeedSlider = myLayout.createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED - MIN_SPEED) / 2,
@@ -201,7 +248,7 @@ public class Visualization {
 
     private void stepSim(Button buttonStep) {
         buttonStep.setOnAction(e -> {
-            mySimulation.step();
+            mySimulation.step(getParameters());
             drawGrid(myGrid);
         });
     }

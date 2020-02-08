@@ -6,11 +6,13 @@ import cellsociety.GridEntry;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 public class PersonCell extends Cell {
     private static final int TYPE = 2;
+    private static final String LABEL = null;
     private static final Paint[] FILL = {Color.BLUE, Color.RED}; // array entry corresponds to race
     private static boolean CANUPDATE = true;
     private int RACE;
@@ -18,13 +20,19 @@ public class PersonCell extends Cell {
     private static final Paint SEGREGATIONFILL = Color.WHITE;
 
 
-    public PersonCell(GridEntry entry, int race) {
+    public PersonCell(GridEntry entry, int race, double threshold) {
         super(FILL[race-2], entry);
         initializeRace(race);
+        setThreshold(threshold);
+    }
+
+    private void setThreshold(double newValue){
+        Threshold = newValue;
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) { //need to fix to get empty cell set somewhere or make new method
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) { //need to fix to get empty cell set somewhere or make new method
+        setThreshold(parameters.get(0));
         boolean satisfied = checkSatisfaction(entry);
         boolean moved = false;
         if(!satisfied){
@@ -32,7 +40,6 @@ public class PersonCell extends Cell {
             int i = 0;
             for(GridEntry gridSpace : emptyCells) {
                 if(i == space) {
-
                     Cell newEmptyCell = new EmptyCell(entry, SEGREGATIONFILL); // setting current space to empty cell
                     entry.setNextStepCell(newEmptyCell); //setting empty space to instance of current cell
                     gridSpace.setNextStepCell(this);
@@ -80,4 +87,7 @@ public class PersonCell extends Cell {
     public int getRace(){
         return RACE;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 }

@@ -8,7 +8,7 @@ public class Simulation {
     private List<List<GridEntry>> SimulationGrid;
     private int status;
     private Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
-    private Map<int[], Integer> typesOfCells = new HashMap<>();
+    private Map<String, Integer> typesOfCells = new HashMap<>();
 
     public Simulation(List<List<GridEntry>> simGrid) {
         setSimulationGrid(simGrid);
@@ -39,13 +39,12 @@ public class Simulation {
         return emptyCellSet;
     }
 
-    public Map<int[], Integer> getTypesOfCells(){
+    public Map<String, Integer> getTypesOfCells(){
         return typesOfCells;
     }
 
     private void initializeCellSets(){
         Set<GridEntry> emptyCells = getEmptyCellSet();
-        int[] cellType = new int[2];  // random line to initialize
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
@@ -53,27 +52,28 @@ public class Simulation {
                 if (currentGridEntry.getCellType() == 1) { // update to not hard code
                     emptyCells.add(currentGridEntry);
                 }
-                cellType[0] = currentGridEntry.getCellType();
-                cellType[1] = currentGridEntry.getCell().getRace();
-                typesOfCells.putIfAbsent(cellType, 0);
-                typesOfCells.put(cellType, typesOfCells.get(cellType)+1);
+                String cellType = currentGridEntry.getCell().getLabel();
+                if (cellType != null) {
+                    typesOfCells.putIfAbsent(cellType, 0);
+                    typesOfCells.put(cellType, typesOfCells.get(cellType) + 1);
+                }
             }
         }
         setEmptyCellSet(emptyCells);
     }
 
-    public void step() {
-        int[] cellType = new int[2];  // random line to initialize
+    public void step(List<Double> parameters) {
+        //int[] cellType = new int[2];  // random line to initialize
+        typesOfCells = new HashMap<>();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 Cell currentCell = currentGridEntry.getCell();
-                currentCell.updateCell(currentGridEntry, emptyCells);
+                currentCell.updateCell(currentGridEntry, emptyCells, parameters);
             }
         }
-
        for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
@@ -81,10 +81,14 @@ public class Simulation {
                 if (currentGridEntry.getCellType() == 1) { // update to not hard code
                     emptyCells.add(currentGridEntry);
                 }
-                cellType[0] = currentGridEntry.getCellType();
-                cellType[1] = currentGridEntry.getCell().getRace();
-                typesOfCells.putIfAbsent(cellType, 0);
-                typesOfCells.put(cellType, typesOfCells.get(cellType)+1);
+//                cellType[0] = currentGridEntry.getCellType();
+//                cellType[1] = currentGridEntry.getCell().getRace();
+                String cellType = currentGridEntry.getCell().getLabel();
+                if (cellType != null) {
+                    typesOfCells.putIfAbsent(cellType, 0);
+                    typesOfCells.put(cellType, typesOfCells.get(cellType)+1);
+                    System.out.println(typesOfCells.get(cellType));
+                }
            }
         }
         setEmptyCellSet(emptyCells);

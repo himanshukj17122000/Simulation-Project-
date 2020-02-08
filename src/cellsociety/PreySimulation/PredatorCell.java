@@ -7,11 +7,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 public class PredatorCell extends AnimalCell { // make animal superclass // contains long classes plz refactor
     private static final int TYPE = 3;
+    private static final String LABEL = "Predators";
     private static final Paint FILL = Color.web("#614A32");
     private static final Paint PREYFILL = Color.PALEGREEN;
     private static final boolean CANUPDATE = true;
@@ -20,16 +22,18 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     private int maxTimeWithoutEating = 5;
     private int timeSinceEating;
 
-    public PredatorCell(GridEntry entry) {
-        super(entry, 2);
+    public PredatorCell(GridEntry entry, int reproductionTime, int maxTimeWithoutEating) {
+        super(entry, 2, reproductionTime);
         this.setColor(FILL);
-        setReproductionTime(15); // get value from FILEEEEE
+        setReproductionTime(reproductionTime);
+        setMaxTimeWithoutEating(maxTimeWithoutEating);
         setTimeSinceEating(0);
         setTimeSinceReproduction(0);
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
+
         if(getTimeSinceEating() > maxTimeWithoutEating){
             die(entry, emptyCells);
         }else{
@@ -47,6 +51,9 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     public int getRace() {
         return 2;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 
     protected void setTimeSinceReproduction(int time){
         timeSinceReproduction = time;
@@ -74,10 +81,14 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         this.reproductionTime = reproductionTime;
     }
 
+    public void setMaxTimeWithoutEating(int time){
+        maxTimeWithoutEating = time;
+    }
+
     @Override
     protected AnimalCell offSpring(GridEntry entry, Set<GridEntry> emptyCells){
         emptyCells.remove(entry);
-        return new PredatorCell(entry);
+        return new PredatorCell(entry, getReproductionTime(), maxTimeWithoutEating);
     }
 
     @Override

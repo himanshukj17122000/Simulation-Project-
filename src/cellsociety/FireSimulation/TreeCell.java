@@ -5,17 +5,19 @@ import cellsociety.GridEntry;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Set;
 
 public class TreeCell extends Cell {
     private static final int TYPE = 2;
+    private static final String LABEL = "Trees";
     private static final Paint FILL = Color.CHARTREUSE;
     private static final boolean CANUPDATE = true;
     private double catchFireProb = 0.15;
 
-
-    public TreeCell(GridEntry entry) {
+    public TreeCell(GridEntry entry, double burnProb) {
         super(FILL, entry);
+        setCatchProb(burnProb);
     }
 
     @Override
@@ -27,6 +29,9 @@ public class TreeCell extends Cell {
     public int getRace() {
         return 0;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 
     public void setCatchProb(double prob){
         catchFireProb = prob;
@@ -47,10 +52,6 @@ public class TreeCell extends Cell {
         catchFireProb = probability;
     }
 
-    public double getBurnProbability(){
-        return catchFireProb;
-    }
-
     private Boolean checkCatchFire(GridEntry entry){
         Boolean FireNeighbor = checkBurningNeighbor(entry);
         double random = Math.random();
@@ -61,7 +62,8 @@ public class TreeCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells){
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters){
+        setBurnProbability(parameters.get(0));
         Boolean catchFire = checkCatchFire(entry);
         if(catchFire){
             Cell fireCell = new FireCell(entry);

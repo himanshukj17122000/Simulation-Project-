@@ -55,8 +55,21 @@ public class Reader {
         else if(name.equals(PERC_FILE)){
             forPercolation(root);
         }
+        else if(name.equals(RPS_FILE)){
+            forRps(root);
+        }
 
         return results;
+    }
+
+    private void forRps(Element root) {
+        if (! isValidFile(root, Rps.DATA_TYPE)) {
+            throw new FileInputException(ERROR_MESSAGE, Rps.DATA_TYPE);
+        }
+        results = new HashMap<>();
+        for (String field : Rps.DATA_FIELDS) {
+            results.put(field, getTextValue(root, field));
+        }
     }
 
     private void forPercolation(Element root) {
@@ -66,16 +79,21 @@ public class Reader {
         results = new HashMap<>();
         for (String field : Percolation.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
+
         }
     }
 
     private void forFire(Element root) {
+
         if (! isValidFile(root, Fire.DATA_TYPE)) {
+
             throw new FileInputException(ERROR_MESSAGE, Fire.DATA_TYPE);
         }
         results = new HashMap<>();
         for (String field : Fire.DATA_FIELDS) {
             results.put(field, getTextValue(root, field));
+
+
         }
     }
     private void forSeg(Element root) {
@@ -110,6 +128,7 @@ public class Reader {
             try {
                 DOCUMENT_BUILDER.reset();
                 Document xmlDocument = DOCUMENT_BUILDER.parse(xmlFile);
+
                 return xmlDocument.getDocumentElement();
             }
             catch (SAXException | IOException e) {

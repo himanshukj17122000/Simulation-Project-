@@ -2,15 +2,15 @@ package cellsociety.PercolationSimulation;
 
 import cellsociety.Cell;
 import cellsociety.GridEntry;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class WaterCell extends Cell {
     private static final int TYPE = 3;
+    private static final String LABEL = "Water";
     private static final Paint FILL = Color.PALETURQUOISE;
     private static final boolean CANUPDATE = false;
 
@@ -19,7 +19,7 @@ public class WaterCell extends Cell {
     }
 
     @Override
-    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells) {
+    public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
         entry.setNextStepCell(this);
     }
 
@@ -32,4 +32,7 @@ public class WaterCell extends Cell {
     public int getRace() {
         return 0;
     }
+
+    @Override
+    public String getLabel() { return LABEL; }
 }

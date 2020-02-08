@@ -3,6 +3,7 @@ package cellsociety;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.util.List;
 import java.util.Set;
 
 public abstract class Cell { // potentially implement a check conditions method to override
@@ -40,7 +41,7 @@ public abstract class Cell { // potentially implement a check conditions method 
         CELLVISUAL.setHeight(newHeight);
     }
 
-    public abstract void updateCell(GridEntry entry, Set<GridEntry> emptyCells);
+    public abstract void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters);
 
     public abstract int getType();
 
@@ -51,5 +52,5 @@ public abstract class Cell { // potentially implement a check conditions method 
 
     public abstract int getRace();
 
-
+    public abstract String getLabel();
 }
