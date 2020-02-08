@@ -61,9 +61,70 @@ public class GridEntry {
         }
     }
 
-    public void setNeighbors(List<List<GridEntry>> grid, String simulation, int numRows, int numCols, int[] neighborBool){ //refactor to be 20 lines
+    public void setNeighbors(List<List<GridEntry>> grid, int numRows, int numCols, int[] neighborBool, String shape, String simulation){ //refactor to be 20 lines
 
         Set<GridEntry> NSET = new HashSet<GridEntry>();
+        if(shape.equals("Rectangle")){
+            rectangleNeighbors(grid, numRows, numCols, neighborBool, simulation, NSET);
+        }else if(shape.equals("Hexagon")){
+            hexagonNeighbors(grid, numRows, numCols, neighborBool, simulation, NSET);
+        }
+    }
+
+    private void hexagonNeighbors(List<List<GridEntry>> grid, int numRows, int numCols, int[] neighborBool, String simulation, Set<GridEntry> NSET) {
+        if (getRow() > 0) {
+            if (neighborBool[0] == 1) {
+                GridEntry topLeftNeighbor;
+                if (getColumn() >  0 && getRow() % 2 == 0) {
+                    topLeftNeighbor = grid.get(getRow()-1).get(getColumn()-1);
+                }else{
+                    topLeftNeighbor = grid.get(getRow()-1).get(getColumn());
+                }
+                NSET.add(topLeftNeighbor);
+            }
+            if (neighborBool[1] == 1) {
+                GridEntry topRightNeighbor;
+                if (getColumn() < numCols - 1 && getRow() % 2 == 1) {
+                    topRightNeighbor = grid.get(getRow()-1).get(getColumn()+1);
+                }else{
+                    topRightNeighbor = grid.get(getRow()-1).get(getColumn());
+                }
+                NSET.add(topRightNeighbor);
+            }
+        }
+
+        if (getRow() < numRows - 1) {
+            if (neighborBool[4] == 1) {
+                GridEntry bottomLeftNeighbor;
+                if (getColumn() >  0 && getRow() % 2 == 0) {
+                    bottomLeftNeighbor = grid.get(getRow()+1).get(getColumn()-1);
+                }else{
+                    bottomLeftNeighbor = grid.get(getRow()+1).get(getColumn());
+                }
+                NSET.add(bottomLeftNeighbor);
+            }
+            if (neighborBool[3] == 1) {
+                GridEntry bottomRightNeighbor;
+                if (getColumn() < numCols - 1 && getRow() % 2 == 1) {
+                    bottomRightNeighbor = grid.get(getRow()+1).get(getColumn()+1);
+                }else{
+                    bottomRightNeighbor = grid.get(getRow()+1).get(getColumn());
+                }
+                NSET.add(bottomRightNeighbor);
+            }
+        }
+        if (getColumn() > 0 && neighborBool[2] == 1) {
+            GridEntry leftNeighbor = grid.get(getRow()).get(getColumn()-1);
+            NSET.add(leftNeighbor);
+        }
+        if (getColumn() < numCols - 1 && neighborBool[5] == 1) {
+            GridEntry rightNeighbor = grid.get(getRow()).get(getColumn()+1);
+            NSET.add(rightNeighbor);
+        }
+        NEIGHBORS = NSET;
+    }
+
+    private void rectangleNeighbors(List<List<GridEntry>> grid, int numRows, int numCols, int[] neighborBool, String simulation, Set<GridEntry> NSET){
         if (getRow() > 0 && neighborBool[1] == 1) {
             GridEntry topNeighbor = grid.get(getRow() - 1).get(getColumn());
             NSET.add(topNeighbor);
@@ -75,36 +136,34 @@ public class GridEntry {
         if (getColumn() > 0 && neighborBool[3] == 1) {
             GridEntry leftNeighbor = grid.get(getRow()).get(getColumn()-1);
             NSET.add(leftNeighbor);
-            System.out.println(leftNeighbor.getCellType());
         }
         if (getColumn() < numCols - 1 && neighborBool[7] == 1) {
             GridEntry rightNeighbor = grid.get(getRow()).get(getColumn()+1);
             NSET.add(rightNeighbor);
-            System.out.println(rightNeighbor.getCellType());
         }
-            if (simulation.equals("Percolation") || simulation.equals("Game of Life") || simulation.equals("Segregation")) {
-                if (getRow() > 0) {
-                    if (getColumn() > 0 && neighborBool[0] == 1) {
-                        GridEntry topLeftNeighbor = grid.get(getRow() - 1).get(getColumn() - 1);
-                        NSET.add(topLeftNeighbor);
-                    }
-                    if (getColumn() < numCols - 1 && neighborBool[2] == 1) {
-                        GridEntry topRightNeighbor = grid.get(getRow() - 1).get(getColumn() + 1);
-                        NSET.add(topRightNeighbor);
-                    }
+        if (simulation.equals("Percolation") || simulation.equals("Game of Life") || simulation.equals("Segregation")) {
+            if (getRow() > 0) {
+                if (getColumn() > 0 && neighborBool[0] == 1) {
+                    GridEntry topLeftNeighbor = grid.get(getRow() - 1).get(getColumn() - 1);
+                    NSET.add(topLeftNeighbor);
                 }
-                if (getRow() < numRows - 1) {
-                    if (getColumn() > 0 && neighborBool[6] == 1) {
-                        GridEntry bottomLeftNeighbor = grid.get(getRow() + 1).get(getColumn() - 1);
-                        NSET.add(bottomLeftNeighbor);
-                    }
-                    if (getColumn() < numCols - 1 && neighborBool[4] == 1) {
-                        GridEntry bottomRightNeighbor = grid.get(getRow() + 1).get(getColumn() + 1);
-                        NSET.add(bottomRightNeighbor);
-                    }
+                if (getColumn() < numCols - 1 && neighborBool[2] == 1) {
+                    GridEntry topRightNeighbor = grid.get(getRow() - 1).get(getColumn() + 1);
+                    NSET.add(topRightNeighbor);
                 }
-
             }
+            if (getRow() < numRows - 1) {
+                if (getColumn() > 0 && neighborBool[6] == 1) {
+                    GridEntry bottomLeftNeighbor = grid.get(getRow() + 1).get(getColumn() - 1);
+                    NSET.add(bottomLeftNeighbor);
+                }
+                if (getColumn() < numCols - 1 && neighborBool[4] == 1) {
+                    GridEntry bottomRightNeighbor = grid.get(getRow() + 1).get(getColumn() + 1);
+                    NSET.add(bottomRightNeighbor);
+                }
+            }
+
+        }
         NEIGHBORS = NSET;
     }
 

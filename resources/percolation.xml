@@ -3,8 +3,8 @@
     <gridlayout>
         <title>Percolation</title>
         <maxStates>2</maxStates>
-        <rows>15</rows>
-        <columns>15</columns>
+        <rows>10</rows>
+        <columns>10</columns>
         <left>0</left>
         <right>0</right>
         <top>3</top>
@@ -14,5 +14,6 @@
         <type2>Open</type2>
         <type3>Block</type3>
         <neighPattern>11111111</neighPattern>
+        <shape>Hexagon</shape>
     </gridlayout>
 </simulation>

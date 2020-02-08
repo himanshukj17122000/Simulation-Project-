@@ -2,7 +2,9 @@ package cellsociety;
 
 import cellsociety.Configuration.Configuration;
 import javafx.scene.Group;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.*;
 
@@ -32,12 +34,7 @@ public class Simulation {
                 if (insertGridEntry == null) {
                     insertGridEntry = randomizeGridEntry(r, c, myConfiguration.getTitle());
                 }
-                Rectangle cell = insertGridEntry.getCell().getRectangle();
-                cell.setWidth(Width / myConfiguration.getColumns());
-                cell.setHeight(Height / myConfiguration.getRows());
-                cell.setX(cell.getWidth() * r);
-                cell.setY(cell.getHeight() * c);
-                myGroup.getChildren().add(cell);
+                createShape(insertGridEntry, r, c);
                 insertRow.add(insertGridEntry);
             }
             grid.add(insertRow);
@@ -83,7 +80,7 @@ public class Simulation {
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             for (int c = 0; c < myConfiguration.getColumns(); c++) {
                 GridEntry currentGridEntry = grid.get(r).get(c);
-                currentGridEntry.setNeighbors(grid, simulation, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern());
+                currentGridEntry.setNeighbors(grid, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern(), myConfiguration.getShape(), simulation);
             }
         }
     }
@@ -154,12 +151,7 @@ public class Simulation {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 currentGridEntry.updateGridEntry();
-                Rectangle cell = currentGridConfig.get(r).get(c).getCell().getRectangle();
-                cell.setWidth(Width / currentGridConfig.get(r).size());
-                cell.setHeight(Height / currentGridConfig.size());
-                cell.setX(cell.getWidth() * r);
-                cell.setY(cell.getHeight() * c);
-                myGroup.getChildren().add(cell);
+                createShape(currentGridEntry, r, c);
                 if (currentGridEntry.getCellType() == 1) { // update to not hard code
                     emptyCells.add(currentGridEntry);
                 }
@@ -179,5 +171,25 @@ public class Simulation {
     private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
                                     List<Double> parameters) {
         cell.getRectangle().setOnMouseClicked(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
+    }
+
+    private void createShape(GridEntry curGridEntry, int row, int col){
+        Cell cell = curGridEntry.getCell();
+        Shape cellVis;
+        if(myConfiguration.getShape().equals("Hexagon")){
+            double centerX = Width/myConfiguration.getColumns() * row;
+            double centerY = Height/myConfiguration.getRows() * col;
+            double radius = Width/myConfiguration.getColumns()/2;
+            if(col%2 == 0){
+                centerX = centerX - radius;
+            }
+            cellVis = new Circle(centerX, centerY, radius, cell.getColor());
+        }else{
+            double width = Width/myConfiguration.getColumns();
+            double height = Height/myConfiguration.getRows();
+            cellVis = new Rectangle(width*row, height*col, width, height);
+            cellVis.setFill(cell.getColor());
+        }
+        myGroup.getChildren().add(cellVis);
     }
 }

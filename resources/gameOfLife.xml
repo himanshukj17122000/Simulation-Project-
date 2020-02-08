@@ -3,8 +3,8 @@
     <gridlayout>
         <title>Game of Life</title>
         <maxStates>3</maxStates>
-        <rows>50</rows>
-        <columns>50</columns>
+        <rows>60</rows>
+        <columns>60</columns>
         <left>0</left>
         <right>0</right>
         <top>0</top>
@@ -13,7 +13,7 @@
         <type1>Empty</type1>
         <type2>Live</type2>
         <type3>Dead</type3>
-        <neighPattern>10101111</neighPattern>
+        <neighPattern>11111111</neighPattern>
         <shape>Rectangle</shape>
     </gridlayout>
 </simulation>
