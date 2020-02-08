@@ -30,8 +30,8 @@ public class Splash {
     public static final String BUTTON_STYLE_COLOR = "#bbd0ef";
     public static final int BUTTON_FONT_SIZE = 16;
     private static final Paint BUTTON_FONT_COLOR = Color.BLACK;
-    private static final String ButtonUpload = "Upload New Simulation";
-    private static final String ErrorMessage= "No file chosen";
+    private static final String BUTTON_UPLOAD = "Upload New Simulation";
+    private static final String ERROR_MESSAGE= "No file chosen";
 
     private Scene mySplashScene;
     private Configuration mySimulationConfig;
@@ -49,7 +49,7 @@ public class Splash {
         simTitle.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: white");
         simTitle.setTextAlignment(TextAlignment.CENTER);
         Layout layout = new Layout();
-        Button buttonUpload = layout.createButton(ButtonUpload, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
+        Button buttonUpload = layout.createButton(BUTTON_UPLOAD, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
                 BUTTON_FONT_SIZE);
         buttonUpload.setLayoutX(550);
         uploadSim(buttonUpload, primaryStage);
@@ -68,8 +68,7 @@ public class Splash {
                 popup.start(primaryStage, mySimulationConfig);
                 mySimulationConfig = popup.getSimulationConfig();
             } catch (ParserConfigurationException | IOException | SAXException ex) {
-                String errorMessage = ErrorMessage;
-                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
+                new Alert(Alert.AlertType.ERROR, ERROR_MESSAGE).showAndWait();
             }
         });
     }

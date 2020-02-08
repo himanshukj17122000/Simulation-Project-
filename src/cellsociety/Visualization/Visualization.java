@@ -37,14 +37,14 @@ public class Visualization {
     private static final int BUTTON_FONT_SIZE = 16;
     private static final double MAX_SPEED = 1000;
     private static final double MIN_SPEED = 0;
-    private static final String ButtonHome = "Back to Main";
-    private static final String ButtonPause = "Pause Simulation";
-    private static final String ButtonStep = "Next Step";
-    private static final String ButtonResume = "Resume Simulation";
-    private static final String ButtonStop = "Stop Simulation";
-    private static final String ButtonRestart = "Restart Simulation";
-    private static final String ButtonUpload = "Upload New Simulation";
-    private static final String ErrorMessage= "No file chosen";
+    private static final String BUTTON_HOME = "Back to Main";
+    private static final String BUTTON_PAUSE = "Pause Simulation";
+    private static final String BUTTON_STEP = "Next Step";
+    private static final String BUTTON_RESUME = "Resume Simulation";
+    private static final String BUTTON_STOP = "Stop Simulation";
+    private static final String BUTTON_RESTART = "Restart Simulation";
+    private static final String BUTTON_UPLOAD = "Upload New Simulation";
+    private static final String ERROR_MESSAGE= "No file chosen";
 
     private Scene myAnimationScene;
     private VBox myToolBar;
@@ -174,15 +174,15 @@ public class Visualization {
     }
 
     private void implementButtons(Stage primaryStage, VBox toolBar) {
-        Button buttonHome = myLayout.createButton(ButtonHome, "lightgray", BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonHome = myLayout.createButton(BUTTON_HOME, "lightgray", BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
-        Button buttonPause = myLayout.createButton(ButtonPause, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonPause = myLayout.createButton(BUTTON_PAUSE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         isPaused = false;
-        Button buttonStep = myLayout.createButton(ButtonStep, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
-        Button buttonResume = myLayout.createButton(ButtonResume, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
-        Button buttonStop = myLayout.createButton(ButtonStop, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
-        Button buttonRestart = myLayout.createButton(ButtonRestart, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
-        Button buttonUpload = myLayout.createButton(ButtonUpload, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonStep = myLayout.createButton(BUTTON_STEP, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonResume = myLayout.createButton(BUTTON_RESUME, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonStop = myLayout.createButton(BUTTON_STOP, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonRestart = myLayout.createButton(BUTTON_RESTART, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonUpload = myLayout.createButton(BUTTON_UPLOAD, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         if (!isPaused) {
             pauseSim(buttonPause);
         }
@@ -267,8 +267,7 @@ public class Visualization {
                 popup.start(primaryStage, mySimulationConfig);
                 mySimulationConfig = popup.getSimulationConfig();
             } catch (ParserConfigurationException | IOException | SAXException ex) {
-                String errorMessage = ErrorMessage;
-                new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
+                new Alert(Alert.AlertType.ERROR, ERROR_MESSAGE).showAndWait();
             }
         });
     }
