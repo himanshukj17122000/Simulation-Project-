@@ -81,7 +81,7 @@ public class Visualization {
         Map<String, Double> map = new HashMap<>();
         List<String> stringArray = new ArrayList<>();
         List<Double> doubleArray = new ArrayList<>();
-        int i = 0; //itterator
+        int i = 0; //iterator
         for(ProbConstant pair: inputHash.values()){
             map.put(pair.getMyLabel(), pair.getMyProbCatch());
             stringArray.add(i, pair.getMyLabel());
@@ -174,20 +174,15 @@ public class Visualization {
     }
 
     private void implementButtons(Stage primaryStage, VBox toolBar) {
-        Button buttonHome = myLayout.createButton("Back to Main", "lightgray", BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonHome = myLayout.createButton("ButtonHome", "lightgray", BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
-        Button buttonPause = myLayout.createButton("Pause Simulation", BUTTON_STYLE_COLOR,
-                BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonPause = myLayout.createButton("ButtonPause", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         isPaused = false;
-        Button buttonStep = myLayout.createButton("Next Step", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
-        Button buttonResume = myLayout.createButton("Resume Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
-                BUTTON_FONT_SIZE);
-        Button buttonStop = myLayout.createButton("Stop Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
-                BUTTON_FONT_SIZE);
-        Button buttonRestart = myLayout.createButton("Restart Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
-                BUTTON_FONT_SIZE);
-        Button buttonUpload = myLayout.createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
-                BUTTON_FONT_SIZE);
+        Button buttonStep = myLayout.createButton("ButtonStep", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonResume = myLayout.createButton("ButtonResume", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonStop = myLayout.createButton("ButtonStop", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonRestart = myLayout.createButton("ButtonRestart", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonUpload = myLayout.createButton("ButtonUpload", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         if (!isPaused) {
             pauseSim(buttonPause);
         }
@@ -199,10 +194,6 @@ public class Visualization {
         restartSim(buttonRestart);
         uploadSim(buttonUpload, primaryStage);
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonUpload);
-    }
-
-    private void implementScrolling(ScrollBar sc) {
-        sc.valueProperty().addListener((observable, oldValue, newValue) -> myToolBar.setLayoutY(-newValue.doubleValue()));
     }
 
     private void updateProbCatch(Slider slider) {
@@ -233,7 +224,7 @@ public class Visualization {
                 toolBar.getChildren().addAll(setProbCatch, probabilitySlider);
             }
         }
-        Label setSpeed = myLayout.createLabel ("Set the simulation speed:", 16, Color.WHITE);
+        Label setSpeed = myLayout.createLabel ("SpeedSliderLabel", 16, Color.WHITE);
         Slider mySpeedSlider = myLayout.createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED - MIN_SPEED) / 2,
                 (MAX_SPEED - MIN_SPEED) / 100, 100);
         updateSpeed(mySpeedSlider);

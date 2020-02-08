@@ -48,29 +48,29 @@ public class DialogBox {
             }
         try {
             switch (title) {
-                case FIRE_FILE:
+                case "FireFile":
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(FIRE_FILE,dataFile);
+                    result= new Reader("Type").getSimulation("FireFile",dataFile);
                     simConfig = new Fire(result);
                     break;
-                case GAME_FILE:
+                case "GameFile":
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(GAME_FILE,dataFile);
+                    result= new Reader("Type").getSimulation("GameFile",dataFile);
                     simConfig = new Game(result);
                     break;
-                case PERC_FILE:
+                case "PercolationFile":
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(PERC_FILE,dataFile);
+                    result= new Reader("Type").getSimulation("PercolationFile",dataFile);
                     simConfig = new Percolation(result);
                     break;
-                case PREY_FILE:
+                case "PreyFile":
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(PREY_FILE,dataFile);
+                    result= new Reader("Type").getSimulation("PreyFile",dataFile);
                     simConfig = new Prey(result);
                     break;
-                case SEG_FILE:
+                case "SegregationFile":
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(SEG_FILE,dataFile);
+                    result= new Reader("Type").getSimulation("SegregationFile",dataFile);
                     simConfig = new Segregation(result);
                     break;
             }
@@ -92,10 +92,10 @@ public class DialogBox {
     // set some sensible defaults when the FileChooser is created
     private static FileChooser makeChooser (String extensionAccepted) {
         FileChooser result = new FileChooser();
-        result.setTitle("Open Data File");
+        result.setTitle("OpenData");
         // pick a reasonable place to start searching for files
-        result.setInitialDirectory(new File(System.getProperty("user.dir")));
-        result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Text Files", extensionAccepted));
+        result.setInitialDirectory(new File(System.getProperty("Directory")));
+        result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("TextFiles", extensionAccepted));
         return result;
     }
 

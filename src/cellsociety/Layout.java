@@ -66,7 +66,6 @@ public class Layout {
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle("Population Stats");
         chart.setPrefSize(CHART_WIDTH, CHART_HEIGHT);
-        //chart.setStyle("-fx-background-color: #ffffff");
         return chart;
     }
 
