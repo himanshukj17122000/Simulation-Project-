@@ -1,10 +1,7 @@
 package cellsociety.Visualization;
 
+import cellsociety.*;
 import cellsociety.Configuration.Configuration;
-import cellsociety.GridEntry;
-import cellsociety.Layout;
-import cellsociety.ProbConstant;
-import cellsociety.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -44,6 +41,7 @@ public class Visualization {
     private static final String BUTTON_STOP = "Stop Simulation";
     private static final String BUTTON_RESTART = "Restart Simulation";
     private static final String BUTTON_UPLOAD = "Upload New Simulation";
+    private static final String BUTTON_CHANGE = "Change Simulation";
     private static final String ERROR_MESSAGE= "No file chosen";
 
     private Scene myAnimationScene;
@@ -182,6 +180,7 @@ public class Visualization {
         Button buttonResume = myLayout.createButton(BUTTON_RESUME, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonStop = myLayout.createButton(BUTTON_STOP, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonRestart = myLayout.createButton(BUTTON_RESTART, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonChange = myLayout.createButton(BUTTON_CHANGE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonUpload = myLayout.createButton(BUTTON_UPLOAD, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         if (!isPaused) {
             pauseSim(buttonPause);
@@ -192,8 +191,9 @@ public class Visualization {
         }
         stopSim(buttonStop);
         restartSim(buttonRestart);
-        uploadSim(buttonUpload, primaryStage);
-        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonUpload);
+        changeSim(buttonChange, primaryStage);
+        uploadSim(buttonUpload);
+        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonChange, buttonUpload);
     }
 
     private void updateProbCatch(Slider slider) {
@@ -260,8 +260,8 @@ public class Visualization {
         buttonStop.setOnAction(e -> myTimeline.stop());
     }
 
-    private void uploadSim(Button buttonUpload, Stage primaryStage) {
-        buttonUpload.setOnAction(e -> {
+    private void changeSim(Button buttonChange, Stage primaryStage) {
+        buttonChange.setOnAction(e -> {
             try {
                 DialogBox popup = new DialogBox();
                 popup.start(primaryStage, mySimulationConfig);
@@ -269,6 +269,14 @@ public class Visualization {
             } catch (ParserConfigurationException | IOException | SAXException ex) {
                 new Alert(Alert.AlertType.ERROR, ERROR_MESSAGE).showAndWait();
             }
+        });
+    }
+
+    private void uploadSim(Button buttonUpload) {
+        buttonUpload.setOnAction(e -> {
+            Stage newScreen = new Stage();
+            Main newSimulation = new Main();
+            newSimulation.start(newScreen);
         });
     }
 }
