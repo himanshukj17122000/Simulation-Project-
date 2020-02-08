@@ -30,7 +30,7 @@ public class Splash {
     public static final String BUTTON_STYLE_COLOR = "#bbd0ef";
     public static final int BUTTON_FONT_SIZE = 16;
     private static final Paint BUTTON_FONT_COLOR = Color.BLACK;
-    private static final String BUTTON_UPLOAD = "Upload New Simulation";
+    private static final String BUTTON_UPLOAD = "Choose Simulation";
     private static final String ERROR_MESSAGE= "No file chosen";
 
     private Scene mySplashScene;
