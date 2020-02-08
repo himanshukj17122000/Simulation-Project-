@@ -1,14 +1,9 @@
 package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
-import cellsociety.GridEntry;
-import cellsociety.Layout;
-import cellsociety.ProbConstant;
-import cellsociety.Simulation;
+import cellsociety.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -133,13 +128,12 @@ public class Visualization {
         }
     }
 
-    private void initializeSimulation(List<List<GridEntry>> cellArray){
-        mySimulation = new Simulation(cellArray);
+    private void initializeSimulation(Configuration simulationConfig){
+        mySimulation = new Simulation(simulationConfig, myGroup, getGridWidth(), getGridHeight());
     }
 
     private GridPane initializeGrid(Configuration simulationConfig) {
-        List<List<GridEntry>> cellStates = simulationConfig.makeCellGrid();
-        initializeSimulation(cellStates);
+        initializeSimulation(simulationConfig);
         GridPane initializedGrid = new GridPane();
         return drawGrid(initializedGrid);
     }

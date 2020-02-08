@@ -61,7 +61,7 @@ public class GridEntry {
         }
     }
 
-    public void setNeighbors(List<List<GridEntry>> grid, String simulation, int numRows, int numCols, int[] neighborBool){ //refactor to be 20 lines
+    public void setNeighbors(List<List<GridEntry>> grid, String simulation, int numRows, int numCols, int[] neighborBool, String boundary){ //refactor to be 20 lines
 
         Set<GridEntry> NSET = new HashSet<GridEntry>();
         if (getRow() > 0 && neighborBool[1] == 1) {
