@@ -1,10 +1,6 @@
 package cellsociety.Configuration;
 
-import cellsociety.GridEntry;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public abstract class Configuration {
     private String myTitle;

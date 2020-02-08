@@ -44,11 +44,14 @@ public class AirCell extends Cell {
 
     private Boolean checkWaterNeighbor(GridEntry entry) {
         Set<GridEntry> neighborSet = entry.getNeighbors();
+        System.out.println(neighborSet.size());
         for (GridEntry neighbor : neighborSet) {
+            System.out.println(neighbor.getCellType());
             if (neighbor.getCell().getType() == 3) {
                 return true;
             }
         }
+        System.out.println(" ");
         return false;
     }
 
