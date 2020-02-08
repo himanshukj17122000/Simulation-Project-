@@ -2,19 +2,31 @@ package cellsociety;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 public class Layout {
-    public Button createButton(String text, String styleColor, int fontSize) {
+    private static final int MAX_SCREEN_HEIGHT = 1200;
+    private static final int MAX_WIDTH = 400;
+    private static final int CHART_WIDTH = 300;
+    private static final int CHART_HEIGHT = 300;
+    private static final String SIDEBAR_COLOR = "rgb(90, 118, 161)";
+
+    public Button createButton(String text, String styleColor, Paint fontColor, int fontSize) {
         Button button = new Button(text);
-        button.setTextFill(Color.BLACK);
+        button.setTextFill(fontColor);
         button.setStyle("-fx-background-color:" + styleColor + ";-fx-font-size:" + fontSize + " px;");
         button.setPrefWidth(180);
         return button;
@@ -53,7 +65,17 @@ public class Layout {
             FXCollections.observableArrayList(cellData);
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle("Population Stats");
-        chart.setStyle("-fx-background-color: #ffffff");
+        chart.setPrefSize(CHART_WIDTH, CHART_HEIGHT);
         return chart;
+    }
+
+    public ScrollPane createScrollPane(VBox toolBar) {
+        ScrollPane sp = new ScrollPane();
+        sp.setVmax(MAX_SCREEN_HEIGHT);
+        sp.setPrefWidth(MAX_WIDTH);
+        sp.setFitToWidth(true);
+        sp.setStyle("-fx-background: " + SIDEBAR_COLOR);
+        sp.setContent(toolBar);
+        return sp;
     }
 }

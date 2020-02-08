@@ -27,8 +27,9 @@ public class Splash {
     public static final int SCREEN_WIDTH = 1200;
     public static final int SCREEN_HEIGHT = 800;
     public static final Paint SCREEN_BACKGROUND = Color.web("0e1e38");
-    public static final String BUTTON_STYLE_COLOR = "#3197bc";
+    public static final String BUTTON_STYLE_COLOR = "#bbd0ef";
     public static final int BUTTON_FONT_SIZE = 16;
+    private static final Paint BUTTON_FONT_COLOR = Color.BLACK;
 
     private Scene mySplashScene;
     private Configuration mySimulationConfig;
@@ -46,7 +47,8 @@ public class Splash {
         simTitle.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: white");
         simTitle.setTextAlignment(TextAlignment.CENTER);
         Layout layout = new Layout();
-        Button buttonUpload = layout.createButton("Upload New Simulation", BUTTON_STYLE_COLOR, BUTTON_FONT_SIZE);
+        Button buttonUpload = layout.createButton("ButtonUpload", BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
+                BUTTON_FONT_SIZE);
         buttonUpload.setLayoutX(550);
         uploadSim(buttonUpload, primaryStage);
         VBox root = new VBox(20);
@@ -63,15 +65,9 @@ public class Splash {
                 DialogBox popup = new DialogBox();
                 popup.start(primaryStage, mySimulationConfig);
                 mySimulationConfig = popup.getSimulationConfig();
-            } catch (NullPointerException ex) {
-                String errorMessage = "No file chosen";
+            } catch (ParserConfigurationException | IOException | SAXException ex) {
+                String errorMessage = "ErrorMessage";
                 new Alert(Alert.AlertType.ERROR, errorMessage).showAndWait();
-            } catch (ParserConfigurationException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (SAXException ex) {
-                ex.printStackTrace();
             }
         });
     }

@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class PersonCell extends Cell {
     private static final int TYPE = 2;
-    private static final String[] LABEL = {"Group Blue", "Group Red"};
+    private static final String LABEL = null;
     private static final Paint[] FILL = {Color.BLUE, Color.RED}; // array entry corresponds to race
     private static boolean CANUPDATE = true;
     private int RACE;
@@ -89,5 +89,5 @@ public class PersonCell extends Cell {
     }
 
     @Override
-    public String getLabel() { return LABEL[0]; }
+    public String getLabel() { return LABEL; }
 }

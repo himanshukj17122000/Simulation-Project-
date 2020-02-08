@@ -40,19 +40,19 @@ public class Reader {
     public Map<String, String> getSimulation (String name,File dataFile) {
         //results.clear();
         Element root = getRootElement(dataFile);
-        if(name.equals(FIRE_FILE)){
+        if(name.equals("FireFile")){
             forFire(root);
         }
-        else if(name.equals(GAME_FILE)){
+        else if(name.equals("GameFile")){
            forGame(root);
         }
-        else if(name.equals(SEG_FILE)){
+        else if(name.equals("SegregationFile")){
             forSeg(root);
         }
-        else if(name.equals(PREY_FILE)){
+        else if(name.equals("PreyFile")){
           forPrey(root);
         }
-        else if(name.equals(PERC_FILE)){
+        else if(name.equals("PercolationFile")){
             forPercolation(root);
         }
 
