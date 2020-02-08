@@ -128,6 +128,7 @@ public class Simulation {
     }
 
     public Group step(List<Double> parameters) {
+        typesOfCells = new HashMap<>();
         myGroup.getChildren().clear();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
@@ -169,5 +170,5 @@ public class Simulation {
     private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
                                     List<Double> parameters) {
         cell.getRectangle().setOnMouseClicked(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
-    }*/
+    }
 }
