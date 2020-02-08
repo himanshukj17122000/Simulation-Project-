@@ -1,10 +1,14 @@
 package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
-import cellsociety.*;
+import cellsociety.GridEntry;
+import cellsociety.Layout;
+import cellsociety.ProbConstant;
+import cellsociety.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
@@ -15,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.*;
@@ -52,6 +57,7 @@ public class Visualization {
     private HashMap<Slider, ProbConstant> myNewProbCatch;
     private PieChart stats;
     private double mySpeed;
+    private Group myGroup;
 
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
@@ -120,8 +126,11 @@ public class Visualization {
     }
 
     private void initializeSimulation(Configuration simulationConfig){
-        mySimulation = new Simulation(simulationConfig, myGroup, getGridWidth(), getGridHeight());
+        myGroup = new Group();
+        mySimulation = new Simulation(simulationConfig, myGroup, GRID_HEIGHT, GRID_HEIGHT);
     }
+
+
 
     private GridPane initializeGrid(Configuration simulationConfig) {
         initializeSimulation(simulationConfig);
