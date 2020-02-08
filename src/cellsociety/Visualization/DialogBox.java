@@ -1,8 +1,6 @@
 package cellsociety.Visualization;
 
 import cellsociety.Configuration.*;
-import cellsociety.Visualization.Visualization;
-import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -11,7 +9,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,7 +24,8 @@ public class DialogBox {
     public static final String PERC_FILE = "Percolation";
     public static final String PREY_FILE = "Prey";
     public static final String SEG_FILE = "Segregation";
-    private static final String TYPE = "type";
+    public static final String TYPE = "type";
+    public static final String OPEN_DATA = "Open Data File";
     private static String title;
     private static Map<String,String> result= new HashMap<>();
     // NOTE: generally accepted behavior that the chooser remembers where user left it last
@@ -44,33 +42,33 @@ public class DialogBox {
             Node nNode = nList.item(0);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                title= getTagValue("title", eElement);
+                title = getTagValue("title", eElement);
             }
         try {
             switch (title) {
-                case "FireFile":
+                case FIRE_FILE:
                     result.clear();
-                    result= new Reader("Type").getSimulation("FireFile",dataFile);
+                    result= new Reader(TYPE).getSimulation(FIRE_FILE,dataFile);
                     simConfig = new Fire(result);
                     break;
-                case "GameFile":
+                case GAME_FILE:
                     result.clear();
-                    result= new Reader("Type").getSimulation("GameFile",dataFile);
+                    result= new Reader(TYPE).getSimulation(GAME_FILE,dataFile);
                     simConfig = new Game(result);
                     break;
-                case "PercolationFile":
+                case PERC_FILE:
                     result.clear();
-                    result= new Reader("Type").getSimulation("PercolationFile",dataFile);
+                    result= new Reader(TYPE).getSimulation(PERC_FILE,dataFile);
                     simConfig = new Percolation(result);
                     break;
-                case "PreyFile":
+                case PREY_FILE:
                     result.clear();
-                    result= new Reader("Type").getSimulation("PreyFile",dataFile);
+                    result= new Reader(TYPE).getSimulation(PREY_FILE,dataFile);
                     simConfig = new Prey(result);
                     break;
-                case "SegregationFile":
+                case SEG_FILE:
                     result.clear();
-                    result= new Reader("Type").getSimulation("SegregationFile",dataFile);
+                    result= new Reader(TYPE).getSimulation(SEG_FILE,dataFile);
                     simConfig = new Segregation(result);
                     break;
             }
@@ -92,16 +90,15 @@ public class DialogBox {
     // set some sensible defaults when the FileChooser is created
     private static FileChooser makeChooser (String extensionAccepted) {
         FileChooser result = new FileChooser();
-        result.setTitle("OpenData");
+        result.setTitle(OPEN_DATA);
         // pick a reasonable place to start searching for files
-        result.setInitialDirectory(new File(System.getProperty("Directory")));
-        result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("TextFiles", extensionAccepted));
+        result.setInitialDirectory(new File(System.getProperty("user.dir")));
+        result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Text Files", extensionAccepted));
         return result;
     }
 
     // Getter method for configuration to be passed on in Visualization and Simulation
     public Configuration getSimulationConfig() { return mySimulationConfig; }
-
 
     private static String getTagValue(String sTag, Element eElement) {
         NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
