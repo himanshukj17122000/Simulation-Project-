@@ -46,7 +46,6 @@ public class AirCell extends Cell {
         Set<GridEntry> neighborSet = entry.getNeighbors();
         for (GridEntry neighbor : neighborSet) {
             if (neighbor.getCell().getType() == 3) {
-
                 return true;
             }
         }

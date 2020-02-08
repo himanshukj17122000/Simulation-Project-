@@ -1,10 +1,7 @@
 package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
-import cellsociety.GridEntry;
-import cellsociety.Layout;
-import cellsociety.ProbConstant;
-import cellsociety.Simulation;
+import cellsociety.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -120,13 +117,12 @@ public class Visualization {
         myToolBar.getChildren().add(stats);
     }
 
-    private void initializeSimulation(List<List<GridEntry>> cellArray){
-        mySimulation = new Simulation(cellArray);
+    private void initializeSimulation(Configuration simulationConfig){
+        mySimulation = new Simulation(simulationConfig, myGroup, getGridWidth(), getGridHeight());
     }
 
     private GridPane initializeGrid(Configuration simulationConfig) {
-        List<List<GridEntry>> cellStates = simulationConfig.makeCellGrid();
-        initializeSimulation(cellStates);
+        initializeSimulation(simulationConfig);
         GridPane initializedGrid = new GridPane();
         return drawGrid(initializedGrid);
     }
