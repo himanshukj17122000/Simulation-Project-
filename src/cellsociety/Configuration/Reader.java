@@ -16,23 +16,22 @@ import org.xml.sax.SAXException;
 import static cellsociety.Visualization.DialogBox.*;
 
 public class Reader {
+    // Readable error message that can be displayed by the GUI
+    public static final String ERROR_MESSAGE = "XML file does not represent %s";
+    // name of root attribute that notes the type of file expecting to parse
+    private final String TYPE_ATTRIBUTE;
+    // keep only one documentBuilder because it is expensive to make and can reset it before parsing
+    private final DocumentBuilder DOCUMENT_BUILDER;
+    private static Map<String, String> results;
 
-        // Readable error message that can be displayed by the GUI
-        public static final String ERROR_MESSAGE = "XML file does not represent %s";
-        // name of root attribute that notes the type of file expecting to parse
-        private final String TYPE_ATTRIBUTE;
-        // keep only one documentBuilder because it is expensive to make and can reset it before parsing
-        private final DocumentBuilder DOCUMENT_BUILDER;
-        private static Map<String, String> results;
 
-
-        /**
-         * Create parser for XML files of given type.
-         */
-        public Reader(String type) {
-            DOCUMENT_BUILDER = getDocumentBuilder();
-            TYPE_ATTRIBUTE = type;
-        }
+    /**
+     * Create parser for XML files of given type.
+     */
+    public Reader(String type) {
+        DOCUMENT_BUILDER = getDocumentBuilder();
+        TYPE_ATTRIBUTE = type;
+    }
 
         /**
      * Get data contained in this XML file as an object
@@ -40,19 +39,19 @@ public class Reader {
     public Map<String, String> getSimulation (String name,File dataFile) {
         //results.clear();
         Element root = getRootElement(dataFile);
-        if(name.equals("FireFile")){
+        if(name.equals(FIRE_FILE)){
             forFire(root);
         }
-        else if(name.equals("GameFile")){
+        else if(name.equals(GAME_FILE){
            forGame(root);
         }
-        else if(name.equals("SegregationFile")){
+        else if(name.equals(SEG_FILE)){
             forSeg(root);
         }
-        else if(name.equals("PreyFile")){
+        else if(name.equals(PREY_FILE)){
           forPrey(root);
         }
-        else if(name.equals("PercolationFile")){
+        else if(name.equals(PERC_FILE)){
             forPercolation(root);
         }
         else if(name.equals(RPS_FILE)){

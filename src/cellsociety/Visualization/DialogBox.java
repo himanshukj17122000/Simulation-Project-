@@ -96,7 +96,7 @@ public class DialogBox {
     // set some sensible defaults when the FileChooser is created
     private static FileChooser makeChooser (String extensionAccepted) {
         FileChooser result = new FileChooser();
-        result.setTitle(OPEN_DATA);
+        result.setTitle("Open Data File");
         // pick a reasonable place to start searching for files
         result.setInitialDirectory(new File(System.getProperty("user.dir")));
         result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Text Files", extensionAccepted));
