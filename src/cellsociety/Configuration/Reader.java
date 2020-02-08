@@ -42,7 +42,7 @@ public class Reader {
         if(name.equals(FIRE_FILE)){
             forFire(root);
         }
-        else if(name.equals(GAME_FILE){
+        else if(name.equals(GAME_FILE)){
            forGame(root);
         }
         else if(name.equals(SEG_FILE)){
