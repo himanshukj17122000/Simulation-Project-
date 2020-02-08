@@ -128,6 +128,7 @@ public class Simulation {
     }
 
     public Group step(List<Double> parameters) {
+        typesOfCells = new HashMap<>();
         myGroup.getChildren().clear();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
