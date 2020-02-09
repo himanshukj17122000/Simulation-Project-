@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation type="Rps">
     <gridlayout>
-        <title>Rock</title>
+        <title>Rps</title>
         <maxStates>3</maxStates>
         <rows>15</rows>
         <columns>15</columns>
