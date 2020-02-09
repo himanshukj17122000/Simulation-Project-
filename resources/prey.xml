@@ -26,5 +26,6 @@
         <shape>Rectangle</shape>
         <concentration>0.8,0.1</concentration>
         <colors>Blue,Orange,Green</colors>
-    </gridlayout>
+  </gridlayout>
+
 </simulation>
