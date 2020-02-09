@@ -14,9 +14,12 @@ public abstract class Cell { // potentially implement a check conditions method 
     private int Column;
     private double standardWidth = 25; //need to assign / finalzie
     private double standardHeight = 25;
+    private Paint myColor;
 
     public Cell(Paint color, GridEntry entry){
+
         CELLVISUAL = new Rectangle(standardWidth, standardHeight);
+        myColor = color;
         setColor(color);
         setWidth(standardWidth);
         setHeight(standardHeight);
@@ -27,6 +30,8 @@ public abstract class Cell { // potentially implement a check conditions method 
     }
     public void setColor(Paint newColor){
         CELLVISUAL.setFill(newColor);
+    }
+    public Paint getColor(){return myColor;
     }
     public double getWidth() {
         return CELLVISUAL.getWidth();

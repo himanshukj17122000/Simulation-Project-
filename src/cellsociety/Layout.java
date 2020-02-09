@@ -28,7 +28,7 @@ public class Layout {
         Button button = new Button(text);
         button.setTextFill(fontColor);
         button.setStyle("-fx-background-color:" + styleColor + ";-fx-font-size:" + fontSize + " px;");
-        button.setPrefWidth(180);
+        button.setPrefWidth(200);
         return button;
     }
 

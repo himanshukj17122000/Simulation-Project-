@@ -17,13 +17,12 @@ public class Main extends Application {
 
     // Initialize what will be displayed and how it will be updated.
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
         primaryStage.setTitle(TITLE);
         Splash simulation = new Splash(primaryStage);
         primaryStage.setScene(simulation.getSplashScene());
         primaryStage.show();
-
     }
 
     public static void main (String[] args) {

@@ -2,6 +2,10 @@ package cellsociety;
 
 import cellsociety.Configuration.Configuration;
 import javafx.scene.Group;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.*;
 
@@ -13,8 +17,10 @@ public class Simulation {
     private double Width;
     private double Height;
     private Map<String, Integer> typesOfCells = new HashMap<>();
+    private Map<Cell, Shape> cellShapes;
     private Configuration myConfiguration;
 
+    // Constructor for the Simulation class
     public Simulation(Configuration simConfig, Group simGroup, double width, double height) {
         setConfiguration(simConfig);
         initializeSimulationGrid();
@@ -22,7 +28,8 @@ public class Simulation {
         initializeCellSets();
     }
 
-    private void initializeSimulationGrid() {
+    // Initializes the simulation grid based on boundary conditions and randomization
+    public Group initializeSimulationGrid() {
         List<List<GridEntry>> grid = new ArrayList<>();
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             List<GridEntry> insertRow = new ArrayList<>();
@@ -31,15 +38,18 @@ public class Simulation {
                 if (insertGridEntry == null) {
                     insertGridEntry = randomizeGridEntry(r, c, myConfiguration.getTitle());
                 }
+                cellShapes = new HashMap<>();
+                createShape(insertGridEntry, r, c);
                 insertRow.add(insertGridEntry);
             }
             grid.add(insertRow);
         }
         initializeGridNeighbors(grid, myConfiguration.getTitle());
-
         SimulationGrid = grid;
+        return myGroup;
     }
 
+    // Getter method for simulation grid
     public List<List<GridEntry>> getSimulationGrid() {
         return SimulationGrid;
     }
@@ -50,6 +60,8 @@ public class Simulation {
         myGroup = simGroup;
         simGroup.prefWidth(width);
         simGroup.prefHeight(height);
+        simGroup.setTranslateX(10);
+        simGroup.setTranslateY(20);
         Width = width;
         Height = height;
     }
@@ -62,20 +74,21 @@ public class Simulation {
         emptyCellSet = emptyCells;
     }
 
+    // Getter method for empty cell set
     public Set<GridEntry> getEmptyCellSet() {
         return emptyCellSet;
     }
 
-
+    // Getter method for types of cells
     public Map<String, Integer> getTypesOfCells(){
         return typesOfCells;
     }
 
-    public void initializeGridNeighbors(List<List<GridEntry>> grid, String simulation) {
+    private void initializeGridNeighbors(List<List<GridEntry>> grid, String simulation) {
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             for (int c = 0; c < myConfiguration.getColumns(); c++) {
                 GridEntry currentGridEntry = grid.get(r).get(c);
-                currentGridEntry.setNeighbors(grid, simulation, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern());
+                currentGridEntry.setNeighbors(grid, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern(), myConfiguration.getShape(), simulation);
             }
         }
     }
@@ -132,6 +145,7 @@ public class Simulation {
                     typesOfCells.putIfAbsent(cellType, 0);
                     typesOfCells.put(cellType, typesOfCells.get(cellType) + 1);
                 }
+
             }
         }
         setEmptyCellSet(emptyCells);
@@ -146,7 +160,7 @@ public class Simulation {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 Cell currentCell = currentGridEntry.getCell();
-                //implementClickCell(currentCell, currentGridEntry, emptyCells, parameters);
+                implementClickCell(currentCell, currentGridEntry, emptyCells, parameters);
                 currentCell.updateCell(currentGridEntry, emptyCells, parameters);
             }
         }
@@ -155,12 +169,7 @@ public class Simulation {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 currentGridEntry.updateGridEntry();
-//                Rectangle cell = currentGridConfig.get(r).get(c).getCell().getRectangle();
-//                cell.setWidth(Width / currentGridConfig.get(r).size());
-//                cell.setHeight(Height / currentGridConfig.size());
-//                cell.setX(cell.getWidth() * c);
-//                cell.setY(cell.getHeight() * r);
-//                myGroup.getChildren().add(cell);
+                createShape(currentGridEntry, r, c);
                 if (currentGridEntry.getCellType() == 1) { // update to not hard code
                     emptyCells.add(currentGridEntry);
                 }
@@ -179,6 +188,43 @@ public class Simulation {
 
     private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
                                     List<Double> parameters) {
-        cell.getRectangle().setOnMouseClicked(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
+        cellShapes.get(cell).setOnMousePressed(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
+    }
+
+    private void createShape(GridEntry curGridEntry, int row, int col){
+        Cell cell = curGridEntry.getCell();
+        Shape cellVis;
+        if(myConfiguration.getShape().equals("Hexagon")) {
+            double centerX = Width / myConfiguration.getColumns() * row;
+            double centerY = Height / myConfiguration.getRows() * col;
+            double radius = Width / myConfiguration.getColumns() / 2;
+            if (col % 2 == 0) {
+                centerX = centerX - radius;
+            }
+            cellVis = new Polygon();
+            ((Polygon) cellVis).getPoints().addAll(
+                    centerX + radius * Math.cos(Math.PI / 6), centerY + radius * Math.sin(Math.PI / 6),
+                    centerX, centerY + radius,
+                    centerX - radius * Math.cos(Math.PI / 6), centerY + radius * Math.sin(Math.PI / 6),
+                    centerX - radius * Math.cos(Math.PI / 6), centerY - radius * Math.sin(Math.PI / 6),
+                    centerX, centerY - radius,
+                    centerX + radius * Math.cos(Math.PI / 6), centerY - radius * Math.sin(Math.PI / 6));
+            cellVis.setFill(cell.getColor());
+        } else if(myConfiguration.getShape().equals("Circle")) {
+            double centerX = Width / myConfiguration.getColumns() * row;
+            double centerY = Height / myConfiguration.getRows() * col;
+            double radius = Width / myConfiguration.getColumns() / 2;
+            if (col % 2 == 0) {
+                centerX = centerX - radius;
+            }
+            cellVis = new Circle(centerX, centerY, radius, cell.getColor());
+        } else {
+            double width = Width/myConfiguration.getColumns();
+            double height = Height/myConfiguration.getRows();
+            cellVis = new Rectangle(width*row, height*col, width, height);
+            cellVis.setFill(cell.getColor());
+        }
+        cellShapes.put(cell, cellVis);
+        myGroup.getChildren().add(cellVis);
     }
 }
