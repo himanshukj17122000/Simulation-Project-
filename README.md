@@ -11,7 +11,7 @@ Start Date: January 25, 2020
 
 Finish Date: February 10, 2020
 
-Hours Spent: 90+ (30+ each)
+Hours Spent: 120+ (40+ each)
 
 ### Primary Roles
 Kyra Chan:
