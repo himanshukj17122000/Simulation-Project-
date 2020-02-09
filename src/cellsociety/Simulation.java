@@ -3,6 +3,7 @@ package cellsociety;
 import cellsociety.Configuration.Configuration;
 import javafx.scene.Group;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
@@ -14,6 +15,7 @@ public class Simulation {
     private Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
     private Map<String, Integer> typesOfCells = new HashMap<>();
     private Group myGroup = new Group();
+    private Map<Cell, Shape> cellShapes;
     private Configuration myConfiguration;
     private double Width;
     private double Height;
@@ -36,6 +38,7 @@ public class Simulation {
                 if (insertGridEntry == null) {
                     insertGridEntry = randomizeGridEntry(r, c, myConfiguration.getTitle());
                 }
+                cellShapes = new HashMap<>();
                 insertRow.add(insertGridEntry);
             }
             grid.add(insertRow);
@@ -96,6 +99,8 @@ public class Simulation {
         myGroup = simGroup;
         simGroup.prefWidth(width);
         simGroup.prefHeight(height);
+        simGroup.setTranslateX(10);
+        simGroup.setTranslateY(20);
         Width = width;
         Height = height;
     }
@@ -169,28 +174,49 @@ public class Simulation {
 
     private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
                                     List<Double> parameters) {
-        cell.getRectangle().setOnMouseClicked(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
+        cellShapes.get(cell).setOnMousePressed(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
     }
+
+
 
     private void createShape(GridEntry curGridEntry, int row, int col){
         Cell cell = curGridEntry.getCell();
         Shape cellVis;
-        if(myConfiguration.getShape().equals("Hexagon")){
-            double centerX = Width/myConfiguration.getColumns() * row;
-            double centerY = Height/myConfiguration.getRows() * col;
-            double radius = Width/myConfiguration.getColumns()/2;
-            if(col%2 == 0){
+        if(myConfiguration.getShape().equals("Hexagon")) {
+            double centerX = Width / myConfiguration.getColumns() * row;
+            double centerY = Height / myConfiguration.getRows() * col;
+            double radius = Width / myConfiguration.getColumns() / 2;
+            if (col % 2 == 0) {
+                centerX = centerX - radius;
+            }
+            cellVis = new Polygon();
+            ((Polygon) cellVis).getPoints().addAll(
+                    centerX + radius * Math.cos(Math.PI / 6), centerY + radius * Math.sin(Math.PI / 6),
+                    centerX, centerY + radius,
+                    centerX - radius * Math.cos(Math.PI / 6), centerY + radius * Math.sin(Math.PI / 6),
+                    centerX - radius * Math.cos(Math.PI / 6), centerY - radius * Math.sin(Math.PI / 6),
+                    centerX, centerY - radius,
+                    centerX + radius * Math.cos(Math.PI / 6), centerY - radius * Math.sin(Math.PI / 6));
+            cellVis.setFill(cell.getColor());
+        } else if(myConfiguration.getShape().equals("Circle")) {
+            double centerX = Width / myConfiguration.getColumns() * row;
+            double centerY = Height / myConfiguration.getRows() * col;
+            double radius = Width / myConfiguration.getColumns() / 2;
+            if (col % 2 == 0) {
                 centerX = centerX - radius;
             }
             cellVis = new Circle(centerX, centerY, radius, cell.getColor());
-        }else{
+        } else {
             double width = Width/myConfiguration.getColumns();
             double height = Height/myConfiguration.getRows();
             cellVis = new Rectangle(width*row, height*col, width, height);
             cellVis.setFill(cell.getColor());
         }
+        cellShapes.put(cell, cellVis);
         myGroup.getChildren().add(cellVis);
     }
+
+
 
 
 }
