@@ -17,7 +17,7 @@ public class Simulation {
     private double Width;
     private double Height;
     private Map<String, Integer> typesOfCells = new HashMap<>();
-    private Map<Cell, Shape> cellShapes;
+    private Map<GridEntry, Shape> cellShapes;
     private Configuration myConfiguration;
 
     // Constructor for the Simulation class
@@ -60,7 +60,7 @@ public class Simulation {
         myGroup = simGroup;
         simGroup.prefWidth(width);
         simGroup.prefHeight(height);
-        simGroup.setTranslateX(10);
+        simGroup.setTranslateX(15);
         simGroup.setTranslateY(20);
         Width = width;
         Height = height;
@@ -150,7 +150,8 @@ public class Simulation {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 Cell currentCell = currentGridEntry.getCell();
-                implementClickCell(currentCell, currentGridEntry, emptyCells, parameters);
+                //System.out.println(cellShapes.containsKey(currentGridEntry));
+                //implementClickCell(currentCell, currentGridEntry);
                 currentCell.updateCell(currentGridEntry, emptyCells, parameters);
             }
         }
@@ -173,17 +174,18 @@ public class Simulation {
 
         setEmptyCellSet(emptyCells);
         return myGroup;
-
     }
 
-    private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
-                                    List<Double> parameters) {
-        cellShapes.get(cell).setOnMousePressed(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
+    private void implementClickCell(Cell cell, GridEntry currentGridEntry) {
+        cellShapes.get(currentGridEntry).setOnMouseClicked(e -> {
+            currentGridEntry.setNextStepCell(cell);
+        });
     }
 
     private void createShape(GridEntry curGridEntry, int row, int col){
         Cell cell = curGridEntry.getCell();
         Shape cellVis;
+        Shape shapeArea;
         if(myConfiguration.getShape().equals("Hexagon")) {
             double centerX = Width / myConfiguration.getColumns() * row;
             double centerY = Height / myConfiguration.getRows() * col;
@@ -200,6 +202,15 @@ public class Simulation {
                     centerX, centerY - radius,
                     centerX + radius * Math.cos(Math.PI / 6), centerY - radius * Math.sin(Math.PI / 6));
             cellVis.setFill(cell.getColor());
+            shapeArea = new Polygon();
+            ((Polygon) shapeArea).getPoints().addAll(
+                    centerX + radius * Math.cos(Math.PI / 6), centerY + radius * Math.sin(Math.PI / 6),
+                    centerX, centerY + radius,
+                    centerX - radius * Math.cos(Math.PI / 6), centerY + radius * Math.sin(Math.PI / 6),
+                    centerX - radius * Math.cos(Math.PI / 6), centerY - radius * Math.sin(Math.PI / 6),
+                    centerX, centerY - radius,
+                    centerX + radius * Math.cos(Math.PI / 6), centerY - radius * Math.sin(Math.PI / 6));
+            shapeArea.setFill(null);
         } else if(myConfiguration.getShape().equals("Circle")) {
             double centerX = Width / myConfiguration.getColumns() * row;
             double centerY = Height / myConfiguration.getRows() * col;
@@ -208,13 +219,17 @@ public class Simulation {
                 centerX = centerX - radius;
             }
             cellVis = new Circle(centerX, centerY, radius, cell.getColor());
+            shapeArea = new Circle(centerX, centerY, radius, null);
         } else {
             double width = Width/myConfiguration.getColumns();
             double height = Height/myConfiguration.getRows();
             cellVis = new Rectangle(width*row, height*col, width, height);
             cellVis.setFill(cell.getColor());
+            shapeArea = new Rectangle(width*row, height*col, width, height);
+            shapeArea.setFill(null);
         }
-        cellShapes.put(cell, cellVis);
+
+        cellShapes.put(curGridEntry, shapeArea);
         myGroup.getChildren().add(cellVis);
     }
 }
