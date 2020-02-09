@@ -34,6 +34,19 @@ public abstract class Configuration {
     private ArrayList<Double> maxProb=new ArrayList<>();
     private ArrayList<Double> probCatch=new ArrayList<>();
     private int[] neighPattern= new int[8];
+
+    public ArrayList<String> getColors() {
+        return colors;
+    }
+
+    public void setColors(String colParameter) {
+        String[] separateColors= colParameter.split(",");
+        for (String colour:separateColors){
+            colors.add(colour);
+        }
+    }
+
+    private ArrayList<String> colors= new ArrayList<>();
     private Double[] concentration= new Double[3];
     private int maxStates,rows,columns,left,right,top,bottom, neighbours,randomNumber,maxRandomNumber;
 

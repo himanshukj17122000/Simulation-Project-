@@ -10,7 +10,7 @@ public class Prey extends Configuration {
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
             "top","bottom","neighbours","type1","type2","type3","fishBreed","sharkBreed","fishLabel","sharkLabel","numLabel","maxFishBreed"
-    ,"maxSharkBreed","numWithoutFood","maxDays","neighPattern","shape","concentration","initial");
+    ,"maxSharkBreed","numWithoutFood","maxDays","neighPattern","shape","concentration","initial","colors");
 
 
     /**
@@ -103,6 +103,9 @@ public class Prey extends Configuration {
         }
         try{setStartingConfig(dataValues.get(DATA_FIELDS.get(24)));} catch (Exception e) {
             setStartingConfig(configRandom);
+        }
+        try{setColors(dataValues.get(DATA_FIELDS.get(25)));}catch (Exception e){
+            setColors("Red,Green,White");
         }
     }
 }
