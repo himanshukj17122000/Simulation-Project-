@@ -71,6 +71,9 @@ public class Game extends Configuration {
         } try{setConcentration(dataValues.get(DATA_FIELDS.get(15)));} catch(Exception e){
             setStartingConfig(configRandom);
         }
+        try{setColors(dataValues.get(DATA_FIELDS.get(16)));}catch (Exception e){
+            setColors("Red,Green,White");
+        }
     }
 }
 

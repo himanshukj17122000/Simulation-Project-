@@ -19,6 +19,7 @@
         <neighPattern>10101111</neighPattern>
         <shape>Rectangle</shape>
         <concentration>0.5,0.3</concentration>
+        <colors>Blue,Orange,Green</colors>
     </gridlayout>
 </simulation>
 

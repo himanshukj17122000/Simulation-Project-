@@ -24,5 +24,6 @@
         <maxDays>20</maxDays>
         <neighPattern>11111111</neighPattern>
         <concentration>0.8,0.1</concentration>
+        <colors>Blue,Orange,Green</colors>
     </gridlayout>
 </simulation>

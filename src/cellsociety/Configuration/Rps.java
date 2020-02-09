@@ -6,7 +6,7 @@ import java.util.Map;
 public class Rps extends Configuration {
     public static final String DATA_TYPE = "Rps";
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape", "randomNumber", "maxRandomNumber","randomLabel","initial");
+            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape", "randomNumber", "maxRandomNumber","randomLabel","initial","colors");
 
     /**
      * Create game data from given data.
@@ -87,6 +87,9 @@ public class Rps extends Configuration {
         }
         try{setStartingConfig(dataValues.get(DATA_FIELDS.get(21)));} catch (Exception e) {
             setStartingConfig(configRandom);
+        }
+        try{setColors(dataValues.get(DATA_FIELDS.get(22)));}catch (Exception e){
+            setColors("Red,Green,White");
         }
     }
 
