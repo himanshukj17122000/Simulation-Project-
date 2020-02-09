@@ -27,13 +27,13 @@ public class Segregation extends CommonMethods {
 
     public Segregation (Map<String, String> dataValues) throws NumberFormatException{
         setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        setMyStates(dataValues.get(DATA_FIELDS.get(1)));
+        setMyStates(dataValues.get(DATA_FIELDS.get(1)),3);
         setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
         setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
         setMyRight(dataValues.get(DATA_FIELDS.get(5)));
-        setMyTop(dataValues.get(DATA_FIELDS.get(6)));
-        setMyBottom(dataValues.get(DATA_FIELDS.get(7)));
-        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)));
+        setMyTop(dataValues.get(DATA_FIELDS.get(6)),noRow);
+        setMyBottom(dataValues.get(DATA_FIELDS.get(7)),noRow);
+        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
 
         try {if(isStringOnlyAlphabet(dataValues.get(DATA_FIELDS.get(9)))){
             throw new NumberFormatException();

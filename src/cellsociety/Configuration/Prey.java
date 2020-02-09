@@ -29,13 +29,13 @@ public class Prey extends CommonMethods {
 
     public Prey(Map<String, String> dataValues) throws NumberFormatException {
         setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        setMyStates(dataValues.get(DATA_FIELDS.get(1)));
+        setMyStates(dataValues.get(DATA_FIELDS.get(1)),3);
         setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
         setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
         setMyRight(dataValues.get(DATA_FIELDS.get(5)));
-        setMyTop(dataValues.get(DATA_FIELDS.get(6)));
-        setMyBottom(dataValues.get(DATA_FIELDS.get(7)));
-        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)));
+        setMyTop(dataValues.get(DATA_FIELDS.get(6)),noRow);
+        setMyBottom(dataValues.get(DATA_FIELDS.get(7)),noRow);
+        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),4);
 
         try{setType1(dataValues.get(DATA_FIELDS.get(9)));} catch (Exception e) {
             setType1("Empty");
@@ -102,14 +102,7 @@ public class Prey extends CommonMethods {
         }
     }
 
-    @Override
-    public void setMyNeighbours(String s) {
-        try{if(isStringOnlyAlphabet(s)){
-            throw new NumberFormatException();
-        }setNeighbours(Integer.parseInt(s));} catch (NumberFormatException e) {
-            setNeighbours(4);
-        }
-    }
+
 
 }
 

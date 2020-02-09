@@ -30,28 +30,28 @@ public class CommonMethods extends Configuration{
                 && str.matches(".*[a-zA-Z]+.*"));
     }
 
-    public void setMyTop(String s) {
+    public void setMyTop(String s, int def) {
         try{
             if(isStringOnlyAlphabet(s)){
                 throw new NumberFormatException();
             }setTop(Integer.parseInt(s));} catch (NumberFormatException e) {
-            setTop(noRow);
+            setTop(def);
         }
     }
 
-    public void setMyNeighbours(String s) {
+    public void setMyNeighbours(String s, int def) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
         }setNeighbours(Integer.parseInt(s));} catch (NumberFormatException e) {
-            setNeighbours(8);
+            setNeighbours(def);
         }
     }
 
-    public void setMyBottom(String s) {
+    public void setMyBottom(String s, int def) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
         }setBottom(Integer.parseInt(s));} catch (NumberFormatException e) {
-            setBottom(noRow);
+            setBottom(def);
         }
     }
 
@@ -74,7 +74,7 @@ public class CommonMethods extends Configuration{
             setLeft(noRow);
         }
     }
-    public void setMyStates(String s) {
+    public void setMyStates(String s, int def) {
         try {
             if(isStringOnlyAlphabet(s)){
                 throw new NumberFormatException();
@@ -82,7 +82,36 @@ public class CommonMethods extends Configuration{
             setMaxStates(Integer.parseInt(s));
 
         } catch (NumberFormatException e) {
-            setMaxStates(3);
+            setMaxStates(def);
+        }
+    }
+    public void setMyProbCatch(String s, double defaultProb) {
+        try{if(isStringOnlyAlphabet(s)){
+            throw new NumberFormatException();
+        }setProbCatch(Double.parseDouble(s));} catch (NumberFormatException e) {
+            setProbCatch(defaultProb);
+        }
+    }
+    public void setMyProbCatchLabel(String s, String probability_of_catching_on_fire) {
+        try{setProbCatchLabel(s);} catch (Exception e) {
+            setProbCatchLabel(probability_of_catching_on_fire);
+        }
+    }
+
+    public void setMyType3(String s, String tree) {
+        try{setType3(s);} catch (Exception e) {
+            setType3(tree);
+        }
+    }
+
+    public void setMyType2(String s, String tree) {
+        try{setType2(s);} catch (Exception e) {
+            setType2(tree);
+        }
+    }
+    public void setMyType1(String s, String tree) {
+        try{setType1(s);} catch (Exception e) {
+            setType1(tree);
         }
     }
 }

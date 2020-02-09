@@ -31,30 +31,23 @@ public class Fire extends CommonMethods {
 
         public Fire (Map<String, String> dataValues) throws NumberFormatException{
             setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-            setMyStates(dataValues.get(DATA_FIELDS.get(1)));
+            setMyStates(dataValues.get(DATA_FIELDS.get(1)),3);
             setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
             setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
             setMyRight(dataValues.get(DATA_FIELDS.get(5)));
-            setMyTop(dataValues.get(DATA_FIELDS.get(6)));
-            setMyBottom(dataValues.get(DATA_FIELDS.get(7)));
-            setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)));
-            try{if(isStringOnlyAlphabet(dataValues.get(DATA_FIELDS.get(9)))){
-                throw new NumberFormatException();
-            }setProbCatch(Double.parseDouble(dataValues.get(DATA_FIELDS.get(9))));} catch (NumberFormatException e) {
-                setProbCatch(defaultProb);
-            }
-            try{setType1(dataValues.get(DATA_FIELDS.get(10)));} catch (Exception e) {
-                setType1("Empty");
-            }
-            try{setType2(dataValues.get(DATA_FIELDS.get(11)));} catch (Exception e) {
-                setType2("Burnt");
-            }
-            try{setType3(dataValues.get(DATA_FIELDS.get(12)));} catch (Exception e) {
-                setType3("Tree");
-            }
-            try{setProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)));} catch (Exception e) {
-                setProbCatchLabel("Probability of Catching on Fire");
-            }
+            setMyTop(dataValues.get(DATA_FIELDS.get(6)),noRow);
+            setMyBottom(dataValues.get(DATA_FIELDS.get(7)),noRow);
+            setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),4);
+            setMyProbCatch(dataValues.get(DATA_FIELDS.get(9)),defaultProb);
+            setMyType1(dataValues.get(DATA_FIELDS.get(10)),"Empty");
+            setMyType2(dataValues.get(DATA_FIELDS.get(11)),"Burnt");
+            setMyType3(dataValues.get(DATA_FIELDS.get(12)),"Tree");
+            setMyProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)),"Probability of Catching on Fire");
+
+
+
+
+
             try{if(isStringOnlyAlphabet(dataValues.get(DATA_FIELDS.get(14)))){
                 throw new NumberFormatException();
             }setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(14))));} catch (NumberFormatException e) {
@@ -76,14 +69,7 @@ public class Fire extends CommonMethods {
                 setColors("ffffff,69e23f,e2563f");
             }
         }
-    @Override
-    public void setMyNeighbours(String s) {
-        try{if(isStringOnlyAlphabet(s)){
-            throw new NumberFormatException();
-        }setNeighbours(Integer.parseInt(s));} catch (NumberFormatException e) {
-            setNeighbours(4);
-        }
-    }
+
 }
 
 

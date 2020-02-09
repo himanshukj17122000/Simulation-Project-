@@ -25,13 +25,13 @@ public class Percolation extends CommonMethods {
      */
     public Percolation (Map<String, String> dataValues) throws NumberFormatException {
         setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        setMyStates(dataValues.get(DATA_FIELDS.get(1)));
+        setMyStates(dataValues.get(DATA_FIELDS.get(1)),2);
         setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
         setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
         setMyRight(dataValues.get(DATA_FIELDS.get(5)));
-        setMyTop(dataValues.get(DATA_FIELDS.get(6)));
-        setMyBottom(dataValues.get(DATA_FIELDS.get(7)));
-        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)));
+        setMyTop(dataValues.get(DATA_FIELDS.get(6)),3);
+        setMyBottom(dataValues.get(DATA_FIELDS.get(7)),2);
+        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
 
         try{setType1(dataValues.get(DATA_FIELDS.get(9)));} catch (Exception e) {
             setType1("Percolated");
@@ -51,19 +51,6 @@ public class Percolation extends CommonMethods {
         setStartingConfig(configRandom);
         try{setColors(dataValues.get(DATA_FIELDS.get(14)));}catch (Exception e){
             setColors("Blue,Black");
-        }
-    }
-
-    @Override
-    public void setMyStates(String s) {
-        try {
-            if(isStringOnlyAlphabet(s)){
-                throw new NumberFormatException();
-            }
-            setMaxStates(Integer.parseInt(s));
-
-        } catch (NumberFormatException e) {
-            setMaxStates(2);
         }
     }
 }
