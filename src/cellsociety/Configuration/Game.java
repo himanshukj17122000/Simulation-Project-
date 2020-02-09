@@ -3,7 +3,7 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
-public class Game extends Configuration {
+public class Game extends CommonMethods{
     public static final String DATA_TYPE = "Game of Life";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
@@ -26,31 +26,14 @@ public class Game extends Configuration {
 
     public Game (Map<String, String> dataValues) throws NumberFormatException {
             setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
+        setMyStates(dataValues.get(DATA_FIELDS.get(1)));
+        setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
+        setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
+        setMyRight(dataValues.get(DATA_FIELDS.get(5)));
+        setMyTop(dataValues.get(DATA_FIELDS.get(6)));
+        setMyBottom(dataValues.get(DATA_FIELDS.get(7)));
+        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)));
 
-        try{setMaxStates(Integer.parseInt(dataValues.get(DATA_FIELDS.get(1))));} catch (NumberFormatException e) {
-            setMaxStates(3);
-        }
-        try{ setRows(Integer.parseInt(dataValues.get(DATA_FIELDS.get(2))));} catch (NumberFormatException e) {
-            setRows(iniRows);
-        }
-        try{setColumns(Integer.parseInt(dataValues.get(DATA_FIELDS.get(3))));} catch (NumberFormatException e) {
-            setColumns(iniCols);
-        }
-        try{setLeft(Integer.parseInt(dataValues.get(DATA_FIELDS.get(4))));} catch (NumberFormatException e) {
-            setLeft(noRow);
-        }
-        try{setRight(Integer.parseInt(dataValues.get(DATA_FIELDS.get(5))));} catch (NumberFormatException e) {
-            setRight(noRow);
-        }
-        try{setTop(Integer.parseInt(dataValues.get(DATA_FIELDS.get(6))));} catch (NumberFormatException e) {
-            setTop(noRow);
-        }
-        try{setBottom(Integer.parseInt(dataValues.get(DATA_FIELDS.get(7))));} catch (NumberFormatException e) {
-            setBottom(noRow);
-        }
-        try{setNeighbours(Integer.parseInt(dataValues.get(DATA_FIELDS.get(8))));} catch (NumberFormatException e) {
-            setNeighbours(8);
-        }
         try{setType1(dataValues.get(DATA_FIELDS.get(9)));} catch (Exception e) {
             setType1("Empty");
         }
@@ -75,6 +58,9 @@ public class Game extends Configuration {
             setColors("Red,Green,White");
         }
     }
+
+
+
 }
 
 
