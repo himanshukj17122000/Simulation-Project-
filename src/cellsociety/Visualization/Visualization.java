@@ -1,10 +1,7 @@
 package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
-import cellsociety.Layout;
-import cellsociety.Main;
-import cellsociety.ProbConstant;
-import cellsociety.Simulation;
+import cellsociety.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -116,24 +113,27 @@ public class Visualization {
 
     // Updating how the grid simulation looks
     public void step(){
-        mySimulation.step(getParameters());
+        myGroup = mySimulation.step(getParameters());
         if (myStats != null) {
             myToolBar.getChildren().remove(myStats);
             myStats = myLayout.createChart(mySimulation);
             myToolBar.getChildren().add(myStats);
         }
+        //drawGrid(myGrid);
     }
 
     private void initializeSimulation(Configuration simulationConfig){
         myGroup = new Group();
-        mySimulation = new Simulation(simulationConfig, myGroup, GRID_HEIGHT, GRID_HEIGHT);
+        mySimulation = new Simulation(myGroup, simulationConfig, GRID_WIDTH, GRID_HEIGHT);
+        // mySimulation = new Simulation(simulationConfig, myGroup, GRID_HEIGHT, GRID_HEIGHT);
     }
 
     private void initializeGrid(Configuration simulationConfig) {
+        //List<List<GridEntry>>  cellStates = simulationConfig.makeCellGrid();
         initializeSimulation(simulationConfig);
-        myGroup = mySimulation.initializeSimulationGrid();
-//        GridPane initializedGrid = new GridPane();
-//        return drawGrid(initializedGrid);
+        //myGroup = mySimulation.initializeSimulationGrid();
+        //GridPane initializedGrid = new GridPane();
+       //return drawGrid(initializedGrid);
     }
 
     // Redrawing the grid after every time step, adding each cell to the grid

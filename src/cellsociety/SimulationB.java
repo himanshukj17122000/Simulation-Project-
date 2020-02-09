@@ -8,26 +8,24 @@ import javafx.scene.shape.Shape;
 
 import java.util.*;
 
-public class Simulation {
+public class SimulationB {
     private List<List<GridEntry>> SimulationGrid;
     private int status;
     private Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
-    private Map<String, Integer> typesOfCells = new HashMap<>();
-    private Group myGroup = new Group();
-    private Configuration myConfiguration;
+    public Group myGroup = new Group();
     private double Width;
     private double Height;
+    private Map<String, Integer> typesOfCells = new HashMap<>();
+    private Configuration myConfiguration;
 
-    public Simulation(Group simGroup, Configuration inputConfiguration,  double width, double height) {
+    public SimulationB(Configuration simConfig, Group simGroup, double width, double height) {
+        setConfiguration(simConfig);
+        initializeSimulationGrid();
         setMyGroup(simGroup, width, height);
-        setConfiguration(inputConfiguration);
-        setSimulationGrid(makeCellGrid());
-        //setSimulationGrid(simGrid);
         initializeCellSets();
-
     }
 
-    public List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
+    public Group initializeSimulationGrid() {
         List<List<GridEntry>> grid = new ArrayList<>();
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             List<GridEntry> insertRow = new ArrayList<>();
@@ -36,15 +34,49 @@ public class Simulation {
                 if (insertGridEntry == null) {
                     insertGridEntry = randomizeGridEntry(r, c, myConfiguration.getTitle());
                 }
+                createShape(insertGridEntry, r, c);
                 insertRow.add(insertGridEntry);
             }
             grid.add(insertRow);
         }
         initializeGridNeighbors(grid, myConfiguration.getTitle());
-        return grid;
+
+        SimulationGrid = grid;
+        return myGroup;
     }
 
-    public void initializeGridNeighbors(List<List<GridEntry>> grid, String simulation) {
+    public List<List<GridEntry>> getSimulationGrid() {
+        return SimulationGrid;
+    }
+
+    private void setConfiguration(Configuration simConfiguration){ myConfiguration = simConfiguration; }
+
+    private void setMyGroup(Group simGroup, double width, double height) {
+        myGroup = simGroup;
+        simGroup.prefWidth(width);
+        simGroup.prefHeight(height);
+        Width = width;
+        Height = height;
+    }
+
+    private Group getMyGroup() {
+        return myGroup;
+    }
+
+    private void setEmptyCellSet(Set<GridEntry> emptyCells) {
+        emptyCellSet = emptyCells;
+    }
+
+    public Set<GridEntry> getEmptyCellSet() {
+        return emptyCellSet;
+    }
+
+
+    public Map<String, Integer> getTypesOfCells(){
+        return typesOfCells;
+    }
+
+    private void initializeGridNeighbors(List<List<GridEntry>> grid, String simulation) {
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             for (int c = 0; c < myConfiguration.getColumns(); c++) {
                 GridEntry currentGridEntry = grid.get(r).get(c);
@@ -80,40 +112,10 @@ public class Simulation {
         return new GridEntry(row, col, simulation, randomType);
     }
 
-    private void setConfiguration(Configuration simConfiguration){ myConfiguration = simConfiguration; }
-
-
-    private void setSimulationGrid(List<List<GridEntry>> simGrid) {
-        SimulationGrid = simGrid;
-    }
-
-    public List<List<GridEntry>> getSimulationGrid() {
-        return SimulationGrid;
-    }
-
-
-    private void setMyGroup(Group simGroup, double width, double height) {
-        myGroup = simGroup;
-        simGroup.prefWidth(width);
-        simGroup.prefHeight(height);
-        Width = width;
-        Height = height;
-    }
-
-    private void setEmptyCellSet(Set<GridEntry> emptyCells) {
-        emptyCellSet = emptyCells;
-    }
-
-    public Set<GridEntry> getEmptyCellSet() {
-        return emptyCellSet;
-    }
-
-    public Map<String, Integer> getTypesOfCells(){
-        return typesOfCells;
-    }
-
-    private void initializeCellSets(){
+    private void initializeCellSets() {
+        typesOfCells = new HashMap<>();
         Set<GridEntry> emptyCells = getEmptyCellSet();
+        //System.out.println(emptyCells.size());
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
@@ -126,16 +128,18 @@ public class Simulation {
                     typesOfCells.putIfAbsent(cellType, 0);
                     typesOfCells.put(cellType, typesOfCells.get(cellType) + 1);
                 }
+
             }
         }
         setEmptyCellSet(emptyCells);
+        System.out.println(emptyCells.size());
     }
 
     public Group step(List<Double> parameters) {
-        //int[] cellType = new int[2];  // random line to initialize
         typesOfCells = new HashMap<>();
-        Set<GridEntry> emptyCells = getEmptyCellSet();
         myGroup.getChildren().clear();
+        Set<GridEntry> emptyCells = getEmptyCellSet();
+        System.out.println(emptyCells.size());
         List<List<GridEntry>> currentGridConfig = getSimulationGrid();
         for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
@@ -143,32 +147,36 @@ public class Simulation {
                 Cell currentCell = currentGridEntry.getCell();
                 //implementClickCell(currentCell, currentGridEntry, emptyCells, parameters);
                 currentCell.updateCell(currentGridEntry, emptyCells, parameters);
+
             }
         }
-       for (int r = 0; r < currentGridConfig.size(); r++) {
+        System.out.println(emptyCells.size());
+        //emptyCells = new HashSet<GridEntry>();
+
+        for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 currentGridEntry.updateGridEntry();
-                if (currentGridEntry.getCellType() == 1) { // update to not hard code
-                    emptyCells.add(currentGridEntry);
-                }
-                createShape(currentGridEntry, r, c);
-//                cellType[0] = currentGridEntry.getCellType();
-//                cellType[1] = currentGridEntry.getCell().getRace();
+                //createShape(currentGridEntry, r, c);
+//                if (currentGridEntry.getCellType() == 1) { // update to not hard code
+//                    emptyCells.add(currentGridEntry);
+//                }
                 String cellType = currentGridEntry.getCell().getLabel();
                 if (cellType != null) {
                     typesOfCells.putIfAbsent(cellType, 0);
-                    typesOfCells.put(cellType, typesOfCells.get(cellType)+1);
-                  //  System.out.println(typesOfCells.get(cellType));
+                    typesOfCells.put(cellType, typesOfCells.get(cellType) + 1);
                 }
-           }
+            }
         }
+
         setEmptyCellSet(emptyCells);
-       return myGroup;
+        System.out.println(emptyCells.size());
+        return myGroup;
+
     }
 
     private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
-                                   List<Double> parameters) {
+                                    List<Double> parameters) {
         cell.getRectangle().setOnMouseClicked(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
     }
 
@@ -191,6 +199,4 @@ public class Simulation {
         }
         myGroup.getChildren().add(cellVis);
     }
-
-
 }

@@ -20,8 +20,9 @@
         <numLabel>Number Of Days Without Food</numLabel>
         <maxFishBreed>15</maxFishBreed>
         <maxSharkBreed>20</maxSharkBreed>
-        <numWithoutFood>10</numWithoutFood>
-        <maxDays>20</maxDays>
+        <numWithoutFood>100</numWithoutFood>
+        <maxDays>100</maxDays>
         <neighPattern>11111111</neighPattern>
+        <shape>Rectangle</shape>
     </gridlayout>
 </simulation>

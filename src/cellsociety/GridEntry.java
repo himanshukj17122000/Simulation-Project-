@@ -11,6 +11,7 @@ import cellsociety.PreySimulation.PredatorCell;
 import cellsociety.SegregationSimulation.PersonCell;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import rPSSimulation.rpsCell;
 
 import java.util.HashSet;
 import java.util.List;
@@ -141,29 +142,27 @@ public class GridEntry {
             GridEntry rightNeighbor = grid.get(getRow()).get(getColumn()+1);
             NSET.add(rightNeighbor);
         }
-        if (simulation.equals("Percolation") || simulation.equals("Game of Life") || simulation.equals("Segregation")) {
-            if (getRow() > 0) {
-                if (getColumn() > 0 && neighborBool[0] == 1) {
-                    GridEntry topLeftNeighbor = grid.get(getRow() - 1).get(getColumn() - 1);
-                    NSET.add(topLeftNeighbor);
-                }
-                if (getColumn() < numCols - 1 && neighborBool[2] == 1) {
-                    GridEntry topRightNeighbor = grid.get(getRow() - 1).get(getColumn() + 1);
-                    NSET.add(topRightNeighbor);
-                }
+        if (getRow() > 0) {
+            if (getColumn() > 0 && neighborBool[0] == 1) {
+                GridEntry topLeftNeighbor = grid.get(getRow() - 1).get(getColumn() - 1);
+                NSET.add(topLeftNeighbor);
             }
-            if (getRow() < numRows - 1) {
-                if (getColumn() > 0 && neighborBool[6] == 1) {
-                    GridEntry bottomLeftNeighbor = grid.get(getRow() + 1).get(getColumn() - 1);
-                    NSET.add(bottomLeftNeighbor);
-                }
-                if (getColumn() < numCols - 1 && neighborBool[4] == 1) {
-                    GridEntry bottomRightNeighbor = grid.get(getRow() + 1).get(getColumn() + 1);
-                    NSET.add(bottomRightNeighbor);
-                }
+            if (getColumn() < numCols - 1 && neighborBool[2] == 1) {
+                GridEntry topRightNeighbor = grid.get(getRow() - 1).get(getColumn() + 1);
+                NSET.add(topRightNeighbor);
             }
-
         }
+        if (getRow() < numRows - 1) {
+            if (getColumn() > 0 && neighborBool[6] == 1) {
+                GridEntry bottomLeftNeighbor = grid.get(getRow() + 1).get(getColumn() - 1);
+                NSET.add(bottomLeftNeighbor);
+            }
+            if (getColumn() < numCols - 1 && neighborBool[4] == 1) {
+                GridEntry bottomRightNeighbor = grid.get(getRow() + 1).get(getColumn() + 1);
+                NSET.add(bottomRightNeighbor);
+            }
+        }
+
         NEIGHBORS = NSET;
     }
 
@@ -199,6 +198,8 @@ public class GridEntry {
             case "Segregation":
                 cellToSet = segregationSimulationCell(type);
                 break;
+            case "Rps":
+                cellToSet = rpsSimulationCell(type);
             default:
                 cellToSet = new EmptyCell(this, SEGREGATIONFILL);
         }
@@ -251,6 +252,10 @@ public class GridEntry {
         }else{
             return new EmptyCell(this, PREYFILL);
         }
+    }
+
+    private Cell rpsSimulationCell(int type){
+        return new rpsCell(this, type, 4);
     }
 
     public Set<GridEntry> getNeighbors(){

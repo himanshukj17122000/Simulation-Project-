@@ -17,9 +17,9 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     private static final Paint FILL = Color.web("#614A32");
     private static final Paint PREYFILL = Color.PALEGREEN;
     private static final boolean CANUPDATE = true;
-    private int reproductionTime = 0;
+    private int reproductionTime = 1;
     private int timeSinceReproduction;
-    private int maxTimeWithoutEating = 5;
+    private int maxTimeWithoutEating = 100;
     private int timeSinceEating;
 
     public PredatorCell(GridEntry entry, int reproductionTime, int maxTimeWithoutEating) {
@@ -33,7 +33,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
 
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
-
+        this.setColor(FILL);
         if(getTimeSinceEating() > maxTimeWithoutEating){
             die(entry, emptyCells);
         }else{

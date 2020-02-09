@@ -14,16 +14,16 @@ import java.util.Set;
 public class AnimalCell extends Cell {
     private static final int TYPE = 1;
     private static final String LABEL = "Preys";
-    private static final Paint FILL = Color.TAN;
+    private static final Paint[] FILL = {Color.TAN, Color.web("#614A32")};
     protected static final Paint PREYFILL = Color.PALEGREEN;
-    private int reproductionTime = 2;
+    private int reproductionTime = 200;
     private int timeSinceReproduction;
     private static final boolean CANUPDATE = true;
     private int RACE;
 
 
     public AnimalCell(GridEntry entry, int species, int reproductionTime) {
-        super(FILL, entry);
+        super(FILL[species-1], entry);
         setTimeSinceReproduction(0);
         setReproductionTime(reproductionTime);
         setRace(1);

@@ -3,8 +3,8 @@
     <gridlayout>
         <title>Segregation</title>
         <maxStates>3</maxStates>
-        <rows>50</rows>
-        <columns>50</columns>
+        <rows>25</rows>
+        <columns>25</columns>
         <left>0</left>
         <right>0</right>
         <top>0</top>
@@ -16,7 +16,7 @@
         <type2>Race1</type2>
         <type3>Race2</type3>
         <maxProbCatch>1</maxProbCatch>
-        <neighPattern>10101111</neighPattern>
+        <neighPattern>11111111</neighPattern>
         <shape>Rectangle</shape>
     </gridlayout>
 </simulation>

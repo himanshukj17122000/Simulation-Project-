@@ -73,6 +73,10 @@ public abstract class Configuration {
     public ArrayList<Double> getMaxProb(){return maxProb;}
     public int[] getNeighPattern(){return neighPattern;}
 
+    
+
+
+
     public void setMyTitle(String myTitle) { this.myTitle = myTitle; }
     public void setType1(String type1) { this.type1 = type1; }
     public void setType2(String type2) { this.type2 = type2; }
