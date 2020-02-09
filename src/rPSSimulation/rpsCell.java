@@ -67,11 +67,15 @@ public class rpsCell extends Cell {
         }
         int max = 0;
         int maxType = 1;
-        if(getType()<FILL.length && typesOfCells.get(getType()+1)> Threshold){
-            return getType()+1;
-        }else if(getType()==FILL.length && typesOfCells.get(1)>Threshold){
-            return 1;
+        if(getType()<FILL.length && typesOfCells.containsKey(getType()+1)){
+            if(typesOfCells.get(getType()+1)> Threshold){
+                return getType()+1;
+            }
+        }else if(getType()==FILL.length && typesOfCells.containsKey(1)){
+            if(typesOfCells.get(1)> Threshold){
+                return 1;
+            }
         }
-        else return 0;
+        return 0;
     }
 }
