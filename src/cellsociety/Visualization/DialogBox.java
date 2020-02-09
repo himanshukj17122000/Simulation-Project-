@@ -52,7 +52,7 @@ public class DialogBox {
                 title = getTagValue("title", eElement);
             }
             else{
-                throw new NullPointerException();
+                showMessage(Alert.AlertType.ERROR, "No File Chosen");
             }
 
             switch (title) {
