@@ -56,13 +56,14 @@ public class Visualization {
     private double mySpeed;
     private Group myGroup;
 
+    // Constructor for the Visualization class
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
     }
 
-    // Getter methods
+    // Getter method for the animation scene to be called in Splash
     public Scene getAnimationScene() { return myAnimationScene; }
-
+    // Getter method for the probability constants to update in other classes based on sliders
     public HashMap<Slider, ProbConstant> getNewProbCatch() { return myNewProbCatch; }
 
     private List<Double> getParameters(){

@@ -145,7 +145,7 @@ public class Simulation {
                 currentCell.updateCell(currentGridEntry, emptyCells, parameters);
             }
         }
-       for (int r = 0; r < currentGridConfig.size(); r++) {
+        for (int r = 0; r < currentGridConfig.size(); r++) {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 currentGridEntry.updateGridEntry();
@@ -159,16 +159,16 @@ public class Simulation {
                 if (cellType != null) {
                     typesOfCells.putIfAbsent(cellType, 0);
                     typesOfCells.put(cellType, typesOfCells.get(cellType)+1);
-                  //  System.out.println(typesOfCells.get(cellType));
+                    //  System.out.println(typesOfCells.get(cellType));
                 }
-           }
+            }
         }
         setEmptyCellSet(emptyCells);
-       return myGroup;
+        return myGroup;
     }
 
     private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
-                                   List<Double> parameters) {
+                                    List<Double> parameters) {
         cell.getRectangle().setOnMouseClicked(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
     }
 
