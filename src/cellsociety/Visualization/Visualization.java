@@ -211,8 +211,8 @@ public class Visualization {
         if (probCatch != null) {
             for (int i = 0; i < probCatch.size(); i += 1) {
                 Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
-                Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, 1, maxProb.get(i) / 2,
-                        5, 0.05);
+                Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, maxProb.get(i),
+                        maxProb.get(i) / 2, 5, 0.05);
                 ProbConstant probConstant = new ProbConstant(probCatchLabel.get(i), probCatch.get(i));
                 myNewProbCatch.put(probabilitySlider, probConstant);
                 updateProbCatch(probabilitySlider);
