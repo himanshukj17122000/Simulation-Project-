@@ -73,13 +73,9 @@ public class Fire extends CommonMethods {
                 setStartingConfig(configRandom);
             }
             try{setColors(dataValues.get(DATA_FIELDS.get(19)));}catch (Exception e){
-                setColors("Red,Green,White");
+                setColors("ffffff,69e23f,e2563f");
             }
         }
-        private void setDefault() {
-
-
-    }
     @Override
     public void setMyNeighbours(String s) {
         try{if(isStringOnlyAlphabet(s)){
@@ -87,17 +83,6 @@ public class Fire extends CommonMethods {
         }setNeighbours(Integer.parseInt(s));} catch (NumberFormatException e) {
             setNeighbours(4);
         }
-    }
-
-    public Fire(){
-
-        }
-
-    public static boolean isStringOnlyAlphabet(String str)
-    {
-        return ((str != null)
-                && (!str.equals(""))
-                && str.matches(".*[a-zA-Z]+.*"));
     }
 }
 

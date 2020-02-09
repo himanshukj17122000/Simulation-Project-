@@ -84,9 +84,4 @@ public class Rps extends CommonMethods {
         }
     }
 
-
-    public Rps(){
-
-    }
-
 }
