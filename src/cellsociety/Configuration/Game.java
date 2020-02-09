@@ -8,7 +8,7 @@ public class Game extends Configuration {
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","type1","type2","type3","neighPattern","shape");
+            "top","bottom","neighbours","type1","type2","type3","neighPattern","shape","concentration","initial");
 
     /**
      * Create game data from given data.
@@ -24,21 +24,53 @@ public class Game extends Configuration {
      * @param dataValues map of field names to their values
      */
 
-    public Game (Map<String, String> dataValues) {
-        setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        setMaxStates(Integer.parseInt(dataValues.get(DATA_FIELDS.get(1))));
-        setRows(Integer.parseInt(dataValues.get(DATA_FIELDS.get(2))));
-        setColumns(Integer.parseInt(dataValues.get(DATA_FIELDS.get(3))));
-        setLeft(Integer.parseInt(dataValues.get(DATA_FIELDS.get(4))));
-        setRight(Integer.parseInt(dataValues.get(DATA_FIELDS.get(5))));
-        setTop(Integer.parseInt(dataValues.get(DATA_FIELDS.get(6))));
-        setBottom(Integer.parseInt(dataValues.get(DATA_FIELDS.get(7))));
-        setNeighbours(Integer.parseInt(dataValues.get(DATA_FIELDS.get(8))));
-        setType1(dataValues.get(DATA_FIELDS.get(9)));
-        setType2(dataValues.get(DATA_FIELDS.get(10)));
-        setType3(dataValues.get(DATA_FIELDS.get(11)));
-        setNeighPattern(dataValues.get(DATA_FIELDS.get(12)));
-        setShape(dataValues.get(DATA_FIELDS.get(13)));
+    public Game (Map<String, String> dataValues) throws NumberFormatException {
+            setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
+
+        try{setMaxStates(Integer.parseInt(dataValues.get(DATA_FIELDS.get(1))));} catch (NumberFormatException e) {
+            setMaxStates(3);
+        }
+        try{ setRows(Integer.parseInt(dataValues.get(DATA_FIELDS.get(2))));} catch (NumberFormatException e) {
+            setRows(iniRows);
+        }
+        try{setColumns(Integer.parseInt(dataValues.get(DATA_FIELDS.get(3))));} catch (NumberFormatException e) {
+            setColumns(iniCols);
+        }
+        try{setLeft(Integer.parseInt(dataValues.get(DATA_FIELDS.get(4))));} catch (NumberFormatException e) {
+            setLeft(noRow);
+        }
+        try{setRight(Integer.parseInt(dataValues.get(DATA_FIELDS.get(5))));} catch (NumberFormatException e) {
+            setRight(noRow);
+        }
+        try{setTop(Integer.parseInt(dataValues.get(DATA_FIELDS.get(6))));} catch (NumberFormatException e) {
+            setTop(noRow);
+        }
+        try{setBottom(Integer.parseInt(dataValues.get(DATA_FIELDS.get(7))));} catch (NumberFormatException e) {
+            setBottom(noRow);
+        }
+        try{setNeighbours(Integer.parseInt(dataValues.get(DATA_FIELDS.get(8))));} catch (NumberFormatException e) {
+            setNeighbours(8);
+        }
+        try{setType1(dataValues.get(DATA_FIELDS.get(9)));} catch (Exception e) {
+            setType1("Empty");
+        }
+        try{setType2(dataValues.get(DATA_FIELDS.get(10)));} catch (Exception e) {
+            setType2("Live");
+        }
+        try{setType3(dataValues.get(DATA_FIELDS.get(11)));} catch (Exception e) {
+            setType3("Dead");
+        }
+        try{setNeighPattern(dataValues.get(DATA_FIELDS.get(12)));} catch (Exception e) {
+            setNeighPattern(neighbourPattern);
+        }
+        try{setShape(dataValues.get(DATA_FIELDS.get(13)));} catch (Exception e) {
+            setShape(initialShape);
+        }
+        try{setConcentration(dataValues.get(DATA_FIELDS.get(14)));} catch (Exception e) {
+            setConcentration(iniConcLife);
+        } try{setConcentration(dataValues.get(DATA_FIELDS.get(15)));} catch(Exception e){
+            setStartingConfig(configRandom);
+        }
     }
 }
 

@@ -15,5 +15,6 @@
         <type3>Dead</type3>
         <neighPattern>11111111</neighPattern>
         <shape>Rectangle</shape>
+        <concentration>0.5,0.5</concentration>
     </gridlayout>
 </simulation>

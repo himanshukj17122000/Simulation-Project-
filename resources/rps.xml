@@ -21,5 +21,6 @@
         <randomNumber>2</randomNumber>
         <maxRandomNumber>4</maxRandomNumber>
         <randomLabel>Value of the Random Number</randomLabel>
+        <concentration>0.2,0.4,0,4</concentration>
     </gridlayout>
 </simulation>

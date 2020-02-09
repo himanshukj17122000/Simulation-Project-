@@ -23,20 +23,47 @@ public class Percolation extends Configuration {
      *
      * @param dataValues map of field names to their values
      */
-    public Percolation (Map<String, String> dataValues) {
+    public Percolation (Map<String, String> dataValues) throws NumberFormatException {
         setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        setMaxStates(Integer.parseInt(dataValues.get(DATA_FIELDS.get(1))));
-        setRows(Integer.parseInt(dataValues.get(DATA_FIELDS.get(2))));
-        setColumns(Integer.parseInt(dataValues.get(DATA_FIELDS.get(3))));
-        setLeft(Integer.parseInt(dataValues.get(DATA_FIELDS.get(4))));
-        setRight(Integer.parseInt(dataValues.get(DATA_FIELDS.get(5))));
-        setTop(Integer.parseInt(dataValues.get(DATA_FIELDS.get(6))));
-        setBottom(Integer.parseInt(dataValues.get(DATA_FIELDS.get(7))));
-        setNeighbours(Integer.parseInt(dataValues.get(DATA_FIELDS.get(8))));
-        setType1(dataValues.get(DATA_FIELDS.get(9)));
-        setType2(dataValues.get(DATA_FIELDS.get(10)));
-        setType3(dataValues.get(DATA_FIELDS.get(11)));
-        setNeighPattern(dataValues.get(DATA_FIELDS.get(12)));
-        setShape(dataValues.get(DATA_FIELDS.get(13)));
+        try{setMaxStates(Integer.parseInt(dataValues.get(DATA_FIELDS.get(1))));} catch (NumberFormatException e) {
+            setMaxStates(2);
+        }
+        try{setRows(Integer.parseInt(dataValues.get(DATA_FIELDS.get(2))));} catch (NumberFormatException e) {
+            setRows(iniRows);
+        }
+        try{setColumns(Integer.parseInt(dataValues.get(DATA_FIELDS.get(3))));} catch (NumberFormatException e) {
+            setColumns(iniCols);
+        }
+        try{setLeft(Integer.parseInt(dataValues.get(DATA_FIELDS.get(4))));} catch (NumberFormatException e) {
+            setLeft(noRow);
+        }
+        try{setRight(Integer.parseInt(dataValues.get(DATA_FIELDS.get(5))));} catch (NumberFormatException e) {
+            setRight(noRow);
+        }
+        try{setTop(Integer.parseInt(dataValues.get(DATA_FIELDS.get(6))));} catch (NumberFormatException e) {
+            setTop(3);
+        }
+        try{setBottom(Integer.parseInt(dataValues.get(DATA_FIELDS.get(7))));} catch (NumberFormatException e) {
+            setBottom(2);
+        }
+        try{setNeighbours(Integer.parseInt(dataValues.get(DATA_FIELDS.get(8))));} catch (NumberFormatException e) {
+            setNeighbours(8);
+        }
+        try{setType1(dataValues.get(DATA_FIELDS.get(9)));} catch (Exception e) {
+            setType1("Percolated");
+        }
+        try{setType2(dataValues.get(DATA_FIELDS.get(10)));} catch (Exception e) {
+            setType2("Open");
+        }
+        try{setType3(dataValues.get(DATA_FIELDS.get(11)));} catch (Exception e) {
+            setType3("Block");
+        }
+        try{setNeighPattern(dataValues.get(DATA_FIELDS.get(12)));} catch (Exception e) {
+            setNeighPattern("11111111");
+        }
+        try{setShape(dataValues.get(DATA_FIELDS.get(13)));} catch (Exception e) {
+            setShape(initialShape);
+        }
+        setStartingConfig(configRandom);
     }
 }
