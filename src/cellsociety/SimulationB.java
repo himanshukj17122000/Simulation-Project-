@@ -80,7 +80,7 @@ public class SimulationB {
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             for (int c = 0; c < myConfiguration.getColumns(); c++) {
                 GridEntry currentGridEntry = grid.get(r).get(c);
-                currentGridEntry.setNeighbors(grid, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern(), myConfiguration.getShape(), simulation);
+                currentGridEntry.setNeighbors(grid, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern(), myConfiguration.getShape());
             }
         }
     }

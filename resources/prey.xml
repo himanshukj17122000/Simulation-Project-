@@ -23,11 +23,8 @@
         <numWithoutFood>100</numWithoutFood>
         <maxDays>100</maxDays>
         <neighPattern>11111111</neighPattern>
-<<<<<<< HEAD
         <shape>Rectangle</shape>
-=======
         <concentration>0.8,0.1</concentration>
         <colors>Blue,Orange,Green</colors>
->>>>>>> 2cc1f5a85e87d7a534b9f324af64becafbe4767d
     </gridlayout>
 </simulation>
