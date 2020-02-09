@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 
 public class DialogBox {
@@ -35,6 +36,9 @@ public class DialogBox {
 
     public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException, ParserConfigurationException, IOException, SAXException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
+        if(dataFile==null){
+            throw new IOException();
+        }
 
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
