@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,19 +33,24 @@ public class DialogBox {
     public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private Configuration mySimulationConfig;
 
-    public void start(Stage primaryStage, Configuration simConfig) throws ParserConfigurationException, IOException, SAXException {
+    public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException, ParserConfigurationException, IOException, SAXException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(dataFile);
-        doc.getDocumentElement().normalize();
-        NodeList nList = doc.getElementsByTagName("gridlayout");
+
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(dataFile);
+            doc.getDocumentElement().normalize();
+            NodeList nList = doc.getElementsByTagName("gridlayout");
             Node nNode = nList.item(0);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
                 title = getTagValue("title", eElement);
             }
-        try {
+            else{
+                throw new NullPointerException();
+            }
+
             switch (title) {
                 case RPS_FILE:
                     result.clear();
@@ -52,38 +58,45 @@ public class DialogBox {
                     simConfig = new Rps(result);
                     break;
 
+
                 case FIRE_FILE:
                     result.clear();
                     result= new Reader(TYPE).getSimulation(FIRE_FILE,dataFile);
                     simConfig = new Fire(result);
                     break;
-                case GAME_FILE:
-                    result.clear();
-                    result= new Reader(TYPE).getSimulation(GAME_FILE,dataFile);
-                    simConfig = new Game(result);
-                    break;
+
+                    case GAME_FILE:
+                        result.clear();
+                        result = new Reader(TYPE).getSimulation(GAME_FILE, dataFile);
+                        simConfig = new Game(result);
+                        break;
+
                 case PERC_FILE:
                     result.clear();
                     result= new Reader(TYPE).getSimulation(PERC_FILE,dataFile);
                     simConfig = new Percolation(result);
                     break;
+
                 case PREY_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(PREY_FILE,dataFile);
-                    simConfig = new Prey(result);
-                    break;
+                        result = new Reader(TYPE).getSimulation(PREY_FILE, dataFile);
+                        simConfig = new Prey(result);
+                        break;
+
                 case SEG_FILE:
                     result.clear();
-                    result= new Reader(TYPE).getSimulation(SEG_FILE,dataFile);
-                    simConfig = new Segregation(result);
-                    break;
+
+                        result= new Reader(TYPE).getSimulation(SEG_FILE,dataFile);
+                        simConfig = new Segregation(result);
+                        break;
+                    default:
+                    throw new FileInputException("File Not Found");
             }
             Visualization animation = new Visualization(primaryStage, simConfig);
             primaryStage.setScene(animation.getAnimationScene());
             mySimulationConfig = simConfig;
         }
-        catch (FileInputException e) {
-            // handle error of unexpected file format
+        catch (FileInputException | NullPointerException e) {
             showMessage(Alert.AlertType.ERROR, e.getMessage());
         }
     }

@@ -3,8 +3,8 @@
     <gridlayout>
         <title>Prey</title>
         <maxStates>3</maxStates>
-        <rows>25</rows>
-        <columns>25</columns>
+        <rows>55</rows>
+        <columns>55</columns>
         <left>0</left>
         <right>0</right>
         <top>0</top>
@@ -23,5 +23,6 @@
         <numWithoutFood>10</numWithoutFood>
         <maxDays>20</maxDays>
         <neighPattern>11111111</neighPattern>
+        <concentration>0.8,0.1</concentration>
     </gridlayout>
 </simulation>

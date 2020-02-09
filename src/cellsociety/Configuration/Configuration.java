@@ -4,6 +4,7 @@ import cellsociety.GridEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public abstract class Configuration {
@@ -13,10 +14,33 @@ public abstract class Configuration {
     private String type3;
     private String shape;
     private String randomLabel;
+    private String startingConfig;
+    public final static String configRandom= "Random";
+    public final static String initialShape="Rectangle";
+    public final static int iniRows=50;
+    public final static int iniCols=50;
+    public final static String iniConc1="0.5,0.3";
+    public final static String iniConcLife="0.5,0.5";
+    public final static String iniConc2="0.3,0.3,0.4";
+    public final static int noRow=0;
+    public final static String neighbourPattern="10101111";
+    public final static double defaultMaxProb=1;
+    public final static double defaultProb=0.15;
+
+    public String getStartingConfig() {
+        return startingConfig;
+    }
+
+    public void setStartingConfig(String startingConfig) {
+        this.startingConfig = startingConfig;
+
+    }
+
     private ArrayList<String> probCatchLabel= new ArrayList<>();
     private ArrayList<Double> maxProb=new ArrayList<>();
     private ArrayList<Double> probCatch=new ArrayList<>();
     private int[] neighPattern= new int[8];
+    private Double[] concentration= new Double[3];
     private int maxStates,rows,columns,left,right,top,bottom, neighbours,randomNumber,maxRandomNumber;
 
 
@@ -50,68 +74,6 @@ public abstract class Configuration {
     public void setShape(String shape) {
         this.shape = shape;
     }
-
-
-    public abstract void paraTitle(String title);
-
-    private String getMyTitle(){
-        return myTitle;
-    }
-
-
-    public List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
-        List<List<GridEntry>> grid = new ArrayList<>();
-        for (int r = 0; r < this.getRows(); r++) {
-            List<GridEntry> insertRow = new ArrayList<>();
-            for (int c = 0; c < this.getColumns(); c++) {
-                GridEntry insertGridEntry = createBorderGridEntry(c, r, this.getTitle());
-                if (insertGridEntry == null) {
-                    insertGridEntry = randomizeGridEntry(r, c, this.getTitle());
-                }
-                insertRow.add(insertGridEntry);
-            }
-            grid.add(insertRow);
-        }
-        initializeGridNeighbors(grid, this.getTitle());
-        return grid;
-    }
-
-    public void initializeGridNeighbors(List<List<GridEntry>> grid, String simulation) {
-        for (int r = 0; r < this.getRows(); r++) {
-            for (int c = 0; c < this.getColumns(); c++) {
-                GridEntry currentGridEntry = grid.get(r).get(c);
-                currentGridEntry.setNeighbors(grid, simulation, getRows(), getColumns(), getNeighPattern());
-            }
-        }
-    }
-
-
-    private GridEntry createBorderGridEntry(int row, int col, String simulation) {
-        if (this.getBottom() != 0 && row == this.getRows() + 1) {
-            return new GridEntry(row, col, simulation, this.getBottom());
-        }
-        else if (this.getTop() != 0 && row == 0) {
-            return new GridEntry(row, col, simulation, this.getTop());
-        }
-        else if (this.getLeft() != 0 && col == 0) {
-            return new GridEntry(row, col, simulation, this.getLeft());
-        }
-        else if (this.getRight() != 0 && col == this.getColumns() + 1) {
-            return new GridEntry(row, col, simulation, this.getRight());
-        }
-        return null;
-    }
-
-    private int getRandomNumberInRange() {
-        Random r = new Random();
-        return r.nextInt(this.getMaxStates())+1;
-    }
-
-    private GridEntry randomizeGridEntry(int row, int col, String simulation) {
-        int randomType = getRandomNumberInRange();
-        return new GridEntry(row, col, simulation, randomType);
-    }
-
     public String getTitle(){return myTitle;}
     public int getMaxStates(){return maxStates;}
     public int getRows(){return rows;}
@@ -128,6 +90,7 @@ public abstract class Configuration {
     public ArrayList<Double> getProbCatch(){return probCatch;}
     public ArrayList<Double> getMaxProb(){return maxProb;}
     public int[] getNeighPattern(){return neighPattern;}
+    public Double[] getConcentration(){return concentration;}
 
     public void setMyTitle(String myTitle) { this.myTitle = myTitle; }
     public void setType1(String type1) { this.type1 = type1; }
@@ -151,4 +114,12 @@ public abstract class Configuration {
             neighPattern[i]= (int) pattArray[i] - 48;
         }
     }
+    public void setConcentration(String typeConcentration){
+        String[] concen= typeConcentration.split(",");
+        for(int i=0;i<concen.length;i++){
+            concentration[i] = Double.parseDouble(concen[i]);
+        }
+    }
+
+    public abstract void paraTitle(String title);
 }

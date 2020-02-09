@@ -18,6 +18,7 @@
         <maxProbCatch>1</maxProbCatch>
         <neighPattern>10101111</neighPattern>
         <shape>Rectangle</shape>
+        <concentration>0.5,0.3</concentration>
     </gridlayout>
 </simulation>
 
