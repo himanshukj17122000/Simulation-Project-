@@ -34,7 +34,7 @@ public class Simulation {
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             List<GridEntry> insertRow = new ArrayList<>();
             for (int c = 0; c < myConfiguration.getColumns(); c++) {
-                GridEntry insertGridEntry = createBorderGridEntry(c, r, myConfiguration.getTitle());
+                GridEntry insertGridEntry = createBorderGridEntry(r, c, myConfiguration.getTitle());
                 if (insertGridEntry == null) {
                     insertGridEntry = randomizeGridEntry(r, c, myConfiguration.getTitle());
                 }
@@ -183,10 +183,10 @@ public class Simulation {
         Cell cell = curGridEntry.getCell();
         Shape cellVis;
         if(myConfiguration.getShape().equals("Hexagon")) {
-            double centerX = Width / myConfiguration.getColumns() * row;
-            double centerY = Height / myConfiguration.getRows() * col;
+            double centerX = Width / myConfiguration.getColumns() * col;
+            double centerY = Height / myConfiguration.getRows() * row;
             double radius = Width / myConfiguration.getColumns() / 2;
-            if (col % 2 == 0) {
+            if (row % 2 == 0) {
                 centerX = centerX - radius;
             }
             cellVis = new Polygon();
