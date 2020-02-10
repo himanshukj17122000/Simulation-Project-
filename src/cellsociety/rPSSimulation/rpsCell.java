@@ -5,10 +5,7 @@ import cellsociety.GridEntry;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class rpsCell extends Cell {
     private int TYPE;
@@ -17,22 +14,33 @@ public class rpsCell extends Cell {
     private static boolean CANUPDATE = true;
     private int RACE;
     private int Threshold = 4;
+    private int Random = 2;
 
-    public rpsCell(GridEntry entry, int type, int threshold) {
+
+    public rpsCell(GridEntry entry, int type, int threshold, int random) {
         super(FILL[type-1], entry);
         setTYPE(type);
         setThreshold(threshold);
+        setRandom(random);
     }
 
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
+        setParameters(parameters);
+        int resultBattle = battle(entry);
+         if(resultBattle>0){
+            Cell cell = new rpsCell(entry, resultBattle, Threshold, Random);
+            entry.setNextStepCell(cell);
+        }
+    }
+
+    private void setParameters(List<Double> parameters){
         double value = parameters.get(0);
         int val = (int) value;
         setThreshold(val);
-         if(battle(entry)!=0){
-            Cell cell = new rpsCell(entry, battle(entry), Threshold);
-            entry.setNextStepCell(cell);
-        }
+        value = parameters.get(1);
+        val = (int) value;
+        setRandom(val);
     }
 
     @Override
@@ -57,6 +65,8 @@ public class rpsCell extends Cell {
         Threshold = newValue;
     }
 
+    private void setRandom(int newValue){Random = newValue;}
+
     private int battle(GridEntry entry) {
         Set<GridEntry> neighborSet = entry.getNeighbors();
         Map<Integer, Integer> typesOfCells = new HashMap<>();
@@ -68,14 +78,21 @@ public class rpsCell extends Cell {
         int max = 0;
         int maxType = 1;
         if(getType()<FILL.length && typesOfCells.containsKey(getType()+1)){
-            if(typesOfCells.get(getType()+1)> Threshold){
+            if(typesOfCells.get(getType()+1)> Threshold+getRandomNum()){
                 return getType()+1;
             }
         }else if(getType()==FILL.length && typesOfCells.containsKey(1)){
-            if(typesOfCells.get(1)> Threshold){
+            if(typesOfCells.get(1)> Threshold+getRandomNum()){
                 return 1;
             }
         }
         return 0;
+    }
+
+    private int getRandomNum(){
+        if(Random == 0){
+            return 0;
+        }
+        return new Random().nextInt(Random);
     }
 }

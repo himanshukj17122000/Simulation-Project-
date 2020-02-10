@@ -26,7 +26,6 @@ public class GridEntry {
     private int containsCellType;
     private Cell containedCell;
     private Cell nextStepCell = null;
-    private boolean isOccupied;
     private Set<GridEntry> NEIGHBORS;
     private int ROW;
     private int COLUMN;
@@ -60,6 +59,7 @@ public class GridEntry {
             setCell(getCell());
         } else {
             setCell(getNextStepCell());
+            setNextStepCell(null);
         }
     }
 
@@ -178,18 +178,11 @@ public class GridEntry {
         NEIGHBORS = NSET;
     }
 
-    private void setOccupancy(Boolean set){
-        isOccupied = set;
-    }
+
 
     public void setCell(Cell cell){
         containedCell = cell;
         containsCellType = cell.getType();
-        if(cell.getType() == 1) {
-            setOccupancy(false);
-        }else{
-            setOccupancy(true);
-        }
     }
 
     public void createCell(String simulation, int type) { // refactor (make into smaller functions)
@@ -268,7 +261,7 @@ public class GridEntry {
     }
 
     private Cell rpsSimulationCell(int type){
-        return new rpsCell(this, type, 2);
+        return new rpsCell(this, type, 2, 1);
     }
 
     public Set<GridEntry> getNeighbors(){
@@ -289,5 +282,18 @@ public class GridEntry {
     }
 
     public int getColumn() { return COLUMN; }
+
+    public List<Cell> getCellList(){
+        return null;
+    }
+
+    public List<Integer> getCellTypeList(){
+        return null;
+    }
+
+    public List<Cell> getNextStepCellList(){
+        return null;
+    }
+
 
 }

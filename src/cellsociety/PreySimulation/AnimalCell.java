@@ -94,7 +94,6 @@ public class AnimalCell extends Cell {
         }}
         if(!moved){
             if(entry.getNextStepCell() == null){
-                //System.out.print("hi");
                 entry.setNextStepCell(this);
             }
         }
