@@ -25,6 +25,7 @@ public class DialogBox {
     public static final String PREY_FILE = "Prey";
     public static final String SEG_FILE = "Segregation";
     public static final String RPS_FILE= "Rps";
+    public static final String Ant_FILE= "Ant";
     private static final String TYPE = "type";
     // NOTE: generally accepted behavior that the chooser remembers where user left it last
     private static final FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
@@ -72,6 +73,9 @@ public class DialogBox {
                     break;
                 case SEG_FILE:
                     simConfig = new Segregation(result);
+                    break;
+                case Ant_FILE:
+                    simConfig=new Ant(result);
                     break;
                 default:
                 throw new FileInputException("File Not Found");

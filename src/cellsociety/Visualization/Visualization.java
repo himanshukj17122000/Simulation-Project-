@@ -1,10 +1,7 @@
 package cellsociety.Visualization;
 
-import cellsociety.Configuration.Configuration;
+import cellsociety.Configuration.*;
 import cellsociety.*;
-import cellsociety.Configuration.Fire;
-import cellsociety.Configuration.FireWriter;
-import cellsociety.Configuration.GofWriter;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -263,12 +260,12 @@ public class Visualization {
 
     private void saveSim(Button buttonSave, Configuration simulationConfig, String savedFile) {
         buttonSave.setOnAction(e -> {
-            GofWriter gofWriter = new GofWriter();
+            PreyWriter preyWriter = new PreyWriter();
             if ((savedFile != null && !savedFile.isEmpty())) {
-                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, savedFile);
+                preyWriter.main(simulationConfig, myNewProbCatch, mySimulation, savedFile);
             }
             else {
-                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle()+".xml");
+                preyWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle()+".xml");
             }
 
         });
