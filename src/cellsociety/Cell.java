@@ -22,13 +22,13 @@ public abstract class Cell { // potentially implement a check conditions method 
     public Paint getColor(){return myColor;
     }
 
-//abstract method to update the cell for next simulation step
+    //abstract method to update the cell for next simulation step
     public abstract void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters);
 
     //get type method to get cell type
     public abstract int getType();
-//get race method to get information about the cell
+    //get race method to get information about the cell
     public abstract int getRace();
-//get label method to get the string name of the cell
+    //get label method to get the string name of the cell
     public abstract String getLabel();
 }
