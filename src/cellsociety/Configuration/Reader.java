@@ -4,7 +4,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputFilter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +15,8 @@ import org.xml.sax.SAXException;
 import static cellsociety.Visualization.DialogBox.*;
 /**
  * @Author-Himanshu Jain
- * This class is for the Fire Configuration. It sets all the values for the Fire Simulation using the setter methods
- * in the Configuration file
+ * This class is for the Reading the values from the XML file. It returns the read values in the form of a map
+ * that could be used to initialise a class of the simulation
  */
 
 public class Reader {
@@ -38,7 +37,7 @@ public class Reader {
         TYPE_ATTRIBUTE = type;
     }
 
-        /**
+    /**
      * Get data contained in this XML file as an object
      */
     public Map<String, String> getSimulation (String name,File dataFile) {
@@ -161,7 +160,7 @@ public class Reader {
             }
         }
 
-        // boilerplate code needed to make a documentBuilder
+
         private DocumentBuilder getDocumentBuilder () {
             try {
                 return DocumentBuilderFactory.newInstance().newDocumentBuilder();

@@ -20,18 +20,17 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 /**
  * @Author-Himanshu Jain
- * This class is for the Fire Configuration. It sets all the values for the Fire Simulation using the setter methods
- * in the Configuration file
+ * This class is for the Segregation Writer . It reads all the values from the screen and creates a new XML file
  */
 public class SegregationWriter {
     private static String conc="";
 
     /**
      *
-     * @param simulationConfig
-     * @param myNewProbCatch
-     * @param mySim
-     * @param s
+     * @param simulationConfig the file we are reading
+     * @param myNewProbCatch the map of all the constants and the labels
+     * @param mySim the simulation we are running
+     * @param s the name of the new file created
      */
     public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim, String s) {
         DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
@@ -60,14 +59,6 @@ public class SegregationWriter {
         }
     }
 
-    /**
-     *
-     * @param doc
-     * @param title
-     * @param simulation
-     * @param prob
-     * @return
-     */
     private static Node getCompany(Document doc, String title, Configuration simulation, double prob) {
         Element company = doc.createElement("gridlayout");
         company.appendChild(getCompanyElements(doc, company, Segregation.DATA_FIELDS.get(0), title));
@@ -94,14 +85,6 @@ public class SegregationWriter {
         return company;
     }
 
-    /**
-     * 
-     * @param doc
-     * @param element
-     * @param name
-     * @param value
-     * @return
-     */
 
     private static Node getCompanyElements(Document doc, Element element, String name, String value) {
         Element node = doc.createElement(name);
