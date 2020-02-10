@@ -8,7 +8,7 @@ public class Game extends Configuration{
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","type1","type2","type3","neighPattern","shape","concentration","initial","colors");
+            "top","bottom","neighbours","type1","type2","type3","neighPattern","shape","concentration","initial","colors","boundary");
 
     /**
      * Create game data from given data.
@@ -41,6 +41,8 @@ public class Game extends Configuration{
         setMyConcentration(dataValues.get(DATA_FIELDS.get(14)),iniConcLife);
         setMyStartingConfig(dataValues.get(DATA_FIELDS.get(15)),configRandom);
         setMyColors(dataValues.get(DATA_FIELDS.get(16)),"Red,Green,White");
+        setMyBoundary(dataValues.get(DATA_FIELDS.get(17)),"NotToroidal");
+
     }
 
 

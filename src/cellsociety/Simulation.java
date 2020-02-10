@@ -79,9 +79,21 @@ public class Simulation {
     }
 
     private GridEntry randomizeGridEntry(int row, int col, String simulation) {
-        int randomType = getRandomNumberInRange();
-        return new GridEntry(row, col, simulation, randomType);
+        if(myConfiguration.getStartingConfig().equals("Given")){
+            Double r= Math.random();
+            if(r <myConfiguration.getConcentration()[0] ){
+                return new GridEntry(row, col, simulation, 3);
+            } else if(r <myConfiguration.getConcentration()[1]+myConfiguration.getConcentration()[0]){
+                return new GridEntry(row,col,simulation,2);
+            }else {
+                return new GridEntry(row,col,simulation,1);
+            }
+        } else {
+            int randomType = getRandomNumberInRange();
+            return new GridEntry(row, col, simulation, randomType);
+        }
     }
+
 
     private void setConfiguration(Configuration simConfiguration){ myConfiguration = simConfiguration; }
 
