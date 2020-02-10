@@ -8,6 +8,10 @@ import javafx.scene.paint.Paint;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * tree cell for fire simulation
+ * @author Olga Suchankova
+ */
 public class TreeCell extends Cell {
     private static final int TYPE = 2;
     private static final String LABEL = "Trees";
@@ -15,25 +19,30 @@ public class TreeCell extends Cell {
     private static final boolean CANUPDATE = true;
     private double catchFireProb = 0.15;
 
+    //constructor for tree cell class
     public TreeCell(GridEntry entry, double burnProb) {
         super(FILL, entry);
         setCatchProb(burnProb);
     }
 
+    //get the type of cell
     @Override
     public int getType() {
         return TYPE;
     }
 
+    //get the race of the cell (not used)
     @Override
     public int getRace() {
         return 0;
     }
 
+    //get the name of the cell for chart/display purposes
     @Override
     public String getLabel() { return LABEL; }
 
-    public void setCatchProb(double prob){
+    //
+    private void setCatchProb(double prob){
         catchFireProb = prob;
     }
 
@@ -48,7 +57,7 @@ public class TreeCell extends Cell {
         return neighborFire;
     }
 
-    public void setBurnProbability(double probability){
+    private void setBurnProbability(double probability){
         catchFireProb = probability;
     }
 
@@ -61,6 +70,7 @@ public class TreeCell extends Cell {
         return false;
     }
 
+    //update cell method for the tree cell class
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters){
         setBurnProbability(parameters.get(0));

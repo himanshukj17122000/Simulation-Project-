@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * PredatorCell class class for Prey simulation
+ * @author Olga Suchankova
+ */
 public class PredatorCell extends AnimalCell { // make animal superclass // contains long classes plz refactor
     private static final int TYPE = 3;
     private static final String LABEL = "Predators";
@@ -21,9 +25,11 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     private int timeSinceReproduction;
     private int maxTimeWithoutEating = 100;
     private int timeSinceEating;
+    private static final int Race = 2;
 
+    //predator cell constructor
     public PredatorCell(GridEntry entry, int reproductionTime, int maxTimeWithoutEating) {
-        super(entry, 2, reproductionTime);
+        super(entry, Race, reproductionTime);
         this.setColor(FILL);
         setReproductionTime(reproductionTime);
         setMaxTimeWithoutEating(maxTimeWithoutEating);
@@ -31,6 +37,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         setTimeSinceReproduction(0);
     }
 
+    //update cell method for predator cell
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
         setParameters(parameters);
@@ -52,16 +59,17 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         setReproductionTime(val);
     }
 
+    //get type for predator cell
     @Override
     public int getType() {
         return TYPE;
     }
-
+//get race/special info for predator cell
     @Override
     public int getRace() {
-        return 2;
+        return Race;
     }
-
+//get label/name for predator cell
     @Override
     public String getLabel() { return LABEL; }
 
@@ -80,18 +88,18 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
     private int getTimeSinceEating(){
         return timeSinceEating;
     }
-
+//get the reporduction time for the predator cell
     @Override
     public int getReproductionTime() {
         return reproductionTime;
     }
-
+//set the reproductiontime for the predator cell
     @Override
     public void setReproductionTime(int reproductionTime) {
         this.reproductionTime = reproductionTime;
     }
 
-    public void setMaxTimeWithoutEating(int time){
+    private void setMaxTimeWithoutEating(int time){
         maxTimeWithoutEating = time;
     }
 

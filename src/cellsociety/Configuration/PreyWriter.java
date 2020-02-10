@@ -17,8 +17,20 @@ import javafx.scene.control.Slider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+/**
+ * @Author-Himanshu Jain
+ * This class is for the Prey Writer . It reads all the values from the screen and creates a new XML file
+ */
 public class PreyWriter {
     private static String conc="";
+
+    /**
+     *
+     * @param simulationConfig the file we are reading
+     * @param myNewProbCatch the map of all the constants and the labels
+     * @param mySim the simulation we are running
+     * @param savedFile the name of the new file created
+     */
     public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim, String savedFile) {
         DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder icBuilder;
@@ -68,6 +80,7 @@ public class PreyWriter {
         }
     }
 
+
     private static Node getCompany(Document doc, String title, Configuration simulation, double prob,double shark, double days) {
         Element company = doc.createElement("gridlayout");
         company.appendChild(getCompanyElements(doc, company, Prey.DATA_FIELDS.get(0), title));
@@ -99,6 +112,7 @@ public class PreyWriter {
         company.appendChild(getCompanyElements(doc, company, Prey.DATA_FIELDS.get(26), simulation.getMyboundary()));
         return company;
     }
+
 
     private static Node getCompanyElements(Document doc, Element element, String name, String value) {
         Element node = doc.createElement(name);

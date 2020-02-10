@@ -2,7 +2,11 @@ package cellsociety.Configuration;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * @Author-Himanshu Jain
+ * This class is for the Segregation Configuration. It sets all the values for the Segregation Simulation using the setter methods
+ * in the Configuration file
+ */
 public class Segregation extends Configuration {
     public static final String DATA_TYPE = "Segregation";
     // field names expected to appear in data file holding values for this object
@@ -11,7 +15,7 @@ public class Segregation extends Configuration {
             "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape","concentration","initial","colors","boundary");
 
     /**
-     * Create game data from given data.
+     * Create Segregation data from given data.
      */
     @Override
     public void paraTitle (String title) {
@@ -19,7 +23,7 @@ public class Segregation extends Configuration {
     }
 
     /**
-     * Create game data from data structure of Strings.
+     * Create Segregation data from data structure of Strings.
      *
      * @param dataValues map of field names to their values
      */

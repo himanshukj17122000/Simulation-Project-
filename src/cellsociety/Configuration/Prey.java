@@ -2,7 +2,11 @@ package cellsociety.Configuration;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * @Author-Himanshu Jain
+ * This class is for the Prey Configuration. It sets all the values for the Prey Simulation using the setter methods
+ * in the Configuration file
+ */
 public class Prey extends Configuration {
     public static final String DATA_TYPE = "Prey";
 
@@ -14,7 +18,7 @@ public class Prey extends Configuration {
 
 
     /**
-     * Create game data from given data.
+     * Create Prey data from given data.
      */
     @Override
     public void paraTitle (String title) {
@@ -22,7 +26,7 @@ public class Prey extends Configuration {
     }
 
     /**
-     * Create game data from data structure of Strings.
+     * Create Prey data from data structure of Strings.
      *
      * @param dataValues map of field names to their values
      */

@@ -2,7 +2,11 @@ package cellsociety.Configuration;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * @Author-Himanshu Jain
+ * This class is for the Rock, Paper, Scissors  Configuration. It sets all the values for the RPS Simulation using the setter methods
+ * in the Configuration file
+ */
 public class Rps extends Configuration {
     public static final String DATA_TYPE = "Rps";
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
@@ -10,7 +14,7 @@ public class Rps extends Configuration {
             "randomNumber", "maxRandomNumber","randomLabel","concentration","initial","colors","boundary");
 
     /**
-     * Create game data from given data.
+     * Create RPS data from given data.
      */
     @Override
     public void paraTitle (String title) {
@@ -18,7 +22,7 @@ public class Rps extends Configuration {
     }
 
     /**
-     * Create game data from data structure of Strings.
+     * Create RPS data from data structure of Strings.
      *
      * @param dataValues map of field names to their values
      */

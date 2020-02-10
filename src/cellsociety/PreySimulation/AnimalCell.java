@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * animal cell for the prey simulation, the predator cell extends this cell
+ * @author Olga Suchankova
+ */
 public class AnimalCell extends Cell {
     private static final int TYPE = 1;
     private static final String LABEL = "Preys";
@@ -21,7 +25,7 @@ public class AnimalCell extends Cell {
     private static final boolean CANUPDATE = true;
     private int RACE;
 
-
+//animal cell constructor
     public AnimalCell(GridEntry entry, int species, int reproductionTime) {
         super(FILL[species-1], entry);
         setTimeSinceReproduction(0);
@@ -34,28 +38,30 @@ public class AnimalCell extends Cell {
         RACE = race;
     }
 
-
+//update method for the animal cell
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
         double value = parameters.get(0);
         int val = (int) value;
         setReproductionTime(val);
-//        System.out.println(getReproductionTime());
         reproduce(entry, emptyCells);
         move(entry, emptyCells);
 
     }
 
+    //get type method for the animal cell
     @Override
     public int getType() {
         return TYPE;
     }
 
+    //get the race of the cell (species)
     @Override
     public int getRace() {
-        return 1;
+        return RACE;
     }
 
+    //get the name of the cell
     @Override
     public String getLabel() { return LABEL; }
 
@@ -94,7 +100,6 @@ public class AnimalCell extends Cell {
         }}
         if(!moved){
             if(entry.getNextStepCell() == null){
-                //System.out.print("hi");
                 entry.setNextStepCell(this);
             }
         }

@@ -19,8 +19,20 @@ import javafx.scene.control.Slider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+/**
+ * @Author-Himanshu Jain
+ * This class is for the RPS Writer . It reads all the values from the screen and creates a new XML file
+ */
 public class RpsWriter {
     private static String conc="";
+
+    /**
+     *
+     * @param simulationConfig the file we are reading
+     * @param myNewProbCatch the map of all the constants and the labels
+     * @param mySim the simulation we are running
+     * @param s the name of the new file created
+     */
     public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim,String s) {
         DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder icBuilder;
@@ -50,6 +62,7 @@ public class RpsWriter {
         }
     }
 
+
     private static Node getCompany(Document doc, String title, Configuration simulation, double prob,double rand) {
         Element company = doc.createElement("gridlayout");
         company.appendChild(getCompanyElements(doc, company, Rps.DATA_FIELDS.get(0), title));
@@ -78,6 +91,7 @@ public class RpsWriter {
         company.appendChild(getCompanyElements(doc, company, Rps.DATA_FIELDS.get(23), simulation.getMyboundary()));
         return company;
     }
+
 
     private static Node getCompanyElements(Document doc, Element element, String name, String value) {
         Element node = doc.createElement(name);

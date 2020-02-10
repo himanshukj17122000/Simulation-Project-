@@ -24,17 +24,23 @@ Kyra Chan:
     * Created the main method that initialized the grid setup (randomizing the cells)
     
 Himanshu Jain:
-* Primary classes (in charge of):
-* Secondary classes (worked on): 
+* Primary classes (in charge of): The Whole Configuration Folder, XML Files and the Dialog Box
+* Secondary classes (worked on): Simulation, Visualization
 * Main contributions:
-    *
-    *
+    * Worked on reading the XML files and setting the initial configuration of the grid by making a map of all the values inside 
+    the XML file
+    * Implemented the different Error checkings like checking for the right value, right value, missing values etc 
+    * Returned all the paramaters required for setting up the grid and updating the values 
+    * Made the XML files that contain the data that has to be read 
+    * Created the XML writers for 5 simulations 
+
 Olga Suchankova:
 * Primary classes (in charge of):
 * Secondary classes (worked on): 
 * Main contributions:
-    *
-    *
+    * Implemented all the cell types, and the data structures and algorithms to store cells and update cell states and communicate with the UI
+    * created simulation loop in simulation class
+    * implemented the display of cell states to the output window
     
 ### Resources Used
 * Stack Overflow
@@ -50,7 +56,7 @@ Main class: Main.java
 
 Data files needed: 
 * 7 packages (Configuration, Visualization, one for each Simulation type)
-* 30 classes (of which 2 are abstract and 18 are sub-classes)
+* 40 classes (of which 2 are abstract and 18 are sub-classes)
 
 Features implemented:
 * Simulation
@@ -79,7 +85,8 @@ Features implemented:
     * Allow simulations initial configuration to be set by:
         * Completely randomly based on a total number of locations to occupy (not including
         border conditions).
-        * Randomly based on probability/concentration distributions (provided in XML file).   
+        * Randomly based on probability/concentration distributions (provided in XML file).  
+    * Save the Configuration of the Grid in a new XML file that could later be used by the user
 * Visualization
     * Display the current states of the 2D grid and animate the simulation from its initial 
     state indefinitely until the user stops it.

@@ -2,7 +2,11 @@ package cellsociety.Configuration;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * @Author-Himanshu Jain
+ * This class is for the Game of Life Configuration. It sets all the values for the Game of Life Simulation using the setter methods
+ * in the Configuration file
+ */
 public class Game extends Configuration{
     public static final String DATA_TYPE = "Game of Life";
     // field names expected to appear in data file holding values for this object
@@ -11,7 +15,7 @@ public class Game extends Configuration{
             "top","bottom","neighbours","type1","type2","type3","neighPattern","shape","concentration","initial","colors","boundary");
 
     /**
-     * Create game data from given data.
+     * Create Game of Life data from given data.
      */
     @Override
     public void paraTitle (String title) {
@@ -19,7 +23,7 @@ public class Game extends Configuration{
     }
 
     /**
-     * Create game data from data structure of Strings.
+     * Create Game of Life data from data structure of Strings.
      *
      * @param dataValues map of field names to their values
      */

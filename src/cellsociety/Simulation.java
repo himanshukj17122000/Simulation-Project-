@@ -1,7 +1,6 @@
 package cellsociety;
 
 import cellsociety.Configuration.Configuration;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -9,14 +8,13 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-import javafx.event.Event.*;
-
-import java.awt.event.MouseEvent;
 import java.util.*;
 
+/**
+ * Simulation class which time steps through a grid to update and create a graphic for the next time step
+ */
 public class Simulation {
     private List<List<GridEntry>> SimulationGrid;
-    private int status;
     private Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
     private Map<String, Integer> typesOfCells = new HashMap<>();
     private Group myGroup = new Group();
@@ -25,7 +23,8 @@ public class Simulation {
     private double Width;
     private double Height;
 
-    public Simulation(Group simGroup, Configuration inputConfiguration,  double width, double height) {
+    //constructor for the simulation class
+    public Simulation(Group simGroup, Configuration inputConfiguration, double width, double height) {
         setMyGroup(simGroup, width, height);
         setConfiguration(inputConfiguration);
         setSimulationGrid(makeCellGrid());
@@ -34,7 +33,7 @@ public class Simulation {
 
     }
 
-    public List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
+    private List<List<GridEntry>> makeCellGrid() {  // initialization of a grid of empty cells
         List<List<GridEntry>> grid = new ArrayList<>();
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             List<GridEntry> insertRow = new ArrayList<>();
@@ -52,52 +51,80 @@ public class Simulation {
         return grid;
     }
 
-    public void initializeGridNeighbors(List<List<GridEntry>> grid) {
+    private void initializeGridNeighbors(List<List<GridEntry>> grid) {
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             for (int c = 0; c < myConfiguration.getColumns(); c++) {
                 GridEntry currentGridEntry = grid.get(r).get(c);
-                currentGridEntry.setNeighbors(grid, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern(), myConfiguration.getShape());
+                currentGridEntry.setNeighbors(grid, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern(), myConfiguration.getShape(), myConfiguration.getMyboundary());
             }
         }
     }
 
 
     private GridEntry createBorderGridEntry(int row, int col, String simulation) {
-        if (myConfiguration.getBottom() != 0 && row == myConfiguration.getRows() + 1) {
-            return new GridEntry(row, col, simulation, myConfiguration.getBottom());
+        if(simulation.equals("Ants")){
+            if (myConfiguration.getBottom() != 0 && row == myConfiguration.getRows() + 1) {
+                return new GridEntryAnts(row, col, simulation, myConfiguration.getBottom());
+            } else if (myConfiguration.getTop() != 0 && row == 0) {
+                return new GridEntryAnts(row, col, simulation, myConfiguration.getTop());
+            } else if (myConfiguration.getLeft() != 0 && col == 0) {
+                return new GridEntryAnts(row, col, simulation, myConfiguration.getLeft());
+            } else if (myConfiguration.getRight() != 0 && col == myConfiguration.getColumns() + 1) {
+                return new GridEntryAnts(row, col, simulation, myConfiguration.getRight());
+            }
+            return null;
+        }else {
+            if (myConfiguration.getBottom() != 0 && row == myConfiguration.getRows() + 1) {
+                return new GridEntry(row, col, simulation, myConfiguration.getBottom());
+            } else if (myConfiguration.getTop() != 0 && row == 0) {
+                return new GridEntry(row, col, simulation, myConfiguration.getTop());
+            } else if (myConfiguration.getLeft() != 0 && col == 0) {
+                return new GridEntry(row, col, simulation, myConfiguration.getLeft());
+            } else if (myConfiguration.getRight() != 0 && col == myConfiguration.getColumns() + 1) {
+                return new GridEntry(row, col, simulation, myConfiguration.getRight());
+            }
+            return null;
         }
-        else if (myConfiguration.getTop() != 0 && row == 0) {
-            return new GridEntry(row, col, simulation, myConfiguration.getTop());
-        }
-        else if (myConfiguration.getLeft() != 0 && col == 0) {
-            return new GridEntry(row, col, simulation, myConfiguration.getLeft());
-        }
-        else if (myConfiguration.getRight() != 0 && col == myConfiguration.getColumns() + 1) {
-            return new GridEntry(row, col, simulation, myConfiguration.getRight());
-        }
-        return null;
     }
 
     private int getRandomNumberInRange() {
         Random r = new Random();
-        return r.nextInt(myConfiguration.getMaxStates())+1;
+        return r.nextInt(myConfiguration.getMaxStates()) + 1;
     }
 
     private GridEntry randomizeGridEntry(int row, int col, String simulation) {
-        if(myConfiguration.getStartingConfig().equals("Given")){
-            Double r= Math.random();
-            if(r <myConfiguration.getConcentration()[0] ){
-                return new GridEntry(row, col, simulation, 3);
-            } else if(r <myConfiguration.getConcentration()[1]+myConfiguration.getConcentration()[0]){
-                return new GridEntry(row,col,simulation,2);
-            }else {
-                return new GridEntry(row,col,simulation,1);
+        if (simulation.equals("Ant")) {
+            if (myConfiguration.getStartingConfig().equals("Given")) {
+                Double r = Math.random();
+                if (r < myConfiguration.getConcentration()[0]) {
+                    return new GridEntryAnts(row, col, simulation, 3);
+                } else if (r < myConfiguration.getConcentration()[1] + myConfiguration.getConcentration()[0]) {
+                    return new GridEntryAnts(row, col, simulation, 2);
+                } else {
+                    return new GridEntryAnts(row, col, simulation, 1);
+                }
+            } else {
+                int randomType = getRandomNumberInRange();
+                return new GridEntryAnts(row, col, simulation, randomType);
             }
-        } else {
-            int randomType = getRandomNumberInRange();
-            return new GridEntry(row, col, simulation, randomType);
+        }else{
+            if(myConfiguration.getStartingConfig().equals("Given")) {
+                Double r = Math.random();
+                if (r < myConfiguration.getConcentration()[0]) {
+                    return new GridEntry(row, col, simulation, 3);
+                } else if (r < myConfiguration.getConcentration()[1] + myConfiguration.getConcentration()[0]) {
+                    return new GridEntry(row, col, simulation, 2);
+                } else {
+                    return new GridEntry(row, col, simulation, 1);
+                }
+            } else {
+                int randomType = getRandomNumberInRange();
+                return new GridEntry(row, col, simulation, randomType);
+            }
         }
     }
+
+
 
 
     private void setConfiguration(Configuration simConfiguration){ myConfiguration = simConfiguration; }
@@ -107,7 +134,7 @@ public class Simulation {
         SimulationGrid = simGrid;
     }
 
-    public List<List<GridEntry>> getSimulationGrid() {
+    private List<List<GridEntry>> getSimulationGrid() {
         return SimulationGrid;
     }
 
@@ -126,13 +153,15 @@ public class Simulation {
         emptyCellSet = emptyCells;
     }
 
-    public Set<GridEntry> getEmptyCellSet() {
+    private Set<GridEntry> getEmptyCellSet() {
         return emptyCellSet;
     }
 
+    //method that gets the types of cells in the simulation for chart purposes
     public Map<String, Integer> getTypesOfCells(){
         return typesOfCells;
     }
+
 
     private void initializeCellSets(){
         Set<GridEntry> emptyCells = getEmptyCellSet();
@@ -154,8 +183,8 @@ public class Simulation {
         setEmptyCellSet(emptyCells);
     }
 
+    //step function of the simulation and returns a visual group which is added to the Hbox in visualization class
     public Group step(List<Double> parameters) {
-        //int[] cellType = new int[2];  // random line to initialize
         typesOfCells = new HashMap<>();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         myGroup.getChildren().clear();
@@ -176,8 +205,6 @@ public class Simulation {
                     emptyCells.add(currentGridEntry);
                 }
                 createShape(currentGridEntry, r, c);
-//                cellType[0] = currentGridEntry.getCellType();
-//                cellType[1] = currentGridEntry.getCell().getRace();
                 String cellType = currentGridEntry.getCell().getLabel();
                 if (cellType != null) {
                     typesOfCells.putIfAbsent(cellType, 0);
