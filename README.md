@@ -31,6 +31,7 @@ Himanshu Jain:
     * Returned all the paramaters required for setting up the grid and updating the values 
     * Made the XML files that contain the data that has to be read 
     * Created the XML writers for 5 simulations 
+
 Olga Suchankova:
 * Primary classes (in charge of):
 * Secondary classes (worked on): 
