@@ -124,7 +124,6 @@ public class Visualization {
             myStats = myLayout.createChart(mySimulation);
             myToolBar.getChildren().add(myStats);
         }
-        //myTimeline.setRate(mySpeed);
     }
 
     private void initializeSimulation(Configuration simulationConfig){
