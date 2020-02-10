@@ -122,6 +122,7 @@ public class Visualization {
             myStats = myLayout.createChart(mySimulation);
             myToolBar.getChildren().add(myStats);
         }
+        //myTimeline.setRate(mySpeed);
     }
 
     private void initializeSimulation(Configuration simulationConfig){
@@ -156,6 +157,9 @@ public class Visualization {
         Button buttonRestart = myLayout.createButton(BUTTON_RESTART, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonChange = myLayout.createButton(BUTTON_CHANGE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonUpload = myLayout.createButton(BUTTON_UPLOAD, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        TextField fileName = new TextField();
+        fileName.setPromptText("Enter a name for the saved file:");
+        String savedFile = fileName.getText();
         Button buttonSave = myLayout.createButton(BUTTON_SAVE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         if (!myIsPaused) {
             pauseSim(buttonPause);
@@ -168,7 +172,7 @@ public class Visualization {
         restartSim(buttonRestart);
         changeSim(buttonChange, primaryStage);
         uploadSim(buttonUpload);
-        saveSim(buttonSave, simulationConfig);
+        saveSim(buttonSave, simulationConfig, savedFile);
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonChange, buttonUpload, buttonSave);
     }
 
@@ -216,7 +220,6 @@ public class Visualization {
     private void stepSim(Button buttonStep) {
         buttonStep.setOnAction(e -> {
             myGroup = mySimulation.step(getParameters());
-            //drawGrid(myGrid);
         });
     }
 
@@ -255,14 +258,14 @@ public class Visualization {
         });
     }
 
-    private void saveSim(Button buttonSave, Configuration simulationConfig) {
+    private void saveSim(Button buttonSave, Configuration simulationConfig, String savedFile) {
         buttonSave.setOnAction(e -> {
-            if(simulationConfig.getTitle().equals("Fire")){
-                FireWriter fireWriter= new FireWriter();
-                fireWriter.main(simulationConfig, myNewProbCatch, mySimulation);
-            }else{
-                GofWriter gofWriter = new GofWriter();
-                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation);
+            GofWriter gofWriter = new GofWriter();
+            if ((savedFile != null && !savedFile.isEmpty())) {
+                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, savedFile);
+            }
+            else {
+                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle()+".xml");
             }
 
         });

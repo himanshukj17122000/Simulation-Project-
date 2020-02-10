@@ -106,7 +106,7 @@ Features implemented:
 ### Notes/Assumptions
 
 Assumptions or Simplifications:
-
+* 
 Interesting data files:
 
 Known Bugs:
