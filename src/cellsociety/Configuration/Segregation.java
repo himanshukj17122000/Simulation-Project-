@@ -34,47 +34,18 @@ public class Segregation extends CommonMethods {
         setMyTop(dataValues.get(DATA_FIELDS.get(6)),noRow);
         setMyBottom(dataValues.get(DATA_FIELDS.get(7)),noRow);
         setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
-
-        try {if(isStringOnlyAlphabet(dataValues.get(DATA_FIELDS.get(9)))){
-            throw new NumberFormatException();
-        }setProbCatch(Double.parseDouble(dataValues.get(DATA_FIELDS.get(9))));} catch (NumberFormatException e) {
-            setProbCatch(defaultProb);
-        }
-        try {setType1(dataValues.get(DATA_FIELDS.get(10)));} catch (Exception e) {
-            setType1("Empty");
-        }
-        try {setType2(dataValues.get(DATA_FIELDS.get(11)));} catch (Exception e) {
-            setType2("Race1");
-        }
-        try {setType3(dataValues.get(DATA_FIELDS.get(12)));} catch (Exception e) {
-            setType3("Race2");
-        }
-        try {setProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)));} catch (Exception e) {
-            setProbCatchLabel("Threshold Value");
-        }
-        try {if(isStringOnlyAlphabet(dataValues.get(DATA_FIELDS.get(14)))){
-            throw new NumberFormatException();
-        }setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(14))));} catch (NumberFormatException e) {
-            setMaxProb(defaultMaxProb);
-        }
-        try {setNeighPattern(dataValues.get(DATA_FIELDS.get(15)));} catch (Exception e) {
-            setNeighPattern(neighbourPattern);
-        }
-        try {setShape(dataValues.get(DATA_FIELDS.get(16)));} catch (Exception e) {
-            setShape(initialShape);
-        }
-        try {setConcentration(dataValues.get(DATA_FIELDS.get(17)));} catch (Exception e) {
-            setConcentration(iniConc2);
-        }
-        try {setStartingConfig(dataValues.get(DATA_FIELDS.get(18)));} catch (Exception e) {
-            setStartingConfig(configRandom);
-        }
-        try{setColors(dataValues.get(DATA_FIELDS.get(19)));}catch (Exception e){
-            setColors("Red,Green,White");
-        }
+        setMyProbCatch(dataValues.get(DATA_FIELDS.get(9)),defaultProb);
+        setMyType1(dataValues.get(DATA_FIELDS.get(10)),"Empty");
+        setMyType2(dataValues.get(DATA_FIELDS.get(11)),"Race1");
+        setMyType3(dataValues.get(DATA_FIELDS.get(12)),"Race2");
+        setMyProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)),"Threshold Value");
+        setMyProbMax(dataValues.get(DATA_FIELDS.get(14)),"1");
+        setMyNeighPattern(dataValues.get(DATA_FIELDS.get(15)),neighbourPattern);
+        setMyShape(dataValues.get(DATA_FIELDS.get(16)),initialShape);
+        setMyConcentration(dataValues.get(DATA_FIELDS.get(17)),iniConc2);
+        setMyStartingConfig(dataValues.get(DATA_FIELDS.get(18)),configRandom);
+        setMyColors(dataValues.get(DATA_FIELDS.get(19)),"Red,Green,White");
     }
-
-
-    }
+}
 
 

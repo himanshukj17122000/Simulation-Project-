@@ -32,25 +32,12 @@ public class Percolation extends CommonMethods {
         setMyTop(dataValues.get(DATA_FIELDS.get(6)),3);
         setMyBottom(dataValues.get(DATA_FIELDS.get(7)),2);
         setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
-
-        try{setType1(dataValues.get(DATA_FIELDS.get(9)));} catch (Exception e) {
-            setType1("Percolated");
-        }
-        try{setType2(dataValues.get(DATA_FIELDS.get(10)));} catch (Exception e) {
-            setType2("Open");
-        }
-        try{setType3(dataValues.get(DATA_FIELDS.get(11)));} catch (Exception e) {
-            setType3("Block");
-        }
-        try{setNeighPattern(dataValues.get(DATA_FIELDS.get(12)));} catch (Exception e) {
-            setNeighPattern("11111111");
-        }
-        try{setShape(dataValues.get(DATA_FIELDS.get(13)));} catch (Exception e) {
-            setShape(initialShape);
-        }
+        setMyType1(dataValues.get(DATA_FIELDS.get(9)),"Percolated");
+        setMyType2(dataValues.get(DATA_FIELDS.get(10)),"Open");
+        setMyType3(dataValues.get(DATA_FIELDS.get(11)),"Block");
+        setMyNeighPattern(dataValues.get(DATA_FIELDS.get(12)),"11111111");
+        setMyShape(dataValues.get(DATA_FIELDS.get(13)),initialShape);
+        setMyColors(dataValues.get(DATA_FIELDS.get(14)),"Blue,Black");
         setStartingConfig(configRandom);
-        try{setColors(dataValues.get(DATA_FIELDS.get(14)));}catch (Exception e){
-            setColors("Blue,Black");
-        }
     }
 }

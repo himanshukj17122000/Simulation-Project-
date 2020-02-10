@@ -43,33 +43,13 @@ public class Fire extends CommonMethods {
             setMyType2(dataValues.get(DATA_FIELDS.get(11)),"Burnt");
             setMyType3(dataValues.get(DATA_FIELDS.get(12)),"Tree");
             setMyProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)),"Probability of Catching on Fire");
-
-
-
-
-
-            try{if(isStringOnlyAlphabet(dataValues.get(DATA_FIELDS.get(14)))){
-                throw new NumberFormatException();
-            }setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(14))));} catch (NumberFormatException e) {
-                setMaxProb(Double.parseDouble("1"));
-            }
-            try{setNeighPattern(dataValues.get(DATA_FIELDS.get(15)));} catch (Exception e) {
-                setNeighPattern(neighbourPattern);
-            }
-            try{setShape(dataValues.get(DATA_FIELDS.get(16)));} catch (Exception e) {
-                setShape(initialShape);
-            }
-            try{setConcentration(dataValues.get(DATA_FIELDS.get(17)));} catch (Exception e) {
-                setConcentration(iniConc1);
-            }
-            try{setStartingConfig(dataValues.get(DATA_FIELDS.get(18)));}catch (Exception e){
-                setStartingConfig(configRandom);
-            }
-            try{setColors(dataValues.get(DATA_FIELDS.get(19)));}catch (Exception e){
-                setColors("ffffff,69e23f,e2563f");
-            }
+            setMyProbMax(dataValues.get(DATA_FIELDS.get(14)),"1");
+            setMyNeighPattern(dataValues.get(DATA_FIELDS.get(15)),neighbourPattern);
+            setMyShape(dataValues.get(DATA_FIELDS.get(16)),initialShape);
+            setMyConcentration(dataValues.get(DATA_FIELDS.get(17)),iniConc1);
+            setMyStartingConfig(dataValues.get(DATA_FIELDS.get(18)),configRandom);
+            setMyColors(dataValues.get(DATA_FIELDS.get(19)),"ffffff,69e23f,e2563f");
         }
-
 }
 
 

@@ -114,4 +114,43 @@ public class CommonMethods extends Configuration{
             setType1(tree);
         }
     }
+
+    public void setMyColors(String s, String s1) {
+        try{setColors(s);}catch (Exception e){
+            setColors(s1);
+        }
+    }
+
+    public void setMyStartingConfig(String s, String configRandom) {
+        try{setStartingConfig(s);}catch (Exception e){
+            setStartingConfig(configRandom);
+        }
+    }
+
+    public void setMyConcentration(String s, String iniConc1) {
+        try{setConcentration(s);} catch (Exception e) {
+            setConcentration(iniConc1);
+        }
+    }
+
+    public void setMyShape(String s, String initialShape) {
+        try{setShape(s);} catch (Exception e) {
+            setShape(initialShape);
+        }
+    }
+
+    public void setMyNeighPattern(String s, String neighbourPattern) {
+        try{setNeighPattern(s);} catch (Exception e) {
+            setNeighPattern(neighbourPattern);
+        }
+    }
+
+
+    public void setMyProbMax(String s, String s1) {
+        try{if(isStringOnlyAlphabet(s)){
+            throw new NumberFormatException();
+        }setMaxProb(Double.parseDouble(s));} catch (NumberFormatException e) {
+            setMaxProb(Double.parseDouble(s1));
+        }
+    }
 }
