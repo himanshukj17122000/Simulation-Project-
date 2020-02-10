@@ -50,7 +50,6 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
         value = parameters.get(2);
         val = (int) value;
         setReproductionTime(val);
-        System.out.println(getReproductionTime());
     }
 
     @Override

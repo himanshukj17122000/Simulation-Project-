@@ -7,6 +7,9 @@ import javafx.scene.paint.Paint;
 
 import java.util.*;
 
+/**
+ * 
+ */
 public class rpsCell extends Cell {
     private int TYPE;
     private static final String[] LABEL = {"Group Blue", "Group Red", "Group Green"};
@@ -16,14 +19,14 @@ public class rpsCell extends Cell {
     private int Threshold = 4;
     private int Random = 2;
 
-
+//constructor for rpsCell
     public rpsCell(GridEntry entry, int type, int threshold, int random) {
         super(FILL[type-1], entry);
         setTYPE(type);
         setThreshold(threshold);
         setRandom(random);
     }
-
+//update cell method for rpsCell makes the cell go to the next state
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
         setParameters(parameters);
@@ -42,17 +45,17 @@ public class rpsCell extends Cell {
         val = (int) value;
         setRandom(val);
     }
-
+//get the type of the cell
     @Override
     public int getType() {
         return TYPE;
     }
-
+//get the race of the cell race(not used in this case)
     @Override
     public int getRace() {
         return 0;
     }
-
+//get the name of the cell String
     @Override
     public String getLabel() {
         return null;

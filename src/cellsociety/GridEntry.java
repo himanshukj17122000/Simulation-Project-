@@ -9,9 +9,12 @@ import cellsociety.PercolationSimulation.WaterCell;
 import cellsociety.PreySimulation.AnimalCell;
 import cellsociety.PreySimulation.PredatorCell;
 import cellsociety.SegregationSimulation.PersonCell;
+import cellsociety.antSimulation.foodCell;
+import cellsociety.antSimulation.nestCell;
+import cellsociety.antSimulation.pCell;
+import cellsociety.rPSSimulation.rpsCell;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import cellsociety.rPSSimulation.rpsCell;
 
 import java.util.HashSet;
 import java.util.List;
@@ -36,24 +39,29 @@ public class GridEntry {
     private static final Paint PREYFILL = Color.web("71add3");
     private static final Paint SEGREGATIONFILL = Color.WHITE;
 
+    //method constructor for GridEntry
     public GridEntry(int row, int col, String simulation, int type) {
         initializeGridEntryID(row, col);
         createCell(simulation, type);
     }
 
+    //initializer for the grid entry location
     private void initializeGridEntryID(int row, int col) {
         ROW = row;
         COLUMN = col;
     }
 
+    //sets the next step of the simulation
     public void setNextStepCell(Cell nextCell) {
         nextStepCell = nextCell;
     }
 
+    //gets the cell at the next step of the simulation
     public Cell getNextStepCell() {
         return nextStepCell;
     }
 
+    //updates the grid entry to the next step of the simulation
     public void updateGridEntry() {
         if (getNextStepCell() == null) {
             setCell(getCell());
@@ -63,12 +71,13 @@ public class GridEntry {
         }
     }
 
-    public void setNeighbors(List<List<GridEntry>> grid, int numRows, int numCols, int[] neighborBool, String shape) {
+    //initializes the neighbors of the grid entry
+    public void setNeighbors(List<List<GridEntry>> grid, int numRows, int numCols, int[] neighborBool, String shape, String boundary) {
         totROW = numRows;
         totCOLUMN = numCols;
         Set<GridEntry> NSET = new HashSet<GridEntry>();
         if (shape.equals("Rectangle")) {
-            rectangleNeighbors(grid, neighborBool, NSET, "toroidal");
+            rectangleNeighbors(grid, neighborBool, NSET, boundary);
         } else if (shape.equals("Hexagon")) {
             hexagonNeighbors(grid, neighborBool, NSET);
         }
@@ -179,12 +188,12 @@ public class GridEntry {
     }
 
 
-
+//set the cell of the grid entry
     public void setCell(Cell cell){
         containedCell = cell;
         containsCellType = cell.getType();
     }
-
+//createaCell to go in the grid entry for initialization
     public void createCell(String simulation, int type) { // refactor (make into smaller functions)
         Cell cellToSet;
         switch(simulation){
@@ -205,6 +214,9 @@ public class GridEntry {
                 break;
             case "Rps":
                 cellToSet = rpsSimulationCell(type);
+                break;
+            case "Ant":
+                cellToSet = antSimulationCell(type);
                 break;
             default:
                 cellToSet = new EmptyCell(this, SEGREGATIONFILL);
@@ -264,33 +276,49 @@ public class GridEntry {
         return new rpsCell(this, type, 2, 1);
     }
 
+    private Cell antSimulationCell(int type){
+        if(type == 3){
+            return new nestCell(this);
+        }else if(type == 2){
+            return new foodCell(this);
+
+        }else{
+            return new pCell(this);
+
+        }
+    }
+//get the neighbors of the grid entry
     public Set<GridEntry> getNeighbors(){
         return NEIGHBORS;
     }
 
-
+    //get the cell type of the grid entry
     public int getCellType(){
        return containsCellType;
     }
 
+    //get the cell of the grid entry
     public Cell getCell(){
         return containedCell;
     }
 
+    //get the row of the grid entry
     public int getRow(){
         return ROW;
     }
 
+    //get the column of the grid entry
     public int getColumn() { return COLUMN; }
 
+    //method to override by subclass
     public List<Cell> getCellList(){
         return null;
     }
-
+    //method to override by subclass
     public List<Integer> getCellTypeList(){
         return null;
     }
-
+    //method to override by subclass
     public List<Cell> getNextStepCellList(){
         return null;
     }

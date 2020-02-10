@@ -12,20 +12,20 @@ import java.util.Set;
 
 public class antCell extends Cell {
     private static final Paint FILL = Color.web("#302A24");
-    private static final int numDirections = 2;
     private int[] direction = {1, 1}; // row, col
     private static final int TYPE = 4;
-    private int antCellType = 5;
-    private int pCellType = 4;
+    private int antCellType = 4;
+    private int pCellType = 1;
     private int nestCellType = 3;
     private int foodCellType = 2;
-    private int emptyCellType = 1;
     private int carryingFood = 1;
 
+    //Constructor for antCell class
     public antCell(GridEntry entry) {
         super(FILL, entry);
     }
 
+    //update method for antCell class
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
         move(entry);
@@ -48,6 +48,10 @@ public class antCell extends Cell {
         Set<GridEntry> directionNeighbors = getNeighbors(entry);
         GridEntry moveTo = entry;
         int maxP = 0;
+        if(directionNeighbors.size() == 0){
+            switchDirection();
+        }
+
         for(GridEntry neighbor : directionNeighbors){
             List<Cell> containedCells = neighbor.getCellList();
             for(int i = 0; i < containedCells.size(); i++){
@@ -62,9 +66,13 @@ public class antCell extends Cell {
                     maxP = 1;
                     break;
                 }
-            }if(neighbor.getRow() == 0 && neighbor.getColumn() == 0){
-                carryingFood = 0;
-                switchDirection();
+                if(curCell.getType() == nestCellType){
+                    neighbor.setNextStepCell(this);
+                    carryingFood = 0;
+                    switchDirection();
+                    maxP = 1;
+                    break;
+                }
             }
         }
         if(maxP == 0){
@@ -102,16 +110,19 @@ public class antCell extends Cell {
         return retNeigh;
     }
 
+    //type getter for antCell
     @Override
     public int getType() {
         return TYPE;
     }
 
+    //special field getter
     @Override
     public int getRace() {
         return carryingFood;
     }
 
+    //get label method
     @Override
     public String getLabel() {
         return null;

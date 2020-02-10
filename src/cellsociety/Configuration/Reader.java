@@ -1,17 +1,16 @@
 package cellsociety.Configuration;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputFilter;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import static cellsociety.Visualization.DialogBox.*;
 
@@ -57,8 +56,21 @@ public class Reader {
         else if(name.equals(RPS_FILE)){
             forRps(root);
         }
+        else if(name.equals(ANT_FILE)){
+            forAnt(root);
+        }
 
         return results;
+    }
+
+    private void forAnt(Element root) {
+        if (! isValidFile(root, Ant.DATA_TYPE)) {
+            throw new FileInputException(ERROR_MESSAGE, Ant.DATA_TYPE);
+        }
+        results = new HashMap<>();
+        for (String field : Ant.DATA_FIELDS) {
+            results.put(field, getTextValue(root, field));
+        }
     }
 
     private void forRps(Element root) {

@@ -2,7 +2,7 @@
 <simulation type="Ant">
     <gridlayout>
         <title>Ant</title>
-        <maxStates>3</maxStates>
+        <maxStates>2</maxStates>
         <rows>60</rows>
         <columns>60</columns>
         <left>0</left>
@@ -10,7 +10,7 @@
         <top>3</top>
         <bottom>0</bottom>
         <neighbours>8</neighbours>
-        <type1>Empty</type1>
+        <type1>Pheromone</type1>
         <type2>Food</type2>
         <type3>Nest</type3>
         <neighPattern>11111111</neighPattern>
