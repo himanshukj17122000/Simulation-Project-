@@ -27,7 +27,9 @@ Himanshu Jain:
 * Primary classes (in charge of): The Whole Configuration Folder, XML Files and the Dialog Box
 * Secondary classes (worked on): Simulation, Visualization
 * Main contributions:
-    * Worked on reading the XML files and setting the initial configuration of the grid
+    * Worked on reading the XML files and setting the initial configuration of the grid by making a map of all the values inside 
+    the XML file
+    * Implemented the different Error checkings like checking for the right value, right value, missing values etc 
     * Returned all the paramaters required for setting up the grid and updating the values 
     * Made the XML files that contain the data that has to be read 
     * Created the XML writers for 5 simulations 
