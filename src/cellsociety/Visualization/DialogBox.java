@@ -33,6 +33,7 @@ public class DialogBox {
     private static Map<String,String> result= new HashMap<>();
     private Configuration mySimulationConfig;
 
+    // Opens the dialog box and initializes the configuration
     public void start(Stage primaryStage) throws NullPointerException, ParserConfigurationException, IOException, SAXException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         if(dataFile==null){
