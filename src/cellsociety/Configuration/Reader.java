@@ -152,7 +152,6 @@ public class Reader {
                 return nodeList.item(0).getTextContent();
             }
             else {
-                // FIXME: empty string or exception? In some cases it may be an error to not find any text
                 return "";
             }
         }

@@ -9,6 +9,7 @@ public abstract class Configuration {
     private String shape;
     private String randomLabel;
     private String startingConfig;
+    private String Myboundary;
     public final static String configRandom= "Random";
     public final static String initialShape="Rectangle";
     public final static int iniRows=50;
@@ -20,6 +21,8 @@ public abstract class Configuration {
     public final static String neighbourPattern="10101111";
     public final static double defaultMaxProb=1;
     public final static double defaultProb=0.15;
+    private String neighbourPatterninString;
+    private String concentrate;
 
     public String getStartingConfig() {
         return startingConfig;
@@ -71,6 +74,7 @@ public abstract class Configuration {
 
 
     public String getTitle(){return myTitle;}
+    public String getMyboundary(){return Myboundary;}
     public int getMaxStates(){return maxStates;}
     public int getRows(){return rows;}
     public int getColumns(){return columns;}
@@ -90,7 +94,9 @@ public abstract class Configuration {
 
 
     public void setMyShape(String s, String initialShape) {
-        try{this.shape=s;} catch (Exception e) {
+        try{if(hasNumbers(s)){
+            throw new Exception();
+        }this.shape=s;} catch (Exception e) {
             this.shape=initialShape;
         }
     }
@@ -103,14 +109,24 @@ public abstract class Configuration {
     }
 
 
+    public String getConcentrate() {
+        return concentrate;
+    }
 
+    public void setConcentrate(String concentrate) {
+        this.concentrate = concentrate;
+    }
 
     public void setMyConcentration(String s, String iniConc1) {
-        try{ String[] concen= s.split(",");
+        try{ if(isStringOnlyAlphabet(s)){
+            throw new Exception();
+        }String[] concen= s.split(",");
+            concentrate=s;
             for(int i=0;i<concen.length;i++){
                 concentration[i] = Double.parseDouble(concen[i]);
             }} catch (Exception e) {
             String[] concen= iniConc1.split(",");
+            concentrate=iniConc1;
             for(int i=0;i<concen.length;i++){
                 concentration[i] = Double.parseDouble(concen[i]);
             }
@@ -120,21 +136,30 @@ public abstract class Configuration {
 
 
     public void setMyNeighPattern(String s, String neighbourPattern) {
-        try{ char[] pattArray= s.toCharArray();
+        try{ if(hasNumbers(s)){
+            throw new Exception();
+        }char[] pattArray= s.toCharArray();
+            neighbourPatterninString=s;
             for(int i=0;i<pattArray.length;i++){
                 neighPattern[i]= (int) pattArray[i] - 48;
             }} catch (Exception e) {
             char[] pattArray= neighbourPattern.toCharArray();
+            neighbourPatterninString=neighbourPattern;
             for(int i=0;i<pattArray.length;i++){
                 neighPattern[i]= (int) pattArray[i] - 48;
             }
         }
     }
 
+    public String getNeighPatterninString(){
+        return neighbourPatterninString;
+    }
 
 
     public void setMyColors(String s, String s1) {
-        try{String[] separateColors= s.split(",");
+        try{if(hasNumbers(s)){
+            throw new Exception();
+        }String[] separateColors= s.split(",");
             for (String colour:separateColors){
                 colors.add(colour);
             }}catch (Exception e){
@@ -146,7 +171,9 @@ public abstract class Configuration {
     }
 
     public void setMyStartingConfig(String s, String configRandom) {
-        try{this.startingConfig = s;}catch (Exception e){
+        try{if(hasNumbers(s)){
+            throw new Exception();
+        }   this.startingConfig = s;}catch (Exception e){
             this.startingConfig = configRandom;
         }
     }
@@ -157,24 +184,33 @@ public abstract class Configuration {
 
 
     public void setMyProbCatchLabel(String s, String probability_of_catching_on_fire) {
-        try{probCatchLabel.add(s);} catch (Exception e) {
+        try{if(hasNumbers(s)){
+            throw new Exception();
+        }probCatchLabel.add(s);} catch (Exception e) {
             probCatchLabel.add(probability_of_catching_on_fire);;
         }
     }
 
     public void setMyType3(String s, String tree) {
-        try{this.type3=s;} catch (Exception e) {
+        try{if(hasNumbers(s)){
+            throw new Exception();
+        }this.type3=s;} catch (Exception e) {
             this.type3=tree;
         }
     }
 
     public void setMyType2(String s, String tree) {
-        try{this.type2=s;} catch (Exception e) {
+        try{if(hasNumbers(s)){
+            throw new Exception();
+        }this.type2=s;} catch (Exception e) {
             this.type2=tree;
         }
     }
     public void setMyType1(String s, String tree) {
-        try{this.type1=s;} catch (Exception e) {
+        try{if(hasNumbers(s)){
+            throw new Exception();
+        }
+            this.type1=s;} catch (Exception e) {
             this.type1=tree;
         }
     }
@@ -260,12 +296,27 @@ public abstract class Configuration {
             this.left=noRow;
         }
     }
+
+    public void setMyBoundary(String s, String def){
+        try{
+            if(hasNumbers(s)){
+                throw new NumberFormatException();
+            }
+            this.Myboundary=s;} catch (NumberFormatException e) {
+            this.Myboundary=def;
+        }
+    }
+
     public abstract void paraTitle(String title);
     public static boolean isStringOnlyAlphabet(String str)
     {
         return ((str != null)
                 && (!str.equals(""))
                 && str.matches(".*[a-zA-Z]+.*"));
+    }
+
+    public static boolean hasNumbers(String str){
+        return str.matches(".*\\d.*");
     }
 }
 

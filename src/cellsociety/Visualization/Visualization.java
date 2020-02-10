@@ -2,6 +2,7 @@ package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
 import cellsociety.*;
+import cellsociety.Configuration.GofWriter;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -41,6 +42,7 @@ public class Visualization {
     private static final String BUTTON_RESTART = "Restart Simulation";
     private static final String BUTTON_UPLOAD = "Upload New Simulation";
     private static final String BUTTON_CHANGE = "Change Simulation";
+    private static final String BUTTON_SAVE = "Save Current Simulation";
     private static final String ErrorMessage= "No file chosen";
 
     private Scene myAnimationScene;
@@ -132,7 +134,7 @@ public class Visualization {
 
     private VBox buildToolBar(Stage primaryStage, Configuration simulationConfig) {
         myToolBar = new VBox(20);
-        implementButtons(primaryStage, myToolBar);
+        implementButtons(primaryStage, myToolBar, simulationConfig);
         implementSlider(simulationConfig, myToolBar);
         if (! simulationConfig.getTitle().equals("Segregation")) {
             myStats = myLayout.createChart(mySimulation);
@@ -142,7 +144,7 @@ public class Visualization {
         return myToolBar;
     }
 
-    private void implementButtons(Stage primaryStage, VBox toolBar) {
+    private void implementButtons(Stage primaryStage, VBox toolBar, Configuration simulationConfig) {
         Button buttonHome = myLayout.createButton(ButtonHome, "lightgray", BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         buttonHome.setOnAction(e -> primaryStage.setScene(new Splash(primaryStage).getSplashScene()));
         Button buttonPause = myLayout.createButton(BUTTON_PAUSE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
@@ -153,6 +155,7 @@ public class Visualization {
         Button buttonRestart = myLayout.createButton(BUTTON_RESTART, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonChange = myLayout.createButton(BUTTON_CHANGE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonUpload = myLayout.createButton(BUTTON_UPLOAD, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        Button buttonSave = myLayout.createButton(BUTTON_SAVE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         if (!myIsPaused) {
             pauseSim(buttonPause);
         }
@@ -164,7 +167,8 @@ public class Visualization {
         restartSim(buttonRestart);
         changeSim(buttonChange, primaryStage);
         uploadSim(buttonUpload);
-        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonChange, buttonUpload);
+        saveSim(buttonSave, simulationConfig);
+        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonChange, buttonUpload, buttonSave);
     }
 
     private void updateProbCatch(Slider slider) {
@@ -248,4 +252,13 @@ public class Visualization {
             newSimulation.start(newScreen);
         });
     }
+
+    private void saveSim(Button buttonSave, Configuration simulationConfig) {
+        buttonSave.setOnAction(e -> {
+            GofWriter gofWriter = new GofWriter();
+            gofWriter.main(simulationConfig, myNewProbCatch, mySimulation);
+        });
+    }
 }
+
+
