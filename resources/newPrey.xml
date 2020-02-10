@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<simulation type="Prey">
+    <gridlayout>
+        <title>Prey</title>
+        <maxStates>3</maxStates>
+        <rows>55</rows>
+        <columns>55</columns>
+        <left>0</left>
+        <right>0</right>
+        <top>0</top>
+        <bottom>0</bottom>
+        <neighbours>4</neighbours>
+        <type1>Empty</type1>
+        <type2>Fish</type2>
+        <type3>Shark</type3>
+        <fishBreed>25.0</fishBreed>
+        <sharkBreed>21.395872420262663</sharkBreed>
+        <fishLabel>Fish Breeding Time</fishLabel>
+        <sharkLabel>Shark Breeding Time</sharkLabel>
+        <numLabel>Number Of Days Without Food</numLabel>
+        <maxFishBreed>15.0</maxFishBreed>
+        <maxSharkBreed>30.0</maxSharkBreed>
+        <numWithoutFood>4.0</numWithoutFood>
+        <maxDays>100.0</maxDays>
+        <neighPattern>11111111</neighPattern>
+        <shape>Rectangle</shape>
+        <concentration>0.0058962265,0.9941038</concentration>
+        <initial>Given</initial>
+        <colors>Blue</colors>
+        <boundary/>
+    </gridlayout>
+</simulation>
