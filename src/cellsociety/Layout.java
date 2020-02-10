@@ -2,18 +2,11 @@ package cellsociety;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -22,8 +15,9 @@ public class Layout {
     private static final int MAX_WIDTH = 400;
     private static final int CHART_WIDTH = 300;
     private static final int CHART_HEIGHT = 300;
-    private static final Paint SIDEBAR_BACKGROUND = Color.web("5a76a1");
+    private static final String SIDEBAR_BACKGROUND = "rgb(90, 118, 161)";
 
+    // Method for creating a button
     public Button createButton(String text, String styleColor, Paint fontColor, int fontSize) {
         Button button = new Button(text);
         button.setTextFill(fontColor);
@@ -32,6 +26,7 @@ public class Layout {
         return button;
     }
 
+    // Method for creating a label
     public Label createLabel(String text, int fontSize, Color textFill) {
         Label label = new Label(text);
         label.setStyle("-fx-font-size: " + fontSize);
@@ -39,6 +34,7 @@ public class Layout {
         return label;
     }
 
+    // Method for creating a slider
     public Slider createSlider(double defaultValue, double min, double max, double majorTickUnit,
                                double minorTickCount, double blockIncrement) {
         Slider slider = new Slider();
@@ -54,6 +50,7 @@ public class Layout {
         return slider;
     }
 
+    // Method for creating a chart
     public PieChart createChart(Simulation mySimulation) {
         Map<String, Integer> cellTypes = mySimulation.getTypesOfCells();
         ArrayList<PieChart.Data> cellData = new ArrayList<>();
@@ -69,12 +66,13 @@ public class Layout {
         return chart;
     }
 
+    // Method for creating a scroll pane
     public ScrollPane createScrollPane(VBox toolBar) {
         ScrollPane sp = new ScrollPane();
         sp.setVmax(MAX_SCREEN_HEIGHT);
         sp.setPrefWidth(MAX_WIDTH);
         sp.setFitToWidth(true);
-        sp.setStyle("-fx-background: rgb(90, 118, 161)");
+        sp.setStyle("-fx-background: " + SIDEBAR_BACKGROUND);
         sp.setContent(toolBar);
         return sp;
     }

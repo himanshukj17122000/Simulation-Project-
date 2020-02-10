@@ -33,7 +33,7 @@ public class GridEntry {
     private int totCOLUMN;
     private static final Paint FIREFILL = Color.WHITE; //fills for empty cells, put these variables somewhere elseeee
     private static final Paint PERCOLATIONFILL = Color.DARKGRAY;
-    private static final Paint PREYFILL = Color.PALEGREEN;
+    private static final Paint PREYFILL = Color.web("71add3");
     private static final Paint SEGREGATIONFILL = Color.WHITE;
 
     public GridEntry(int row, int col, String simulation, int type) {

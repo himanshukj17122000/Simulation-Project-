@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<simulation type="Game of Life">
+<simulation type="Ant">
     <gridlayout>
-        <title>Game of Life</title>
+        <title>Ant</title>
         <maxStates>3</maxStates>
         <rows>60</rows>
         <columns>60</columns>
         <left>0</left>
         <right>0</right>
-        <top>0</top>
-         <bottom>0</bottom>
+        <top>3</top>
+        <bottom>0</bottom>
         <neighbours>8</neighbours>
         <type1>Empty</type1>
-        <type2>Live</type2>
-        <type3>Dead</type3>
+        <type2>Food</type2>
+        <type3>Nest</type3>
         <neighPattern>11111111</neighPattern>
         <shape>Rectangle</shape>
         <initial>Given</initial>
         <concentration>0.6,0.4</concentration>
-        <colors>Blue,Orange,Green</colors>
         <boundary>toroidal</boundary>
 
     </gridlayout>

@@ -1,12 +1,17 @@
 package cellsociety;
 
 import cellsociety.Configuration.Configuration;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+import javafx.event.Event.*;
+
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class Simulation {
@@ -79,9 +84,21 @@ public class Simulation {
     }
 
     private GridEntry randomizeGridEntry(int row, int col, String simulation) {
-        int randomType = getRandomNumberInRange();
-        return new GridEntry(row, col, simulation, randomType);
+        if(myConfiguration.getStartingConfig().equals("Given")){
+            Double r= Math.random();
+            if(r <myConfiguration.getConcentration()[0] ){
+                return new GridEntry(row, col, simulation, 3);
+            } else if(r <myConfiguration.getConcentration()[1]+myConfiguration.getConcentration()[0]){
+                return new GridEntry(row,col,simulation,2);
+            }else {
+                return new GridEntry(row,col,simulation,1);
+            }
+        } else {
+            int randomType = getRandomNumberInRange();
+            return new GridEntry(row, col, simulation, randomType);
+        }
     }
+
 
     private void setConfiguration(Configuration simConfiguration){ myConfiguration = simConfiguration; }
 
@@ -131,6 +148,7 @@ public class Simulation {
                     typesOfCells.putIfAbsent(cellType, 0);
                     typesOfCells.put(cellType, typesOfCells.get(cellType) + 1);
                 }
+                createShape(currentGridEntry, r, c);
             }
         }
         setEmptyCellSet(emptyCells);
@@ -146,7 +164,7 @@ public class Simulation {
             for (int c = 0; c < currentGridConfig.get(r).size(); c++) {
                 GridEntry currentGridEntry = currentGridConfig.get(r).get(c);
                 Cell currentCell = currentGridEntry.getCell();
-                //implementClickCell(currentCell, currentGridEntry, emptyCells, parameters);
+                //implementClickCell(currentCell, currentGridEntry, emptyCells, parameters, r, c);
                 currentCell.updateCell(currentGridEntry, emptyCells, parameters);
             }
         }
@@ -164,7 +182,6 @@ public class Simulation {
                 if (cellType != null) {
                     typesOfCells.putIfAbsent(cellType, 0);
                     typesOfCells.put(cellType, typesOfCells.get(cellType)+1);
-                    //  System.out.println(typesOfCells.get(cellType));
                 }
             }
         }
@@ -173,11 +190,14 @@ public class Simulation {
     }
 
     private void implementClickCell(Cell cell, GridEntry currentGridEntry, Set<GridEntry> emptyCells,
-                                    List<Double> parameters) {
-        cellShapes.get(cell).setOnMousePressed(e -> cell.updateCell(currentGridEntry, emptyCells, parameters));
+                                    List<Double> parameters, int r, int c) {
+        System.out.println(cellShapes.get(cell).isPressed());
+        cellShapes.get(cell).setOnMousePressed(e1 -> {
+            cellShapes.get(cell).setFill(Color.BLACK);
+        /*cell.updateCell(currentGridEntry, emptyCells, parameters);
+        createShape(currentGridEntry, r, c);*/
+        });
     }
-
-
 
     private void createShape(GridEntry curGridEntry, int row, int col){
         Cell cell = curGridEntry.getCell();

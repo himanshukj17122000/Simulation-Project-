@@ -3,14 +3,14 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
-public class Prey extends CommonMethods {
+public class Prey extends Configuration {
     public static final String DATA_TYPE = "Prey";
 
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
             "top","bottom","neighbours","type1","type2","type3","fishBreed","sharkBreed","fishLabel","sharkLabel","numLabel","maxFishBreed"
-    ,"maxSharkBreed","numWithoutFood","maxDays","neighPattern","shape","concentration","initial","colors");
+    ,"maxSharkBreed","numWithoutFood","maxDays","neighPattern","shape","concentration","initial","colors","boundary");
 
 
     /**
@@ -53,6 +53,8 @@ public class Prey extends CommonMethods {
         setMyColors(dataValues.get(DATA_FIELDS.get(25)),"Red,Green,White");
         setMyStartingConfig(dataValues.get(DATA_FIELDS.get(24)),configRandom);
         setMyConcentration(dataValues.get(DATA_FIELDS.get(23)),"0.8,0.1");
+        setMyBoundary(dataValues.get(DATA_FIELDS.get(24)),"NotToroidal");
+
     }
 
 

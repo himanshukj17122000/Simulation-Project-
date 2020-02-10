@@ -20,6 +20,7 @@
         <shape>Rectangle</shape>
         <concentration>0.5,0.3</concentration>
         <colors>ffffff,69e23f,e2563f</colors>
+        <boundary>toroidal</boundary>
     </gridlayout>
 </simulation>
 

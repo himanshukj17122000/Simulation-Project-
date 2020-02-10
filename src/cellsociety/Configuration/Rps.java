@@ -3,10 +3,10 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
-public class Rps extends CommonMethods {
+public class Rps extends Configuration {
     public static final String DATA_TYPE = "Rps";
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape", "randomNumber", "maxRandomNumber","randomLabel","concentration","initial","colors");
+            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape", "randomNumber", "maxRandomNumber","randomLabel","concentration","initial","colors","boundary");
 
     /**
      * Create game data from given data.
@@ -45,6 +45,8 @@ public class Rps extends CommonMethods {
         setMyConcentration(dataValues.get(DATA_FIELDS.get(20)),iniConc2);
         setMyStartingConfig(dataValues.get(DATA_FIELDS.get(21)),configRandom);
         setMyColors(dataValues.get(DATA_FIELDS.get(22)),"Red,Green,White");
+        setMyBoundary(dataValues.get(DATA_FIELDS.get(23)),"NotToroidal");
+
     }
 
 }

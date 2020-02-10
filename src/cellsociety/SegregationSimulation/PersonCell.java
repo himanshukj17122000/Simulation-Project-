@@ -13,7 +13,7 @@ import java.util.Set;
 public class PersonCell extends Cell {
     private static final int TYPE = 2;
     private static final String[] LABEL = {"Group Blue", "Group Red"};
-    private static final Paint[] FILL = {Color.BLUE, Color.RED}; // array entry corresponds to race
+    private static final Paint[] FILL = {Color.web("186596"), Color.web("db4e43")}; // array entry corresponds to race
     private static boolean CANUPDATE = true;
     private int RACE;
     private double Threshold = 0.7;
