@@ -78,8 +78,8 @@ public class Visualization {
         List<Double> doubleArray = new ArrayList<>();
         int i = 0; //iterator
         for(ProbConstant pair: inputHash.values()){
-            map.put(pair.getMyLabel(), pair.getMyProbCatch());
-            stringArray.add(i, pair.getMyLabel());
+            map.put(pair.getLabel(), pair.getProbCatch());
+            stringArray.add(i, pair.getLabel());
             i++;
         }
         if(stringArray.size() > 0){
@@ -183,8 +183,8 @@ public class Visualization {
     private void updateProbCatch(Slider slider) {
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             myNewProbCatch.put(slider,
-                    new ProbConstant(myNewProbCatch.get(slider).getMyLabel(), (double) newValue));
-            myNewProbCatch.get(slider).setMyProbCatch((double) newValue);
+                    new ProbConstant(myNewProbCatch.get(slider).getLabel(), (double) newValue));
+            myNewProbCatch.get(slider).setProbCatch((double) newValue);
         });
     }
 

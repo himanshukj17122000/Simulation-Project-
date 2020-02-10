@@ -44,7 +44,7 @@ public class PreyWriter {
             double dayswithoutFood=0;
             ArrayList<Double> constants= new ArrayList<>();
             for(ProbConstant c:myNewProbCatch.values()){
-                constants.add(c.getMyProbCatch());
+                constants.add(c.getProbCatch());
             }
             prob=constants.get(0);
             System.out.println(prob);

@@ -13,8 +13,8 @@
         <type1>Empty</type1>
         <type2>Fish</type2>
         <type3>Shark</type3>
-        <fishBreed>25.0</fishBreed>
-        <sharkBreed>21.395872420262663</sharkBreed>
+        <fishBreed>8.0</fishBreed>
+        <sharkBreed>25.0</sharkBreed>
         <fishLabel>Fish Breeding Time</fishLabel>
         <sharkLabel>Shark Breeding Time</sharkLabel>
         <numLabel>Number Of Days Without Food</numLabel>
@@ -24,7 +24,7 @@
         <maxDays>100.0</maxDays>
         <neighPattern>11111111</neighPattern>
         <shape>Rectangle</shape>
-        <concentration>0.0058962265,0.9941038</concentration>
+        <concentration>0.0063451775,0.99365485</concentration>
         <initial>Given</initial>
         <colors>Blue</colors>
         <boundary/>

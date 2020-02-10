@@ -22,7 +22,7 @@ public class Prey extends Configuration {
      */
     @Override
     public void paraTitle (String title) {
-        setMyTitle(title);
+        setTitle(title);
     }
 
     /**
@@ -32,32 +32,32 @@ public class Prey extends Configuration {
      */
 
     public Prey(Map<String, String> dataValues) throws NumberFormatException {
-        setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        setMyStates(dataValues.get(DATA_FIELDS.get(1)),3);
-        setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
-        setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
-        setMyRight(dataValues.get(DATA_FIELDS.get(5)));
-        setMyTop(dataValues.get(DATA_FIELDS.get(6)),noRow);
-        setMyBottom(dataValues.get(DATA_FIELDS.get(7)),noRow);
-        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),4);
-        setMyType1(dataValues.get(DATA_FIELDS.get(9)),"Empty");
-        setMyType2(dataValues.get(DATA_FIELDS.get(10)),"Fish");
-        setMyType3(dataValues.get(DATA_FIELDS.get(11)),"Shark");
-        setMyNeighPattern(dataValues.get(DATA_FIELDS.get(21)),"11111111");
-        setMyShape(dataValues.get(DATA_FIELDS.get(22)),initialShape);
-        setMyProbCatch(dataValues.get(DATA_FIELDS.get(12)),8);
-        setMyProbCatch(dataValues.get(DATA_FIELDS.get(13)),8);
-        setMyProbCatchLabel(dataValues.get(DATA_FIELDS.get(14)),"Fish Breeding Time");
-        setMyProbCatchLabel(dataValues.get(DATA_FIELDS.get(15)),"Shark Breeding Time");
-        setMyProbCatchLabel(dataValues.get(DATA_FIELDS.get(16)),"Number Of Days Without Food");
-        setMyProbMax(dataValues.get(DATA_FIELDS.get(17)),"15");
-        setMyProbMax(dataValues.get(DATA_FIELDS.get(18)),"20");
-        setMyProbMax(dataValues.get(DATA_FIELDS.get(20)),"20");
-        setMyProbCatch(dataValues.get(DATA_FIELDS.get(19)),10);
-        setMyColors(dataValues.get(DATA_FIELDS.get(25)),"Red,Green,White");
-        setMyStartingConfig(dataValues.get(DATA_FIELDS.get(24)),configRandom);
-        setMyConcentration(dataValues.get(DATA_FIELDS.get(23)),"0.8,0.1");
-        setMyBoundary(dataValues.get(DATA_FIELDS.get(24)),"NotToroidal");
+        setTitle(dataValues.get(DATA_FIELDS.get(0)));
+        setStates(dataValues.get(DATA_FIELDS.get(1)),3);
+        setDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
+        setLeft(dataValues.get(DATA_FIELDS.get(4)));
+        setRight(dataValues.get(DATA_FIELDS.get(5)));
+        setTop(dataValues.get(DATA_FIELDS.get(6)),noRow);
+        setBottom(dataValues.get(DATA_FIELDS.get(7)),noRow);
+        setNeighbours(dataValues.get(DATA_FIELDS.get(8)),4);
+        setType1(dataValues.get(DATA_FIELDS.get(9)),"Empty");
+        setType2(dataValues.get(DATA_FIELDS.get(10)),"Fish");
+        setType3(dataValues.get(DATA_FIELDS.get(11)),"Shark");
+        setNeighPattern(dataValues.get(DATA_FIELDS.get(21)),"11111111");
+        setShape(dataValues.get(DATA_FIELDS.get(22)),initialShape);
+        setProbCatch(dataValues.get(DATA_FIELDS.get(12)),8);
+        setProbCatch(dataValues.get(DATA_FIELDS.get(13)),8);
+        setProbCatchLabel(dataValues.get(DATA_FIELDS.get(14)),"Fish Breeding Time");
+        setProbCatchLabel(dataValues.get(DATA_FIELDS.get(15)),"Shark Breeding Time");
+        setProbCatchLabel(dataValues.get(DATA_FIELDS.get(16)),"Number Of Days Without Food");
+        setProbMax(dataValues.get(DATA_FIELDS.get(17)),"15");
+        setProbMax(dataValues.get(DATA_FIELDS.get(18)),"20");
+        setProbMax(dataValues.get(DATA_FIELDS.get(20)),"20");
+        setProbCatch(dataValues.get(DATA_FIELDS.get(19)),10);
+        setColors(dataValues.get(DATA_FIELDS.get(25)),"Red,Green,White");
+        setStartingConfig(dataValues.get(DATA_FIELDS.get(24)),configRandom);
+        setConcentration(dataValues.get(DATA_FIELDS.get(23)),"0.8,0.1");
+        setBoundary(dataValues.get(DATA_FIELDS.get(24)),"NotToroidal");
 
     }
 

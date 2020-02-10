@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<simulation type="Segregation">
+    <gridlayout>
+        <title>Segregation</title>
+        <maxStates>3</maxStates>
+        <rows>25</rows>
+        <columns>25</columns>
+        <left>0</left>
+        <right>0</right>
+        <top>0</top>
+        <bottom>0</bottom>
+        <neighbours>8</neighbours>
+        <probCatch>0.5995575221238938</probCatch>
+        <type1>Empty</type1>
+        <type2>Race1</type2>
+        <type3>Race2</type3>
+        <probCatchLabel>Threshold Value</probCatchLabel>
+        <maxProbCatch>1.0</maxProbCatch>
+        <neighPattern>10101111</neighPattern>
+        <shape>Rectangle</shape>
+        <concentration>0.3,0.3,0.4</concentration>
+        <initial>Given</initial>
+        <colors>Blue</colors>
+        <boundary/>
+    </gridlayout>
+</simulation>

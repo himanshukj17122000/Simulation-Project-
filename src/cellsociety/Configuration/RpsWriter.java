@@ -45,7 +45,7 @@ public class RpsWriter {
             double random=0;
             ArrayList<Double> constants= new ArrayList<>();
             for(ProbConstant c:myNewProbCatch.values()){
-                constants.add(c.getMyProbCatch());
+                constants.add(c.getProbCatch());
             }
             probcatch=constants.get(0);
             random=constants.get(1);

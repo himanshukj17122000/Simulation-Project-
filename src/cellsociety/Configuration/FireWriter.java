@@ -42,7 +42,7 @@ public class FireWriter {
             Element mainRootElement;
             double probcatch=0;
             for(ProbConstant c:myNewProbCatch.values()){
-                probcatch=c.getMyProbCatch();
+                probcatch=c.getProbCatch();
             }
             mainRootElement = doc.createElement("simulation");
             Map<String, Integer> concentrationMap= mySim.getTypesOfCells();
