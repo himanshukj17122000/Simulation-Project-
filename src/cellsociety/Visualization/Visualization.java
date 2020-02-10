@@ -171,7 +171,10 @@ public class Visualization {
         changeSim(buttonChange, primaryStage);
         uploadSim(buttonUpload);
         saveSim(buttonSave, simulationConfig, savedFile);
-        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonChange, buttonUpload, buttonSave);
+        toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonChange, buttonUpload);
+        if (simulationConfig.getTitle() != "Percolation") {
+            toolBar.getChildren().addAll(fileName, buttonSave);
+        }
     }
 
     private void updateProbCatch(Slider slider) {
