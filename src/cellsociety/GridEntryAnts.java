@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * GridEntry class which allows for multiple cells in one spot
+ * @author Olga Suchankova
+ */
 public class GridEntryAnts extends GridEntry {
     private List<Integer> ContainsCellType = new ArrayList<Integer>();
     private List<Cell> ContainedCell = new ArrayList<Cell>();

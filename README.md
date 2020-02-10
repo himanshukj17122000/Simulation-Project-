@@ -33,8 +33,9 @@ Olga Suchankova:
 * Primary classes (in charge of):
 * Secondary classes (worked on): 
 * Main contributions:
-    *
-    *
+    * Implemented all the cell types, and the data structures and algorithms to store cells and update cell states and communicate with the UI
+    * created simulation loop in simulation class
+    * implemented the display of cell states to the output window
     
 ### Resources Used
 * Stack Overflow

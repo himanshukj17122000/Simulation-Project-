@@ -10,9 +10,11 @@ import javafx.scene.shape.Shape;
 
 import java.util.*;
 
+/**
+ * Simulation class which time steps through a grid to update and create a graphic for the next time step
+ */
 public class Simulation {
     private List<List<GridEntry>> SimulationGrid;
-    private int status;
     private Set<GridEntry> emptyCellSet = new HashSet<GridEntry>();
     private Map<String, Integer> typesOfCells = new HashMap<>();
     private Group myGroup = new Group();
@@ -170,12 +172,12 @@ public class Simulation {
                 if (currentGridEntry.getCellType() == 1) { // update to not hard code
                     emptyCells.add(currentGridEntry);
                 }
-//                String cellType = currentGridEntry.getCell().getLabel();
-//                if (cellType != null) {
-//                    typesOfCells.putIfAbsent(cellType, 0);
-//                    typesOfCells.put(cellType, typesOfCells.get(cellType) + 1);
-//                }
-                //createShape(currentGridEntry, r, c);
+                String cellType = currentGridEntry.getCell().getLabel();
+                if (cellType != null) {
+                    typesOfCells.putIfAbsent(cellType, 0);
+                    typesOfCells.put(cellType, typesOfCells.get(cellType) + 1);
+                }
+                createShape(currentGridEntry, r, c);
             }
         }
         setEmptyCellSet(emptyCells);
@@ -183,7 +185,6 @@ public class Simulation {
 
     //step function of the simulation and returns a visual group which is added to the Hbox in visualization class
     public Group step(List<Double> parameters) {
-        //int[] cellType = new int[2];  // random line to initialize
         typesOfCells = new HashMap<>();
         Set<GridEntry> emptyCells = getEmptyCellSet();
         myGroup.getChildren().clear();
@@ -204,13 +205,11 @@ public class Simulation {
                     emptyCells.add(currentGridEntry);
                 }
                 createShape(currentGridEntry, r, c);
-//                cellType[0] = currentGridEntry.getCellType();
-//                cellType[1] = currentGridEntry.getCell().getRace();
                 String cellType = currentGridEntry.getCell().getLabel();
-//                if (cellType != null) {
-//                    typesOfCells.putIfAbsent(cellType, 0);
-//                    typesOfCells.put(cellType, typesOfCells.get(cellType)+1);
-//                }
+                if (cellType != null) {
+                    typesOfCells.putIfAbsent(cellType, 0);
+                    typesOfCells.put(cellType, typesOfCells.get(cellType)+1);
+                }
             }
         }
         setEmptyCellSet(emptyCells);

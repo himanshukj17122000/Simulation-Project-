@@ -8,7 +8,8 @@ import javafx.scene.paint.Paint;
 import java.util.*;
 
 /**
- * 
+ * rps cell with rules for RPS simulation
+ * @author Olga Suchankova
  */
 public class rpsCell extends Cell {
     private int TYPE;
