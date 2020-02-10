@@ -9,7 +9,7 @@ public class ProbConstant {
         myProbCatch = probCatch;
     }
 
-    public String getMyLabel() { return myLabel; }
-    public double getMyProbCatch() { return myProbCatch; }
-    public void setMyProbCatch(double probCatch) { myProbCatch = probCatch; }
+    public String getLabel() { return myLabel; }
+    public double getProbCatch() { return myProbCatch; }
+    public void setProbCatch(double probCatch) { myProbCatch = probCatch; }
 }

@@ -183,8 +183,8 @@ public class Visualization {
     private void updateProbCatch(Slider slider) {
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             myNewProbCatch.put(slider,
-                    new ProbConstant(myNewProbCatch.get(slider).getMyLabel(), (double) newValue));
-            myNewProbCatch.get(slider).setMyProbCatch((double) newValue);
+                    new ProbConstant(myNewProbCatch.get(slider).getLabel(), (double) newValue));
+            myNewProbCatch.get(slider).setProbCatch((double) newValue);
         });
     }
 
