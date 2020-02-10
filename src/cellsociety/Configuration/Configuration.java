@@ -93,14 +93,14 @@ public abstract class Configuration {
     public Double[] getConcentration(){return concentration;}
 
 
-    public void setMyShape(String s, String initialShape) {
+    public void setShape(String s, String initialShape) {
         try{if(hasNumbers(s)){
             throw new Exception();
         }this.shape=s;} catch (Exception e) {
             this.shape=initialShape;
         }
     }
-    public void setMyProbMax(String s, String s1) {
+    public void setProbMax(String s, String s1) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
         }maxProb.add(Double.parseDouble(s));} catch (NumberFormatException e) {
@@ -117,7 +117,7 @@ public abstract class Configuration {
         this.concentrate = concentrate;
     }
 
-    public void setMyConcentration(String s, String iniConc1) {
+    public void setConcentration(String s, String iniConc1) {
         try{ if(isStringOnlyAlphabet(s)){
             throw new Exception();
         }String[] concen= s.split(",");
@@ -135,7 +135,7 @@ public abstract class Configuration {
 
 
 
-    public void setMyNeighPattern(String s, String neighbourPattern) {
+    public void setNeighPattern(String s, String neighbourPattern) {
         try{ if(hasNumbers(s)){
             throw new Exception();
         }char[] pattArray= s.toCharArray();
@@ -156,7 +156,7 @@ public abstract class Configuration {
     }
 
 
-    public void setMyColors(String s, String s1) {
+    public void setColors(String s, String s1) {
         try{if(hasNumbers(s)){
             throw new Exception();
         }String[] separateColors= s.split(",");
@@ -170,7 +170,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyStartingConfig(String s, String configRandom) {
+    public void setStartingConfig(String s, String configRandom) {
         try{if(hasNumbers(s)){
             throw new Exception();
         }   this.startingConfig = s;}catch (Exception e){
@@ -179,11 +179,11 @@ public abstract class Configuration {
     }
 
 
-    public void setMyTitle(String myTitle) { this.myTitle = myTitle; }
+    public void setTitle(String myTitle) { this.myTitle = myTitle; }
 
 
 
-    public void setMyProbCatchLabel(String s, String probability_of_catching_on_fire) {
+    public void setProbCatchLabel(String s, String probability_of_catching_on_fire) {
         try{if(hasNumbers(s)){
             throw new Exception();
         }probCatchLabel.add(s);} catch (Exception e) {
@@ -191,7 +191,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyType3(String s, String tree) {
+    public void setType3(String s, String tree) {
         try{if(hasNumbers(s)){
             throw new Exception();
         }this.type3=s;} catch (Exception e) {
@@ -199,14 +199,14 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyType2(String s, String tree) {
+    public void setType2(String s, String tree) {
         try{if(hasNumbers(s)){
             throw new Exception();
         }this.type2=s;} catch (Exception e) {
             this.type2=tree;
         }
     }
-    public void setMyType1(String s, String tree) {
+    public void setType1(String s, String tree) {
         try{if(hasNumbers(s)){
             throw new Exception();
         }
@@ -215,7 +215,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyStates(String s, int def) {
+    public void setStates(String s, int def) {
         try {
             if(isStringOnlyAlphabet(s)){
                 throw new NumberFormatException();
@@ -227,7 +227,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyProbCatch(String s, double defaultProb) {
+    public void setProbCatch(String s, double defaultProb) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
         }probCatch.add(Double.parseDouble(s));} catch (NumberFormatException e) {
@@ -235,7 +235,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyDimensions(String columns, String rows) {
+    public void setDimensions(String columns, String rows) {
         try {
             if(isStringOnlyAlphabet(columns) || isStringOnlyAlphabet(rows)){
                 throw new NumberFormatException();
@@ -252,7 +252,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyTop(String s, int def) {
+    public void setTop(String s, int def) {
         try{
             if(isStringOnlyAlphabet(s)){
                 throw new NumberFormatException();
@@ -261,7 +261,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyNeighbours(String s, int def) {
+    public void setNeighbours(String s, int def) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
         }this.neighbours=Integer.parseInt(s);} catch (NumberFormatException e) {
@@ -269,7 +269,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyBottom(String s, int def) {
+    public void setBottom(String s, int def) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
         }this.bottom=Integer.parseInt(s);} catch (NumberFormatException e) {
@@ -277,7 +277,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyRight(String s) {
+    public void setRight(String s) {
         try{
             if(isStringOnlyAlphabet(s)){
                 throw new NumberFormatException();
@@ -287,7 +287,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyLeft(String s) {
+    public void setLeft(String s) {
         try{
             if(isStringOnlyAlphabet(s)){
                 throw new NumberFormatException();
@@ -297,7 +297,7 @@ public abstract class Configuration {
         }
     }
 
-    public void setMyBoundary(String s, String def){
+    public void setBoundary(String s, String def){
         try{
             if(hasNumbers(s)){
                 throw new NumberFormatException();

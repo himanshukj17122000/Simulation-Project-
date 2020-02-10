@@ -15,7 +15,7 @@ public class Percolation extends Configuration {
      */
     @Override
     public void paraTitle (String title) {
-        setMyTitle(title);
+        setTitle(title);
     }
 
     /**
@@ -24,22 +24,22 @@ public class Percolation extends Configuration {
      * @param dataValues map of field names to their values
      */
     public Percolation (Map<String, String> dataValues) throws NumberFormatException {
-        setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        setMyStates(dataValues.get(DATA_FIELDS.get(1)),2);
-        setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
-        setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
-        setMyRight(dataValues.get(DATA_FIELDS.get(5)));
-        setMyTop(dataValues.get(DATA_FIELDS.get(6)),3);
-        setMyBottom(dataValues.get(DATA_FIELDS.get(7)),2);
-        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
-        setMyType1(dataValues.get(DATA_FIELDS.get(9)),"Percolated");
-        setMyType2(dataValues.get(DATA_FIELDS.get(10)),"Open");
-        setMyType3(dataValues.get(DATA_FIELDS.get(11)),"Block");
-        setMyNeighPattern(dataValues.get(DATA_FIELDS.get(12)),"11111111");
-        setMyShape(dataValues.get(DATA_FIELDS.get(13)),initialShape);
-        setMyColors(dataValues.get(DATA_FIELDS.get(14)),"Blue,Black");
-        setMyStartingConfig(configRandom,configRandom);
-        setMyBoundary(dataValues.get(DATA_FIELDS.get(15)),"NotToroidal");
+        setTitle(dataValues.get(DATA_FIELDS.get(0)));
+        setStates(dataValues.get(DATA_FIELDS.get(1)),2);
+        setDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
+        setLeft(dataValues.get(DATA_FIELDS.get(4)));
+        setRight(dataValues.get(DATA_FIELDS.get(5)));
+        setTop(dataValues.get(DATA_FIELDS.get(6)),3);
+        setBottom(dataValues.get(DATA_FIELDS.get(7)),2);
+        setNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
+        setType1(dataValues.get(DATA_FIELDS.get(9)),"Percolated");
+        setType2(dataValues.get(DATA_FIELDS.get(10)),"Open");
+        setType3(dataValues.get(DATA_FIELDS.get(11)),"Block");
+        setNeighPattern(dataValues.get(DATA_FIELDS.get(12)),"11111111");
+        setShape(dataValues.get(DATA_FIELDS.get(13)),initialShape);
+        setColors(dataValues.get(DATA_FIELDS.get(14)),"Blue,Black");
+        setStartingConfig(configRandom,configRandom);
+        setBoundary(dataValues.get(DATA_FIELDS.get(15)),"NotToroidal");
 
     }
 }

@@ -14,7 +14,7 @@ public class Rps extends Configuration {
      */
     @Override
     public void paraTitle (String title) {
-        setMyTitle(title);
+        setTitle(title);
     }
 
     /**
@@ -24,29 +24,29 @@ public class Rps extends Configuration {
      */
 
     public Rps (Map<String, String> dataValues) throws NumberFormatException {
-        setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        setMyStates(dataValues.get(DATA_FIELDS.get(1)),3);
-        setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
-        setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
-        setMyRight(dataValues.get(DATA_FIELDS.get(5)));
-        setMyTop(dataValues.get(DATA_FIELDS.get(6)),noRow);
-        setMyBottom(dataValues.get(DATA_FIELDS.get(7)),noRow);
-        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
-        setMyProbCatch(dataValues.get(DATA_FIELDS.get(9)),4);
-        setMyType1(dataValues.get(DATA_FIELDS.get(10)),"Rock");
-        setMyType2(dataValues.get(DATA_FIELDS.get(11)),"Paper");
-        setMyType3(dataValues.get(DATA_FIELDS.get(12)),"Scissor");
-        setMyProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)),"Threshold for winning");
-        setMyProbMax(dataValues.get(DATA_FIELDS.get(14)),"8");
-        setMyNeighPattern(dataValues.get(DATA_FIELDS.get(15)),"11111111");
-        setMyShape(dataValues.get(DATA_FIELDS.get(16)),initialShape);
-        setMyProbCatch(dataValues.get(DATA_FIELDS.get(17)),2);
-        setMyProbMax(dataValues.get(DATA_FIELDS.get(18)),"4");
-        setMyProbCatchLabel(dataValues.get(DATA_FIELDS.get(19)),"Value of the Random Number");
-        setMyConcentration(dataValues.get(DATA_FIELDS.get(20)),iniConc2);
-        setMyStartingConfig(dataValues.get(DATA_FIELDS.get(21)),configRandom);
-        setMyColors(dataValues.get(DATA_FIELDS.get(22)),"Red,Green,White");
-        setMyBoundary(dataValues.get(DATA_FIELDS.get(23)),"NotToroidal");
+        setTitle(dataValues.get(DATA_FIELDS.get(0)));
+        setStates(dataValues.get(DATA_FIELDS.get(1)),3);
+        setDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
+        setLeft(dataValues.get(DATA_FIELDS.get(4)));
+        setRight(dataValues.get(DATA_FIELDS.get(5)));
+        setTop(dataValues.get(DATA_FIELDS.get(6)),noRow);
+        setBottom(dataValues.get(DATA_FIELDS.get(7)),noRow);
+        setNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
+        setProbCatch(dataValues.get(DATA_FIELDS.get(9)),4);
+        setType1(dataValues.get(DATA_FIELDS.get(10)),"Rock");
+        setType2(dataValues.get(DATA_FIELDS.get(11)),"Paper");
+        setType3(dataValues.get(DATA_FIELDS.get(12)),"Scissor");
+        setProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)),"Threshold for winning");
+        setProbMax(dataValues.get(DATA_FIELDS.get(14)),"8");
+        setNeighPattern(dataValues.get(DATA_FIELDS.get(15)),"11111111");
+        setShape(dataValues.get(DATA_FIELDS.get(16)),initialShape);
+        setProbCatch(dataValues.get(DATA_FIELDS.get(17)),2);
+        setProbMax(dataValues.get(DATA_FIELDS.get(18)),"4");
+        setProbCatchLabel(dataValues.get(DATA_FIELDS.get(19)),"Value of the Random Number");
+        setConcentration(dataValues.get(DATA_FIELDS.get(20)),iniConc2);
+        setStartingConfig(dataValues.get(DATA_FIELDS.get(21)),configRandom);
+        setColors(dataValues.get(DATA_FIELDS.get(22)),"Red,Green,White");
+        setBoundary(dataValues.get(DATA_FIELDS.get(23)),"NotToroidal");
 
     }
 
