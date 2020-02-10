@@ -1,6 +1,11 @@
 package cellsociety.Configuration;
 
 import java.util.ArrayList;
+/**
+ * @Author-Himanshu Jain
+ * This is the abstract class for Configuration. It mostly holds the values that are required for making the simulation
+ * and also sets the values for them. It is inherited by all the other simulations that call it to set their value
+ */
 public abstract class Configuration {
     private String myTitle;
     private String type1;
@@ -24,6 +29,10 @@ public abstract class Configuration {
     private String neighbourPatterninString;
     private String concentrate;
 
+    /**
+     * used to get the starting connfiguration whether it is random or given
+     * @return the starting configuration of the simulation
+     */
     public String getStartingConfig() {
         return startingConfig;
     }
@@ -34,6 +43,10 @@ public abstract class Configuration {
     private ArrayList<Double> probCatch=new ArrayList<>();
     private int[] neighPattern= new int[8];
 
+    /**
+     * used to get the colors for the simulation
+     * @return the different colours that are read from the XML file
+     */
     public ArrayList<String> getColors() {
         return colors;
     }
@@ -44,55 +57,175 @@ public abstract class Configuration {
     private Double[] concentration= new Double[3];
     private int maxStates,rows,columns,left,right,top,bottom, neighbours,randomNumber,maxRandomNumber;
 
-
+    /**
+     * the label for the slider
+     * @return the text that is above the slider
+     */
     public String getRandomLabel() {
         return randomLabel;
     }
 
+    /**
+     * set the label for the slider
+     * @param randomLabel the text that has to be above the slider
+     */
     public void setRandomLabel(String randomLabel) {
         this.randomLabel = randomLabel;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getRandomNumber() {
         return randomNumber;
     }
 
+    /**
+     *
+     * @param randomNumber
+     */
     public void setRandomNumber(int randomNumber) {
         this.randomNumber = randomNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMaxRandomNumber() {
         return maxRandomNumber;
     }
 
+    /**
+     *
+     * @param maxRandomNumber
+     */
     public void setMaxRandomNumber(int maxRandomNumber) {
         this.maxRandomNumber = maxRandomNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getShape() {
         return shape;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public String getTitle(){return myTitle;}
+
+    /**
+     *
+     * @return
+     */
     public String getMyboundary(){return Myboundary;}
+
+    /**
+     *
+     * @return
+     */
     public int getMaxStates(){return maxStates;}
+
+    /**
+     *
+     * @return
+     */
     public int getRows(){return rows;}
+
+    /**
+     *
+     * @return
+     */
     public int getColumns(){return columns;}
+
+    /**
+     *
+     * @return
+     */
     public int getLeft(){return left;}
+
+    /**
+     *
+     * @return
+     */
     public int getRight(){return right;}
+
+    /**
+     *
+     * @return
+     */
     public int getTop(){return top;}
+
+    /**
+     *
+     * @return
+     */
     public int getBottom(){return bottom;}
+
+    /**
+     *
+     * @return
+     */
     public int getNeighbours(){return neighbours;}
+
+    /**
+     *
+     * @return
+     */
     public String getType1(){return type1;}
+
+    /**
+     *
+     * @return
+     */
     public String getType2(){return type2;}
+
+    /**
+     *
+     * @return
+     */
     public String getType3(){return type3;}
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getProbCatchLabel(){return probCatchLabel;}
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<Double> getProbCatch(){return probCatch;}
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<Double> getMaxProb(){return maxProb;}
+
+    /**
+     *
+     * @return
+     */
     public int[] getNeighPattern(){return neighPattern;}
+
+    /**
+     *
+     * @return
+     */
     public Double[] getConcentration(){return concentration;}
 
-
+    /**
+     *
+     * @param s
+     * @param initialShape
+     */
     public void setMyShape(String s, String initialShape) {
         try{if(hasNumbers(s)){
             throw new Exception();
@@ -100,6 +233,12 @@ public abstract class Configuration {
             this.shape=initialShape;
         }
     }
+
+    /**
+     *
+     * @param s
+     * @param s1
+     */
     public void setMyProbMax(String s, String s1) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
@@ -108,15 +247,27 @@ public abstract class Configuration {
         }
     }
 
-
+    /**
+     *
+     * @return
+     */
     public String getConcentrate() {
         return concentrate;
     }
 
+    /**
+     *
+     * @param concentrate
+     */
     public void setConcentrate(String concentrate) {
         this.concentrate = concentrate;
     }
 
+    /**
+     *
+     * @param s
+     * @param iniConc1
+     */
     public void setMyConcentration(String s, String iniConc1) {
         try{ if(isStringOnlyAlphabet(s)){
             throw new Exception();
@@ -134,7 +285,11 @@ public abstract class Configuration {
     }
 
 
-
+    /**
+     *
+     * @param s
+     * @param neighbourPattern
+     */
     public void setMyNeighPattern(String s, String neighbourPattern) {
         try{ if(hasNumbers(s)){
             throw new Exception();
@@ -151,11 +306,19 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNeighPatterninString(){
         return neighbourPatterninString;
     }
 
-
+    /**
+     *
+     * @param s
+     * @param s1
+     */
     public void setMyColors(String s, String s1) {
         try{if(hasNumbers(s)){
             throw new Exception();
@@ -170,6 +333,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param configRandom
+     */
     public void setMyStartingConfig(String s, String configRandom) {
         try{if(hasNumbers(s)){
             throw new Exception();
@@ -178,11 +346,18 @@ public abstract class Configuration {
         }
     }
 
-
+    /**
+     *
+     * @param myTitle
+     */
     public void setMyTitle(String myTitle) { this.myTitle = myTitle; }
 
 
-
+    /**
+     *
+     * @param s
+     * @param probability_of_catching_on_fire
+     */
     public void setMyProbCatchLabel(String s, String probability_of_catching_on_fire) {
         try{if(hasNumbers(s)){
             throw new Exception();
@@ -191,6 +366,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param tree
+     */
     public void setMyType3(String s, String tree) {
         try{if(hasNumbers(s)){
             throw new Exception();
@@ -199,6 +379,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param tree
+     */
     public void setMyType2(String s, String tree) {
         try{if(hasNumbers(s)){
             throw new Exception();
@@ -206,6 +391,12 @@ public abstract class Configuration {
             this.type2=tree;
         }
     }
+
+    /**
+     *
+     * @param s
+     * @param tree
+     */
     public void setMyType1(String s, String tree) {
         try{if(hasNumbers(s)){
             throw new Exception();
@@ -215,6 +406,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param def
+     */
     public void setMyStates(String s, int def) {
         try {
             if(isStringOnlyAlphabet(s)){
@@ -227,6 +423,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param defaultProb
+     */
     public void setMyProbCatch(String s, double defaultProb) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
@@ -235,6 +436,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param columns
+     * @param rows
+     */
     public void setMyDimensions(String columns, String rows) {
         try {
             if(isStringOnlyAlphabet(columns) || isStringOnlyAlphabet(rows)){
@@ -252,6 +458,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param def
+     */
     public void setMyTop(String s, int def) {
         try{
             if(isStringOnlyAlphabet(s)){
@@ -261,6 +472,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param def
+     */
     public void setMyNeighbours(String s, int def) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
@@ -269,6 +485,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param def
+     */
     public void setMyBottom(String s, int def) {
         try{if(isStringOnlyAlphabet(s)){
             throw new NumberFormatException();
@@ -277,6 +498,10 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setMyRight(String s) {
         try{
             if(isStringOnlyAlphabet(s)){
@@ -287,6 +512,10 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setMyLeft(String s) {
         try{
             if(isStringOnlyAlphabet(s)){
@@ -297,6 +526,11 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param def
+     */
     public void setMyBoundary(String s, String def){
         try{
             if(hasNumbers(s)){
@@ -307,7 +541,17 @@ public abstract class Configuration {
         }
     }
 
+    /**
+     *
+     * @param title
+     */
     public abstract void paraTitle(String title);
+
+    /**
+     *
+     * @param str
+     * @return
+     */
     public static boolean isStringOnlyAlphabet(String str)
     {
         return ((str != null)
@@ -315,6 +559,11 @@ public abstract class Configuration {
                 && str.matches(".*[a-zA-Z]+.*"));
     }
 
+    /**
+     *
+     * @param str
+     * @return
+     */
     public static boolean hasNumbers(String str){
         return str.matches(".*\\d.*");
     }

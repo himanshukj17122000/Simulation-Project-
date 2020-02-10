@@ -18,8 +18,21 @@ import javafx.scene.control.Slider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+/**
+ * @Author-Himanshu Jain
+ * This class is for the Fire Configuration. It sets all the values for the Fire Simulation using the setter methods
+ * in the Configuration file
+ */
 public class FireWriter {
     private static String conc="";
+
+    /**
+     *
+     * @param simulationConfig
+     * @param myNewProbCatch
+     * @param mySim
+     * @param s
+     */
     public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim, String s) {
         DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder icBuilder;
@@ -59,7 +72,14 @@ public class FireWriter {
         }
     }
 
-
+    /**
+     *
+     * @param doc
+     * @param title
+     * @param simulation
+     * @param prob
+     * @return
+     */
     private static Node getCompany(Document doc, String title, Configuration simulation, double prob) {
         Element company = doc.createElement("gridlayout");
         company.appendChild(getCompanyElements(doc, company, Fire.DATA_FIELDS.get(0), title));
@@ -86,6 +106,14 @@ public class FireWriter {
         return company;
     }
 
+    /**
+     *
+     * @param doc
+     * @param element
+     * @param name
+     * @param value
+     * @return
+     */
     private static Node getCompanyElements(Document doc, Element element, String name, String value) {
         Element node = doc.createElement(name);
         node.appendChild(doc.createTextNode(value));

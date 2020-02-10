@@ -3,6 +3,11 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @Author-Himanshu Jain
+ * This class is for the Percolation Configuration. It sets all the values for the Percolation Simulation using the setter methods
+ * in the Configuration file
+ */
 public class Percolation extends Configuration {
     public static final String DATA_TYPE = "Percolation";
     // field names expected to appear in data file holding values for this object
@@ -11,7 +16,7 @@ public class Percolation extends Configuration {
             "top","bottom","neighbours","type1","type2","type3","neighPattern","shape","colors","boundary");
 
     /**
-     * Create game data from given data.
+     * Create Percolation data from given data.
      */
     @Override
     public void paraTitle (String title) {
@@ -19,7 +24,7 @@ public class Percolation extends Configuration {
     }
 
     /**
-     * Create game data from data structure of Strings.
+     * Create Percolation data from data structure of Strings.
      *
      * @param dataValues map of field names to their values
      */

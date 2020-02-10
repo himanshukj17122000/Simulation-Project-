@@ -14,6 +14,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import static cellsociety.Visualization.DialogBox.*;
+/**
+ * @Author-Himanshu Jain
+ * This class is for the Fire Configuration. It sets all the values for the Fire Simulation using the setter methods
+ * in the Configuration file
+ */
 
 public class Reader {
     // Readable error message that can be displayed by the GUI
