@@ -55,7 +55,7 @@ Main class: Main.java
 
 Data files needed: 
 * 7 packages (Configuration, Visualization, one for each Simulation type)
-* 30 classes (of which 2 are abstract and 18 are sub-classes)
+* 40 classes (of which 2 are abstract and 18 are sub-classes)
 
 Features implemented:
 * Simulation
