@@ -24,13 +24,16 @@ import java.io.IOException;
 import static cellsociety.Main.TITLE;
 
 public class Splash {
-    public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 800;
-    public static final Paint SCREEN_BACKGROUND = Color.web("0e1e38");
-    public static final String BUTTON_STYLE_COLOR = "#bbd0ef";
-    public static final int BUTTON_FONT_SIZE = 16;
+    private static final int SCREEN_WIDTH = 1200;
+    private static final int SCREEN_HEIGHT = 800;
+    private static final Paint SCREEN_BACKGROUND = Color.web("0e1e38");
+    private static final String BUTTON_STYLE_COLOR = "#bbd0ef";
+    private static final int BUTTON_FONT_SIZE = 16;
     private static final Paint BUTTON_FONT_COLOR = Color.BLACK;
     private static final String BUTTON_UPLOAD = "Choose Simulation";
+    private static final int TITLE_FONT_SIZE = 20;
+    private static final String TITLE_FONT_WEIGHT = "bold";
+    private static final String TITLE_FILL = "white";
     private static final String ERROR_MESSAGE= "No file chosen";
 
     private Scene mySplashScene;
@@ -48,12 +51,13 @@ public class Splash {
 
     private Scene buildSplashScene(Stage primaryStage) {
         Text simTitle = new Text(TITLE);
-        simTitle.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: white");
+        simTitle.setStyle("-fx-font-size:" + TITLE_FONT_SIZE + "; -fx-font-weight: " + TITLE_FONT_WEIGHT + "; " +
+                "-fx-fill:" + TITLE_FILL);
         simTitle.setTextAlignment(TextAlignment.CENTER);
         Layout layout = new Layout();
         Button buttonUpload = layout.createButton(BUTTON_UPLOAD, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR,
                 BUTTON_FONT_SIZE);
-        buttonUpload.setLayoutX(550);
+        buttonUpload.setLayoutX(SCREEN_WIDTH/2);
         uploadSim(buttonUpload, primaryStage);
         VBox root = new VBox(20);
         root.setAlignment(Pos.CENTER);
