@@ -32,8 +32,12 @@ public class Visualization {
     private static final String BUTTON_STYLE_COLOR = "#bbd0ef";
     private static final Paint BUTTON_FONT_COLOR = Color.BLACK;
     private static final int BUTTON_FONT_SIZE = 16;
+    private static final int PADDING = 50;
     private static final double MAX_SPEED = 1000;
     private static final double MIN_SPEED = 0;
+    private static final int MINOR_TICK_COUNT = 5;
+    private static final double BLOCK_INCREMENT = 0.05;
+    private static final double BLOCK_INCREMENT_SPEED = 100;
     private static final String ButtonHome = "Back to Main";
     private static final String BUTTON_PAUSE = "Pause Simulation";
     private static final String BUTTON_STEP = "Next Step";
@@ -140,7 +144,7 @@ public class Visualization {
             myStats = myLayout.createChart(mySimulation);
             myToolBar.getChildren().addAll(myStats);
         }
-        myToolBar.setPadding(new Insets(50));
+        myToolBar.setPadding(new Insets(PADDING));
         return myToolBar;
     }
 
@@ -198,7 +202,7 @@ public class Visualization {
             for (int i = 0; i < probCatch.size(); i += 1) {
                 Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
                 Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, maxProb.get(i),
-                        maxProb.get(i) / 2, 5, 0.05);
+                        maxProb.get(i) / 2, MINOR_TICK_COUNT, BLOCK_INCREMENT);
                 ProbConstant probConstant = new ProbConstant(probCatchLabel.get(i), probCatch.get(i));
                 myNewProbCatch.put(probabilitySlider, probConstant);
                 updateProbCatch(probabilitySlider);
@@ -207,7 +211,7 @@ public class Visualization {
         }
         Label setSpeed = myLayout.createLabel ("Set the simulation speed:", 16, Color.WHITE);
         Slider mySpeedSlider = myLayout.createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED - MIN_SPEED) / 2,
-                (MAX_SPEED - MIN_SPEED) / 100, 100);
+                (MAX_SPEED - MIN_SPEED) / 100, BLOCK_INCREMENT_SPEED);
         updateSpeed(mySpeedSlider);
         toolBar.getChildren().addAll(setSpeed, mySpeedSlider);
     }
