@@ -118,6 +118,7 @@ public class Visualization {
             myStats = myLayout.createChart(mySimulation);
             myToolBar.getChildren().add(myStats);
         }
+        //myTimeline.setRate(mySpeed);
     }
 
     private void initializeSimulation(Configuration simulationConfig){
@@ -210,7 +211,6 @@ public class Visualization {
     private void stepSim(Button buttonStep) {
         buttonStep.setOnAction(e -> {
             myGroup = mySimulation.step(getParameters());
-            //drawGrid(myGrid);
         });
     }
 
