@@ -1,4 +1,4 @@
-package rPSSimulation;
+package cellsociety.rPSSimulation;
 
 import cellsociety.Cell;
 import cellsociety.GridEntry;

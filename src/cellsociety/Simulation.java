@@ -34,7 +34,7 @@ public class Simulation {
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             List<GridEntry> insertRow = new ArrayList<>();
             for (int c = 0; c < myConfiguration.getColumns(); c++) {
-                GridEntry insertGridEntry = createBorderGridEntry(r, c, myConfiguration.getTitle());
+                GridEntry insertGridEntry = createBorderGridEntry(c, r, myConfiguration.getTitle());
                 if (insertGridEntry == null) {
                     insertGridEntry = randomizeGridEntry(r, c, myConfiguration.getTitle());
                 }

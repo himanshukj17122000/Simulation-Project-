@@ -14,7 +14,7 @@
         <type2>Open</type2>
         <type3>Block</type3>
         <neighPattern>11111111</neighPattern>
-        <shape>Hexagon</shape>
+        <shape>Rectangle</shape>
         <colors>Blue,Black</colors>
     </gridlayout>
 </simulation>

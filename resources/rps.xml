@@ -3,8 +3,8 @@
     <gridlayout>
         <title>Rps</title>
         <maxStates>3</maxStates>
-        <rows>15</rows>
-        <columns>15</columns>
+        <rows>100</rows>
+        <columns>100</columns>
         <left>0</left>
         <right>0</right>
         <top>0</top>
@@ -21,7 +21,7 @@
         <randomNumber>2</randomNumber>
         <maxRandomNumber>4</maxRandomNumber>
         <randomLabel>Value of the Random Number</randomLabel>
-        <concentration>0.2,0.4,0,4</concentration>
+        <concentration>0.4,0.4,0,4</concentration>
         <colors>Blue,Orange,Green</colors>
     </gridlayout>
 </simulation>
