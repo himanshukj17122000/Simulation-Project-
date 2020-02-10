@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DialogBox {
-    public static final String DATA_FILE_EXTENSION = "*.xml";
+    private static final String DATA_FILE_EXTENSION = "*.xml";
     public static final String FIRE_FILE = "Fire";
     public static final String GAME_FILE = "Game of Life";
     public static final String PERC_FILE = "Percolation";
@@ -33,6 +33,7 @@ public class DialogBox {
     private static Map<String,String> result= new HashMap<>();
     private Configuration mySimulationConfig;
 
+    // Opens the dialog box and initializes the configuration
     public void start(Stage primaryStage) throws NullPointerException, ParserConfigurationException, IOException, SAXException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         if(dataFile==null){
@@ -103,9 +104,6 @@ public class DialogBox {
         result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Text Files", extensionAccepted));
         return result;
     }
-
-    // Getter method for configuration to be passed on in Visualization and Simulation
-    public Configuration getSimulationConfig() { return mySimulationConfig; }
 
     private static String getTagValue(String sTag, Element eElement) {
         NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();

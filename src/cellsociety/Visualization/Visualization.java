@@ -32,8 +32,12 @@ public class Visualization {
     private static final String BUTTON_STYLE_COLOR = "#bbd0ef";
     private static final Paint BUTTON_FONT_COLOR = Color.BLACK;
     private static final int BUTTON_FONT_SIZE = 16;
+    private static final int PADDING = 50;
     private static final double MAX_SPEED = 1000;
     private static final double MIN_SPEED = 0;
+    private static final int MINOR_TICK_COUNT = 5;
+    private static final double BLOCK_INCREMENT = 0.05;
+    private static final double BLOCK_INCREMENT_SPEED = 100;
     private static final String ButtonHome = "Back to Main";
     private static final String BUTTON_PAUSE = "Pause Simulation";
     private static final String BUTTON_STEP = "Next Step";
@@ -74,8 +78,8 @@ public class Visualization {
         List<Double> doubleArray = new ArrayList<>();
         int i = 0; //iterator
         for(ProbConstant pair: inputHash.values()){
-            map.put(pair.getMyLabel(), pair.getMyProbCatch());
-            stringArray.add(i, pair.getMyLabel());
+            map.put(pair.getLabel(), pair.getProbCatch());
+            stringArray.add(i, pair.getLabel());
             i++;
         }
         if(stringArray.size() > 0){
@@ -120,7 +124,6 @@ public class Visualization {
             myStats = myLayout.createChart(mySimulation);
             myToolBar.getChildren().add(myStats);
         }
-        //myTimeline.setRate(mySpeed);
     }
 
     private void initializeSimulation(Configuration simulationConfig){
@@ -136,11 +139,11 @@ public class Visualization {
         myToolBar = new VBox(20);
         implementButtons(primaryStage, myToolBar, simulationConfig);
         implementSlider(simulationConfig, myToolBar);
-        if (! simulationConfig.getTitle().equals("Segregation")) {
+        if (! simulationConfig.getTitle().equals("Segregation") & ! simulationConfig.getTitle().equals("Rps")) {
             myStats = myLayout.createChart(mySimulation);
             myToolBar.getChildren().addAll(myStats);
         }
-        myToolBar.setPadding(new Insets(50));
+        myToolBar.setPadding(new Insets(PADDING));
         return myToolBar;
     }
 
@@ -180,8 +183,8 @@ public class Visualization {
     private void updateProbCatch(Slider slider) {
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             myNewProbCatch.put(slider,
-                    new ProbConstant(myNewProbCatch.get(slider).getMyLabel(), (double) newValue));
-            myNewProbCatch.get(slider).setMyProbCatch((double) newValue);
+                    new ProbConstant(myNewProbCatch.get(slider).getLabel(), (double) newValue));
+            myNewProbCatch.get(slider).setProbCatch((double) newValue);
         });
     }
 
@@ -198,7 +201,7 @@ public class Visualization {
             for (int i = 0; i < probCatch.size(); i += 1) {
                 Label setProbCatch = myLayout.createLabel("Set the " + probCatchLabel.get(i) + ":", 16, Color.WHITE);
                 Slider probabilitySlider = myLayout.createSlider(probCatch.get(i), 0, maxProb.get(i),
-                        maxProb.get(i) / 2, 5, 0.05);
+                        maxProb.get(i) / 2, MINOR_TICK_COUNT, BLOCK_INCREMENT);
                 ProbConstant probConstant = new ProbConstant(probCatchLabel.get(i), probCatch.get(i));
                 myNewProbCatch.put(probabilitySlider, probConstant);
                 updateProbCatch(probabilitySlider);
@@ -207,7 +210,7 @@ public class Visualization {
         }
         Label setSpeed = myLayout.createLabel ("Set the simulation speed:", 16, Color.WHITE);
         Slider mySpeedSlider = myLayout.createSlider(DEFAULT_SPEED, MIN_SPEED, MAX_SPEED, (MAX_SPEED - MIN_SPEED) / 2,
-                (MAX_SPEED - MIN_SPEED) / 100, 100);
+                (MAX_SPEED - MIN_SPEED) / 100, BLOCK_INCREMENT_SPEED);
         updateSpeed(mySpeedSlider);
         toolBar.getChildren().addAll(setSpeed, mySpeedSlider);
     }
@@ -261,13 +264,45 @@ public class Visualization {
 
     private void saveSim(Button buttonSave, Configuration simulationConfig, TextField fileName) {
         buttonSave.setOnAction(e -> {
-
+            if(simulationConfig.getTitle().equals("Fire")){
+                FireWriter fireWriter = new FireWriter();
+                if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
+                    fireWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
+                }
+                else {
+                    fireWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+                }
+            } else if(simulationConfig.getTitle().equals("Prey")){
+                PreyWriter preyWriter = new PreyWriter();
+                if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
+                    preyWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
+                }
+                else {
+                    preyWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+                }
+            } else if(simulationConfig.getTitle().equals("Game of Life")) {
             GofWriter gofWriter = new GofWriter();
             if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
                 gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
             }
             else {
                 gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+            }} else if(simulationConfig.getTitle().equals("Segregation")){
+                SegregationWriter segWriter = new SegregationWriter();
+                if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
+                    segWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
+                }
+                else {
+                    segWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+                }
+            }else if(simulationConfig.getTitle().equals("Rps")){
+                RpsWriter rpsWriter = new RpsWriter();
+                if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
+                    rpsWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
+                }
+                else {
+                    rpsWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+                }
             }
         });
     }

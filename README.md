@@ -106,12 +106,47 @@ Features implemented:
 ### Notes/Assumptions
 
 Assumptions or Simplifications:
-* 
+* The screen has a fixed size and is not resizable.
+* The XML file requires a lot of formatted inputs, but error checking does set defaults if 
+left blank.
+* The program only allows certain types of simulations, with minor adjustments.
+* The main rules of each type of simulation is set, but certain parameters can be altered
+using sliders or changing the XML file.
+* The shape of the cell can only be customized as rectangular, hexagonal, or circle.
+* The color of the cells are set depending on the simulation.
+* The size of the cells are calculated based on the input grid size and number of rows and
+columns.
+* The grid ratio (rows:columns) must be within a range of 0.833 to 1.2.
+* Users cannot interact dynamically to change the state of the grid.
+
 Interesting data files:
+* Simulation class: primarily controls how the simulation updates
+* Visualization class: primarily handles all UI elements and animation
+* Reader class: reads input of XML file
+* Predator Cell class
 
 Known Bugs:
+* The speed slider does not work
+* The method that is supposed to update the cell state if the user clicks on the cell does
+not work
+* For the Prey simulation, sometimes a Prey does not move into a spot that the Predator just
+left from; instead it displays an empty cell.
 
 Extra credit:
+* Display cell shapes as circles and hexagonals
+* XML writer that can save current configuration as a new input file, and allows the user
+to choose the file name
+* Display chart of cell population statistics that updates in real-time
+* Allow users to run two different types of simulations simultaneously and be able to control
+each simulation independently
 
 ### Impressions
-
+Overall, our group thought that the project was quite challenging. Writing the XML file was
+definitely a learning curve, but having pre-written code for reading the XML file was very
+helpful. Debugging simulations were really time-consuming, as it was difficult to pinpoint
+the cause of the error. Visualization did not seem to be one of the most challenging aspects
+of this project, but some of the features were actually very difficult to implement. Through
+this experience, we were all able to get experience with handling errors, using inheritance
+and polymorphism with abstract classes, as well as encapsulation (by not passing the grid 
+directly). While this project consumed our lives, we really learned how to work efficiently
+as a team and improved our Git and codesharing skills.

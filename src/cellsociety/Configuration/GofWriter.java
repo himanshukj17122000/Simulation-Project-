@@ -12,12 +12,26 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import cellsociety.ProbConstant;
 import cellsociety.Simulation;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Slider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+/**
+ * @Author-Himanshu Jain
+ * This class is for the Fire Configuration. It sets all the values for the Fire Simulation using the setter methods
+ * in the Configuration file
+ */
 public class GofWriter {
     private static String conc="";
+
+    /**
+     *
+     * @param simulationConfig
+     * @param myNewProbCatch
+     * @param mySim
+     * @param s
+     */
     public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim, String s) {
             DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder icBuilder;
@@ -27,7 +41,7 @@ public class GofWriter {
                 Element mainRootElement;
                 double probcatch=0;
                 for(ProbConstant c:myNewProbCatch.values()){
-                    probcatch=c.getMyProbCatch();
+                    probcatch=c.getProbCatch();
                 }
                 mainRootElement = doc.createElement("simulation");
                 Map<String, Integer> concentrationMap= mySim.getTypesOfCells();
@@ -54,10 +68,18 @@ public class GofWriter {
                 StreamResult console = new StreamResult(new File("resources/"+s+".xml"));
                 transformer.transform(source, console);
             } catch (Exception e) {
-                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR,"File Error").showAndWait();
             }
         }
 
+    /**
+     *
+     * @param doc
+     * @param title
+     * @param simulation
+     * @param prob
+     * @return
+     */
         private static Node getCompany(Document doc, String title, Configuration simulation, double prob) {
             Element company = doc.createElement("gridlayout");
             company.appendChild(getCompanyElements(doc, company, Game.DATA_FIELDS.get(0), title));
@@ -81,6 +103,14 @@ public class GofWriter {
             return company;
         }
 
+    /**
+     *
+     * @param doc
+     * @param element
+     * @param name
+     * @param value
+     * @return
+     */
         private static Node getCompanyElements(Document doc, Element element, String name, String value) {
             Element node = doc.createElement(name);
             node.appendChild(doc.createTextNode(value));

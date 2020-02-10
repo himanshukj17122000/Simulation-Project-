@@ -15,7 +15,9 @@ public class Layout {
     private static final int MAX_WIDTH = 400;
     private static final int CHART_WIDTH = 300;
     private static final int CHART_HEIGHT = 300;
+    private static final String CHART_TITLE = "Population Stats";
     private static final String SIDEBAR_BACKGROUND = "rgb(90, 118, 161)";
+    private static final String SLIDER_FILL = "white";
 
     // Method for creating a button
     public Button createButton(String text, String styleColor, Paint fontColor, int fontSize) {
@@ -46,7 +48,7 @@ public class Layout {
         slider.setMajorTickUnit(majorTickUnit);
         slider.setMinorTickCount((int) minorTickCount);
         slider.setBlockIncrement(blockIncrement);
-        slider.setStyle("-fx-tick-label-fill: white");
+        slider.setStyle("-fx-tick-label-fill:" + SLIDER_FILL);
         return slider;
     }
 
@@ -61,7 +63,7 @@ public class Layout {
         ObservableList<PieChart.Data> pieChartData =
             FXCollections.observableArrayList(cellData);
         final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle("Population Stats");
+        chart.setTitle(CHART_TITLE);
         chart.setPrefSize(CHART_WIDTH, CHART_HEIGHT);
         return chart;
     }

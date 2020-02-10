@@ -15,11 +15,10 @@ import cellsociety.antSimulation.pCell;
 import cellsociety.rPSSimulation.rpsCell;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
+import cellsociety.rPSSimulation.rpsCell;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 
 //When making a Grid Entry instance, be sure to first initialize the entire grid and then using a second pass use methods
 //to fill in all the parameters
@@ -82,7 +81,6 @@ public class GridEntry {
             hexagonNeighbors(grid, neighborBool, NSET);
         }
     }
-
 
     private void hexagonNeighbors(List<List<GridEntry>> grid, int[] neighborBool, Set<GridEntry> NSET) {
         if (getRow() > 0) {
