@@ -155,6 +155,9 @@ public class Visualization {
         Button buttonRestart = myLayout.createButton(BUTTON_RESTART, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonChange = myLayout.createButton(BUTTON_CHANGE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         Button buttonUpload = myLayout.createButton(BUTTON_UPLOAD, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
+        TextField fileName = new TextField();
+        fileName.setPromptText("Enter a name for the saved file:");
+        String savedFile = fileName.getText();
         Button buttonSave = myLayout.createButton(BUTTON_SAVE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         if (!myIsPaused) {
             pauseSim(buttonPause);
@@ -167,7 +170,7 @@ public class Visualization {
         restartSim(buttonRestart);
         changeSim(buttonChange, primaryStage);
         uploadSim(buttonUpload);
-        saveSim(buttonSave, simulationConfig);
+        saveSim(buttonSave, simulationConfig, savedFile);
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonChange, buttonUpload, buttonSave);
     }
 
@@ -253,10 +256,15 @@ public class Visualization {
         });
     }
 
-    private void saveSim(Button buttonSave, Configuration simulationConfig) {
+    private void saveSim(Button buttonSave, Configuration simulationConfig, String savedFile) {
         buttonSave.setOnAction(e -> {
             GofWriter gofWriter = new GofWriter();
-            gofWriter.main(simulationConfig, myNewProbCatch, mySimulation);
+            if ((savedFile != null && !savedFile.isEmpty())) {
+                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, savedFile);
+            }
+            else {
+                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle()+".xml");
+            }
         });
     }
 }
