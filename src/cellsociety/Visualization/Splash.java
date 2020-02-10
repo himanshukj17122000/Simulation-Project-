@@ -34,12 +34,14 @@ public class Splash {
     private static final String ERROR_MESSAGE= "No file chosen";
 
     private Scene mySplashScene;
-    private Configuration mySimulationConfig;
+    //private Configuration mySimulationConfig;
 
+    // Constructor for the Splash class
     public Splash(Stage primaryStage) {
         mySplashScene = buildSplashScene(primaryStage);
     }
 
+    // Getter method for the splash scene to be called in Main
     public Scene getSplashScene() {
         return mySplashScene;
     }
@@ -65,8 +67,7 @@ public class Splash {
         buttonUpload.setOnAction(e -> {
             try {
                 DialogBox popup = new DialogBox();
-                popup.start(primaryStage, mySimulationConfig);
-                mySimulationConfig = popup.getSimulationConfig();
+                popup.start(primaryStage);
             } catch (ParserConfigurationException | IOException | SAXException ex) {
                 new Alert(Alert.AlertType.ERROR, ERROR_MESSAGE).showAndWait();
             }

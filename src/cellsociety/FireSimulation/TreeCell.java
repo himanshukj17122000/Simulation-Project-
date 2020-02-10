@@ -11,7 +11,7 @@ import java.util.Set;
 public class TreeCell extends Cell {
     private static final int TYPE = 2;
     private static final String LABEL = "Trees";
-    private static final Paint FILL = Color.CHARTREUSE;
+    private static final Paint FILL = Color.web("42db49");
     private static final boolean CANUPDATE = true;
     private double catchFireProb = 0.15;
 

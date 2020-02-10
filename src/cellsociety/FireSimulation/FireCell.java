@@ -12,7 +12,7 @@ import java.util.Set;
 public class FireCell extends Cell {
     private static final int TYPE = 3;
     private static final String LABEL = "Burning Trees";
-    private static final Paint FILL = Color.TOMATO;
+    private static final Paint FILL = Color.web("db4e43");
     private static final boolean CANUPDATE = false;
 
     public FireCell(GridEntry entry) {
