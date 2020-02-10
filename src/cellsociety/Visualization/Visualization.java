@@ -2,7 +2,7 @@ package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
 import cellsociety.*;
-import cellsociety.Configuration.Fire;
+//import cellsociety.Configuration.Fire;
 import cellsociety.Configuration.FireWriter;
 import cellsociety.Configuration.GofWriter;
 import javafx.animation.KeyFrame;
@@ -159,7 +159,7 @@ public class Visualization {
         Button buttonUpload = myLayout.createButton(BUTTON_UPLOAD, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         TextField fileName = new TextField();
         fileName.setPromptText("Enter a name for the saved file:");
-        String savedFile = fileName.getText();
+        //String savedFile = fileName.getText();
         Button buttonSave = myLayout.createButton(BUTTON_SAVE, BUTTON_STYLE_COLOR, BUTTON_FONT_COLOR, BUTTON_FONT_SIZE);
         if (!myIsPaused) {
             pauseSim(buttonPause);
@@ -172,7 +172,7 @@ public class Visualization {
         restartSim(buttonRestart);
         changeSim(buttonChange, primaryStage);
         uploadSim(buttonUpload);
-        saveSim(buttonSave, simulationConfig, savedFile);
+        saveSim(buttonSave, simulationConfig, fileName);
         toolBar.getChildren().addAll(buttonHome, buttonPause, buttonStep, buttonResume, buttonStop, buttonChange, buttonUpload);
         if (simulationConfig.getTitle() != "Percolation") {
             toolBar.getChildren().addAll(fileName, buttonSave);
@@ -261,16 +261,15 @@ public class Visualization {
         });
     }
 
-    private void saveSim(Button buttonSave, Configuration simulationConfig, String savedFile) {
+    private void saveSim(Button buttonSave, Configuration simulationConfig, TextField fileName) {
         buttonSave.setOnAction(e -> {
             GofWriter gofWriter = new GofWriter();
-            if ((savedFile != null && !savedFile.isEmpty())) {
-                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, savedFile);
+            if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
+                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
             }
             else {
-                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle()+".xml");
+                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
             }
-
         });
     }
 }
