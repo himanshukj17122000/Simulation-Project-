@@ -16,7 +16,7 @@ public class AnimalCell extends Cell {
     private static final String LABEL = "Preys";
     private static final Paint[] FILL = {Color.TAN, Color.web("#614A32")};
     protected static final Paint PREYFILL = Color.PALEGREEN;
-    private int reproductionTime = 200;
+    private int reproductionTime = 0;
     private int timeSinceReproduction;
     private static final boolean CANUPDATE = true;
     private int RACE;
@@ -37,7 +37,10 @@ public class AnimalCell extends Cell {
 
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
-
+        double value = parameters.get(0);
+        int val = (int) value;
+        setReproductionTime(val);
+//        System.out.println(getReproductionTime());
         reproduce(entry, emptyCells);
         move(entry, emptyCells);
 
@@ -142,7 +145,7 @@ public class AnimalCell extends Cell {
 
     protected void reproduce(GridEntry entry, Set<GridEntry> emptyCells){
         boolean reproduced = false;
-        if(getTimeSinceReproduction() == getReproductionTime()){
+        if(getTimeSinceReproduction() >= getReproductionTime()){
             Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry, emptyCells);
             int size = emptyCellSet.size();
             if(size>0){
