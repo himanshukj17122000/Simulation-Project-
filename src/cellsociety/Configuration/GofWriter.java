@@ -1,5 +1,4 @@
 package cellsociety.Configuration;
-import java.awt.desktop.SystemEventListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
@@ -19,7 +18,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 public class GofWriter {
     private static String conc="";
-    public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim) {
+    public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim, String s) {
             DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder icBuilder;
             try {
@@ -52,7 +51,7 @@ public class GofWriter {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 DOMSource source = new DOMSource(doc);
-                StreamResult console = new StreamResult(new File("resources/"+"newFire"+".xml"));
+                StreamResult console = new StreamResult(new File("resources/"+s));
                 transformer.transform(source, console);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -89,5 +88,5 @@ public class GofWriter {
         }
 
 
-    }
+}
 

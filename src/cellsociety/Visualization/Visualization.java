@@ -2,6 +2,8 @@ package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
 import cellsociety.*;
+import cellsociety.Configuration.Fire;
+import cellsociety.Configuration.FireWriter;
 import cellsociety.Configuration.GofWriter;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -268,6 +270,7 @@ public class Visualization {
             else {
                 gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle()+".xml");
             }
+
         });
     }
 }
