@@ -14,8 +14,8 @@ import java.util.Set;
 public class PredatorCell extends AnimalCell { // make animal superclass // contains long classes plz refactor
     private static final int TYPE = 3;
     private static final String LABEL = "Predators";
-    private static final Paint FILL = Color.web("#614A32");
-    private static final Paint PREYFILL = Color.PALEGREEN;
+    private static final Paint FILL = Color.web("455bbe");
+    private static final Paint PREYFILL = Color.web("71add3");
     private static final boolean CANUPDATE = true;
     private int reproductionTime = 1;
     private int timeSinceReproduction;
