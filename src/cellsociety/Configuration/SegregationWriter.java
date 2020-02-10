@@ -30,7 +30,7 @@ public class SegregationWriter {
             double probcatch=0;
             System.out.println("Hello");
             for(ProbConstant c:myNewProbCatch.values()){
-                probcatch=c.getMyProbCatch();
+                probcatch=c.getProbCatch();
             }
             mainRootElement = doc.createElement("simulation");
 

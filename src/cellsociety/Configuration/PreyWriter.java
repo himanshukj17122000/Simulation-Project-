@@ -28,7 +28,7 @@ public class PreyWriter {
             Element mainRootElement;
             double probcatch=0;
             for(ProbConstant c:myNewProbCatch.values()){
-                probcatch=c.getMyProbCatch();
+                probcatch=c.getProbCatch();
             }
             System.out.println(savedFile);
             mainRootElement = doc.createElement("simulation");

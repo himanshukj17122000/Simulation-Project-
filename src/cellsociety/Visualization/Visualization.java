@@ -78,8 +78,8 @@ public class Visualization {
         List<Double> doubleArray = new ArrayList<>();
         int i = 0; //iterator
         for(ProbConstant pair: inputHash.values()){
-            map.put(pair.getMyLabel(), pair.getMyProbCatch());
-            stringArray.add(i, pair.getMyLabel());
+            map.put(pair.getLabel(), pair.getProbCatch());
+            stringArray.add(i, pair.getLabel());
             i++;
         }
         if(stringArray.size() > 0){
