@@ -13,7 +13,7 @@ import java.util.Set;
 public class rpsCell extends Cell {
     private int TYPE;
     private static final String[] LABEL = {"Group Blue", "Group Red", "Group Green"};
-    private static final Paint[] FILL = {Color.BLUE, Color.RED, Color.GREEN}; // array entry corresponds to race
+    private static final Paint[] FILL = {Color.web("186596"), Color.web("db4e43"), Color.web("e9ce1b")}; // array entry corresponds to race
     private static boolean CANUPDATE = true;
     private int RACE;
     private int Threshold = 4;

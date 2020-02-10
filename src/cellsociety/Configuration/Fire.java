@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Fire extends CommonMethods {
+public class Fire extends Configuration{
         public static final String DATA_TYPE = "Fire";
         // field names expected to appear in data file holding values for this object
         // NOTE: simple way to create an immutable list
 
         public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-                "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape","concentration","initial","colors");
+                "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape","concentration","initial","colors","boundary");
 
         /**
          * Create game data from given data.
@@ -49,6 +49,7 @@ public class Fire extends CommonMethods {
             setMyConcentration(dataValues.get(DATA_FIELDS.get(17)),iniConc1);
             setMyStartingConfig(dataValues.get(DATA_FIELDS.get(18)),configRandom);
             setMyColors(dataValues.get(DATA_FIELDS.get(19)),"ffffff,69e23f,e2563f");
+            setMyBoundary(dataValues.get(DATA_FIELDS.get(20)),"NotToroidal");
         }
 }
 

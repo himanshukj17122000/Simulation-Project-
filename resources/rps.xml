@@ -23,5 +23,6 @@
         <randomLabel>Value of the Random Number</randomLabel>
         <concentration>0.4,0.4,0,4</concentration>
         <colors>Blue,Orange,Green</colors>
+        <boundary>toroidal</boundary>
     </gridlayout>
 </simulation>
