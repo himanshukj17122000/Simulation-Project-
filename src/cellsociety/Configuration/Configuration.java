@@ -25,10 +25,6 @@ public abstract class Configuration {
         return startingConfig;
     }
 
-    public void setStartingConfig(String startingConfig) {
-        this.startingConfig = startingConfig;
-
-    }
 
     private ArrayList<String> probCatchLabel= new ArrayList<>();
     private ArrayList<Double> maxProb=new ArrayList<>();
@@ -39,12 +35,7 @@ public abstract class Configuration {
         return colors;
     }
 
-    public void setColors(String colParameter) {
-        String[] separateColors= colParameter.split(",");
-        for (String colour:separateColors){
-            colors.add(colour);
-        }
-    }
+
 
     private ArrayList<String> colors= new ArrayList<>();
     private Double[] concentration= new Double[3];
@@ -78,9 +69,7 @@ public abstract class Configuration {
         return shape;
     }
 
-    public void setShape(String shape) {
-        this.shape = shape;
-    }
+
     public String getTitle(){return myTitle;}
     public int getMaxStates(){return maxStates;}
     public int getRows(){return rows;}
@@ -99,37 +88,184 @@ public abstract class Configuration {
     public int[] getNeighPattern(){return neighPattern;}
     public Double[] getConcentration(){return concentration;}
 
-    
 
+    public void setMyShape(String s, String initialShape) {
+        try{this.shape=s;} catch (Exception e) {
+            this.shape=initialShape;
+        }
+    }
+    public void setMyProbMax(String s, String s1) {
+        try{if(isStringOnlyAlphabet(s)){
+            throw new NumberFormatException();
+        }maxProb.add(Double.parseDouble(s));} catch (NumberFormatException e) {
+            maxProb.add(Double.parseDouble(s1));
+        }
+    }
+
+
+
+
+    public void setMyConcentration(String s, String iniConc1) {
+        try{ String[] concen= s.split(",");
+            for(int i=0;i<concen.length;i++){
+                concentration[i] = Double.parseDouble(concen[i]);
+            }} catch (Exception e) {
+            String[] concen= iniConc1.split(",");
+            for(int i=0;i<concen.length;i++){
+                concentration[i] = Double.parseDouble(concen[i]);
+            }
+        }
+    }
+
+
+
+    public void setMyNeighPattern(String s, String neighbourPattern) {
+        try{ char[] pattArray= s.toCharArray();
+            for(int i=0;i<pattArray.length;i++){
+                neighPattern[i]= (int) pattArray[i] - 48;
+            }} catch (Exception e) {
+            char[] pattArray= neighbourPattern.toCharArray();
+            for(int i=0;i<pattArray.length;i++){
+                neighPattern[i]= (int) pattArray[i] - 48;
+            }
+        }
+    }
+
+
+
+    public void setMyColors(String s, String s1) {
+        try{String[] separateColors= s.split(",");
+            for (String colour:separateColors){
+                colors.add(colour);
+            }}catch (Exception e){
+            String[] separateColors= s1.split(",");
+            for (String colour:separateColors){
+                colors.add(colour);
+            }
+        }
+    }
+
+    public void setMyStartingConfig(String s, String configRandom) {
+        try{this.startingConfig = s;}catch (Exception e){
+            this.startingConfig = configRandom;
+        }
+    }
 
 
     public void setMyTitle(String myTitle) { this.myTitle = myTitle; }
-    public void setType1(String type1) { this.type1 = type1; }
-    public void setType2(String type2) { this.type2 = type2; }
-    public void setType3(String type3) { this.type3 = type3; }
-    public void setProbCatchLabel(String label) { probCatchLabel.add(label); }
-    public void setMaxProb(Double maxProbability) { maxProb.add(maxProbability); }
-    public void setProbCatch(Double probValue) { probCatch.add(probValue); }
-    public void setMaxStates(int maxStates) { this.maxStates = maxStates; }
-    public void setRows(int rows) { this.rows = rows; }
-    public void setColumns(int columns) { this.columns = columns; }
-    public void setLeft(int left) { this.left = left; }
-    public void setRight(int right) { this.right = right; }
-    public void setTop(int top) { this.top = top; }
-    public void setBottom(int bottom) { this.bottom = bottom; }
-    public void setNeighbours(int neighbours) { this.neighbours = neighbours; }
-    public void setNeighPattern(String pattern){
-        char[] pattArray= pattern.toCharArray();
-        for(int i=0;i<pattArray.length;i++){
-            neighPattern[i]= (int) pattArray[i] - 48;
-        }
-    }
-    public void setConcentration(String typeConcentration){
-        String[] concen= typeConcentration.split(",");
-        for(int i=0;i<concen.length;i++){
-            concentration[i] = Double.parseDouble(concen[i]);
+
+
+
+    public void setMyProbCatchLabel(String s, String probability_of_catching_on_fire) {
+        try{probCatchLabel.add(s);} catch (Exception e) {
+            probCatchLabel.add(probability_of_catching_on_fire);;
         }
     }
 
+    public void setMyType3(String s, String tree) {
+        try{this.type3=s;} catch (Exception e) {
+            this.type3=tree;
+        }
+    }
+
+    public void setMyType2(String s, String tree) {
+        try{this.type2=s;} catch (Exception e) {
+            this.type2=tree;
+        }
+    }
+    public void setMyType1(String s, String tree) {
+        try{this.type1=s;} catch (Exception e) {
+            this.type1=tree;
+        }
+    }
+
+    public void setMyStates(String s, int def) {
+        try {
+            if(isStringOnlyAlphabet(s)){
+                throw new NumberFormatException();
+            }
+            this.maxStates=Integer.parseInt(s);
+
+        } catch (NumberFormatException e) {
+            this.maxStates=def;
+        }
+    }
+
+    public void setMyProbCatch(String s, double defaultProb) {
+        try{if(isStringOnlyAlphabet(s)){
+            throw new NumberFormatException();
+        }probCatch.add(Double.parseDouble(s));} catch (NumberFormatException e) {
+            probCatch.add(defaultProb);
+        }
+    }
+
+    public void setMyDimensions(String columns, String rows) {
+        try {
+            if(isStringOnlyAlphabet(columns) || isStringOnlyAlphabet(rows)){
+                throw new NumberFormatException();
+            }
+            var i = Integer.parseInt(rows) / Integer.parseInt(columns);
+            if(i <0.83 || i >1.2 ){
+                throw new NumberFormatException();
+            }
+            this.rows= Integer.parseInt(rows);
+            this.columns= Integer.parseInt(rows);
+        } catch (NumberFormatException e) {
+            this.rows= iniRows;
+            this.columns= iniCols;
+        }
+    }
+
+    public void setMyTop(String s, int def) {
+        try{
+            if(isStringOnlyAlphabet(s)){
+                throw new NumberFormatException();
+            }this.top=Integer.parseInt(s);} catch (NumberFormatException e) {
+            this.top=def;
+        }
+    }
+
+    public void setMyNeighbours(String s, int def) {
+        try{if(isStringOnlyAlphabet(s)){
+            throw new NumberFormatException();
+        }this.neighbours=Integer.parseInt(s);} catch (NumberFormatException e) {
+            this.neighbours=def;
+        }
+    }
+
+    public void setMyBottom(String s, int def) {
+        try{if(isStringOnlyAlphabet(s)){
+            throw new NumberFormatException();
+        }this.bottom=Integer.parseInt(s);} catch (NumberFormatException e) {
+            this.bottom=def;
+        }
+    }
+
+    public void setMyRight(String s) {
+        try{
+            if(isStringOnlyAlphabet(s)){
+                throw new NumberFormatException();
+            }
+            this.right= Integer.parseInt(s);} catch (NumberFormatException e) {
+            this.right=noRow;
+        }
+    }
+
+    public void setMyLeft(String s) {
+        try{
+            if(isStringOnlyAlphabet(s)){
+                throw new NumberFormatException();
+            }
+            this.left= Integer.parseInt(s);} catch (NumberFormatException e) {
+            this.left=noRow;
+        }
+    }
     public abstract void paraTitle(String title);
+    public static boolean isStringOnlyAlphabet(String str)
+    {
+        return ((str != null)
+                && (!str.equals(""))
+                && str.matches(".*[a-zA-Z]+.*"));
+    }
 }
+

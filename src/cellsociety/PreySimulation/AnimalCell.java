@@ -37,7 +37,10 @@ public class AnimalCell extends Cell {
 
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
-
+        double value = parameters.get(0);
+        int val = (int) value;
+        setReproductionTime(val);
+//        System.out.println(getReproductionTime());
         reproduce(entry, emptyCells);
         move(entry, emptyCells);
 
@@ -142,7 +145,7 @@ public class AnimalCell extends Cell {
 
     protected void reproduce(GridEntry entry, Set<GridEntry> emptyCells){
         boolean reproduced = false;
-        if(getTimeSinceReproduction() == getReproductionTime()){
+        if(getTimeSinceReproduction() >= getReproductionTime()){
             Set<GridEntry> emptyCellSet = setOfEmptyNeighbors(entry, emptyCells);
             int size = emptyCellSet.size();
             if(size>0){

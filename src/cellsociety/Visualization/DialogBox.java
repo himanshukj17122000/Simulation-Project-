@@ -13,10 +13,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Map;
 
 public class DialogBox {
@@ -28,18 +26,17 @@ public class DialogBox {
     public static final String SEG_FILE = "Segregation";
     public static final String RPS_FILE= "Rps";
     private static final String TYPE = "type";
+    // NOTE: generally accepted behavior that the chooser remembers where user left it last
+    private static final FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private static String title;
     private static Map<String,String> result= new HashMap<>();
-    // NOTE: generally accepted behavior that the chooser remembers where user left it last
-    public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
     private Configuration mySimulationConfig;
 
-    public void start(Stage primaryStage, Configuration simConfig) throws NullPointerException, ParserConfigurationException, IOException, SAXException {
+    public void start(Stage primaryStage) throws NullPointerException, ParserConfigurationException, IOException, SAXException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         if(dataFile==null){
             throw new IOException();
         }
-
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -54,47 +51,30 @@ public class DialogBox {
             else{
                 showMessage(Alert.AlertType.ERROR, "No File Chosen");
             }
-
+            Configuration simConfig;
+            result.clear();
+            result= new Reader(TYPE).getSimulation(title,dataFile);
             switch (title) {
                 case RPS_FILE:
-                    result.clear();
-                    result= new Reader(TYPE).getSimulation(RPS_FILE,dataFile);
                     simConfig = new Rps(result);
                     break;
-
-
                 case FIRE_FILE:
-                    result.clear();
-                    result= new Reader(TYPE).getSimulation(FIRE_FILE,dataFile);
                     simConfig = new Fire(result);
                     break;
-
-                    case GAME_FILE:
-                        result.clear();
-                        result = new Reader(TYPE).getSimulation(GAME_FILE, dataFile);
-                        simConfig = new Game(result);
-                        break;
-
+                case GAME_FILE:
+                    simConfig = new Game(result);
+                    break;
                 case PERC_FILE:
-                    result.clear();
-                    result= new Reader(TYPE).getSimulation(PERC_FILE,dataFile);
                     simConfig = new Percolation(result);
                     break;
-
                 case PREY_FILE:
-                    result.clear();
-                        result = new Reader(TYPE).getSimulation(PREY_FILE, dataFile);
-                        simConfig = new Prey(result);
-                        break;
-
+                    simConfig = new Prey(result);
+                    break;
                 case SEG_FILE:
-                    result.clear();
-
-                        result= new Reader(TYPE).getSimulation(SEG_FILE,dataFile);
-                        simConfig = new Segregation(result);
-                        break;
-                    default:
-                    throw new FileInputException("File Not Found");
+                    simConfig = new Segregation(result);
+                    break;
+                default:
+                throw new FileInputException("File Not Found");
             }
             Visualization animation = new Visualization(primaryStage, simConfig);
             primaryStage.setScene(animation.getAnimationScene());

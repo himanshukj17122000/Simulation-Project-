@@ -27,65 +27,25 @@ public class Segregation extends Configuration {
 
     public Segregation (Map<String, String> dataValues) throws NumberFormatException{
         setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        try {setMaxStates(Integer.parseInt(dataValues.get(DATA_FIELDS.get(1))));} catch (NumberFormatException e) {
-            setMaxStates(3);
-        }
-        try {setRows(Integer.parseInt(dataValues.get(DATA_FIELDS.get(2))));} catch (NumberFormatException e) {
-            setRows(iniRows);
-        }
-        try {setColumns(Integer.parseInt(dataValues.get(DATA_FIELDS.get(3))));} catch (NumberFormatException e) {
-            setColumns(iniCols);
-        }
-        try {setLeft(Integer.parseInt(dataValues.get(DATA_FIELDS.get(4))));} catch (NumberFormatException e) {
-            setLeft(noRow);
-        }
-        try {setRight(Integer.parseInt(dataValues.get(DATA_FIELDS.get(5))));} catch (NumberFormatException e) {
-            setRight(noRow);
-        }
-        try {setTop(Integer.parseInt(dataValues.get(DATA_FIELDS.get(6))));} catch (NumberFormatException e) {
-            setTop(noRow);
-        }
-        try {setBottom(Integer.parseInt(dataValues.get(DATA_FIELDS.get(7))));} catch (NumberFormatException e) {
-            setBottom(noRow);
-        }
-        try {setNeighbours(Integer.parseInt(dataValues.get(DATA_FIELDS.get(8))));} catch (NumberFormatException e) {
-            setNeighbours(8);
-        }
-        try {setProbCatch(Double.parseDouble(dataValues.get(DATA_FIELDS.get(9))));} catch (NumberFormatException e) {
-            setProbCatch(defaultProb);
-        }
-        try {setType1(dataValues.get(DATA_FIELDS.get(10)));} catch (Exception e) {
-            setType1("Empty");
-        }
-        try {setType2(dataValues.get(DATA_FIELDS.get(11)));} catch (Exception e) {
-            setType2("Race1");
-        }
-        try {setType3(dataValues.get(DATA_FIELDS.get(12)));} catch (Exception e) {
-            setType3("Race2");
-        }
-        try {setProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)));} catch (Exception e) {
-            setProbCatchLabel("Threshold Value");
-        }
-        try {setMaxProb(Double.parseDouble(dataValues.get(DATA_FIELDS.get(14))));} catch (NumberFormatException e) {
-            setMaxProb(defaultMaxProb);
-        }
-        try {setNeighPattern(dataValues.get(DATA_FIELDS.get(15)));} catch (Exception e) {
-            setNeighPattern(neighbourPattern);
-        }
-        try {setShape(dataValues.get(DATA_FIELDS.get(16)));} catch (Exception e) {
-            setShape(initialShape);
-        }
-        try {setConcentration(dataValues.get(DATA_FIELDS.get(17)));} catch (Exception e) {
-            setConcentration(iniConc2);
-        }
-        try {setStartingConfig(dataValues.get(DATA_FIELDS.get(18)));} catch (Exception e) {
-            setStartingConfig(configRandom);
-        }
-        try{setColors(dataValues.get(DATA_FIELDS.get(19)));}catch (Exception e){
-            setColors("Red,Green,White");
-        }
+        setMyStates(dataValues.get(DATA_FIELDS.get(1)),3);
+        setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
+        setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
+        setMyRight(dataValues.get(DATA_FIELDS.get(5)));
+        setMyTop(dataValues.get(DATA_FIELDS.get(6)),noRow);
+        setMyBottom(dataValues.get(DATA_FIELDS.get(7)),noRow);
+        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
+        setMyProbCatch(dataValues.get(DATA_FIELDS.get(9)),defaultProb);
+        setMyType1(dataValues.get(DATA_FIELDS.get(10)),"Empty");
+        setMyType2(dataValues.get(DATA_FIELDS.get(11)),"Race1");
+        setMyType3(dataValues.get(DATA_FIELDS.get(12)),"Race2");
+        setMyProbCatchLabel(dataValues.get(DATA_FIELDS.get(13)),"Threshold Value");
+        setMyProbMax(dataValues.get(DATA_FIELDS.get(14)),"1");
+        setMyNeighPattern(dataValues.get(DATA_FIELDS.get(15)),neighbourPattern);
+        setMyShape(dataValues.get(DATA_FIELDS.get(16)),initialShape);
+        setMyConcentration(dataValues.get(DATA_FIELDS.get(17)),iniConc2);
+        setMyStartingConfig(dataValues.get(DATA_FIELDS.get(18)),configRandom);
+        setMyColors(dataValues.get(DATA_FIELDS.get(19)),"Red,Green,White");
     }
-
-    }
+}
 
 

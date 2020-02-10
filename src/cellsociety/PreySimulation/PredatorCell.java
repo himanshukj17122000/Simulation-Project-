@@ -33,6 +33,7 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
 
     @Override
     public void updateCell(GridEntry entry, Set<GridEntry> emptyCells, List<Double> parameters) {
+        setParameters(parameters);
         this.setColor(FILL);
         if(getTimeSinceEating() > maxTimeWithoutEating){
             die(entry, emptyCells);
@@ -40,6 +41,16 @@ public class PredatorCell extends AnimalCell { // make animal superclass // cont
             move(entry, emptyCells);
             super.reproduce(entry, emptyCells);
         }
+    }
+
+    private void setParameters(List<Double> parameters){
+        double value = parameters.get(1);
+        int val = (int) value;
+        setMaxTimeWithoutEating(val);
+        value = parameters.get(2);
+        val = (int) value;
+        setReproductionTime(val);
+        System.out.println(getReproductionTime());
     }
 
     @Override

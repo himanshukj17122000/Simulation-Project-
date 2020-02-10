@@ -25,48 +25,19 @@ public class Percolation extends Configuration {
      */
     public Percolation (Map<String, String> dataValues) throws NumberFormatException {
         setMyTitle(dataValues.get(DATA_FIELDS.get(0)));
-        try{setMaxStates(Integer.parseInt(dataValues.get(DATA_FIELDS.get(1))));} catch (NumberFormatException e) {
-            setMaxStates(2);
-        }
-        try{setRows(Integer.parseInt(dataValues.get(DATA_FIELDS.get(2))));} catch (NumberFormatException e) {
-            setRows(iniRows);
-        }
-        try{setColumns(Integer.parseInt(dataValues.get(DATA_FIELDS.get(3))));} catch (NumberFormatException e) {
-            setColumns(iniCols);
-        }
-        try{setLeft(Integer.parseInt(dataValues.get(DATA_FIELDS.get(4))));} catch (NumberFormatException e) {
-            setLeft(noRow);
-        }
-        try{setRight(Integer.parseInt(dataValues.get(DATA_FIELDS.get(5))));} catch (NumberFormatException e) {
-            setRight(noRow);
-        }
-        try{setTop(Integer.parseInt(dataValues.get(DATA_FIELDS.get(6))));} catch (NumberFormatException e) {
-            setTop(3);
-        }
-        try{setBottom(Integer.parseInt(dataValues.get(DATA_FIELDS.get(7))));} catch (NumberFormatException e) {
-            setBottom(2);
-        }
-        try{setNeighbours(Integer.parseInt(dataValues.get(DATA_FIELDS.get(8))));} catch (NumberFormatException e) {
-            setNeighbours(8);
-        }
-        try{setType1(dataValues.get(DATA_FIELDS.get(9)));} catch (Exception e) {
-            setType1("Percolated");
-        }
-        try{setType2(dataValues.get(DATA_FIELDS.get(10)));} catch (Exception e) {
-            setType2("Open");
-        }
-        try{setType3(dataValues.get(DATA_FIELDS.get(11)));} catch (Exception e) {
-            setType3("Block");
-        }
-        try{setNeighPattern(dataValues.get(DATA_FIELDS.get(12)));} catch (Exception e) {
-            setNeighPattern("11111111");
-        }
-        try{setShape(dataValues.get(DATA_FIELDS.get(13)));} catch (Exception e) {
-            setShape(initialShape);
-        }
-        setStartingConfig(configRandom);
-        try{setColors(dataValues.get(DATA_FIELDS.get(14)));}catch (Exception e){
-            setColors("Blue,Black");
-        }
+        setMyStates(dataValues.get(DATA_FIELDS.get(1)),2);
+        setMyDimensions(dataValues.get(DATA_FIELDS.get(3)),dataValues.get(DATA_FIELDS.get(2)));
+        setMyLeft(dataValues.get(DATA_FIELDS.get(4)));
+        setMyRight(dataValues.get(DATA_FIELDS.get(5)));
+        setMyTop(dataValues.get(DATA_FIELDS.get(6)),3);
+        setMyBottom(dataValues.get(DATA_FIELDS.get(7)),2);
+        setMyNeighbours(dataValues.get(DATA_FIELDS.get(8)),8);
+        setMyType1(dataValues.get(DATA_FIELDS.get(9)),"Percolated");
+        setMyType2(dataValues.get(DATA_FIELDS.get(10)),"Open");
+        setMyType3(dataValues.get(DATA_FIELDS.get(11)),"Block");
+        setMyNeighPattern(dataValues.get(DATA_FIELDS.get(12)),"11111111");
+        setMyShape(dataValues.get(DATA_FIELDS.get(13)),initialShape);
+        setMyColors(dataValues.get(DATA_FIELDS.get(14)),"Blue,Black");
+        setMyStartingConfig(configRandom,configRandom);
     }
 }

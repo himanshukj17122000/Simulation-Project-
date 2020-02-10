@@ -34,7 +34,7 @@ public class Simulation {
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             List<GridEntry> insertRow = new ArrayList<>();
             for (int c = 0; c < myConfiguration.getColumns(); c++) {
-                GridEntry insertGridEntry = createBorderGridEntry(r, c, myConfiguration.getTitle());
+                GridEntry insertGridEntry = createBorderGridEntry(c, r, myConfiguration.getTitle());
                 if (insertGridEntry == null) {
                     insertGridEntry = randomizeGridEntry(r, c, myConfiguration.getTitle());
                 }
@@ -43,15 +43,15 @@ public class Simulation {
             }
             grid.add(insertRow);
         }
-        initializeGridNeighbors(grid, myConfiguration.getTitle());
+        initializeGridNeighbors(grid);
         return grid;
     }
 
-    public void initializeGridNeighbors(List<List<GridEntry>> grid, String simulation) {
+    public void initializeGridNeighbors(List<List<GridEntry>> grid) {
         for (int r = 0; r < myConfiguration.getRows(); r++) {
             for (int c = 0; c < myConfiguration.getColumns(); c++) {
                 GridEntry currentGridEntry = grid.get(r).get(c);
-                currentGridEntry.setNeighbors(grid, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern(), myConfiguration.getShape(), simulation);
+                currentGridEntry.setNeighbors(grid, myConfiguration.getRows(), myConfiguration.getColumns(), myConfiguration.getNeighPattern(), myConfiguration.getShape());
             }
         }
     }
@@ -215,8 +215,5 @@ public class Simulation {
         cellShapes.put(cell, cellVis);
         myGroup.getChildren().add(cellVis);
     }
-
-
-
 
 }

@@ -11,7 +11,7 @@ import cellsociety.PreySimulation.PredatorCell;
 import cellsociety.SegregationSimulation.PersonCell;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import rPSSimulation.rpsCell;
+import cellsociety.rPSSimulation.rpsCell;
 
 import java.util.HashSet;
 import java.util.List;
@@ -30,139 +30,151 @@ public class GridEntry {
     private Set<GridEntry> NEIGHBORS;
     private int ROW;
     private int COLUMN;
+    private int totROW;
+    private int totCOLUMN;
     private static final Paint FIREFILL = Color.WHITE; //fills for empty cells, put these variables somewhere elseeee
     private static final Paint PERCOLATIONFILL = Color.DARKGRAY;
     private static final Paint PREYFILL = Color.web("71add3");
     private static final Paint SEGREGATIONFILL = Color.WHITE;
 
-    public GridEntry(int row, int col, String simulation, int type){
+    public GridEntry(int row, int col, String simulation, int type) {
         initializeGridEntryID(row, col);
         createCell(simulation, type);
     }
 
-    private void initializeGridEntryID(int row, int col){
+    private void initializeGridEntryID(int row, int col) {
         ROW = row;
         COLUMN = col;
     }
 
-
-    public void setNextStepCell(Cell nextCell){
+    public void setNextStepCell(Cell nextCell) {
         nextStepCell = nextCell;
     }
 
-    public Cell getNextStepCell(){
+    public Cell getNextStepCell() {
         return nextStepCell;
     }
 
-    public void updateGridEntry(){
-        if(getNextStepCell() == null){
+    public void updateGridEntry() {
+        if (getNextStepCell() == null) {
             setCell(getCell());
-        }else {
+        } else {
             setCell(getNextStepCell());
         }
     }
 
-    public void setNeighbors(List<List<GridEntry>> grid, int numRows, int numCols, int[] neighborBool, String shape, String simulation){ //refactor to be 20 lines
-
+    public void setNeighbors(List<List<GridEntry>> grid, int numRows, int numCols, int[] neighborBool, String shape) {
+        totROW = numRows;
+        totCOLUMN = numCols;
         Set<GridEntry> NSET = new HashSet<GridEntry>();
-        if(shape.equals("Rectangle")){
-            rectangleNeighbors(grid, numRows, numCols, neighborBool, simulation, NSET);
-        }else if(shape.equals("Hexagon")){
-            hexagonNeighbors(grid, numRows, numCols, neighborBool, simulation, NSET);
+        if (shape.equals("Rectangle")) {
+            rectangleNeighbors(grid, neighborBool, NSET, "toroidal");
+        } else if (shape.equals("Hexagon")) {
+            hexagonNeighbors(grid, neighborBool, NSET);
         }
     }
 
-    private void hexagonNeighbors(List<List<GridEntry>> grid, int numRows, int numCols, int[] neighborBool, String simulation, Set<GridEntry> NSET) {
+
+    private void hexagonNeighbors(List<List<GridEntry>> grid, int[] neighborBool, Set<GridEntry> NSET) {
         if (getRow() > 0) {
             if (neighborBool[0] == 1) {
-                GridEntry topLeftNeighbor;
                 if (getColumn() >  0 && getRow() % 2 == 0) {
-                    topLeftNeighbor = grid.get(getRow()-1).get(getColumn()-1);
+                    NSET.add(grid.get(getRow()-1).get(getColumn()-1));
                 }else{
-                    topLeftNeighbor = grid.get(getRow()-1).get(getColumn());
+                    NSET.add(grid.get(getRow()-1).get(getColumn()));
                 }
-                NSET.add(topLeftNeighbor);
             }
             if (neighborBool[1] == 1) {
-                GridEntry topRightNeighbor;
-                if (getColumn() < numCols - 1 && getRow() % 2 == 1) {
-                    topRightNeighbor = grid.get(getRow()-1).get(getColumn()+1);
+                if (getColumn() < totCOLUMN - 1 && getRow() % 2 == 1) {
+                    NSET.add(grid.get(getRow()-1).get(getColumn()+1));
                 }else{
-                    topRightNeighbor = grid.get(getRow()-1).get(getColumn());
+                    NSET.add(grid.get(getRow()-1).get(getColumn()));
                 }
-                NSET.add(topRightNeighbor);
             }
         }
 
-        if (getRow() < numRows - 1) {
+        if (getRow() < totROW - 1) {
             if (neighborBool[4] == 1) {
-                GridEntry bottomLeftNeighbor;
                 if (getColumn() >  0 && getRow() % 2 == 0) {
-                    bottomLeftNeighbor = grid.get(getRow()+1).get(getColumn()-1);
+                    NSET.add(grid.get(getRow()+1).get(getColumn()-1));
                 }else{
-                    bottomLeftNeighbor = grid.get(getRow()+1).get(getColumn());
+                    NSET.add(grid.get(getRow()+1).get(getColumn()));
                 }
-                NSET.add(bottomLeftNeighbor);
             }
             if (neighborBool[3] == 1) {
-                GridEntry bottomRightNeighbor;
-                if (getColumn() < numCols - 1 && getRow() % 2 == 1) {
-                    bottomRightNeighbor = grid.get(getRow()+1).get(getColumn()+1);
+                if (getColumn() < totCOLUMN - 1 && getRow() % 2 == 1) {
+                    NSET.add(grid.get(getRow()+1).get(getColumn()+1));
                 }else{
-                    bottomRightNeighbor = grid.get(getRow()+1).get(getColumn());
+                    NSET.add(grid.get(getRow()+1).get(getColumn()));
                 }
-                NSET.add(bottomRightNeighbor);
             }
         }
         if (getColumn() > 0 && neighborBool[2] == 1) {
-            GridEntry leftNeighbor = grid.get(getRow()).get(getColumn()-1);
-            NSET.add(leftNeighbor);
+            NSET.add(grid.get(getRow()).get(getColumn()-1));
         }
-        if (getColumn() < numCols - 1 && neighborBool[5] == 1) {
-            GridEntry rightNeighbor = grid.get(getRow()).get(getColumn()+1);
-            NSET.add(rightNeighbor);
+        if (getColumn() < totCOLUMN - 1 && neighborBool[5] == 1) {
+            NSET.add(grid.get(getRow()).get(getColumn()+1));
         }
         NEIGHBORS = NSET;
     }
 
-    private void rectangleNeighbors(List<List<GridEntry>> grid, int numRows, int numCols, int[] neighborBool, String simulation, Set<GridEntry> NSET){
-        if (getRow() > 0 && neighborBool[1] == 1) {
-            GridEntry topNeighbor = grid.get(getRow() - 1).get(getColumn());
-            NSET.add(topNeighbor);
-        }
-        if (getRow() < numRows - 1 && neighborBool[5] == 1) {
-            GridEntry bottomNeighbor = grid.get(getRow() + 1).get(getColumn());
-            NSET.add(bottomNeighbor);
-        }
-        if (getColumn() > 0 && neighborBool[3] == 1) {
-            GridEntry leftNeighbor = grid.get(getRow()).get(getColumn()-1);
-            NSET.add(leftNeighbor);
-        }
-        if (getColumn() < numCols - 1 && neighborBool[7] == 1) {
-            GridEntry rightNeighbor = grid.get(getRow()).get(getColumn()+1);
-            NSET.add(rightNeighbor);
-        }
-        if (getRow() > 0) {
-            if (getColumn() > 0 && neighborBool[0] == 1) {
-                GridEntry topLeftNeighbor = grid.get(getRow() - 1).get(getColumn() - 1);
-                NSET.add(topLeftNeighbor);
-            }
-            if (getColumn() < numCols - 1 && neighborBool[2] == 1) {
-                GridEntry topRightNeighbor = grid.get(getRow() - 1).get(getColumn() + 1);
-                NSET.add(topRightNeighbor);
+    private void rectangleNeighbors(List<List<GridEntry>> grid, int[] neighborBool, Set<GridEntry> NSET, String boundary){
+        if(neighborBool[1] == 1) {
+            if (getRow() > 0) {
+                NSET.add(grid.get(getRow() - 1).get(getColumn()));
+            }else if(boundary.equals("toroidal")){
+                NSET.add(grid.get(totROW -1).get(getColumn()));
             }
         }
-        if (getRow() < numRows - 1) {
-            if (getColumn() > 0 && neighborBool[6] == 1) {
-                GridEntry bottomLeftNeighbor = grid.get(getRow() + 1).get(getColumn() - 1);
-                NSET.add(bottomLeftNeighbor);
-            }
-            if (getColumn() < numCols - 1 && neighborBool[4] == 1) {
-                GridEntry bottomRightNeighbor = grid.get(getRow() + 1).get(getColumn() + 1);
-                NSET.add(bottomRightNeighbor);
+        if(neighborBool[5] == 1){
+            if (getRow() < totROW - 1) {
+                NSET.add(grid.get(getRow() + 1).get(getColumn()));
+            }else if(boundary.equals("toroidal")){
+                NSET.add(grid.get(0).get(getColumn()));
             }
         }
-
+        if(neighborBool[3] == 1) {
+            if (getColumn() > 0) {
+                NSET.add(grid.get(getRow()).get(getColumn() - 1));
+            }else if(boundary.equals("toroidal")){
+                NSET.add(grid.get(getRow()).get(totCOLUMN-1));
+            }
+        }
+        if(neighborBool[7] == 1) {
+            if (getColumn() < totCOLUMN - 1) {
+                NSET.add(grid.get(getRow()).get(getColumn() + 1));
+            }else if(boundary.equals("toroidal")){
+                NSET.add(grid.get(getRow()).get(0));
+            }
+        }
+        if(neighborBool[0] == 1){
+            if (getColumn() > 0 && getRow() > 0) {
+                NSET.add(grid.get(getRow() - 1).get(getColumn() - 1));
+            }else if(boundary.equals("toroidal")){
+                NSET.add(grid.get(totROW-1).get(totCOLUMN-1));
+            }
+        }
+        if(neighborBool[2] == 1) {
+            if (getColumn() < totCOLUMN -1 && getRow()>0) {
+                NSET.add(grid.get(getRow() - 1).get(getColumn() + 1));
+            }else if(boundary.equals("toroidal")){
+                NSET.add(grid.get(totROW-1).get(0));
+            }
+        }
+        if(neighborBool[6] == 1){
+            if (getColumn() > 0 && getRow() < totROW - 1) {
+                NSET.add(grid.get(getRow() + 1).get(getColumn() - 1));
+            }else if(boundary.equals("toroidal")){
+                NSET.add(grid.get(0).get(totCOLUMN-1));
+            }
+        }
+        if(neighborBool[6] == 1){
+            if (getColumn() < totCOLUMN - 1 && getRow() < totROW - 1) {
+                NSET.add(grid.get(getRow() + 1).get(getColumn() + 1));
+            }else if(boundary.equals("toroidal")){
+                NSET.add(grid.get(0).get(0));
+            }
+        }
         NEIGHBORS = NSET;
     }
 
@@ -200,6 +212,7 @@ public class GridEntry {
                 break;
             case "Rps":
                 cellToSet = rpsSimulationCell(type);
+                break;
             default:
                 cellToSet = new EmptyCell(this, SEGREGATIONFILL);
         }
@@ -255,7 +268,7 @@ public class GridEntry {
     }
 
     private Cell rpsSimulationCell(int type){
-        return new rpsCell(this, type, 4);
+        return new rpsCell(this, type, 2);
     }
 
     public Set<GridEntry> getNeighbors(){
