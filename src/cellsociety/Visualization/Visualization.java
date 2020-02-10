@@ -140,7 +140,7 @@ public class Visualization {
         myToolBar = new VBox(20);
         implementButtons(primaryStage, myToolBar, simulationConfig);
         implementSlider(simulationConfig, myToolBar);
-        if (! simulationConfig.getTitle().equals("Segregation")) {
+        if (! simulationConfig.getTitle().equals("Segregation") & ! simulationConfig.getTitle().equals("Rps")) {
             myStats = myLayout.createChart(mySimulation);
             myToolBar.getChildren().addAll(myStats);
         }
