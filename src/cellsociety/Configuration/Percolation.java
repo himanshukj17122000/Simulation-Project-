@@ -3,7 +3,7 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
-public class Percolation extends CommonMethods {
+public class Percolation extends Configuration {
     public static final String DATA_TYPE = "Percolation";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
@@ -38,6 +38,6 @@ public class Percolation extends CommonMethods {
         setMyNeighPattern(dataValues.get(DATA_FIELDS.get(12)),"11111111");
         setMyShape(dataValues.get(DATA_FIELDS.get(13)),initialShape);
         setMyColors(dataValues.get(DATA_FIELDS.get(14)),"Blue,Black");
-        setStartingConfig(configRandom);
+        setMyStartingConfig(configRandom,configRandom);
     }
 }

@@ -4,7 +4,7 @@ import javax.print.attribute.standard.DateTimeAtCompleted;
 import java.util.List;
 import java.util.Map;
 
-public class Segregation extends CommonMethods {
+public class Segregation extends Configuration {
     public static final String DATA_TYPE = "Segregation";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list

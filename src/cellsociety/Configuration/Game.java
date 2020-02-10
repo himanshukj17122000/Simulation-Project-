@@ -3,7 +3,7 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
-public class Game extends CommonMethods{
+public class Game extends Configuration{
     public static final String DATA_TYPE = "Game of Life";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list

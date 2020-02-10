@@ -3,7 +3,7 @@ package cellsociety.Configuration;
 import java.util.List;
 import java.util.Map;
 
-public class Prey extends CommonMethods {
+public class Prey extends Configuration {
     public static final String DATA_TYPE = "Prey";
 
     // field names expected to appear in data file holding values for this object
