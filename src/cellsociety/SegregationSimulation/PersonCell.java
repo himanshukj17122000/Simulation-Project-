@@ -74,20 +74,20 @@ public class PersonCell extends Cell {
         return true;
 
     }
-
+    //get the type of the cell
     @Override
     public int getType() {
         return TYPE;
     }
-
+    //initialize the race of the cell
     private void initializeRace(int race){
         RACE = race;
     }
-
+//get info about the cell
     public int getRace(){
         return RACE;
     }
-
+//get the name of the cell
     @Override
     public String getLabel() { return LABEL[0]; }
 }
