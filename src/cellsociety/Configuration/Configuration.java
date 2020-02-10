@@ -110,7 +110,7 @@ public abstract class Configuration {
     public void setProbCatchLabel(String label) { probCatchLabel.add(label); }
     public void setMaxProb(Double maxProbability) { maxProb.add(maxProbability); }
     public void setProbCatch(Double probValue) { probCatch.add(probValue); }
-    public void setMaxStates(int maxStates) { this.maxStates = maxStates; }
+    public void setMaxStates(int maxStates) { this.maxStates = maxStates;}
     public void setRows(int rows) { this.rows = rows; }
     public void setColumns(int columns) { this.columns = columns; }
     public void setLeft(int left) { this.left = left; }

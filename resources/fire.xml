@@ -9,7 +9,7 @@
         <right>0</right>
         <top>0</top>
         <bottom>0</bottom>
-        <probCatch>0.15</probCatch>
+        <probCatch>0.85</probCatch>
         <probCatchLabel>Probability of Catching on Fire</probCatchLabel>
         <neighbours>4</neighbours>
         <type1>Empty</type1>
@@ -19,7 +19,7 @@
         <neighPattern>10101111</neighPattern>
         <shape>Rectangle</shape>
         <concentration>0.5,0.3</concentration>
-        <colors>Blue,Orange,Green</colors>
+        <colors>ffffff,69e23f,e2563f</colors>
     </gridlayout>
 </simulation>
 
