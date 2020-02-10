@@ -1,5 +1,4 @@
 package cellsociety.Configuration;
-import java.awt.desktop.SystemEventListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
@@ -13,6 +12,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import cellsociety.ProbConstant;
 import cellsociety.Simulation;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Slider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -53,14 +53,17 @@ public class PreyWriter {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(doc);
-            StreamResult console = new StreamResult(new File("resources/"+savedFile));
+            StreamResult console = new StreamResult(new File("resources/"+savedFile+".xml"));
             transformer.transform(source, console);
         } catch (Exception e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"File Error").showAndWait();
         }
     }
 
     private static Node getCompany(Document doc, String title, Configuration simulation, double prob) {
+//        "title", "maxStates", "rows","columns","left","right",
+//                "top","bottom","neighbours","type1","type2","type3","fishBreed","sharkBreed","fishLabel","sharkLabel","numLabel","maxFishBreed"
+//                ,"maxSharkBreed","numWithoutFood","maxDays","neighPattern","shape","concentration","initial","colors","boundary"
         Element company = doc.createElement("gridlayout");
         company.appendChild(getCompanyElements(doc, company, Game.DATA_FIELDS.get(0), title));
         company.appendChild(getCompanyElements(doc, company, Game.DATA_FIELDS.get(1), String.valueOf(simulation.getMaxStates())));

@@ -12,6 +12,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import cellsociety.ProbConstant;
 import cellsociety.Simulation;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Slider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -54,7 +55,7 @@ public class GofWriter {
                 StreamResult console = new StreamResult(new File("resources/"+s+".xml"));
                 transformer.transform(source, console);
             } catch (Exception e) {
-                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR,"File Error").showAndWait();
             }
         }
 

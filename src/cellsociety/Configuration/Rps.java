@@ -6,7 +6,8 @@ import java.util.Map;
 public class Rps extends Configuration {
     public static final String DATA_TYPE = "Rps";
     public static final List<String> DATA_FIELDS = List.of("title", "maxStates", "rows","columns","left","right",
-            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape", "randomNumber", "maxRandomNumber","randomLabel","concentration","initial","colors","boundary");
+            "top","bottom","neighbours","probCatch","type1","type2","type3","probCatchLabel","maxProbCatch","neighPattern","shape",
+            "randomNumber", "maxRandomNumber","randomLabel","concentration","initial","colors","boundary");
 
     /**
      * Create game data from given data.

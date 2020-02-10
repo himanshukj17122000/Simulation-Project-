@@ -261,13 +261,45 @@ public class Visualization {
 
     private void saveSim(Button buttonSave, Configuration simulationConfig, TextField fileName) {
         buttonSave.setOnAction(e -> {
-
+            if(simulationConfig.getTitle().equals("Fire")){
+                FireWriter fireWriter = new FireWriter();
+                if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
+                    fireWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
+                }
+                else {
+                    fireWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+                }
+            } else if(simulationConfig.getTitle().equals("Prey")){
+                PreyWriter preyWriter = new PreyWriter();
+                if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
+                    preyWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
+                }
+                else {
+                    preyWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+                }
+            } else if(simulationConfig.getTitle().equals("Game of Life")) {
             GofWriter gofWriter = new GofWriter();
             if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
                 gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
             }
             else {
                 gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+            }} else if(simulationConfig.getTitle().equals("Segregation")){
+                SegregationWriter segWriter = new SegregationWriter();
+                if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
+                    segWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
+                }
+                else {
+                    segWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+                }
+            }else if(simulationConfig.getTitle().equals("Rps")){
+                RpsWriter rpsWriter = new RpsWriter();
+                if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
+                    rpsWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
+                }
+                else {
+                    rpsWriter.main(simulationConfig, myNewProbCatch, mySimulation, "new"+simulationConfig.getTitle());
+                }
             }
         });
     }

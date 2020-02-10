@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Ant extends Configuration {
-    public static final String DATA_TYPE = "Fire";
+    public static final String DATA_TYPE = "Ant";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
 
