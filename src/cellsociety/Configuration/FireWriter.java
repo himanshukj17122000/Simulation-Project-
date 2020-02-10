@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 public class FireWriter {
     private static String conc="";
-    public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim) {
+    public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim, String s) {
         DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder icBuilder;
         try {

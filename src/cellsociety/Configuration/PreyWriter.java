@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 public class PreyWriter {
     private static String conc="";
-    public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim) {
+    public static void main(Configuration simulationConfig, Map<Slider, ProbConstant> myNewProbCatch, Simulation mySim, String savedFile) {
         DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder icBuilder;
         try {
@@ -30,6 +30,7 @@ public class PreyWriter {
             for(ProbConstant c:myNewProbCatch.values()){
                 probcatch=c.getMyProbCatch();
             }
+            System.out.println(savedFile);
             mainRootElement = doc.createElement("simulation");
             Map<String, Integer> concentrationMap= mySim.getTypesOfCells();
             ArrayList<Integer> numberofEach= new ArrayList<>();
@@ -52,7 +53,7 @@ public class PreyWriter {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(doc);
-            StreamResult console = new StreamResult(new File("resources/"+"newFire"+".xml"));
+            StreamResult console = new StreamResult(new File("resources/"+savedFile));
             transformer.transform(source, console);
         } catch (Exception e) {
             e.printStackTrace();

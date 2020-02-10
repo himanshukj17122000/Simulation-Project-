@@ -1,9 +1,7 @@
 package cellsociety.Visualization;
 
-import cellsociety.Configuration.Configuration;
+import cellsociety.Configuration.*;
 import cellsociety.*;
-//import cellsociety.Configuration.Fire;
-import cellsociety.Configuration.FireWriter;
 import cellsociety.Configuration.GofWriter;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -263,6 +261,7 @@ public class Visualization {
 
     private void saveSim(Button buttonSave, Configuration simulationConfig, TextField fileName) {
         buttonSave.setOnAction(e -> {
+
             GofWriter gofWriter = new GofWriter();
             if ((fileName.getText() != null && !fileName.getText().isEmpty())) {
                 gofWriter.main(simulationConfig, myNewProbCatch, mySimulation, fileName.getText());
