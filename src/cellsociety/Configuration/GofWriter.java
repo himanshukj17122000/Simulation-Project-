@@ -52,7 +52,7 @@ public class GofWriter {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 DOMSource source = new DOMSource(doc);
-                StreamResult console = new StreamResult(new File("resources/"+"newFire"+".xml"));
+                StreamResult console = new StreamResult(new File("resources/"+"newGoF"+".xml"));
                 transformer.transform(source, console);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -89,5 +89,5 @@ public class GofWriter {
         }
 
 
-    }
+}
 

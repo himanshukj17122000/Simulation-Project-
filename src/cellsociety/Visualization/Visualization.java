@@ -2,6 +2,8 @@ package cellsociety.Visualization;
 
 import cellsociety.Configuration.Configuration;
 import cellsociety.*;
+import cellsociety.Configuration.Fire;
+import cellsociety.Configuration.FireWriter;
 import cellsociety.Configuration.GofWriter;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -255,8 +257,14 @@ public class Visualization {
 
     private void saveSim(Button buttonSave, Configuration simulationConfig) {
         buttonSave.setOnAction(e -> {
-            GofWriter gofWriter = new GofWriter();
-            gofWriter.main(simulationConfig, myNewProbCatch, mySimulation);
+            if(simulationConfig.getTitle().equals("Fire")){
+                FireWriter fireWriter= new FireWriter();
+                fireWriter.main(simulationConfig, myNewProbCatch, mySimulation);
+            }else{
+                GofWriter gofWriter = new GofWriter();
+                gofWriter.main(simulationConfig, myNewProbCatch, mySimulation);
+            }
+
         });
     }
 }

@@ -15,7 +15,7 @@
         <type3>Tree</type3>
         <neighPattern>10101111</neighPattern>
         <shape>Rectangle</shape>
-        <concentration>0.33333334,0.6666666</concentration>
+        <concentration>0.6,0.39999998</concentration>
         <initial>Given</initial>
         <colors>ffffff</colors>
         <boundary>toroidal</boundary>
