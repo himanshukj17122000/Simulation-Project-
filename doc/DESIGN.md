@@ -37,7 +37,10 @@ Kyra Chan, Himanshu Jain, Olga Suchankova
 
 #### What Features are Easy to Add
 * Simulation:
-    *
+     * Simulations are easy to Add - make the cells that consist of the simulation class and then add to the GridEntry
+        methods in order to select (once GridEntry ants bug is fixed, it will be easy to add the more complicated simulations)
+     * Changing the cell neighborhood is also easy, just adjust the one method in GridEntry class
+     * it is easy to add additional sliders to change the interactivity with the cells
 * Configuration:
     * Easy to add any XML Writer for a Simulation 
     * It is also easy to add a new simulation as we just need to make the XML file for it and a separate class although 
@@ -159,10 +162,24 @@ columns.
     * New Exception:
         * The new exception can be added by extending that particular class with the new exception and then adding that 
         to the catch statement. 
+    * Simulation:
+        * To run any of the new simulations, simply submit a correctly formatted XML file and it runs!
+        * To select the neighbor patterns for the simulation, make sure to include the tag in the XML file, the default is finite, but one can select toroidal boundaries
+        * To change the neighbor pattern, go to the simulation specific configuration file and change the binary string in there
+        * To run a hexagonal grid, make sure to adjust the shape tag in the XML file, the default is rectangular
+        * New sliders were added by adding getter and setter methods in the cell classes and calling the setter method for simulation parameters inside of each cell's public update method
+        
+        All of the features dealing with the grid layout and Neighbors were made by adding and adjusting to the methods in the Grid Entry Class. There are decision trees which decide what other
+        grid entry objects should be considered as neighbors.
+        
+        New Simulations are added by adding Cell classes, adding to the Grid Entry createCell method, and making children of GridEntry if so needed
 
 #### Easy to Add Features
 * Simulation:
-    *
+    * Simulations are easy to Add - make the cells that consist of the simulation class and then add to the GridEntry
+    methods in order to select (once GridEntry ants bug is fixed, it will be easy to add the more complicated simulations)
+    * Changing the cell neighborhood is also easy, just adjust the one method in GridEntry class
+    * it is easy to add additional sliders to change the interactivity with the cells
 * Configuration:
     * Easy to add any XML Writer for a Simulation 
     * It is also easy to add a new simulation as we just need to make the XML file for it and a separate class although 
@@ -177,7 +194,8 @@ columns.
 
 #### Other Features not yet Done
 * Simulation:
-    *
+    * Some of the simulations (Ant is almost implemented except for 1 bug)
+   
 * Configuration:
     * Change cell colors as part of initial configuration set up
 * Visualization:
