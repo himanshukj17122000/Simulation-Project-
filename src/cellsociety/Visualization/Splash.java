@@ -1,7 +1,5 @@
 package cellsociety.Visualization;
 
-import cellsociety.Configuration.Configuration;
-import cellsociety.Layout;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,6 +21,11 @@ import java.io.IOException;
 
 import static cellsociety.Main.TITLE;
 
+/**
+ * @Author-Kyra Chan
+ * This is the class for Splash. It is in charge of creating the splash/home scene when the program starts.
+ */
+
 public class Splash {
     private static final int SCREEN_WIDTH = 1200;
     private static final int SCREEN_HEIGHT = 800;
@@ -37,14 +40,17 @@ public class Splash {
     private static final String ERROR_MESSAGE= "No file chosen";
 
     private Scene mySplashScene;
-    //private Configuration mySimulationConfig;
 
-    // Constructor for the Splash class
+    /*
+     Constructor for the Splash class
+     */
     public Splash(Stage primaryStage) {
         mySplashScene = buildSplashScene(primaryStage);
     }
 
-    // Getter method for the splash scene to be called in Main
+    /*
+     Getter method for the splash scene to be called in Main
+     */
     public Scene getSplashScene() {
         return mySplashScene;
     }

@@ -162,17 +162,17 @@ columns.
     * New Exception:
         * The new exception can be added by extending that particular class with the new exception and then adding that 
         to the catch statement. 
-    * Simulation:
-        * To run any of the new simulations, simply submit a correctly formatted XML file and it runs!
-        * To select the neighbor patterns for the simulation, make sure to include the tag in the XML file, the default is finite, but one can select toroidal boundaries
-        * To change the neighbor pattern, go to the simulation specific configuration file and change the binary string in there
-        * To run a hexagonal grid, make sure to adjust the shape tag in the XML file, the default is rectangular
-        * New sliders were added by adding getter and setter methods in the cell classes and calling the setter method for simulation parameters inside of each cell's public update method
-        
-        All of the features dealing with the grid layout and Neighbors were made by adding and adjusting to the methods in the Grid Entry Class. There are decision trees which decide what other
-        grid entry objects should be considered as neighbors.
-        
-        New Simulations are added by adding Cell classes, adding to the Grid Entry createCell method, and making children of GridEntry if so needed
+* Simulation:
+    * To run any of the new simulations, simply submit a correctly formatted XML file and it runs!
+    * To select the neighbor patterns for the simulation, make sure to include the tag in the XML file, the default is finite, but one can select toroidal boundaries
+    * To change the neighbor pattern, go to the simulation specific configuration file and change the binary string in there
+    * To run a hexagonal grid, make sure to adjust the shape tag in the XML file, the default is rectangular
+    * New sliders were added by adding getter and setter methods in the cell classes and calling the setter method for simulation parameters inside of each cell's public update method
+    
+    All of the features dealing with the grid layout and Neighbors were made by adding and adjusting to the methods in the Grid Entry Class. There are decision trees which decide what other
+    grid entry objects should be considered as neighbors.
+    
+    New Simulations are added by adding Cell classes, adding to the Grid Entry createCell method, and making children of GridEntry if so needed
 
 #### Easy to Add Features
 * Simulation:
@@ -195,7 +195,6 @@ columns.
 #### Other Features not yet Done
 * Simulation:
     * Some of the simulations (Ant is almost implemented except for 1 bug)
-   
 * Configuration:
     * Change cell colors as part of initial configuration set up
 * Visualization:

@@ -17,6 +17,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @Author-Kyra Chan
+ * This is the class for the DialogBox. It creates a new dialog box to load in an xml file.
+ */
+
 public class DialogBox {
     private static final String DATA_FILE_EXTENSION = "*.xml";
     public static final String FIRE_FILE = "Fire";
@@ -33,7 +38,9 @@ public class DialogBox {
     private static Map<String,String> result= new HashMap<>();
     private Configuration mySimulationConfig;
 
-    // Opens the dialog box and initializes the configuration
+    /*
+     Opens the dialog box and initializes the configuration
+     */
     public void start(Stage primaryStage) throws NullPointerException, ParserConfigurationException, IOException, SAXException {
         File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
         if(dataFile==null){

@@ -6,16 +6,17 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 
 /**
- * Feel free to completely change this code or delete it entirely.
+ * Class for Main that is the main class of the Simulation project and is in charge of launching the program.
  */
 public class Main extends Application {
     /**
      * Start of the program.
      */
     public static final String TITLE = "Cell Society";
-    public static final int FRAME_DELAY_MILLISECONDS = 15;
 
-    // Initialize what will be displayed and how it will be updated.
+    /*
+     Initialize what will be displayed and how it will be updated.
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
@@ -25,6 +26,9 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /*
+    Main function that launches program
+     */
     public static void main (String[] args) {
         launch(args);
     }

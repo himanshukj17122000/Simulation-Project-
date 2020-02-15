@@ -21,6 +21,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * @Author-Kyra Chan
+ * This is the class for Visualization. It is in charge of creating the main animation scene and importing UI features.
+ */
+
 public class Visualization {
     private static final int SCREEN_WIDTH = 1200;
     private static final int SCREEN_HEIGHT = 800;
@@ -60,15 +65,21 @@ public class Visualization {
     private double mySpeed;
     private Group myGroup;
 
-    // Constructor for the Visualization class
+    /*
+     Constructor for the Visualization class
+     */
     public Visualization(Stage primaryStage, Configuration simulationConfig) {
         myAnimationScene = buildAnimationScene(primaryStage, simulationConfig);
     }
 
-    // Getter method for the animation scene to be called in Splash
+    /*
+     Getter method for the animation scene to be called in Splash
+     */
     public Scene getAnimationScene() { return myAnimationScene; }
 
-    // Getter method for the probability constants to update in other classes based on sliders
+    /*
+     Getter method for the probability constants to update in other classes based on sliders
+     */
     public HashMap<Slider, ProbConstant> getNewProbCatch() { return myNewProbCatch; }
 
     private List<Double> getParameters(){
@@ -107,7 +118,6 @@ public class Visualization {
         return new Scene(myRoot, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BACKGROUND);
     }
 
-    // Creating the simulation loop and timeline
     private void setSimulationLoop() {
         KeyFrame myKeyFrame = new KeyFrame(Duration.millis(mySpeed), e -> step());
         myTimeline = new Timeline();
@@ -116,7 +126,9 @@ public class Visualization {
         myTimeline.play();
     }
 
-    // Updating how the grid simulation looks
+    /*
+     Updating how the grid simulation looks
+     */
     public void step(){
         myGroup = mySimulation.step(getParameters());
         if (myStats != null) {
@@ -215,7 +227,6 @@ public class Visualization {
         toolBar.getChildren().addAll(setSpeed, mySpeedSlider);
     }
 
-    // Next 7 methods: Creating the button functions
     private void pauseSim(Button buttonPause) {
         buttonPause.setOnAction(e -> myTimeline.pause());
         myIsPaused = true;
@@ -307,5 +318,3 @@ public class Visualization {
         });
     }
 }
-
-
