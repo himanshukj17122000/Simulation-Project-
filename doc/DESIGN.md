@@ -39,7 +39,11 @@ Kyra Chan, Himanshu Jain, Olga Suchankova
 * Simulation:
     *
 * Configuration:
-    *
+    * Easy to add any XML Writer for a Simulation 
+    * It is also easy to add a new simulation as we just need to make the XML file for it and a separate class although 
+    all the setter and getter methods have already been made 
+    * Add any new variable in the XMl file and read it from it and pass it on to other classes 
+    * Add a new exception checking algorithm 
 * Visualization:
     * Easy to add any GUI components to the screen, whether that be an input text field,
     button, slider, or chart (just use the methods created in Layout)
@@ -136,12 +140,35 @@ columns.
         just change the current simulation into a different one or start the same simulation over again in the
         same window) and the "Upload New Simulation" button (which would create a new window for the second
         simulation).    
+* Configuration 
+    * New Simulations:
+        * To add new simulations, the XML file has to be made and the individual class has to be made that is 
+        going to extend the Configuration class. The class of the new simulation will be using the methods in 
+        the Configuration class to set and get its properties and for passing around the information. The Reader
+        will still be the same although some more cases will be added to the files for the new simulation. Even 
+        a new case will be added to the DialogBox class to read the new simulation and throw an error if a wrong
+        file has been chosen. 
+    * New Writer:
+        * The new writer would require the developer to make a new class for reading the properties of that particular
+        simulation and writing those to a XML file. It would also require a conditional in Visualization class so that 
+        the XML Writer for that particular simulation is invoked. 
+    * New properties:
+        * The new properties would require the developer to add a setter and a getter method for that particular variable
+        and it would require him/her to make a new variable in the Configuration class and the class of that particular     
+        simulation. It would also require the developer to add default values for all those properties. 
+    * New Exception:
+        * The new exception can be added by extending that particular class with the new exception and then adding that 
+        to the catch statement. 
 
 #### Easy to Add Features
 * Simulation:
     *
 * Configuration:
-    *
+    * Easy to add any XML Writer for a Simulation 
+    * It is also easy to add a new simulation as we just need to make the XML file for it and a separate class although 
+    all the setter and getter methods have already been made 
+    * Add any new variable in the XMl file and read it from it and pass it on to other classes 
+    * Add a new exception checking algorithm 
 * Visualization:
     * Easy to add any GUI components to the screen, whether that be an input text field,
     button, slider, or chart (just use the methods created in Layout)
