@@ -40,7 +40,7 @@ public class Percolation extends Configuration {
         setType1(dataValues.get(DATA_FIELDS.get(9)),"Percolated");
         setType2(dataValues.get(DATA_FIELDS.get(10)),"Open");
         setType3(dataValues.get(DATA_FIELDS.get(11)),"Block");
-        setNeighPattern(dataValues.get(DATA_FIELDS.get(12)),"11111111");
+        setNeighPattern(dataValues.get(DATA_FIELDS.get(12)),"10111111");
         setShape(dataValues.get(DATA_FIELDS.get(13)),initialShape);
         setColors(dataValues.get(DATA_FIELDS.get(14)),"Blue,Black");
         setStartingConfig(configRandom,configRandom);

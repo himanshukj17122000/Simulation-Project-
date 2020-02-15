@@ -25,12 +25,13 @@ Kyra Chan, Himanshu Jain, Olga Suchankova
      * Created the XML writers for 5 simulations 
  
  Olga Suchankova:
- * Primary classes (in charge of):
- * Secondary classes (worked on): 
+ * Primary classes (in charge of): All the cell type folders, the Simulation Class, GridEntry for both regular and ants
+ * Secondary classes (worked on): Visualization, Configuration
  * Main contributions:
      * Implemented all the cell types, and the data structures and algorithms to store cells and update cell states and communicate with the UI
      * created simulation loop in simulation class
      * implemented the display of cell states to the output window
+    
 
 ## Design goals
 

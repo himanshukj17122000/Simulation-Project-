@@ -80,6 +80,8 @@ public class GridEntry {
         totROW = numRows;
         totCOLUMN = numCols;
         Set<GridEntry> NSET = new HashSet<GridEntry>();
+
+        System.out.println(neighborBool[1]);
         if (shape.equals("Rectangle")) {
             rectangleNeighbors(grid, neighborBool, NSET, boundary);
         } else if (shape.equals("Hexagon")) {
